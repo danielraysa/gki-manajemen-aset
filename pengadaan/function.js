@@ -88,6 +88,20 @@ $('.modalDelete').click(function () {
     $("#id_delete").val(id);
 });
 
+// Modal Approve
+$('.modalApprove').click(function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $("#id_approve").val(id);
+});
+
+// Modal Delete
+$('.modalReject').click(function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $("#id_reject").val(id);
+});
+
 // Modal Aset
 $('.modalAset').click(function () {
     var id = $(this).attr('data-id');
