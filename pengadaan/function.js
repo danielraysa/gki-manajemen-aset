@@ -53,11 +53,7 @@ $('#txt_harga').inputmask("numeric", {
     digits: 2,
     autoGroup: true,
     prefix: "Rp. ",
-    rightAlign: false,
-    removeMaskOnSubmit: true,
-    onCleared: function () {
-        self.Value('');
-    }
+    rightAlign: false
 });
 
 // Modal Edit
@@ -94,6 +90,19 @@ $('.modalApprove').click(function () {
     console.log(id);
     $("#id_approve").val(id);
 });
+$('#btnApprove').click(function () {
+    var id = $('#id_approve').val();
+    console.log(id);
+    $.ajax({
+        url: "ajax.php",
+        cache: false,
+        type: "GET",
+        data: "approve=" + id,
+        success: function (result) {
+            console.log(result)
+        }
+    });
+});
 
 // Modal Delete
 $('.modalReject').click(function () {
@@ -101,7 +110,20 @@ $('.modalReject').click(function () {
     console.log(id);
     $("#id_reject").val(id);
 });
+$('#btnReject').click(function () {
+    var id = $('#id_reject').val();
+    console.log(id);
+    $.ajax({
+        url: "ajax.php",
+        cache: false,
+        type: "GET",
+        data: "approve=" + id,
+        success: function (result) {
+            console.log(result)
 
+        }
+    });
+});
 // Modal Aset
 $('.modalAset').click(function () {
     var id = $(this).attr('data-id');
