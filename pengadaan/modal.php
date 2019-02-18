@@ -173,6 +173,55 @@
     <!-- /.modal-dialog -->
 </div>
 
+<!-- Modal Approve -->
+<div class="modal fade" id="modal-approve">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Approve Item</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <form action="" method="post"> -->
+                <input type="hidden" id="id_approve" name="id"/>
+                Terima usulan?
+                <!-- </form> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-success pull-right" id="btnApprove" type="submit" name="approve"><i class="fa fa-save"></i> Approve</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- Modal Reject -->
+<div class="modal fade" id="modal-reject">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Reject Item</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <form action="" method="post"> -->
+                <input type="hidden" id="id_reject" name="id"/>
+                Tolak usulan?
+                <!-- </form> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-success pull-right" id="btnApprove" type="submit" name="reject"><i class="fa fa-close"></i> Reject</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <!-- Modal Aset -->
 <div class="modal fade" id="modal-aset">
     <div class="modal-dialog">
