@@ -71,7 +71,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="box box-success">
                             <div class="box-header">
-                                <h3 class="box-title">Histori Usulan Pengadaan Aset</h3>
+                                <h3 class="box-title">Daftar Usulan Pengadaan Aset</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
