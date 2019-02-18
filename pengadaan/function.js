@@ -99,7 +99,14 @@ $('#btnApprove').click(function () {
         type: "GET",
         data: "approve=" + id,
         success: function (result) {
-            console.log(result)
+            console.log(result);
+            swal({
+                title: "Success!",
+                text: "Closing in 2 seconds.",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
         }
     });
 });
@@ -117,10 +124,16 @@ $('#btnReject').click(function () {
         url: "ajax.php",
         cache: false,
         type: "GET",
-        data: "approve=" + id,
+        data: "reject=" + id,
         success: function (result) {
-            console.log(result)
-
+            console.log(result);
+            swal({
+                title: "Success!",
+                text: "Closing in 2 seconds.",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
         }
     });
 });

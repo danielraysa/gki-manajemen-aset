@@ -21,13 +21,23 @@
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
         $query = mysqli_query($koneksi, "UPDATE pengadaan SET hasil_approval = 'Approved' WHERE id_pengadaan = '".$id."'");
-
+        if(!$query) {
+            echo mysqli_error($koneksi);
+        }
+        else {
+            echo "Success";
+        }
         //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'jumlah' => $jumlah, 'harga' => $harga, 'keterangan' => $keterangan);
     }
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
         $query = mysqli_query($koneksi, "UPDATE pengadaan SET hasil_approval = 'Rejected' WHERE id_pengadaan = '".$id."'");
-    
+        if(!$query) {
+            echo mysqli_error($koneksi);
+        }
+        else {
+            echo "Success";
+        }
         //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'jumlah' => $jumlah, 'harga' => $harga, 'keterangan' => $keterangan);
         
     }
