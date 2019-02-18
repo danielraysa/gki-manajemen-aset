@@ -106,6 +106,8 @@ $('#btnApprove').click(function () {
                 type: "success",
                 timer: 2000,
                 showConfirmButton: false
+            }).then(function () {
+                location.reload();
             });
         }
     });
@@ -133,6 +135,8 @@ $('#btnReject').click(function () {
                 type: "success",
                 timer: 2000,
                 showConfirmButton: false
+            }).then(function () {
+                location.reload();
             });
         }
     });

@@ -172,6 +172,7 @@
                     </div>
                 </div>
                 <!-- /.row -->
+                <?php include "modal.php"; ?>
             </section>
             <!-- /.content -->
         </div>

@@ -190,7 +190,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-success pull-right" id="btnApprove" type="submit" name="approve"><i class="fa fa-save"></i> Approve</button>
+                <button class="btn btn-success pull-right" id="btnApprove" type="submit" data-dismiss="modal" name="approve"><i class="fa fa-save"></i> Approve</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -214,7 +214,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-success pull-right" id="btnApprove" type="submit" name="reject"><i class="fa fa-close"></i> Reject</button>
+                <button class="btn btn-success pull-right" id="btnApprove" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Reject</button>
             </div>
         </div>
         <!-- /.modal-content -->
