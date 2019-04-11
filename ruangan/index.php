@@ -20,8 +20,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Ruangan
+        <!-- <small>advanced tables</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -119,11 +119,11 @@
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
-                        <td><?php echo $select['nama_ruangan']; ?></td>
-                        <td><?php echo $select['kode_ruangan']; ?></td>
+                        <td><?php echo $select['NAMA_RUANGAN']; ?></td>
+                        <td><?php echo $select['KODE_RUANGAN']; ?></td>
                         <td><center>
-                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['id_ruangan']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
-                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['id_ruangan']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_RUANGAN']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
+                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_RUANGAN']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                         </center> </td>
                     </tr>
                     <?php
@@ -131,14 +131,7 @@
                         }
                     ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Ruangan</th>
-                    <th>Kode Ruangan</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
+                
               </table>
             </div>
             <!-- /.box-body -->

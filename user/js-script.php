@@ -64,7 +64,19 @@
     var id = $(this).attr('delete-id');
     console.log(id);
     $("#id-komisi").val(id);
-	});
+  });
+  $('#password, #confirm_password').on('keyup', function () {
+    if ($('#password').val() == $('#confirm_password').val()) {
+      $('#message').html('Matching').css('color', 'green');
+    } else 
+      $('#message').html('Not Matching').css('color', 'red');
+  });
+  $('#new_password, #new_confirm_password').on('keyup', function () {
+    if ($('#new_password').val() == $('#new_confirm_password').val()) {
+      $('#message1').html('Matching').css('color', 'green');
+    } else 
+      $('#message1').html('Not Matching').css('color', 'red');
+  });
 </script>
 <script>
   $('.logout').on('click', function (event) {

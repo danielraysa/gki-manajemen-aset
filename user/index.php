@@ -20,8 +20,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Pengguna
+        <!-- <small>advanced tables</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -60,6 +60,15 @@
     </div>
     <?php
     }
+    if(isset($_GET['error'])) {
+        ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+            <?php echo $_SESSION['error-msg']; ?>
+        </div>
+    <?php
+    }
     ?>
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12">
@@ -94,8 +103,18 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="password" class="form-control" name="password" placeholder="Password untuk login">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password untuk login">
                         </div>  
+                    </div>
+                    <div class="form-group">
+                        <label>Retype Password:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <input type="password" class="form-control" name="password_2" id="confirm_password" placeholder="Ulangi Password">
+                        </div>  
+                        <span id="message"></span>
                     </div>
                     <div class="form-group">
                         <label>Hak Akses:</label>
@@ -104,14 +123,14 @@
                                 <i class="fa fa-laptop"></i>
                             </div>
                             <select class="form-control" name="hak_akses">
-                                <option value="Komisi Jemaat">Komisi Jemaat</option>
+                                <option value="Peminjam">Peminjam</option>
                                 <option value="Anggota MJ">Anggota MJ</option>
                                 <option value="Ketua MJ">Ketua MJ</option>
-                                <option value="Administrator">Administrator</option>
+                                <!--<option value="Administrator">Administrator</option>-->
                             </select>
                         </div>  
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Keterangan:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
@@ -119,7 +138,7 @@
                             </div>
                             <input type="text" class="form-control" name="keterangan" placeholder="Keterangan">
                         </div>  
-                    </div>
+                    </div> -->
                     
                     <button class="btn btn-success btn-block" type="submit" name="add">Add Item</button>
                     </form>
@@ -141,7 +160,7 @@
                   <th>Username</th>
                   <th>Password</th>
                   <th>Hak Akses</th>
-                  <th>Keterangan</th>
+                  
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -149,19 +168,19 @@
                     <?php
                         //include('plugins/phpqrcode/qrlib.php');
                         $a = 1;
-                        $query = mysqli_query($koneksi, "SELECT * FROM users");
+                        $query = mysqli_query($koneksi, "SELECT * FROM user");
                         while ($select = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
-                        <td><?php echo $select['nama']; ?></td>
-                        <td><?php echo $select['username']; ?></td>
+                        <td><?php echo $select['NAMA_LENGKAP']; ?></td>
+                        <td><?php echo $select['USERNAME']; ?></td>
                         <td>*****</td>
-                        <td><?php echo $select['role']; ?></td>
-                        <td><?php echo $select['keterangan']; ?></td>
+                        <td><?php echo $select['ROLE']; ?></td>
+                        
                         <td><center>
-                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['id']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
-                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['id']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_USER']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
+                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_USER']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                         </center> </td>
                     </tr>
                     <?php

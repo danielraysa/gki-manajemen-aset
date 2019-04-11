@@ -17,7 +17,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+  <link rel="stylesheet" href="../plugins/iCheck/all.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,10 +68,8 @@
       </div>
       <div class="row">
         <div class="col-xs-8">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" onclick="myFunction()"> Show password
-            </label>
+          <div class="form-group">
+            <input type="checkbox" class="minimal" onclick="myFunction()"> Show password
           </div>
         </div>
         <!-- /.col -->
@@ -88,18 +86,25 @@
 <!-- /.login-box -->
 <script>
   function myFunction() {
-      var x = document.getElementById("pwd");
-      if (x.type === "password") {
-          x.type = "text";
-      } else {
-          x.type = "password";
-      }
+    var x = document.getElementById("pwd");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
   }
 </script>
 <!-- jQuery 3 -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<script>
+  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-green',
+    radioClass   : 'iradio_minimal-green'
+  })
+</script>
 
 </body>
 </html>

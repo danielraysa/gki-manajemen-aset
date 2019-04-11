@@ -4,8 +4,20 @@
 
     if(isset($_POST['add'])) {
         $nama = $_POST['nama'];
-        
-        $query = mysqli_query($koneksi, "INSERT INTO status (nama_status, status) VALUES ('".$nama."', 'Aktif')");
+        $random_id = randString(10);
+        $is_unique = false;
+        while (!$is_unique) {
+            $select = mysqli_query($koneksi, "SELECT * FROM status WHERE ID_STATUS = '".$random_id."'");
+            if (mysqli_num_rows($select) == 0) {  
+                // if you don't get a result, then you're good
+                $is_unique = true;
+                $query = mysqli_query($koneksi, "INSERT INTO status (ID_STATUS, NAMA_STATUS) VALUES ('".$random_id."','".$nama."')");
+            }
+            else {
+                $random_id = randString(10);
+            }
+        }
+        // $query = mysqli_query($koneksi, "INSERT INTO status (NAMA_STATUS, status) VALUES ('".$nama."', 'Aktif')");
         if($query) {
             $_SESSION['success-msg'] = "Sukses menambah data.";
             header("location: ../status/?success");
@@ -20,7 +32,7 @@
         $id = $_POST['id_status'];
         $nama = $_POST['nama'];
         $kode = $_POST['kode'];
-        $query = mysqli_query($koneksi, "UPDATE status SET nama_status = '".$nama."', WHERE id_status = ".$id."");
+        $query = mysqli_query($koneksi, "UPDATE status SET NAMA_STATUS = '".$nama."', WHERE ID_STATUS = ".$id."");
         if($query) {
             $_SESSION['success-msg'] = "Sukses mengubah data.";
             header("location: ../status/?edit");

@@ -1,10 +1,19 @@
 <?php
-    $koneksi = mysqli_connect("localhost","root","","gki_sarpras");
+    $koneksi = mysqli_connect("localhost","root","","gki_backup");
+    function randString($length) {
+        $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $str = '';
+        $count = strlen($charset);
+        while ($length--) {
+            $str .= $charset[mt_rand(0, $count-1)];
+        }
+        return $str;
+    }
     class DBController {
         private $host = "localhost";
         private $user = "root";
         private $password = "";
-        private $database = "gki_sarpras";
+        private $database = "gki_backup";
         private $conn;
         
         function __construct() {

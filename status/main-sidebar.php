@@ -8,7 +8,7 @@
           <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $_SESSION['login_user']; ?></p>
+          <p><?php echo $_SESSION['nama_user']; ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -67,6 +67,19 @@
               }
               ?>
             <a href="../kategori/"><i class="fa fa-cubes text-yellow"></i> Kategori Barang</a></li>
+            <?php 
+              if ($dir == "merk") {
+              ?>
+            <li class="active">
+            <?php
+              }
+              else {
+              ?>
+                <li>
+            <?php
+              }
+              ?>
+            <a href="../merk/"><i class="fa fa-industry text-aqua"></i> Merk</a></li>
             <?php 
               if ($dir == "ruangan") {
               ?>
@@ -170,7 +183,7 @@
           </a>
         </li>
         <?php 
-          if ($dir == "maintenance") {
+          if ($dir == "pemeliharaan") {
           ?>
         <li class="active">
         <?php
@@ -181,7 +194,7 @@
         <?php
           }
           ?>
-          <a href="../maintenance/">
+          <a href="../pemeliharaan/">
             <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan</span>
           </a>
         </li>
@@ -211,7 +224,7 @@
           <ul class="treeview-menu">
             <li><a href="../laporan/histori-peminjaman/"><i class="fa fa-area-chart text-red"></i> Histori Peminjaman</a></li>
             <li><a href="../laporan/histori-mutasi/"><i class="fa fa-clipboard text-green"></i> Histori Mutasi Lokasi</a></li>
-            <li><a href="../laporan/maintenance-sarpras/"><i class="fa fa-gears text-blue"></i> Perawatan Sarana Prasarana</a></li>
+            <li><a href="../laporan/pemeliharaan-sarpras/"><i class="fa fa-gears text-blue"></i> Perawatan Sarana Prasarana</a></li>
           </ul>
         </li>
       </ul>

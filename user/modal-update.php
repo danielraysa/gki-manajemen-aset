@@ -32,8 +32,18 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password untuk login">
+                            <input type="password" class="form-control" id="new_password" name="password" placeholder="Password untuk login">
                         </div>  
+                    </div>
+                    <div class="form-group">
+                        <label>Retype Password:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <input type="password" class="form-control" id="new_confirm_password" name="passw" placeholder="Password untuk login">
+                        </div>
+                        <span id="message1"></span>
                     </div>
                     <div class="form-group">
                         <label>Hak Akses:</label>
@@ -45,11 +55,11 @@
                                 <option value="Administrator">Administrator</option>
                                 <option value="Ketua MJ">Ketua MJ</option>
                                 <option value="Anggota MJ">Anggota MJ</option>
-                                <option value="Komisi Jemaat">Komisi Jemaat</option>
+                                <option value="Peminjam">Peminjam</option>
                             </select>
                         </div>  
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Keterangan:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
@@ -57,7 +67,7 @@
                             </div>
                             <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan">
                         </div>  
-                    </div>
+                    </div> -->
                 
             </div>
             <div class="modal-footer">

@@ -3,6 +3,7 @@
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
     }
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,8 +21,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Barang
+        <!-- <small>advanced tables</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -62,7 +63,7 @@
     }
     if(isset($_GET['error'])) {
     ?>
-    <div class="alert alert-success alert-dismissible">
+    <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i> Alert!</h4>
         <?php echo $_SESSION['error-msg']; ?>
@@ -99,14 +100,14 @@
                                     $query = mysqli_query($koneksi, "SELECT * FROM kategori");
                                     while ($row = mysqli_fetch_array($query)) {
                                 ?>
-                                    <option value="<?php echo $row['id_kategori']; ?>"><?php echo $row['nama_kategori']; ?></option>
+                                    <option value="<?php echo $row['ID_KATEGORI']; ?>"><?php echo $row['NAMA_KATEGORI']; ?></option>
                                 <?php
                                     }
                                 ?>
                             </select>
                         </div>  
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Merk:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
@@ -123,7 +124,7 @@
                             </div>
                             <input type="text" class="form-control" name="serimodel" placeholder="Seri/Model barang">
                         </div>
-                    </div>
+                    </div> -->
                     <button class="btn btn-success btn-block" type="submit" name="add">Add Item</button>
                     </form>
                 </div>
@@ -142,8 +143,8 @@
                   <th>No.</th>
                   <th>Nama Barang</th>
                   <th>Kategori</th>
-                  <th>Merk</th>
-                  <th>Seri/Model</th>
+                  <!-- <th>Merk</th>
+                  <th>Seri/Model</th> -->
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -151,15 +152,13 @@
                     <?php
                         //include('plugins/phpqrcode/qrlib.php');
                         $a = 1;
-                        $query = mysqli_query($koneksi, "SELECT b.id_barang, b.nama_barang, k.nama_kategori, b.merk, b.seri_model FROM barang b JOIN kategori k ON b.id_kategori = k.id_kategori");
+                        $query = mysqli_query($koneksi, "SELECT b.id_barang, b.nama_barang, k.nama_kategori FROM barang b JOIN kategori k ON b.id_kategori = k.id_kategori");
                         while ($select = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
                         <td><?php echo $select['nama_barang']; ?></td>
                         <td><?php echo $select['nama_kategori']; ?></td>
-                        <td><?php echo $select['merk']; ?></td>
-                        <td><?php echo $select['seri_model']; ?></td>
                         <td><center>
                         <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['id_barang']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
                         <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['id_barang']; ?>"><i class="fa fa-trash"></i> Hapus</button>
@@ -170,16 +169,7 @@
                         }
                     ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Barang</th>
-                    <th>Kategori</th>
-                    <th>Merk</th>
-                    <th>Seri/Model</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
+                
               </table>
             </div>
             <!-- /.box-body -->

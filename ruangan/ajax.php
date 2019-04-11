@@ -4,11 +4,11 @@
     
     if (isset($_GET['ID'])) {
         $id = $_GET['ID'];
-        $query = mysqli_query($koneksi, "SELECT * FROM ruangan WHERE id_ruangan = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT * FROM ruangan WHERE ID_RUANGAN = '".$id."'");
         $row = mysqli_fetch_array($query);
-        $id = $row['id_ruangan'];
-        $nama = $row['nama_ruangan'];
-        $kode = $row['kode_ruangan'];
+        $id = $row['ID_RUANGAN'];
+        $nama = $row['NAMA_RUANGAN'];
+        $kode = $row['KODE_RUANGAN'];
 
         $myObj = array('id' => $id, 'nama' => $nama, 'kode' => $kode);
     

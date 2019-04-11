@@ -4,10 +4,10 @@
     
     if (isset($_GET['ID'])) {
         $id = $_GET['ID'];
-        $query = mysqli_query($koneksi, "SELECT * FROM status WHERE id_status = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT * FROM status WHERE ID_STATUS = '".$id."'");
         $row = mysqli_fetch_array($query);
-        $id = $row['id_status'];
-        $nama = $row['nama_status'];
+        $id = $row['ID_STATUS'];
+        $nama = $row['NAMA_STATUS'];
 
         $myObj = array('id' => $id, 'nama' => $nama);
     

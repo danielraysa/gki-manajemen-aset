@@ -128,11 +128,11 @@
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
-                        <td><?php echo $select['nama_kategori']; ?></td>
-                        <td><?php echo $select['kode_kategori']; ?></td>
+                        <td><?php echo $select['NAMA_KATEGORI']; ?></td>
+                        <td><?php echo $select['KODE_KATEGORI']; ?></td>
                         <td><center>
-                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['id_kategori']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
-                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['id_kategori']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_KATEGORI']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
+                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_KATEGORI']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                         </center> </td>
                     </tr>
                     <?php

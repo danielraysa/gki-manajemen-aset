@@ -20,8 +20,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Status
+        <!-- <small>advanced tables</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -118,10 +118,10 @@
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
-                        <td><?php echo $select['nama_status']; ?></td>
+                        <td><?php echo $select['NAMA_STATUS']; ?></td>
                         <td><center>
-                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['id_status']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
-                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['id_status']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_STATUS']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
+                        <!-- <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_STATUS']; ?>"><i class="fa fa-trash"></i> Hapus</button> -->
                         </center> </td>
                     </tr>
                     <?php
@@ -129,13 +129,7 @@
                         }
                     ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
+                
               </table>
             </div>
             <!-- /.box-body -->

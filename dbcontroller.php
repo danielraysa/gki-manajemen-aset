@@ -3,7 +3,7 @@ class DBController {
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	private $database = "gki_sarpras";
+	private $database = "gki_backup";
 	private $conn;
 	
 	function __construct() {

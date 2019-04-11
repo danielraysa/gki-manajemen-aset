@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Edit Data Barang</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" class="form-control" id="id_kategori" name="id_kategori">
+                <input type="hidden" class="form-control" id="id_barang" name="id_barang">
                 <div class="form-group">
                     <label>Nama Barang:</label>
                     <div class="input-group">
@@ -27,14 +27,14 @@
                                 $query = mysqli_query($koneksi, "SELECT * FROM kategori");
                                 while ($row = mysqli_fetch_array($query)) {
                             ?>
-                                <option value="<?php echo $row['id_kategori']; ?>"><?php echo $row['nama_kategori']; ?></option>
+                                <option value="<?php echo $row['ID_KATEGORI']; ?>"><?php echo $row['NAMA_KATEGORI']; ?></option>
                             <?php
                                 }
                             ?>
                         </select>
                     </div>  
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Merk:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -51,7 +51,7 @@
                         </div>
                         <input type="text" class="form-control" id="serimodel" name="serimodel" placeholder="Seri/Model barang">
                     </div>
-                </div>
+                </div> -->
                 
             </div>
             <div class="modal-footer">

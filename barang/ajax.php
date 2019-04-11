@@ -4,15 +4,15 @@
     
     if (isset($_GET['ID'])) {
         $id = $_GET['ID'];
-        $query = mysqli_query($koneksi, "SELECT b.id_barang, b.nama_barang, b.id_kategori, k.nama_kategori, b.merk, b.seri_model FROM barang b JOIN kategori k ON b.id_kategori = k.id_kategori WHERE b.id_barang = ".$id."");
+        $query = mysqli_query($koneksi, "SELECT B.ID_BARANG, B.NAMA_BARANG, B.ID_KATEGORI, K.NAMA_KATEGORI FROM BARANG B JOIN KATEGORI K ON B.ID_KATEGORI = K.ID_KATEGORI WHERE B.ID_BARANG = '".$id."'");
         $row = mysqli_fetch_array($query);
-        $id = $row['id_barang'];
-        $nama = $row['nama_barang'];
-        $kategori = $row['id_kategori'];
-        $merk = $row['merk'];
-        $serimodel = $row['seri_model'];
+        $id = $row['ID_BARANG'];
+        $nama = $row['NAMA_BARANG'];
+        $kategori = $row['ID_KATEGORI'];
+        //$merk = $row['merk'];
+        //$serimodel = $row['seri_model'];
 
-        $myObj = array('id' => $id, 'nama' => $nama, 'kategori' => $kategori, 'merk' => $merk, 'serimodel' => $serimodel);
+        $myObj = array('id' => $id, 'nama' => $nama, 'kategori' => $kategori);
     
     }
 

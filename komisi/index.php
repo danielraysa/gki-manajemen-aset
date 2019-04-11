@@ -20,8 +20,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Komisi Jemaat
+        <!-- <small>advanced tables</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -114,16 +114,16 @@
                     <?php
                         //include('plugins/phpqrcode/qrlib.php');
                         $a = 1;
-                        $query = mysqli_query($koneksi, "SELECT * FROM komisi");
+                        $query = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
                         while ($select = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
-                        <td><?php echo $select['nama_komisi']; ?></td>
-                        <td><?php echo $select['kode_komisi']; ?></td>
+                        <td><?php echo $select['NAMA_KOMISI']; ?></td>
+                        <td><?php echo $select['KODE_KOMISI']; ?></td>
                         <td><center>
-                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['id_komisi']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
-                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['id_komisi']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_KOMISI']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
+                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_KOMISI']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                         </center> </td>
                     </tr>
                     <?php

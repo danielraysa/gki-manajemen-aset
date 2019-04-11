@@ -1,4 +1,3 @@
-
 <!-- jQuery 3 -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -12,57 +11,18 @@
 <script src="../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- SweetAlert2 -->
 <script src="../plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- date-picker -->
+<script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- date-range-picker -->
+<script src="../bower_components/moment/min/moment.min.js"></script>
+<script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- InputMask -->
+<script src="../plugins/input-mask/jquery.inputmask.bundle.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <!-- page script -->
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      'responsive'  : true
-    })
-    $('#example3').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
-<script>
-  $('.logout').on('click', function (event) {
-      event.preventDefault();
-      swal({
-          title: 'Do you want to log out?',
-          type: 'warning',
-          showCancelButton: true,
-          //confirmButtonColor: '#d9534f',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-      }).then((result) => {
-          if (result.value) {
-              swal({
-                  title: "Success!",
-                  text: "Redirecting in 2 seconds.",
-                  type: "success",
-                  timer: 2000,
-                  showConfirmButton: false
-                  }).then(function(){
-                      window.location.href = "logout.php";
-                      //return false;
-                  })
-              }
-          }
-      )
-  });
-</script>
+<script src="function.js"></script>
