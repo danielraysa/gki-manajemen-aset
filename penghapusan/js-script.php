@@ -7,6 +7,8 @@
 <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Form Validator -->
+<script src="../bower_components/jquery-form-validator/form-validator/jquery.form-validator.js"></script>
 <!-- FastClick -->
 <script src="../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- SweetAlert2 -->
@@ -22,7 +24,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <script src="../plugins/iCheck/icheck.min.js"></script>
-<script src="../node/iCheck/icheck.min.js"></script>
+
 <script>
   $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
     checkboxClass: 'icheckbox_minimal-green',
