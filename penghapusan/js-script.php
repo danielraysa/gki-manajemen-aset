@@ -22,6 +22,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <script src="../plugins/iCheck/icheck.min.js"></script>
+<script src="../node/iCheck/icheck.min.js"></script>
 <script>
   $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
     checkboxClass: 'icheckbox_minimal-green',

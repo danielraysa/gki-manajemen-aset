@@ -101,7 +101,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" width="100%">
                 <thead>
                 <tr>
                   <th>No.</th>
@@ -113,7 +113,7 @@
                     <?php
                         //include('plugins/phpqrcode/qrlib.php');
                         $a = 1;
-                        $query = mysqli_query($koneksi, "SELECT * FROM status");
+                        $query = mysqli_query($koneksi, "SELECT * FROM status WHERE STATUS = 'Aktif'");
                         while ($select = mysqli_fetch_array($query)) {
                     ?>
                     <tr>

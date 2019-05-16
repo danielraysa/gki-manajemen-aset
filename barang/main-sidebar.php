@@ -66,12 +66,12 @@
         </li>
         <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
           <a href="../peminjaman/">
-            <i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
+            <i class="fa fa-edit text-teal"></i> <span>Peminjaman Aset</span>
           </a>
         </li>
         <li class="<?php if ($dir == "pemeliharaan") echo "active"; ?>">
           <a href="../pemeliharaan/">
-            <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan</span>
+            <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan Aset</span>
           </a>
         </li>
         <li class="<?php if ($dir == "penghapusan") echo "active"; ?>">

@@ -58,10 +58,31 @@
               <div class="form-group">
                 <label>Usulan Aset:</label>
                 <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-laptop"></i>
-                    </div>
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Barang">
+                  <div class="input-group-addon">
+                    <i class="fa fa-laptop"></i>
+                  </div>
+                  <select class="form-control select2" id="barangusulan" name="barangusulan" style="width: 100%;">
+                    <?php
+                      //$data = mysqli_query($koneksi, "SELECT DISTINCT(BARANG_USULAN) as NAMA_BARANG FROM `detil_usulan_pengadaan` UNION SELECT DISTINCT(NAMA_ASET) FROM daftar_aset");
+                      $data = mysqli_query($koneksi, "SELECT DISTINCT(BARANG_USULAN) as NAMA_BARANG, ID_BARANG FROM `detil_usulan_pengadaan` UNION SELECT DISTINCT(d.NAMA_ASET), b.ID_BARANG FROM daftar_aset d JOIN detil_usulan_pengadaan du ON d.ID_USULAN_TAMBAH = du.ID_USULAN_TAMBAH JOIN barang b ON du.ID_BARANG = b.ID_BARANG");
+                      while ($row = mysqli_fetch_array($data)) {
+                    ?>
+                      <option value="<?php echo $row['NAMA_BARANG']; ?>" data-items="<?php echo $row['ID_BARANG']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
+                    <?php
+                      }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <input class="minimal" type="checkbox" id="barangbaru" name="barangbaru" > Barang usulan baru
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-laptop"></i>
+                  </div>
+                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Usulan barang baru" disabled>
                 </div>  
               </div>
               <div class="form-group">
@@ -80,7 +101,7 @@
                       }
                     ?>
                   </select>
-                  <input type="hidden" name="nama_barang" id="nama_barang" />
+                  <input type="hidden" name="nama_barang" id="nama_barang"/>
                   <div class="input-group-btn">
                     <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New</button>
                   </div>
@@ -111,7 +132,7 @@
             <!-- /.box-header -->
             <div class="box-body">
             <form action="form-action.php" method="post">
-              <table id="example2" class="table table-bordered table-hover table-responsive">
+              <table id="example2" class="table table-bordered table-hover table-responsive" style="width: 100%">
                 <thead>
                 <tr>
                   <th>No.</th>
@@ -182,7 +203,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
                 <thead>
                   <tr>
                     <th>No.</th>

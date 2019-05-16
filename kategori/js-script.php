@@ -19,7 +19,11 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
+    $('#example1').DataTable({
+    'autoWidth': true,
+    'responsive': true,
+    "scrollX": true
+});
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
@@ -67,7 +71,7 @@
   $('.logout').on('click', function (event) {
       event.preventDefault();
       swal({
-          title: 'Do you want to log out?',
+          title: 'Apakah anda ingin keluar?',
           type: 'warning',
           showCancelButton: true,
           //confirmButtonColor: '#d9534f',

@@ -45,7 +45,13 @@
     }
 
     if(isset($_POST['add-item'])) {
-        $nama = $_POST['nama'];
+        $nama = "";
+        if(isset($_POST['barangusulan'])) {
+            $nama = $_POST['barangusulan'];
+        }
+        if(isset($_POST['nama'])) {
+            $nama = $_POST['nama'];
+        }
         $barang = $_POST['barang'];
         //$nama_barang = $_POST['nama_barang'];
         //if($nama_barang == "") {
@@ -187,14 +193,23 @@
         $status = $_POST['status'];
         echo "status: ".$status."<br>";
         $harga = $_POST['harga_pembelian'];
-        $masa_manfaat = $_POST['masa_manfaat'];
-        $nilai = $_POST['nilai_residu'];
-        $tanggal = $_POST['tanggal_pengadaan'];
-        $date = str_replace('/', '-', $tanggal);
-        $new_tanggal = date("Y-m-d", strtotime($date));
+        $masa_manfaat = 0;
+        if(isset($_POST['masa_manfaat'])){
+            $masa_manfaat = $_POST['masa_manfaat'];
+        }
+        $nilai = 0;
+        if(isset($_POST['nilai_residu'])){
+            $nilai = $_POST['nilai_residu'];
+        }
+        $new_tanggal = "";
+        if(isset($_POST['tanggal_pengadaan'])){
+            $tanggal = $_POST['tanggal_pengadaan'];
+            $date = str_replace('/', '-', $tanggal);
+            $new_tanggal = date("Y-m-d", strtotime($date));    
+        }
         //echo $new_tanggal;
         $pinjam = 0;
-        if(isset($_POST['check_jml'])) {
+        if(isset($_POST['pinjam'])) {
             $pinjam = 1;
         }
         echo "pinjam = ".$pinjam."<br>";
@@ -216,7 +231,7 @@
                     }
                 }
                 echo "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','Aktif') <br>";
-                $insert = mysqli_query($koneksi, "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$harga."','".$tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','Aktif')");
+                $insert = mysqli_query($koneksi, "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','Aktif')");
             }
         }
         else {
@@ -234,17 +249,17 @@
                 }
             }
             echo "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','Aktif')";
-            $insert = mysqli_query($koneksi, "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$harga."','".$tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','Aktif')");
+            $insert = mysqli_query($koneksi, "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','Aktif')");
         }
         
         if($insert) {
             $_SESSION['success-msg'] = "Sukses menambah data aset.";
-            header("location: add-asset.php?id=".$_SESSION['pengadaan_aset']."");
+            header("location: add-asset.php?success&id=".$_SESSION['pengadaan_aset']."");
             //header("location: ../pengadaan/approval?success");
         }
         else {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
-            header("location: ../pengadaan/add-asset.php?error&id=".$_SESSION['pengadaan_aset']."");
+            header("location: add-asset.php?error&id=".$_SESSION['pengadaan_aset']."");
         }
     }
 

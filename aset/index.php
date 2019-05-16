@@ -7,6 +7,7 @@
     function asRupiah($value) {
         return 'Rp. ' . number_format($value);
     }
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,14 +25,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Aset
+        
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Master</a></li>
-        <li class="active">Kategori Barang</li>
-      </ol>
+      
     </section>
 
     <!-- Main content -->
@@ -78,11 +75,11 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Aset</h3>
+              
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" width="100%">
               <thead>
                 <tr>
                   <th>No.</th>
@@ -118,10 +115,11 @@
                     <td><?php echo $row['STATUS_ASET']; ?></td>
                     <td>
                       <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-edit" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-pencil"></i> Edit</button>
-                      <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                      <!-- <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-trash"></i> Hapus</button> -->
                     </td>
                   </tr>
                 <?php
+                  $a++;
                   }
                 ?>
                 </tbody>

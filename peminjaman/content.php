@@ -55,7 +55,7 @@
             </div>
             <div class="box-body">
             <!-- <form action="form-action.php" method="post"> -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label>Peminjam:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
@@ -63,18 +63,19 @@
                   </div>
                 <select class="form-control select2" id="peminjam_aset" name="peminjam" style="width: 100%;" tabindex="-1" aria-hidden="true">
                     <?php
+                    /*
                     $data = mysqli_query($koneksi, "SELECT * FROM user WHERE ROLE = 'Peminjam'");
                     while ($row = mysqli_fetch_array($data)) {
                     ?>
                     <option value="<?php echo $row['ID_USER']; ?>"><?php echo $row['NAMA_LENGKAP']; ?></option>
                     <?php
-                    }
+                    } */
                     ?>
                 </select>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
-                <label>Komisi:</label>
+                <label>Komisi Peminjam:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
@@ -97,7 +98,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="number" class="form-control" id="nohp" name="nohp" />
+                  <input type="number" class="form-control" id="nohp" name="nohp" required/>
                 </div>
               </div>
               <div class="form-group">
@@ -106,7 +107,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                <input type="text" class="form-control" id="reservation" name="tgl_pinjam">
+                <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -138,7 +139,7 @@
             
             <!-- /.box-header -->
           <div class="box-body">
-            <table id="example2" class="table table-bordered table-hover table-responsive">
+            <table id="example2" class="table table-bordered table-hover table-responsive" style="width: 100%">
                 <thead>
                 <tr>
                 <th>No.</th>
@@ -148,23 +149,23 @@
                 <th>Action</th>
                 </thead>
                 <tbody>
-                    <?php
-                        //include('plugins/phpqrcode/qrlib.php');
-                        $a = 1;
-                        //foreach ($_SESSION["cart_item"] as $select){
-                        foreach ($_SESSION["item_pinjam"] as $key => $select){
-                    ?>
-                    <tr>
-                        <td><?php echo $a; ?></td>
-                        <td><?php echo $select['kode_aset']; ?></td>
-                        <td><?php echo $select['nama_aset']; ?></td>
-                        <td><?php echo $select['barang']; ?></td>
-                        <td><button type="button" id="remove" data-id="<?php echo $row['id_aset']; ?>" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td>
-                    </tr>
-                    <?php
-                        $a++;
-                      }
-                    ?>
+                  <?php
+                    //include('plugins/phpqrcode/qrlib.php');
+                    $a = 1;
+                    //foreach ($_SESSION["cart_item"] as $select){
+                    foreach ($_SESSION["item_pinjam"] as $key => $select){
+                  ?>
+                  <tr>
+                    <td><?php echo $a; ?></td>
+                    <td><?php echo $select['kode_aset']; ?></td>
+                    <td><?php echo $select['nama_aset']; ?></td>
+                    <td><?php echo $select['barang']; ?></td>
+                    <td><button type="button" id="remove" data-id="<?php echo $row['id_aset']; ?>" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td>
+                  </tr>
+                  <?php
+                    $a++;
+                    }
+                  ?>
                 </tbody>
                 
               </table>
@@ -183,7 +184,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
                 <thead>
                   <tr>
                     <th>No.</th>
@@ -215,7 +216,7 @@
                       <!-- <td><img src="https://chart.googleapis.com/chart?cht=qr&chl=<?php echo $row['ID_ASET']; ?>&chs=100x100&chld=L|0" alt="qrcode.php?id=<?php echo $row['ID_ASET']; ?>" /></td> -->
                       <!-- <td><img src="https://chart.googleapis.com/chart?cht=qr&chl=ID&chs=100x100&chld=L|0" alt="ID" /></td> -->
                       <!-- <td><button type="button" id="remove" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td> -->
-                      <td><button type="button" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-success btn-sm addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
+                      <td><button type="button" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
                     </tr>
                     <?php
                       $a++;

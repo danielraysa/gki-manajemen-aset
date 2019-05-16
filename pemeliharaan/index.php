@@ -5,6 +5,7 @@
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
     }
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>
@@ -71,11 +72,11 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title">Penjadwalan Pemeliharaan</h3>
+              <h3 class="box-title">Jadwal Pemeliharaan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover table-responsive">
+              <table id="example2" class="table table-bordered table-hover table-responsive" style="width: 100%">
               <thead>
                   <tr>
                     <th>No.</th>
@@ -91,17 +92,18 @@
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
                   $date = date('Y-m-d');
-                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.TANGGAL_PENJADWALAN, p.BATAS_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Aktif'");
+                  //$query = mysqli_query($koneksi,"SELECT p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.TANGGAL_PENJADWALAN, p.BATAS_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN = (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE p.ID_ASET = pemeliharaan_aset.ID_ASET) AND p.STATUS_PEMELIHARAAN = 'Aktif'");
+                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, MIN(p.TANGGAL_PENJADWALAN) as TANGGAL_PENJADWALAN, p.BATAS_PENJADWALAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Aktif' GROUP BY p.ID_ASET");
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                       <td><?php echo $a; ?></td>
                       <td><?php echo $row['KODE_ASET']; ?></td>
                       <td><?php echo $row['NAMA_ASET']; ?></td>
-                      <td><?php echo $row['TANGGAL_PENJADWALAN']." <b>s.d.</b> ".$row['BATAS_PENJADWALAN']; ?></td>
+                      <td><?php echo strftime("%d %B %Y", strtotime($row['TANGGAL_PENJADWALAN'])); ?></td>
                       <td><?php if($date<$row['TANGGAL_PENJADWALAN']) echo "Belum terlaksana"; else echo "Segera dilaksanakan"; ?></td>
                       <td>
-                        <button type="button" data-toggle="modal" data-target="#modal-maintenance"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" data-ids="<?php echo $row['ID_ASET']; ?>" class="btn btn-success modalMaintenance"><i class="fa fa-gear"></i> Pemeliharaan</button>
+                        <button type="button" data-toggle="modal" data-target="#modal-maintenance"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" class="btn btn-success modalMaintenance"><i class="fa fa-gear"></i> Pemeliharaan</button>
                         <button type="button" data-toggle="modal" data-target="#modal-delete"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" class="btn btn-danger modalDelete"><i class="fa fa-close"></i> Batalkan</button>
                         </td>
                     </tr>
@@ -123,11 +125,11 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title">Daftar Aset</h3>
+              <h3 class="box-title">Penjadwalan Pemeliharaan Aset</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
               <thead>
                   <tr>
                     <th>No.</th>
@@ -155,7 +157,7 @@
                       <td><?php echo $row['NAMA_RUANGAN']; ?></td>
                       <td><?php echo $row['NAMA_KOMISI']; ?></td>
                       <td><?php echo $row['STATUS_ASET']; ?></td>
-                      <td><button type="button" data-toggle="modal" data-target="#modal-jadwal" data-id="<?php echo $row['ID_ASET']; ?>"  class="btn btn-warning modalJadwal"><i class="fa fa-calendar-check-o"></i> Rencanakan Pemeliharaan</button></td>
+                      <td><button type="button" data-toggle="modal" data-target="#modal-jadwal" data-id="<?php echo $row['ID_ASET']; ?>"  class="btn btn-warning modalJadwal"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button></td>
                     </tr>
                     <?php
                       $a++;

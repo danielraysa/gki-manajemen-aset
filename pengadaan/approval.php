@@ -56,7 +56,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example1" class="table table-bordered table-hover table-responsive">
+                            <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -71,7 +71,7 @@
                                 <tbody>
                                     <?php
                                         //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
-                                        $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif'");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif' AND p.hasil_approval = 'Pending'");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
@@ -106,14 +106,14 @@
                                             <?php
                                             if($row['hasil_approval'] == "Pending") {
                                             ?>
-                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
-                                            <button class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-close"></i> Reject</button>
+                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-circle"></i> Terima</button>
+                                            <button class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-close"></i> Tolak</button>
                                             <?php 
                                             }
                                             else{
                                             ?>
-                                            <button disabled class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
-                                            <button disabled class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-close"></i> Reject</button>
+                                            <button disabled class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-circle"></i> Terima</button>
+                                            <button disabled class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-close"></i> Tolak</button>
                                             <?php
                                             }
                                             ?>

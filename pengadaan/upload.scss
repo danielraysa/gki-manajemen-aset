@@ -1,0 +1,181 @@
+@import "compass";
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+*,*:before,*:after {
+  @include box-sizing(border-box);
+}
+
+/* html {
+  height: 100%;
+}
+body {
+  background: #FFD16E;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+} */
+
+.uploadWrapper {
+  font-family: 'Nunito', sans-serif;
+}
+.imageUploadForm {
+  background: #6E95F7;
+  height: 400px;
+  width: 500px;
+  position: relative;
+  @include display-flex();
+  @include align-items(flex-end);
+  @include justify-content(center);
+  @include flex-wrap(wrap);
+  .helpText {
+    color: white;
+    display: block;
+    position: absolute;
+    top: 2%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 30px;
+    &:after {
+      $color: rgba(white, 0.5);
+      content: '\f067';
+      font-family: 'FontAwesome';
+      font-size: 150%;
+      color: $color;
+      @include display-flex();
+      @include align-items(center);
+      @include justify-content(center);
+      margin: 4% auto auto auto;
+      width: 50%;
+      height: 50%;
+      border: 6px dashed $color;
+    }
+  }
+  .pickFile {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background: white;
+    height: 25%;
+    width: 100%;
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(center);
+  }
+  .pickFileButton {
+    display: inline-block;
+    padding: 0.7em 2em;
+    color: white;
+    background: #FB92AE;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  .uploadButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+  }
+}
+
+.imageUploadForm.loading {
+  .helpText {
+    font-size: 0;
+    top: 7%;
+    &:before {
+      font-size: 30px;
+      content: 'Uploading...';
+    }
+    &:after {
+      display: none;
+    }
+  }
+  
+  .uploadedImg {
+    position: absolute;
+    bottom: 12.5%;
+    left: 12.5%;
+    width: 75%;
+    height: 65%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border: 4px solid white;
+    @include transition(opacity 0.3 ease-out);
+  }
+  
+  .unveil {
+    position: absolute;
+    background: #6E95F7;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      left:-3%;
+      bottom: 0;
+      height: 10px;
+      width: 106%;
+      background: #FFD16E;
+      border-radius: 5px;
+    }
+    @include animation(toTop 4s forwards);
+  }
+  .pickFile, .uploadButton {
+    display: none;
+  }
+}
+
+.imageUploadForm.loading.loaded {
+  height: 200px;
+  .uploadedImg {
+    opacity: 0;
+  }
+  
+  .helpText {
+    &:before {
+      content: 'Upload Complete!';
+    }
+    &:after {
+      display: block;
+      opacity: 0;
+      font-size: 0;
+      line-height: 100px;
+      @include animation(fadeIn .4s forwards);
+      content: '\f058';
+      color: white;
+      margin-top: 2%;
+      border-width: 0;
+    }
+  }
+
+}
+
+@include keyframes(toTop) {
+  to {
+    height: 0;
+  }
+}
+@include keyframes(fadeIn) {
+  to {
+    opacity: 1;
+    font-size: 90px;
+  }
+}

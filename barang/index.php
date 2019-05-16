@@ -137,7 +137,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" width="100%">
                 <thead>
                 <tr>
                   <th>No.</th>
@@ -152,7 +152,7 @@
                     <?php
                         //include('plugins/phpqrcode/qrlib.php');
                         $a = 1;
-                        $query = mysqli_query($koneksi, "SELECT b.id_barang, b.nama_barang, k.nama_kategori FROM barang b JOIN kategori k ON b.id_kategori = k.id_kategori");
+                        $query = mysqli_query($koneksi, "SELECT b.id_barang, b.nama_barang, k.nama_kategori FROM barang b JOIN kategori k ON b.id_kategori = k.id_kategori WHERE b.status_barang = 'Aktif'");
                         while ($select = mysqli_fetch_array($query)) {
                     ?>
                     <tr>

@@ -20,8 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Data Kategori
       </h1>
       <ol class="breadcrumb">
         <li><a href="../"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -110,7 +109,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive">
+              <table id="example1" class="table table-bordered table-hover table-responsive" width="100%">
                 <thead>
                 <tr>
                   <th>No.</th>
@@ -123,7 +122,7 @@
                     <?php
                         //include('plugins/phpqrcode/qrlib.php');
                         $a = 1;
-                        $query = mysqli_query($koneksi, "SELECT * FROM kategori");
+                        $query = mysqli_query($koneksi, "SELECT * FROM kategori WHERE STATUS_KATEGORI = 'Aktif'");
                         while ($select = mysqli_fetch_array($query)) {
                     ?>
                     <tr>

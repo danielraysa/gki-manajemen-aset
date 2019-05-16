@@ -7,12 +7,112 @@
         return 'Rp. ' . number_format($value);
     }
     
+    if(isset($_POST['add_barang'])) {
+        $nama = $_POST['nama'];
+        $kategori = $_POST['kategori'];
+        $random_id = randString(10);
+        $is_unique = false;
+        while (!$is_unique) {
+            $select = mysqli_query($koneksi, "SELECT * FROM barang WHERE ID_BARANG = '".$random_id."'");
+            if (mysqli_num_rows($select) == 0) {  
+                // if you don't get a result, then you're good
+                $is_unique = true;
+                $query = mysqli_query($koneksi, "INSERT INTO barang (ID_BARANG, NAMA_BARANG, ID_KATEGORI, STATUS_BARANG) VALUES ('".$random_id."', '".$nama."','".$kategori."','Aktif')");
+            }
+            else {
+                $random_id = randString(10);
+            }
+        }
+        if($query) {
+            $_SESSION['success-msg'] = "Sukses menambah data barang.";
+        }
+        else {
+            $_SESSION['error-msg'] = mysqli_error($koneksi);
+            echo $_SESSION['error-msg'];
+        }
+    }
+    if(isset($_POST['add_merk'])) {
+        $merk = $_POST['nama_merk'];
+        $random_id = randString(6);
+        $is_unique = false;
+        while (!$is_unique) {
+            $select = mysqli_query($koneksi, "SELECT * FROM merk WHERE ID_MERK = '".$random_id."'");
+            if (mysqli_num_rows($select) == 0) {  
+                // if you don't get a result, then you're good
+                $is_unique = true;
+                $query = mysqli_query($koneksi, "INSERT INTO merk (ID_MERK, NAMA_MERK, STATUS_MERK) VALUES ('".$random_id."', '".$merk."','Aktif')");
+            }
+            else {
+                $random_id = randString(6);
+            }
+        }
+        if($query) {
+            $_SESSION['success-msg'] = "Sukses menambah data merk.";
+            echo $_SESSION['success-msg'];
+        }
+        else {
+            $_SESSION['error-msg'] = mysqli_error($koneksi);
+            echo $_SESSION['error-msg'];
+        }
+    }
+    if(isset($_POST['add_ruangan'])) {
+        $nama = $_POST['nama_ruangan'];
+        $kategori = $_POST['kode_ruangan'];
+        $random_id = randString(6);
+        $is_unique = false;
+        while (!$is_unique) {
+            $select = mysqli_query($koneksi, "SELECT * FROM ruangan WHERE ID_RUANGAN = '".$random_id."'");
+            if (mysqli_num_rows($select) == 0) {  
+                // if you don't get a result, then you're good
+                $is_unique = true;
+                $query = mysqli_query($koneksi, "INSERT INTO ruangan (ID_RUANGAN, NAMA_RUANGAN, KODE_RUANGAN, STATUS_RUANGAN) VALUES ('".$random_id."', '".$nama."','".$kategori."','Aktif')");
+            }
+            else {
+                $random_id = randString(6);
+            }
+        }
+        if($query) {
+            $_SESSION['success-msg'] = "Sukses menambah data ruangan.";
+            echo $_SESSION['success-msg'];
+        }
+        else {
+            $_SESSION['error-msg'] = mysqli_error($koneksi);
+            echo $_SESSION['error-msg'];
+        }
+    }
+    if(isset($_POST['add_komisi'])) {
+        $nama = $_POST['nama_komisi'];
+        $kategori = $_POST['kode_komisi'];
+        $random_id = randString(6);
+        $is_unique = false;
+        while (!$is_unique) {
+            $select = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat WHERE ID_KOMISI = '".$random_id."'");
+            if (mysqli_num_rows($select) == 0) {  
+                // if you don't get a result, then you're good
+                $is_unique = true;
+                $query = mysqli_query($koneksi, "INSERT INTO komisi_jemaat (ID_KOMISI, NAMA_KOMISI, KODE_KOMISI, STATUS_KOMISI) VALUES ('".$random_id."', '".$nama."','".$kategori."','Aktif')");
+            }
+            else {
+                $random_id = randString(6);
+            }
+        }
+        if($query) {
+            $_SESSION['success-msg'] = "Sukses menambah data komisi jemaat.";
+            echo $_SESSION['success-msg'];
+        }
+        else {
+            $_SESSION['error-msg'] = mysqli_error($koneksi);
+            echo $_SESSION['error-msg'];
+        }
+    }
+
     // kosongin item
     if(isset($_POST['empty'])){
         unset($_SESSION['temp_item']);
         unset($_SESSION['temp_item_2']);
         header("location:../pengadaan");
     }
+    
     // approve pengadaan
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];

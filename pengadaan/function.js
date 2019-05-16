@@ -1,15 +1,46 @@
 $(document).ready(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+      
+          reader.onload = function (e) {
+                  $uploadedImg[0].style.backgroundImage='url('+e.target.result+')';
+          };
+      
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      
+      var $form = $("#imageUploadForm"), 
+          $file = $("#file"), 
+          $uploadedImg = $("#uploadedImg"), 
+          $helpText = $("#helpText")
+      ;
+      $file.on('change', function(){
+        readURL(this);
+        $form.addClass('loading');
+      });
+      $uploadedImg.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
+        $form.addClass('loaded');
+      });
+      $helpText.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
+        setTimeout(function() {
+          $file.val('');  $form.removeClass('loading').removeClass('loaded');
+        }, 5000);
+      });
     // Select2
     $('.select2').select2();
 
     // DataTable
     $('#example1').DataTable({
         'autoWidth': true,
-        'responsive': true
+        'responsive': true,
+        "scrollX": true
     });
     $('#tabeldata').DataTable({
         'autoWidth': true,
-        'responsive': true
+        'responsive': true,
+        "scrollX": true
     });
     $('#example2').DataTable({
         'paging': true,
@@ -19,7 +50,8 @@ $(document).ready(function() {
         'info': true,
         'autoWidth': true,
         'responsive': true,
-        'pageLength': 5
+        'pageLength': 5,
+        "scrollX": true
     });
     var table4 = $('#example4').DataTable({
         'retrieve': true,
@@ -118,27 +150,6 @@ $(document).ready(function() {
     });
     */
 
-    // Modal Edit
-    $('.modalLink').click(function () {
-        var id = $(this).attr('data-id');
-        console.log(id);
-        $.ajax({
-            url: "ajax.php",
-            type: "GET",
-            data: "ID=" + id,
-            success: function (result) {
-                console.log(result)
-                var data = JSON.parse(result);
-                $('#id_edit').val(data.id);
-                $('#nama').val(data.nama);
-                $('#barang').val(data.barang);
-                //$('#jumlah').val(data.jumlah);
-                $('#harga').val(data.harga);
-                $('#keterangan').val(data.keterangan);
-            }
-        });
-    });
-
     // Modal Delete
     $('.modalDelete').click(function () {
         var id = $(this).attr('data-id');
@@ -155,6 +166,111 @@ $(document).ready(function() {
             success: function (result) {
                 console.log(result);
                 location.reload();
+            }
+        });
+    });
+
+    $('#barangbaru').on('ifChecked', function(event){
+        //$('#nama').show();
+        $('#nama').prop("disabled", false);
+        $('#barangusulan').prop("disabled", true);
+    });
+    $('#barangbaru').on('ifUnchecked', function(event){
+        $('#nama').prop("disabled", true);
+        //$('#nama').hide();
+        $('#barangusulan').prop("disabled", false);
+    });
+    $('#barangusulan').on('change', function(){
+        var nomor = $('#barangusulan').find(':selected').data('items');
+        console.log(nomor);
+        $('#barang').val(nomor);
+        $("#barang").select2("destroy").select2();
+    });
+
+    //Add Barang
+    $('#addBarang').click(function () {
+        var modal_nama_barang = $('#modal_nama_barang').val();
+        var modal_kategori = $('#modal_kategori').val();
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: {add_barang: true, nama: modal_nama_barang, kategori: modal_kategori},
+            success: function (result) {
+                console.log(result);
+                swal({
+                    title: "Success!",
+                    text: "Closing in 2 seconds.",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+    //Add Merk
+    $('#addMerk').click(function () {
+        var modal_nama_merk = $('#modal_merk').val();
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: {add_merk: true, nama_merk: modal_nama_merk},
+            success: function (result) {
+                console.log(result);
+                swal({
+                    title: "Success!",
+                    text: "Closing in 2 seconds.",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+    //Add Ruangan
+    $('#addRuangan').click(function () {
+        var modal_nama_ruangan = $('#modal_nama_ruangan').val();
+        var modal_kode_ruangan = $('#modal_kode_ruangan').val();
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: {add_ruangan: true, nama_ruangan: modal_nama_ruangan, kode_ruangan: modal_kode_ruangan},
+            success: function (result) {
+                console.log(result);
+                swal({
+                    title: "Success!",
+                    text: "Closing in 2 seconds.",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+    //Add Komisi
+    $('#addKomisi').click(function () {
+        var modal_nama_komisi = $('#modal_nama_komisi').val();
+        var modal_kode_komisi = $('#modal_kode_komisi').val();
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: {add_komisi: true, nama_komisi: modal_nama_komisi, kode_komisi: modal_kode_komisi},
+            success: function (result) {
+                console.log(result);
+                swal({
+                    title: "Success!",
+                    text: "Closing in 2 seconds.",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload();
+                });
             }
         });
     });
@@ -186,7 +302,6 @@ $(document).ready(function() {
             }
         });
     });
-
     // Modal Delete
     $('.modalReject').click(function () {
         var id = $(this).attr('data-id');
@@ -271,6 +386,13 @@ $(document).ready(function() {
         });
     });
 
+    var kode1 = "";
+    var kode2 = "";
+    var kode3 = "";
+    var kode4 = "";
+    var kode5 = "";
+    $('#kode_aset').val(kode1+kode2+kode3+kode4+kode5);
+
     $('.insert-item').click(function () {
         //var id = $(this).attr('data-id');
         var id = $(this).val();
@@ -286,7 +408,9 @@ $(document).ready(function() {
                 $('#nama_aset').val(data.nama);
                 $('#barang_aset').val(data.barang);
                 $("#barang_aset").select2("destroy").select2();
+                kode4 = $('#barang_aset').find(':selected').data('item');
                 $('#harga').val(data.harga);
+                $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
             }
         });
     });
@@ -299,12 +423,79 @@ $(document).ready(function() {
     $('#check_jml').on('ifUnchecked', function(event){
         $('#jumlah_aset').prop("disabled", true);
     });
+    $('#penyusutan').on('ifChecked', function(event){
+        $('#currency').prop("disabled", false);
+        $('#manfaat_aset').prop("disabled", false);
+    });
+    $('#penyusutan').on('ifUnchecked', function(event){
+        $('#currency').prop("disabled", true);
+        $('#manfaat_aset').prop("disabled", true);
+    });
+    $('#datepicker').on('change', function(){
+        var tgl = $('#datepicker').val();
+        kode3 = tgl.substr(8,2);
+        //alert(kode3);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#barang_aset').on('change', function(){
+        kode4 = $(this).find(':selected').data('item');
+        //alert(kode4);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#ruangan_aset').on('change', function(){
+        kode2 = $(this).find(':selected').data('ruang');
+        //alert(kode2);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#komisi_aset').on('change', function(){
+        kode1 = $(this).find(':selected').data('komisi');
+        //alert(kode1);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#nomor_aset').on('change', function(){
+        kode5 = $(this).val();
+        //alert(kode1);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
     
+    /* $(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+    $('.btn-file :file').on('fileselect', function(event, label) {
+        var input = $(this).parents('.input-group').find(':text'),
+            log = label;
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+    }); */
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img-upload').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+        //alert(label)
+        readURL(this);
+    }); 	
+
     // Logout
     $('.logout').on('click', function (event) {
         event.preventDefault();
         swal({
-            title: 'Do you want to log out?',
+            title: 'Apakah anda ingin keluar?',
             type: 'warning',
             showCancelButton: true,
             //confirmButtonColor: '#d9534f',

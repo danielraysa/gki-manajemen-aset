@@ -16,10 +16,18 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+<script src="bower_components/chart.js/Chart-2.8.0.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script> -->
+<script src="graph.js"></script>
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
+    $('#example1').DataTable({
+    'autoWidth': true,
+    'responsive': true,
+    "scrollX": true
+});
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
@@ -43,7 +51,7 @@
   $('.logout').on('click', function (event) {
       event.preventDefault();
       swal({
-          title: 'Do you want to log out?',
+          title: 'Apakah anda ingin keluar?',
           type: 'warning',
           showCancelButton: true,
           //confirmButtonColor: '#d9534f',

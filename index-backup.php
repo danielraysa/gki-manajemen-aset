@@ -5,7 +5,8 @@
     }
     if(!isset($_SESSION["cart_item"])) {
 		$_SESSION["cart_item"] = array();
-	}
+    }
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@
     <?php include "css-script.php"; ?>
     <?php include "connection.php"; ?>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
     <?php
         include "header.php";
@@ -23,17 +24,68 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Dashboard
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
     </section>
     <!-- Main content -->
     <section class="content">
+        
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+
+                <div class="info-box-content">
+                <span class="info-box-text">Jumlah Aset</span>
+                <span class="info-box-number">41,410</span>
+
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Pengajuan</span>
+                    <span class="info-box-text">Peminjaman</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-yellow">
+                <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Aset Terpinjam</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-red">
+                <span class="info-box-icon"><i class="fa fa-gears"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Pemeliharaan Aset</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
         <!-- Info boxes -->
         <div class="row">
             <div class="col-xs-4">

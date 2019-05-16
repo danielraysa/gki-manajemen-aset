@@ -2,16 +2,21 @@
     session_start();
     setlocale (LC_TIME, 'INDONESIAN');
     date_default_timezone_set("Asia/Jakarta");
+    include "../sms-config.php";
     include "../connection.php";
-    /* if(isset($_POST['ID'])) {
-        $id = "datanew";
-        $add = array(1, 2, 3, 4, 5, "<button class='btn btn-danger' data-delete='".$id."'><i class='fa fa-trash'></i> Delete</button>");
-        array_push($_SESSION['temp_item'], $add);
-        //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
-        //$myJSON = json_encode($add);
-        $myJSON = json_encode($_SESSION['temp_item']);
-        echo $myJSON;
-    } */
+
+    /* include "../vendor/autoload.php";
+
+    use SMSGatewayMe\Client\ApiClient;
+    use SMSGatewayMe\Client\Configuration;
+    use SMSGatewayMe\Client\Api\MessageApi;
+    use SMSGatewayMe\Client\Model\SendMessageRequest;
+
+    // Configure client
+    $config = Configuration::getDefaultConfiguration();
+    $config->setApiKey('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTU1NjIyMDUyMywiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjYzMjA3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.TxSPGIZqTbeKu_vcN0jGdX04eZ0DoTt-dhn1fwI82jc');
+    $apiClient = new ApiClient($config);
+    $messageClient = new MessageApi($apiClient); */
 
     if(isset($_POST['empty'])){
         unset($_SESSION['item_pinjam']);
@@ -36,12 +41,11 @@
         //echo search_array($val);
         $key_index = array_search($val, array_column($_SESSION['item_pinjam'], 'nama'));
         array_splice($_SESSION['item_pinjam'], $key_index, 1);
-        //unset($_SESSION['temp_item'][$key_index]);
-        //print_r($_SESSION['temp_item']);
     }
 
     if(isset($_POST['simpan_pinjam'])){
-        $id_user = $_POST['id_peminjam'];
+        //$id_user = $_POST['id_peminjam'];
+        $id_user = $_SESSION['id_user'];
         $id_komisi = $_POST['id_komisi'];
         $no_hp = $_POST['no_hp'];
         $tgl = $_POST['tgl_peminjaman'];
@@ -62,7 +66,7 @@
                 // if you don't get a result, then you're good
                 $is_unique = true;
                 ECHO "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif') <br>";
-                $query = mysqli_query($koneksi, "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif')");
+                $query = mysqli_query($koneksi, "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, NO_HP, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$no_hp."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif')");
                 if(!$query) {
                     $_SESSION['error-msg'] = mysqli_error($koneksi);
                     echo $_SESSION['error-msg'];
@@ -98,6 +102,131 @@
                 }
             }
         }
+        unset($_SESSION['item_pinjam']);
 
+        $sendMessageRequest = new SendMessageRequest([
+            'phoneNumber' => $no_hp, 'message' => 'Pengajuan peminjaman pada '.$date_now.' berhasil disimpan. (NOREPLY)', 'deviceId' => 104188
+        ]);
+        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+
+    }
+
+    if (isset($_POST['usulan_pinjam'])) {
+        $id = $_POST['usulan_pinjam'];
+        $myObj = array();
+        $a = 1;
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        while($row = mysqli_fetch_array($query)){
+            $nama = $row['nama_aset'];
+            $barang = $row['nama_barang'];
+            $id_item = $row['id_detil_pinjam'];
+            
+            $array = array($a, $nama, $barang);
+            array_push($myObj, $array);
+            $a++;
+        }
+        //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
+        $myJSON = json_encode($myObj);
+        echo $myJSON;
+    }
+
+    // approve pengadaan
+    if (isset($_GET['approve'])) {
+        $id = $_GET['approve'];
+        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Diterima' WHERE ID_PEMINJAMAN = '".$id."'");
+        if(!$query) {
+            echo mysqli_error($koneksi);
+        }
+        else {
+            echo "Success";
+        }
+        $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $row = mysqli_fetch_array($select);
+        $sendMessageRequest = new SendMessageRequest([
+            'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' telah diterima.', 'deviceId' => 104188
+        ]);
+        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+
+    }
+
+    if (isset($_GET['reject'])) {
+        $id = $_GET['reject'];
+        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Ditolak' WHERE ID_PEMINJAMAN = '".$id."'");
+        if(!$query) {
+            echo mysqli_error($koneksi);
+        }
+        else {
+            echo "Success";
+        }
+        $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $row = mysqli_fetch_array($select);
+        $sendMessageRequest = new SendMessageRequest([
+            'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' ditolak.', 'deviceId' => 104188
+        ]);
+        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+    }
+
+    if (isset($_POST['delete-usulan'])) {
+        $id = $_POST['delete-usulan'];
+        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Dihapus' WHERE ID_PEMINJAMAN = '".$id."'");
+        if(!$query) {
+            echo mysqli_error($koneksi);
+        }
+        else {
+            echo "Success";
+        }
+    }
+
+    if(isset($_POST['cek_pinjam'])) {
+        $id = $_POST['cek_pinjam'];
+        $query = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $row = mysqli_fetch_array($query);
+        $newDate = date("d/m/Y", strtotime($row['TANGGAL_PENGEMBALIAN']));
+        //echo $newDate;
+        //$id = $_POST['usulan_pinjam'];
+        $myObj = array();
+        $myObj_tem = array();
+        $a = 1;
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        while($row = mysqli_fetch_array($query)){
+            $nama = $row['nama_aset'];
+            $barang = $row['nama_barang'];
+            $id_item = $row['id_detil_pinjam'];
+            $array = array($a, $nama, $barang, "<input type='text' class='form-control' name='catatan[]'> <input type='hidden' value='$id_item' name='detil_item[]'> ");
+            array_push($myObj_tem, $array);
+            $a++;
+        }
+        $myObj = array('tgl_kembali' => $newDate, 'items' => $myObj_tem);
+        $myJSON = json_encode($myObj);
+        echo $myJSON;
+    }
+
+    if(isset($_POST['kembali'])) {
+        $id = $_POST['kembali'];
+        //$catatan = $_POST['catatan'];
+        $arr_catatan = explode("|",$_POST['catatan']);
+        $arr_item = explode("|",$_POST['item_detil']);
+        $tgl = $_POST['realisasi_pengembalian'];
+        $keterangan = $_POST['keterangan'];
+        $date = str_replace('/', '-', $tgl);
+        echo $date."\n";
+        $tgl_kembali = date("Y-m-d", strtotime(substr($date,0,10)));
+        echo $tgl_kembali."\n";
+        //$query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET KETERANGAN_PENGEMBALIAN = '".$keterangan."', REALISASI_PENGEMBALIAN = '".$tgl_kembali."' WHERE ID_PEMINJAMAN = '".$id."'");
+        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET REALISASI_PENGEMBALIAN = '".$tgl_kembali."' WHERE ID_PEMINJAMAN = '".$id."'");
+        for($a = 0; $a < count($arr_catatan); $a++){
+            //$query2 = mysqli_query($koneksi, "UPDATE detail_peminjaman SET CATATAN = '".$keterangan."' WHERE ID_PEMINJAMAN = '".$id."'");
+            $query2 = mysqli_query($koneksi, "UPDATE detail_peminjaman SET CATATAN = '".$arr_catatan[$a]."' WHERE ID_DETIL_PINJAM = '".$arr_item[$a]."'");
+        }
+    }
+
+    if(isset($_POST['sms_reminder'])){
+        $id = $_POST['id_peminjaman'];
+        $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $row = mysqli_fetch_array($select);
+        $sendMessageRequest = new SendMessageRequest([
+            'phoneNumber' => $row['NO_HP'], 'message' => 'Peminjaman tgl '.$row['TANGGAL_PENGAJUAN'].' berakhir pada '.$row['TANGGAL_PENGEMBALIAN'].'. Harap segera dikembalikan tepat waktu. NOREPLY', 'deviceId' => 104188
+        ]);
+        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
     }
 ?>

@@ -64,7 +64,7 @@
         </li>
         <li>
         <li>
-          <a href="peminjaman/approval.php">
+          <a href="peminjaman/">
             <i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
           </a>
         </li>
@@ -78,45 +78,6 @@
             <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
           </a>
         </li>
-        <!-- <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="../mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Examples</span>
-            <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="../examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-            <li><a href="../examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-            <li><a href="../examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="../examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="../examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-            <li><a href="../examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-            <li><a href="../examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-            <li><a href="../examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-            <li><a href="../examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-          </ul>
-        </li> -->
-        
       </ul>
       <?php
       }
@@ -137,13 +98,13 @@
           </a>
         </li>
         <li>
-          <a href="pengadaan/approval.php">
+          <a href="pengadaan/">
             <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
           </a>
         </li>
 
         <li>
-          <a href="penghapusan/approval.php">
+          <a href="penghapusan/">
             <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
           </a>
         </li>
@@ -155,10 +116,10 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="laporan/pengadaan.php"><i class="fa fa-area-chart text-red"></i> Histori Peminjaman</a></li>
-            <li><a href="laporan/peminjaman.php"><i class="fa fa-area-chart text-red"></i> Histori Peminjaman</a></li>
-            <li><a href="laporan/pemeliharaan.php"><i class="fa fa-clipboard text-green"></i> Histori Mutasi Lokasi</a></li>
-            <li><a href="laporan/penghapusan.php"><i class="fa fa-gears text-blue"></i> Perawatan Sarana Prasarana</a></li>
+            <li><a href="laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
+            <li><a href="laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
+            <li><a href="laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
+            <li><a href="laporan/?penghapusan"><i class="fa fa-gears text-red"></i> Penghapusan Aset</a></li>
           </ul>
         </li>
         

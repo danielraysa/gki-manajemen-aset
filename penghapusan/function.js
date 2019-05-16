@@ -5,11 +5,13 @@ $(document).ready(function() {
     // DataTable
     $('#example1').DataTable({
         'autoWidth': true,
-        'responsive': true
+        'responsive': true,
+        "scrollX": true
     });
     $('#tabeldata').DataTable({
         'autoWidth': true,
-        'responsive': true
+        'responsive': true,
+        "scrollX": true
     });
     $('#example2').DataTable({
         'paging': true,
@@ -19,7 +21,8 @@ $(document).ready(function() {
         'info': true,
         'autoWidth': true,
         'responsive': true,
-        'pageLength': 5
+        'pageLength': 5,
+        "scrollX": true
     });
     var table4 = $('#example4').DataTable({
         'retrieve': true,
@@ -35,7 +38,7 @@ $(document).ready(function() {
 
     // datepicker
     $('#datepicker').datepicker({
-        format: 'yyyy-mm-dd',
+        format: 'dd/mm/yyyy',
         autoclose: true
     });
 
@@ -82,41 +85,6 @@ $(document).ready(function() {
         $("#rupiah").val($('#currency').val());
         //console.log($("#rupiah").val());
     });
-    // Add Button
-    /*
-    $('#addBtn').click(function () {
-        var nama = $('#nama').val();
-        var brg = $('#barang').val();
-        var nm_brg = $('#barang').find("option:selected").text();
-        //var jml = $('#jumlah').val();
-        var hrg = $('#currency').val();
-        var hrg1 = $('#currency').inputmask("remove").val();
-        //var ket = $('#keterangan').val();
-        //alert(nm_brg);
-        console.log(nama, brg, hrg1);
-        $.ajax({
-            url: "ajax.php",
-            type: "POST",
-            data: {add: true, nama: nama, barang: brg, nama_barang: nm_brg, harga: hrg},
-            success: function (result) {
-                console.log(result)
-                var data = JSON.parse(result);
-                $('#example2').dataTable().fnDestroy();
-                $('#example2').DataTable({
-                    "data": data,
-                    "columns": [
-                    
-                    { "title": "Nama Aset" },
-                    { "title": "Jenis Barang" },
-                    
-                    { "title": "Harga", "class": "center" },
-                    { "title": "Action", "class": "center" }
-                    ]
-                });
-            }
-        });
-    });
-    */
 
     // Modal Edit
     $('.modalLink').click(function () {
@@ -140,20 +108,32 @@ $(document).ready(function() {
     });
 
     // Modal Delete
-    $('.modalDelete').click(function () {
+    /* $('.modalDelete').click(function () {
         var id = $(this).attr('data-id');
         console.log(id);
         $("#id_delete").val(id);
-    });
-    $('#btnDelete').click(function () {
-        var id = $('#id_delete').val();
+    }); */
+    $('.modalDelete').click(function () {
+        var id = $(this).attr('data-id');
+        //var id = $('#id_delete').val();
         console.log(id);
         $.ajax({
             url: "ajax.php",
             type: "POST",
-            data: "delete-usulan=" + id,
+            data: "usulan-hapus=" + id,
             success: function (result) {
                 console.log(result);
+                location.reload();
+            }
+        });
+    });
+    $('#empty-all').click(function () {
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: "empty=true",
+            success: function() {
+                //console.log(result);
                 location.reload();
             }
         });
@@ -186,7 +166,6 @@ $(document).ready(function() {
             }
         });
     });
-
     // Modal Delete
     $('.modalReject').click(function () {
         var id = $(this).attr('data-id');
@@ -271,6 +250,13 @@ $(document).ready(function() {
         });
     });
 
+    var kode1 = "";
+    var kode2 = "";
+    var kode3 = "";
+    var kode4 = "";
+    var kode5 = "";
+    $('#kode_aset').val(kode1+kode2+kode3+kode4+kode5);
+
     $('.insert-item').click(function () {
         //var id = $(this).attr('data-id');
         var id = $(this).val();
@@ -286,7 +272,9 @@ $(document).ready(function() {
                 $('#nama_aset').val(data.nama);
                 $('#barang_aset').val(data.barang);
                 $("#barang_aset").select2("destroy").select2();
+                kode4 = $('#barang_aset').find(':selected').data('item');
                 $('#harga').val(data.harga);
+                $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
             }
         });
     });
@@ -299,12 +287,46 @@ $(document).ready(function() {
     $('#check_jml').on('ifUnchecked', function(event){
         $('#jumlah_aset').prop("disabled", true);
     });
+    $('#penyusutan').on('ifChecked', function(event){
+        $('#currency').prop("disabled", false);
+        $('#manfaat_aset').prop("disabled", false);
+    });
+    $('#penyusutan').on('ifUnchecked', function(event){
+        $('#currency').prop("disabled", true);
+        $('#manfaat_aset').prop("disabled", true);
+    });
+    $('#datepicker').on('change', function(){
+        var tgl = $('#datepicker').val();
+        kode3 = tgl.substr(8,2);
+        //alert(kode3);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#barang_aset').on('change', function(){
+        kode4 = $(this).find(':selected').data('item');
+        //alert(kode4);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#ruangan_aset').on('change', function(){
+        kode2 = $(this).find(':selected').data('ruang');
+        //alert(kode2);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#komisi_aset').on('change', function(){
+        kode1 = $(this).find(':selected').data('komisi');
+        //alert(kode1);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
+    $('#nomor_aset').on('change', function(){
+        kode5 = $(this).val();
+        //alert(kode1);
+        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+    });
     
     // Logout
     $('.logout').on('click', function (event) {
         event.preventDefault();
         swal({
-            title: 'Do you want to log out?',
+            title: 'Apakah anda ingin keluar?',
             type: 'warning',
             showCancelButton: true,
             //confirmButtonColor: '#d9534f',

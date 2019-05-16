@@ -9,6 +9,7 @@
       $_SESSION['temp_item'] = array();
       $_SESSION['temp_item_2'] = array();
     }
+    $dir = basename(__DIR__);
 ?>
 
 <!DOCTYPE html>

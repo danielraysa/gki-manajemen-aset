@@ -13,6 +13,7 @@
 <!-- date-range-picker -->
 <script src="../bower_components/moment/min/moment.min.js"></script>
 <script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <!-- SweetAlert2 -->
 <script src="../plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <!-- AdminLTE App -->

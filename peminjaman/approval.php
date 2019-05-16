@@ -55,12 +55,14 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example1" class="table table-bordered table-hover table-responsive">
+                            <table id="example1" class="table table-bordered table-hover table-responsive" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
                                         <th>Tgl Pengajuan</th>
                                         <th>Pemohon</th>
+                                        <th>No. HP</th>
+                                        <th>Tgl Pakai</th>
                                         <th>Keterangan</th>
                                         <th>Status Pengajuan</th>
                                         <th>Action</th>
@@ -68,57 +70,60 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
-                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, p.nama_peminjam, p.keterangan_pinjam, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p WHERE p.status_peminjaman = 'Aktif'");
+                                        $date = date('Y-m-d');
+                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.hasil_pengajuan = 'Pending' AND p.tanggal_peminjaman >= NOW()");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
                                         <td><?php echo $row['tanggal_pengajuan']; ?></td>
-                                        <td><?php echo $row['nama_peminjam']; ?></td>
+                                        <td><?php echo $row['nama_lengkap']; ?></td>
+                                        <td><?php echo $row['no_hp']; ?></td>
+                                        <td><?php echo $row['tanggal_peminjaman']; ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
                                             <?php
-                                                if($row['hasil_approval'] == "Diterima") {
+                                                if($row['hasil_pengajuan'] == "Diterima") {
                                                 ?>
                                             <button class="btn btn-success"><i class="fa fa-check"></i>
-                                                <?php echo $row['hasil_approval']; ?></button>
+                                                <?php echo $row['hasil_pengajuan']; ?></button>
                                             <?php
                                                 }
-                                                if($row['hasil_approval'] == "Ditolak") {
+                                                if($row['hasil_pengajuan'] == "Ditolak") {
                                             ?>
                                             <button class="btn btn-danger"><i class="fa fa-close"></i>
-                                                <?php echo $row['hasil_approval']; ?></button>
+                                                <?php echo $row['hasil_pengajuan']; ?></button>
                                             <?php
                                                 }
-                                                if($row['hasil_approval'] == "Pending") {
+                                                if($row['hasil_pengajuan'] == "Pending") {
                                             ?>
                                             <button class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i>
-                                                <?php echo $row['hasil_approval']; ?></button>
+                                                <?php echo $row['hasil_pengajuan']; ?></button>
                                             <?php
                                                 }
                                             ?>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-square-o"></i> Detail</button>
+                                            <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-check-square-o"></i> Detail</button>
                                             <?php
-                                            if($row['hasil_approval'] == "Pending") {
+                                            if($row['hasil_pengajuan'] == "Pending") {
                                             ?>
-                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
-                                            <button class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-close"></i> Reject</button>
+                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-check-circle"></i> Terima</button>
+                                            <button class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-close"></i> Tolak</button>
                                             <?php 
                                             }
                                             else{
                                             ?>
-                                            <button disabled class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
-                                            <button disabled class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-close"></i> Reject</button>
+                                            <button disabled class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-check-circle"></i> Terima</button>
+                                            <button disabled class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-close"></i> Tolak</button>
                                             <?php
                                             }
                                             ?>
                                         </td>
                                     </tr>
                                     <?php
+                                        $a++;
                                         }
                                     ?>
                                 </tbody>
@@ -136,7 +141,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example2" class="table table-bordered table-hover table-responsive">
+                            <table id="example2" class="table table-bordered table-hover table-responsive" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -149,22 +154,42 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
-                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, p.nama_peminjam, p.keterangan_pinjam, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p WHERE p.status_peminjaman = 'Aktif'");
+                                        //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_pengajuan FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.keterangan_pinjam, p.no_hp, p.tanggal_pengajuan, p.hasil_pengajuan, p.tanggal_peminjaman, p.tanggal_pengembalian FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.hasil_pengajuan = 'Diterima' AND p.realisasi_pengembalian IS NULL");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
                                         <td><?php echo $row['tanggal_pengembalian']; ?></td>
-                                        <td><?php echo $row['nama_peminjam']; ?></td>
+                                        <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
+                                            <?php
+                                            if ($row['tanggal_pengembalian'] < $date){
+                                            ?>
+                                            <button class="btn btn-danger"><i class="fa fa-close"></i> Melewati Batas</button>
+                                            <?php
+                                            }
+                                            else {
+                                            ?>
                                             <button class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i> Terpinjam</button>
+                                            <?php
+                                            }
+                                            ?>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-check-square-o"></i> Detail</button>
-                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
+                                            <button class="btn btn-primary modalPinjam" data-toggle="modal" data-target="#modal-pinjam" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button>
+                                            <button class="btn btn-success modalKembali" data-toggle="modal" data-target="#modal-pengembalian" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Pengembalian</button>
+                                            <!-- <button class="btn btn-success modalGambar" data-toggle="modal" data-target="#modal-gambar" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Gambar</button> -->
+                                            <?php
+                                            if ($row['tanggal_pengembalian'] < $date){
+                                            ?>
+                                            <button class="btn btn-warning btnSms" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> Kirim Pengingat</button>
+                                            <!-- <a role="button" href="https://wa.me/6281235607716?text=Saya%20tertarik%20untuk%20membeli%20mobil%20Anda%20(TEST)" target="_blank" class="btn btn-success" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> WA</button> -->
+                                            <?php
+                                            }
+                                            ?>
                                         </td>
                                     </tr>
                                     <?php

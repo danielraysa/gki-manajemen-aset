@@ -15,7 +15,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
                         </div>
-                        <input type="text" class="form-control" name="nama" placeholder="Nama Barang">
+                        <input type="text" class="form-control" id="modal_nama_barang" name="nama" placeholder="Nama Barang">
                     </div>  
                 </div>
                 <div class="form-group">
@@ -24,7 +24,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
                         </div>
-                        <select class="form-control select2" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                        <select class="form-control select2" id="modal_kategori" style="width: 100%;" tabindex="-1" aria-hidden="true">
                         <?php
                             $data = mysqli_query($koneksi, "SELECT * FROM kategori");
                             while ($row = mysqli_fetch_array($data)) {
@@ -34,7 +34,7 @@
                             }
                         ?>
                         </select>
-                    </div>  
+                    </div>
                 </div>
                 <!-- <div class="form-group">
                     <label>Merk:</label>
@@ -58,7 +58,121 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Add Item</button>
+                <button class="btn btn-success pull-right" id="addBarang" data-dismiss="modal" name="add-barang"><i class="fa fa-plus"></i> Add Item</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- Modal Add Merk -->
+<div class="modal fade" id="modal-merk">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Add Merk</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-group">
+                    <label>Nama Merk:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                        </div>
+                        <input type="text" class="form-control" id="modal_merk" name="nama" placeholder="Nama Merk">
+                    </div>  
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button class="btn btn-success pull-right" data-dismiss="modal" id="addMerk" name="add-merk"><i class="fa fa-plus"></i> Add Item</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- Modal Add Ruangan -->
+<div class="modal fade" id="modal-ruangan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Add Ruangan</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-group">
+                    <label>Nama Ruangan:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                        </div>
+                        <input type="text" class="form-control" id="modal_nama_ruangan" placeholder="Nama Ruangan">
+                    </div>  
+                </div>
+                <div class="form-group">
+                    <label>Nama Ruangan:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                        </div>
+                        <input type="text" class="form-control" id="modal_kode_ruangan" placeholder="Kode Ruangan">
+                    </div>  
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button class="btn btn-success pull-right" data-dismiss="modal" id="addRuangan" name="add-ruangan"><i class="fa fa-plus"></i> Add Item</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- Modal Add Komisi -->
+<div class="modal fade" id="modal-komisi">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Add Komisi</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                <div class="form-group">
+                    <label>Nama Komisi:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                        </div>
+                        <input type="text" class="form-control" id="modal_nama_komisi" name="nama_komisi" placeholder="Nama Komisi">
+                    </div>  
+                </div>
+                <div class="form-group">
+                    <label>Nama Komisi:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                        </div>
+                        <input type="text" class="form-control" id="modal_kode_komisi" placeholder="Kode Komisi">
+                    </div>  
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button class="btn btn-success pull-right" data-dismiss="modal" id="addKomisi" name="add-komisi"><i class="fa fa-plus"></i> Add Item</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -124,7 +238,7 @@
                             <i class="fa fa-money"></i>
                         </div>
                         <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga per item">
-                    </div>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Keterangan:</label>

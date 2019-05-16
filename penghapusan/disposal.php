@@ -45,24 +45,6 @@
     </div>
     <?php
     }
-    if(isset($_GET['edit'])) {
-    ?>
-    <div class="alert alert-success alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success editing data. This alert is dismissable.
-    </div>
-    <?php
-    }
-    if(isset($_GET['delete'])) {
-    ?>
-    <div class="alert alert-success alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-trash"></i> Alert!</h4>
-       <?php echo $_SESSION['success-msg']; ?>
-    </div>
-    <?php
-    }
     if(isset($_GET['error'])) {
     ?>
     <div class="alert alert-danger alert-dismissible">
@@ -81,7 +63,7 @@
             <div class="box-body">
             <form action="form-action.php" method="post">
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>ID Usulan Item:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
@@ -89,7 +71,8 @@
                             </div>
                             <input type="text" class="form-control" id="id_aset" name="id_usulan" readonly/>
                         </div>  
-                    </div>
+                    </div> -->
+                    <input type="hidden" class="form-control" id="id_aset" name="id_usulan" readonly/>
                     <div class="form-group">
                         <label>Kode Aset:</label>
                         <div class="input-group">
@@ -140,10 +123,10 @@
                         </div>
                         <select class="form-control select2" id="barang_aset" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
                             <?php
-                            $data = mysqli_query($koneksi, "SELECT * FROM barang");
+                            $data = mysqli_query($koneksi, "SELECT b.ID_BARANG, k.KODE_KATEGORI, b.NAMA_BARANG FROM barang b JOIN kategori k ON b.ID_KATEGORI = k.ID_KATEGORI");
                             while ($row = mysqli_fetch_array($data)) {
                             ?>
-                            <option value="<?php echo $row['ID_BARANG']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
+                            <option value="<?php echo $row['ID_BARANG']; ?>" data-item="<?php echo $row['KODE_KATEGORI']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
                             <?php
                             }
                             ?>
@@ -169,9 +152,9 @@
                             }
                             ?>
                         </select>
-                        <!-- <div class="input-group-btn">
-                            <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New</button>
-                        </div> -->
+                        <div class="input-group-btn">
+                            <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-merk">Add</button>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -194,11 +177,14 @@
                             $data = mysqli_query($koneksi, "SELECT * FROM ruangan");
                             while ($row = mysqli_fetch_array($data)) {
                             ?>
-                            <option value="<?php echo $row['ID_RUANGAN']; ?>"><?php echo $row['NAMA_RUANGAN']; ?></option>
+                            <option value="<?php echo $row['ID_RUANGAN']; ?>" data-ruang="<?php echo $row['KODE_RUANGAN']; ?>"><?php echo $row['NAMA_RUANGAN']; ?></option>
                             <?php
                             }
                             ?>
                         </select>
+                        <div class="input-group-btn">
+                            <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ruangan">Add</button>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -212,12 +198,18 @@
                             $data = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
                             while ($row = mysqli_fetch_array($data)) {
                             ?>
-                            <option value="<?php echo $row['ID_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']." (".$row['KODE_KOMISI'].")"; ?></option>
+                            <option value="<?php echo $row['ID_KOMISI']; ?>" data-komisi="<?php echo $row['KODE_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']." (".$row['KODE_KOMISI'].")"; ?></option>
                             <?php
                             }
                             ?>
                         </select>
+                        <div class="input-group-btn">
+                            <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-komisi">Add</button>
                         </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="minimal" type="checkbox" name="pinjam" checked> Dapat dipinjam
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -240,13 +232,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Harga:</label>
+                        <label>Harga Pembelian:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-money"></i>
                             </div>
                             <input type="text" class="form-control" id="harga" name="harga_pembelian" placeholder="Harga per item" required>
-                        </div>  
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Tanggal Pengadaan:</label>
@@ -276,10 +268,10 @@
                         </div>  
                     </div>
                     <div class="form-group">
-                        <input class="minimal" type="checkbox" name="pinjam"> Dapat dipinjam
+                        <input class="minimal" type="checkbox" name="penyusutan" id="penyusutan" checked> Mengalami Penyusutan Aset
                     </div>
                 </div>
-                <button class="btn btn-success btn-block" type="submit" id="addAsset" name="simpan-aset">Add Asset</button>
+                <button class="btn btn-success btn-block" type="submit" id="addAsset" name="simpan-aset">Tambah ke Daftar Aset</button>
                 <input type="hidden" id="id_aset" name="id"/>
             </form>
             </div>

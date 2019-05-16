@@ -1,11 +1,12 @@
 <?php
     session_start();
     if (!isset($_SESSION['login_user'])) {
-        header("location:../index.php");
+      header("location:../index.php");
     }
     if(!isset($_SESSION['item_pinjam'])) {
       $_SESSION['item_pinjam'] = array();
     }
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>

@@ -15,13 +15,13 @@
       
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <?php
-      $dir = basename(__DIR__);
+      //$dir = basename(__DIR__);
       // Anggota MJ
       if($_SESSION['role'] == "Anggota MJ") {
       ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="<li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">">
+        <li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">
           <a href="../index.php">
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
@@ -37,6 +37,7 @@
           <ul class="treeview-menu">
             <li><a href="../barang/"><i class="fa fa-tv text-red"></i> Barang</a></li>
             <li><a href="../kategori/"><i class="fa fa-cubes text-yellow"></i> Kategori Barang</a></li>
+            <li><a href="../merk/"><i class="fa fa-industry text-aqua"></i> Merk</a></li>
             <li><a href="../ruangan/"><i class="fa fa-map-o text-blue"></i> Ruangan</a></li>
             <li><a href="../komisi/"><i class="fa fa-group text-green"></i> Komisi</a></li>
             <li><a href="../status/"><i class="fa fa-refresh text-teal"></i> Status</a></li>
@@ -53,6 +54,7 @@
             <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
           </a>
         </li>
+        <li>
         <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
           <a href="../peminjaman/">
             <i class="fa fa-edit text-teal"></i> <span>Peminjaman Aset</span>
@@ -76,23 +78,24 @@
       ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">
+        <li class="active">
           <a href="../index.php">
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
         </li>
         
-        <li class="<?php if ($dir == "aset") echo "active"; ?>">
+        <li>
           <a href="../aset/">
             <i class="fa fa-barcode"></i> <span>Daftar Aset</span>
           </a>
         </li>
-        <li class="<?php if ($dir == "pengadaan") echo "active"; ?>">
+        <li>
           <a href="../pengadaan/">
             <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
           </a>
         </li>
-        <li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
+
+        <li>
           <a href="../penghapusan/">
             <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
           </a>
@@ -105,11 +108,13 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../laporan/histori-peminjaman/"><i class="fa fa-area-chart text-red"></i> Histori Peminjaman</a></li>
-            <li><a href="../laporan/histori-mutasi/"><i class="fa fa-clipboard text-green"></i> Histori Mutasi Lokasi</a></li>
-            <li><a href="../laporan/pemeliharaan-sarpras/"><i class="fa fa-gears text-blue"></i> Perawatan Sarana Prasarana</a></li>
+            <li><a href="laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
+            <li><a href="laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
+            <li><a href="laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
+            <li><a href="laporan/?penghapusan"><i class="fa fa-gears text-red"></i> Penghapusan Aset</a></li>
           </ul>
         </li>
+        
       </ul>
       <?php
       }
@@ -125,9 +130,10 @@
         </li>
         <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
           <a href="../peminjaman/">
-            <i class="fa fa-edit text-teal"></i> <span>Peminjaman Aset</span>
+            <i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
           </a>
         </li>
+        
       </ul>
       <?php
       }

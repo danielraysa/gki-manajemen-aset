@@ -4,7 +4,7 @@
     if(isset($_POST['add'])) {
         $nama = $_POST['nama'];
         $kode = $_POST['kode'];
-        $random_id = randString(10);
+        $random_id = randString(6);
         $is_unique = false;
             
         while (!$is_unique) {
@@ -15,7 +15,7 @@
                 $query = mysqli_query($koneksi, "INSERT INTO ruangan (ID_RUANGAN, NAMA_RUANGAN, KODE_RUANGAN, STATUS_RUANGAN) VALUES ('".$random_id."','".$nama."','".$kode."','Aktif')");
             }
             else {
-                $random_id = randString(10);
+                $random_id = randString(6);
             }
         }
         
@@ -31,7 +31,7 @@
         $id = $_POST['id_ruangan'];
         $nama = $_POST['nama'];
         $kode = $_POST['kode'];
-        $query = mysqli_query($koneksi, "UPDATE ruangan SET NAMA_RUANGAN = '".$nama."', KODE_RUANGAN = '".$kode."' WHERE ID_RUANGAN = ".$id."");
+        $query = mysqli_query($koneksi, "UPDATE ruangan SET NAMA_RUANGAN = '".$nama."', KODE_RUANGAN = '".$kode."' WHERE ID_RUANGAN = '".$id."'");
         if($query) {
             header("location: ../ruangan/?edit");
         }
@@ -40,9 +40,9 @@
         }
     }
 
-    if(isset($_POST['edit'])) {
+    if(isset($_POST['delete'])) {
         $id = $_POST['id_ruangan'];
-        $query = mysqli_query($koneksi, "UPDATE ruangan SET STATUS_RUANGAN = 'Dihapus' WHERE ID_RUANGAN = ".$id."");
+        $query = mysqli_query($koneksi, "UPDATE ruangan SET STATUS_RUANGAN = 'Dihapus' WHERE ID_RUANGAN = '".$id."'");
         if($query) {
             header("location: ../ruangan/?delete");
         }
