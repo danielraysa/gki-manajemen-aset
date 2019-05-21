@@ -1,4 +1,5 @@
 <?php
+
     $koneksi = mysqli_connect("localhost","root","","gki_backup");
     
     function randString($length) {
@@ -27,7 +28,30 @@
             }
         }
     }
+
+    function asRupiah($value) {
+        //return 'Rp. ' . number_format($value);
+        return 'Rp. ' . str_replace(',','.',number_format($value));
+    }
+
+    function tglIndo($date) {
+        $tgl = strftime("%d %B %Y", strtotime($date));
+        return $tgl;
+    }
+
+    function tglIndo_full($date) {
+        $tgl = strftime("%d %B %Y %H:%M:%S", strtotime($date));
+        return $tgl;
+    }
     
+    if(isset($_SESSION['id_user'])) {
+        $info = mysqli_query($koneksi, "SELECT * FROM user WHERE ID_USER = '".$_SESSION['id_user']."'");
+        $row = mysqli_fetch_array($info);
+        if($_SESSION['nama_user'] != $row['NAMA_LENGKAP']) {
+            $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];
+        }
+    }
+
     class DBController {
         private $host = "localhost";
         private $user = "root";

@@ -1,12 +1,9 @@
 <?php
     session_start();
     include "../connection.php";
-
+    date_default_timezone_set("Asia/Jakarta");
     setlocale(LC_NUMERIC, 'INDONESIA');
-    function asRupiah($value) {
-        return 'Rp. ' . number_format($value);
-    }
-
+    setlocale(LC_TIME, 'INDONESIA');
     // kosongin item
     if(isset($_POST['empty'])){
         unset($_SESSION['temp_hapus']);
@@ -43,7 +40,8 @@
     // approve penghapusan
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
-        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Diterima' WHERE ID_penghapusan = '".$id."'");
+        $date = date('Y-m-d H:i:s');
+        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Diterima', TANGGAL_APPROVAL = '".$date."' WHERE ID_penghapusan = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -54,7 +52,8 @@
 
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
-        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Ditolak' WHERE ID_penghapusan = '".$id."'");
+        $date = date('Y-m-d H:i:s');
+        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVAL = '".$date."' WHERE ID_penghapusan = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -77,7 +76,7 @@
         $id = $_POST['usulan_detail'];
         $myObj = array();
         $a = 1;
-        $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET JOIN detil_usulan_hapus dp ON dp.ID_ASET = d.ID_ASET WHERE dp.ID_PENGADAAN = '".$id."'");
+        $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET JOIN detil_usulan_penghapusan dp ON dp.ID_ASET = d.ID_ASET WHERE dp.ID_PENGHAPUSAN = '".$id."'");
         //$query = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE ID_ASET = '".$id."'"); 
         while($row = mysqli_fetch_array($query)){
             $id_aset = $row['ID_ASET'];
@@ -87,36 +86,25 @@
             $bagi = ($row['HARGA_PEMBELIAN']-$row['NILAI_RESIDU'])/$row['MASA_MANFAAT'];
             $nilai = $row['HARGA_PEMBELIAN']-($bagi*($row['MASA_MANFAAT']-$row['DIFF']));
             
-            $add = array('no' => $a, 'id_aset' => $id_aset, 'nama' => $nama_aset, 'umur' => $umur, 'jumlah_pemeliharaan' => $jml_pemeliharaan, 'nilai' => $nilai);
+            //$add = array('no' => $a, 'id_aset' => $id_aset, 'nama' => $nama_aset, 'umur' => $umur, 'jumlah_pemeliharaan' => $jml_pemeliharaan, 'nilai' => $nilai);
+            $add = array($a, $nama_aset, $umur." tahun", $jml_pemeliharaan." kali", asRupiah($nilai));
             array_push($myObj, $add);
-        }
-        /* 
-        $query = mysqli_query($koneksi, "SELECT d.barang_usulan, b.nama_barang, p.harga FROM detil_usulan_penghapusan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_penghapusan = '".$id."'");
-        while($row = mysqli_fetch_array($query)){
-            $nama = $row['barang_usulan'];
-            $barang = $row['nama_barang'];
-            $harga = str_replace(',','.',asRupiah($row['harga']));
-            //$array = array('nomor' => $a, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga);
-            $array = array($a, $nama, $barang, $harga);
-            array_push($myObj, $array);
             $a++;
-        } */
-        //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
+        }
+        
         $myJSON = json_encode($myObj);
         echo $myJSON;
     }
     
-    if(isset($_POST['id-insert'])) {
-        $id = $_POST['id-insert'];
-        //$query = mysqli_query($koneksi, "SELECT p.barang_usulan, p.id_barang, b.nama_barang, p.harga FROM penghapusan_barang p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_temp = '".$id."'");
-        $query = mysqli_query($koneksi, "SELECT p.barang_usulan, p.id_barang, b.nama_barang, p.harga FROM detil_usulan_penghapusan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_usulan_tambah = '".$id."'");
-        $row = mysqli_fetch_array($query);
-        $nama = $row['barang_usulan'];
-        $barang = $row['id_barang'];
-        $harga = $row['harga'];
-        $myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga);
-        $myJSON = json_encode($myObj);
-        echo $myJSON;
+    if(isset($_POST['penghapusan'])) {
+        $id = $_POST['penghapusan'];
+        //echo $id;
+        $arr_aset = explode("|",$_POST['item_aset']);
+        $arr_status = explode("|",$_POST['status']);
+        print_r($arr_status);
+        for($a = 0; $a < count($arr_aset); $a++){
+            $update = mysqli_query($koneksi, "UPDATE daftar_aset SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'");
+        }
     }
 
 ?>

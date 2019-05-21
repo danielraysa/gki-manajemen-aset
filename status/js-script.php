@@ -79,8 +79,8 @@
       }).then((result) => {
           if (result.value) {
               swal({
-                  title: "Success!",
-                  text: "Redirecting in 2 seconds.",
+                  title: "Sukses",
+                    text: "Harap tunggu sejenak.",
                   type: "success",
                   timer: 2000,
                   showConfirmButton: false

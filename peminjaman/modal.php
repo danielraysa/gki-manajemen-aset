@@ -15,8 +15,8 @@
                 <!-- </form> -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger pull-right" type="submit" id="btnDelete" name="delete"><i class="fa fa-trash"></i> Delete</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-danger pull-right" type="submit" id="btnDelete" name="delete"><i class="fa fa-trash"></i> Hapus</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -95,8 +95,8 @@
                 </table>                
             </div>
             <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
             </div>  -->
         </div>
         <!-- /.modal-content -->
@@ -126,8 +126,8 @@
                 </table>                
             </div>
             <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
             </div>  -->
         </div>
         <!-- /.modal-content -->

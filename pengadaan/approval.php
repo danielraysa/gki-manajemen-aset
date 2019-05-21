@@ -4,7 +4,7 @@
         <section class="content-header">
             <h1>
                 Approval Usulan Pengadaan Aset
-                <small>Sarana Prasarana</small>
+                <!-- <small>Sarana Prasarana</small> -->
             </h1>
 
         </section>
@@ -15,8 +15,8 @@
             ?>
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                Success adding new data. This alert is dismissable.
+                <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+                Berhasil menambah data baru.
             </div>
             <?php
                     }

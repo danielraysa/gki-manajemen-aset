@@ -76,14 +76,13 @@ $(document).ready(function() {
         rightAlign: false
     });
 
-    /* $("#barang").on('change', function() {
-        $("#nama_barang").val($("#barang").find(":selected").text());
-        //console.log($(this).val());
-        //alert($("#nama_barang").val());
-    }); */
     $("#currency").on('keyup', function() {
         $("#rupiah").val($('#currency').val());
         //console.log($("#rupiah").val());
+    });
+
+    $('#status_aset').select2({
+        minimumResultsForSearch: -1
     });
 
     // Modal Edit
@@ -108,11 +107,6 @@ $(document).ready(function() {
     });
 
     // Modal Delete
-    /* $('.modalDelete').click(function () {
-        var id = $(this).attr('data-id');
-        console.log(id);
-        $("#id_delete").val(id);
-    }); */
     $('.modalDelete').click(function () {
         var id = $(this).attr('data-id');
         //var id = $('#id_delete').val();
@@ -155,8 +149,8 @@ $(document).ready(function() {
             success: function (result) {
                 console.log(result);
                 swal({
-                    title: "Success!",
-                    text: "Closing in 2 seconds.",
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
                     type: "success",
                     timer: 2000,
                     showConfirmButton: false
@@ -182,8 +176,8 @@ $(document).ready(function() {
             success: function (result) {
                 console.log(result);
                 swal({
-                    title: "Success!",
-                    text: "Closing in 2 seconds.",
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
                     type: "success",
                     timer: 2000,
                     showConfirmButton: false
@@ -194,25 +188,30 @@ $(document).ready(function() {
         });
     });
     // Modal Aset
-    $('.modalAset').click(function () {
-        var id = $(this).attr('data-id');
+    $('#btnHapus').click(function () {
+        var id = $('#id_hapus').val();
+        var aset = $('input[name="aset[]"]').map(function(){return $(this).val();}).get().join("|");
+        var sts = $('input[name="status[]"]').map(function(){return $(this).val();}).get().join("|");
+        alert(sts);
+        alert(aset);
         console.log(id);
-        $.ajax({
+        /* $.ajax({
             url: "ajax.php",
-            cache: false,
-            type: "GET",
-            data: "ID=" + id,
+            type: "POST",
+            data: {penghapusan: id, item_aset: aset, status: sts},
             success: function (result) {
-                console.log(result)
-                var data = JSON.parse(result);
-                $('#id_edit').val(data.id);
-                $('#nama').val(data.nama);
-                $('#barang').val(data.barang);
-                $('#jumlah').val(data.jumlah);
-                $('#harga').val(data.harga);
-                $('#keterangan').val(data.keterangan);
+                console.log(result);
+                swal({
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {
+                    window.location.assign("../penghapusan/")
+                });
             }
-        });
+        }); */
     });
 
     // Modal Detail Usulan
@@ -249,78 +248,6 @@ $(document).ready(function() {
             }
         });
     });
-
-    var kode1 = "";
-    var kode2 = "";
-    var kode3 = "";
-    var kode4 = "";
-    var kode5 = "";
-    $('#kode_aset').val(kode1+kode2+kode3+kode4+kode5);
-
-    $('.insert-item').click(function () {
-        //var id = $(this).attr('data-id');
-        var id = $(this).val();
-        console.log(id);
-        $.ajax({
-            url: "ajax.php",
-            type: "POST",
-            data: "id-insert=" + id,
-            success: function (result) {
-                console.log(result)
-                var data = JSON.parse(result);
-                $('#id_aset').val(data.id);
-                $('#nama_aset').val(data.nama);
-                $('#barang_aset').val(data.barang);
-                $("#barang_aset").select2("destroy").select2();
-                kode4 = $('#barang_aset').find(':selected').data('item');
-                $('#harga').val(data.harga);
-                $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
-            }
-        });
-    });
-
-    $('#check_jml').on('ifChecked', function(event){
-        //alert(event.type + ' callback');
-        $('#jumlah_aset').prop("disabled", false);
-        
-    });
-    $('#check_jml').on('ifUnchecked', function(event){
-        $('#jumlah_aset').prop("disabled", true);
-    });
-    $('#penyusutan').on('ifChecked', function(event){
-        $('#currency').prop("disabled", false);
-        $('#manfaat_aset').prop("disabled", false);
-    });
-    $('#penyusutan').on('ifUnchecked', function(event){
-        $('#currency').prop("disabled", true);
-        $('#manfaat_aset').prop("disabled", true);
-    });
-    $('#datepicker').on('change', function(){
-        var tgl = $('#datepicker').val();
-        kode3 = tgl.substr(8,2);
-        //alert(kode3);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
-    });
-    $('#barang_aset').on('change', function(){
-        kode4 = $(this).find(':selected').data('item');
-        //alert(kode4);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
-    });
-    $('#ruangan_aset').on('change', function(){
-        kode2 = $(this).find(':selected').data('ruang');
-        //alert(kode2);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
-    });
-    $('#komisi_aset').on('change', function(){
-        kode1 = $(this).find(':selected').data('komisi');
-        //alert(kode1);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
-    });
-    $('#nomor_aset').on('change', function(){
-        kode5 = $(this).val();
-        //alert(kode1);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
-    });
     
     // Logout
     $('.logout').on('click', function (event) {
@@ -335,8 +262,8 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.value) {
                 swal({
-                    title: "Success!",
-                    text: "Redirecting in 2 seconds.",
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
                     type: "success",
                     timer: 2000,
                     showConfirmButton: false

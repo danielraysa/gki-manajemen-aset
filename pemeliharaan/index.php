@@ -35,8 +35,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success adding new data. This alert is dismissable.
+        <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+        Berhasil menambahkan data baru.
     </div>
     <?php
     }
@@ -44,8 +44,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success editing data. This alert is dismissable.
+        <h4><i class="icon fa fa-pencil"></i> Sukses!</h4>
+        Berhasil mengubah data.
     </div>
     <?php
     }
@@ -53,8 +53,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success deleting data. This alert is dismissable.
+        <h4><i class="icon fa fa-trash"></i> Sukses!</h4>
+        Berhasil menghapus data.
     </div>
     <?php
     }
@@ -92,8 +92,7 @@
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
                   $date = date('Y-m-d');
-                  //$query = mysqli_query($koneksi,"SELECT p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.TANGGAL_PENJADWALAN, p.BATAS_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN = (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE p.ID_ASET = pemeliharaan_aset.ID_ASET) AND p.STATUS_PEMELIHARAAN = 'Aktif'");
-                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, MIN(p.TANGGAL_PENJADWALAN) as TANGGAL_PENJADWALAN, p.BATAS_PENJADWALAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Aktif' GROUP BY p.ID_ASET");
+                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET)");
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>

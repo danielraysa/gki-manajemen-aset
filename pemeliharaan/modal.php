@@ -116,7 +116,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
                 <button class="btn btn-success pull-right" id="addJadwal" name="add-jadwal" data-dismiss="modal"><i class="fa fa-plus"></i> Add Schedule</button>
             </div>
         </div>
@@ -180,6 +180,10 @@
                                 <input type="text" class="form-control" id="datepicker1" name="tgl_pemeliharaan">
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
                         <div class="col-md-6 col-xs-12">
                             <label>Selesai Pemeliharaan:</label>
                             <div class="input-group">
@@ -214,7 +218,7 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
                 <button class="btn btn-success pull-right" id="btnMaintenance" type="submit" name="edit"data-dismiss="modal"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
@@ -235,12 +239,13 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_delete" name="id"/>
-                Batalkan jadwal?
+                Batalkan dan hapus jadwal?
                 <!-- </form> -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger pull-right" id="btnDelete "type="submit" data-dismiss="modal" name="delete"><i class="fa fa-trash"></i> Delete</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-danger pull-right" id="btnDelete" data-dismiss="modal" name="delete"><i class="fa fa-trash"></i> Hapus</button>
+                <!-- <button class="btn btn-danger pull-right" id="btnDelete" type="submit" data-dismiss="modal" name="delete"><i class="fa fa-trash"></i> Hapus</button> -->
             </div>
         </div>
         <!-- /.modal-content -->

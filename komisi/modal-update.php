@@ -28,8 +28,8 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="edit">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" name="edit">Simpan</button>
             </div>
         </div>
     </form>

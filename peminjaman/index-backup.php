@@ -79,7 +79,7 @@
                         </div>
                     </form>
                         <!-- /.form group -->
-                        <button class="btn btn-success btn-block" type="button" id="addRow" name="add">Add Item</button>
+                        <button class="btn btn-success btn-block" type="button" id="addRow" name="add">Tambah</button>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -128,7 +128,7 @@
                                     <td><?php echo $select['nama']; ?></td>
                                     <td><?php echo $select['jenis']; ?></td>
                                     <td><?php echo $select['qty']; ?></td>
-                                    <td><button type="button" id="remove" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td>
+                                    <td><button type="button" id="remove" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Hapus</button></td>
                                 </tr>
                                 <?php
                                         $a++;
@@ -192,7 +192,7 @@
                         <td><?php echo $select['tgl_added']; ?></td>
                         <td><img src="https://chart.googleapis.com/chart?cht=qr&chl=<?php echo $select['id']; ?>&chs=100x100&chld=L|0" alt="qrcode.php?id=<?php echo $select['id']; ?>" /></td>
                         <!-- <td><img src="https://chart.googleapis.com/chart?cht=qr&chl=ID&chs=100x100&chld=L|0" alt="ID" /></td> -->
-                        <td><button type="button" id="remove" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td>
+                        <td><button type="button" id="remove" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Hapus</button></td>
                     </tr>
                     <?php
                         $a++;

@@ -6,6 +6,7 @@
     if(!isset($_SESSION['item_pinjam'])) {
       $_SESSION['item_pinjam'] = array();
     }
+    setlocale (LC_TIME, 'INDONESIAN');
     $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>

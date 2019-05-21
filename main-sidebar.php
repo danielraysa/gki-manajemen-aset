@@ -65,12 +65,12 @@
         <li>
         <li>
           <a href="peminjaman/">
-            <i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
+            <i class="fa fa-edit text-teal"></i> <span>Peminjaman Aset</span>
           </a>
         </li>
         <li>
           <a href="pemeliharaan/">
-            <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan</span>
+            <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan Aset</span>
           </a>
         </li>
         <li>
@@ -119,7 +119,7 @@
             <li><a href="laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
             <li><a href="laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
             <li><a href="laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
-            <li><a href="laporan/?penghapusan"><i class="fa fa-gears text-red"></i> Penghapusan Aset</a></li>
+            <li><a href="../laporan/?penghapusan"><i class="fa fa-trash text-red"></i> Penghapusan Aset</a></li>
           </ul>
         </li>
         

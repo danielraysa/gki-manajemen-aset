@@ -52,7 +52,7 @@
                                 <i class="fa fa-laptop"></i>
                             </div>
                             <select class="form-control" id="hak_akses" name="hak_akses">
-                                <option value="Administrator">Administrator</option>
+                                <!-- <option value="Administrator">Administrator</option> -->
                                 <option value="Ketua MJ">Ketua MJ</option>
                                 <option value="Anggota MJ">Anggota MJ</option>
                                 <option value="Peminjam">Peminjam</option>
@@ -71,8 +71,8 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="edit">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" name="edit">Simpan</button>
             </div>
         </div>
     </form>

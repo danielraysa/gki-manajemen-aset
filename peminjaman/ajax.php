@@ -5,7 +5,7 @@
     include "../sms-config.php";
     include "../connection.php";
 
-    /* include "../vendor/autoload.php";
+    include "../vendor/autoload.php";
 
     use SMSGatewayMe\Client\ApiClient;
     use SMSGatewayMe\Client\Configuration;
@@ -16,7 +16,7 @@
     $config = Configuration::getDefaultConfiguration();
     $config->setApiKey('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTU1NjIyMDUyMywiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjYzMjA3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.TxSPGIZqTbeKu_vcN0jGdX04eZ0DoTt-dhn1fwI82jc');
     $apiClient = new ApiClient($config);
-    $messageClient = new MessageApi($apiClient); */
+    $messageClient = new MessageApi($apiClient);
 
     if(isset($_POST['empty'])){
         unset($_SESSION['item_pinjam']);
@@ -39,7 +39,7 @@
     if(isset($_POST['hapus_item'])) {
         $val = $_POST['hapus_item'];
         //echo search_array($val);
-        $key_index = array_search($val, array_column($_SESSION['item_pinjam'], 'nama'));
+        $key_index = array_search($val, array_column($_SESSION['item_pinjam'], 'id_aset'));
         array_splice($_SESSION['item_pinjam'], $key_index, 1);
     }
 
@@ -51,11 +51,11 @@
         $tgl = $_POST['tgl_peminjaman'];
         $keterangan = $_POST['keterangan'];
         $date = str_replace('/', '-', $tgl);
-        echo $date."<br>";
+        echo $date."\n";
         $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
-        echo $tgl_awal."<br>";
+        echo $tgl_awal."\n";
         $tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
-        echo $tgl_akhir."<br>";
+        echo $tgl_akhir."\n";
         $date_now = date('Y-m-d H:i:s');
         $random_id = randString(10);
         $is_unique = false;
@@ -108,7 +108,9 @@
             'phoneNumber' => $no_hp, 'message' => 'Pengajuan peminjaman pada '.$date_now.' berhasil disimpan. (NOREPLY)', 'deviceId' => 104188
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
-
+        if($sentMessages){
+            print_r($sentMessages); 
+        }
     }
 
     if (isset($_POST['usulan_pinjam'])) {
@@ -146,7 +148,9 @@
             'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' telah diterima.', 'deviceId' => 104188
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
-
+        if($sentMessages){
+            print_r($sentMessages); 
+        }
     }
 
     if (isset($_GET['reject'])) {
@@ -164,6 +168,9 @@
             'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' ditolak.', 'deviceId' => 104188
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+        if($sentMessages){
+            print_r($sentMessages); 
+        }
     }
 
     if (isset($_POST['delete-usulan'])) {

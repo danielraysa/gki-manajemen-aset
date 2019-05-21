@@ -3,9 +3,7 @@
     setlocale (LC_TIME, 'INDONESIAN');
     setlocale(LC_NUMERIC, 'INDONESIA');
     date_default_timezone_set("Asia/Jakarta");
-    function asRupiah($value) {
-      return 'Rp. ' . str_replace(',','.',number_format($value));
-    }
+    
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
     }

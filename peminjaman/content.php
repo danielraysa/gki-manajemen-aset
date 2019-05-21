@@ -3,7 +3,7 @@
     <section class="content-header">
       <h1>
         Pengajuan Peminjaman 
-        <small>Sarana Prasarana</small>
+        <!-- <small>Sarana Prasarana</small> -->
       </h1>
       
     </section>
@@ -23,8 +23,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success editing data. This alert is dismissable.
+        <h4><i class="icon fa fa-pencil"></i> Sukses!</h4>
+        Berhasil mengubah data.
     </div>
     <?php
     }
@@ -122,7 +122,7 @@
                 
                 <button <?php if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" id="btnSimpan" name="simpan-pinjam">Simpan</button>
               </div>
-              <!-- <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Add Item</button> -->
+              <!-- <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button> -->
               
             <!-- </form> -->
             </div>
@@ -133,7 +133,7 @@
             <div class="box-header">
               <h3 class="box-title">Data Aset akan Dipinjam</h3>
               <div class="pull-right">
-                <button type="button" class="btn btn-danger emptyData"><i class="fa fa-trash"></i> Empty All</button>
+                <button type="button" class="btn btn-danger emptyData"><i class="fa fa-trash"></i> Hapus Semua</button>
               </div>
             </div>
             
@@ -160,7 +160,7 @@
                     <td><?php echo $select['kode_aset']; ?></td>
                     <td><?php echo $select['nama_aset']; ?></td>
                     <td><?php echo $select['barang']; ?></td>
-                    <td><button type="button" id="remove" data-id="<?php echo $row['id_aset']; ?>" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td>
+                    <td><button type="button" data-id="<?php echo $select['id_aset']; ?>" class="btn btn-danger btn-block remove"><i class="fa fa-trash"></i> Hapus</button></td>
                   </tr>
                   <?php
                     $a++;
@@ -202,7 +202,17 @@
                 <?php
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
-                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.PERBOLEHAN_PINJAM = 1");
+                  if(empty($_SESSION['item_pinjam'])){
+                    $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif' AND d.PERBOLEHAN_PINJAM = 1");
+                  }
+                  else {
+                    $arr = array();
+                    foreach ($_SESSION["item_pinjam"] as $key => $select){
+                      array_push($arr, $select['id_aset']);
+                    }
+                    $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif' AND d.PERBOLEHAN_PINJAM = 1 AND d.ID_ASET NOT IN ( '" . implode( "', '" , $arr ) . "' )");
+                    //$sql = "SELECT * FROM albums WHERE name NOT IN ( '" . implode( "', '" , $ban_album_names ) . "' )";
+                  }
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
@@ -213,9 +223,7 @@
                       <td><?php echo $row['NAMA_RUANGAN']; ?></td>
                       <td><?php echo $row['NAMA_KOMISI']; ?></td>
                       <td><?php echo $row['STATUS_ASET']; ?></td>
-                      <!-- <td><img src="https://chart.googleapis.com/chart?cht=qr&chl=<?php echo $row['ID_ASET']; ?>&chs=100x100&chld=L|0" alt="qrcode.php?id=<?php echo $row['ID_ASET']; ?>" /></td> -->
-                      <!-- <td><img src="https://chart.googleapis.com/chart?cht=qr&chl=ID&chs=100x100&chld=L|0" alt="ID" /></td> -->
-                      <!-- <td><button type="button" id="remove" class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button></td> -->
+                      
                       <td><button type="button" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
                     </tr>
                     <?php

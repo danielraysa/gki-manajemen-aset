@@ -2,7 +2,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Approval Peminjaman Aset
+                Peminjaman Aset
                 <!-- <small>Sarana Prasarana</small> -->
             </h1>
 
@@ -14,8 +14,8 @@
             ?>
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                Success adding new data. This alert is dismissable.
+                <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+                Berhasil menambah data baru.
             </div>
             <?php
                     }
@@ -77,10 +77,10 @@
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
-                                        <td><?php echo $row['tanggal_pengajuan']; ?></td>
+                                        <td><?php echo tglIndo_full($row['tanggal_pengajuan']); ?></td>
                                         <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['no_hp']; ?></td>
-                                        <td><?php echo $row['tanggal_peminjaman']; ?></td>
+                                        <td><?php echo tglIndo($row['tanggal_peminjaman']); ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
                                             <?php
@@ -105,7 +105,7 @@
                                             ?>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-check-square-o"></i> Detail</button>
+                                            <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button>
                                             <?php
                                             if($row['hasil_pengajuan'] == "Pending") {
                                             ?>
@@ -161,7 +161,7 @@
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
-                                        <td><?php echo $row['tanggal_pengembalian']; ?></td>
+                                        <td><?php echo tglIndo($row['tanggal_pengembalian']); ?></td>
                                         <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
@@ -183,7 +183,7 @@
                                             <button class="btn btn-success modalKembali" data-toggle="modal" data-target="#modal-pengembalian" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Pengembalian</button>
                                             <!-- <button class="btn btn-success modalGambar" data-toggle="modal" data-target="#modal-gambar" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Gambar</button> -->
                                             <?php
-                                            if ($row['tanggal_pengembalian'] < $date){
+                                            if ($row['tanggal_pengembalian'] <= $date){
                                             ?>
                                             <button class="btn btn-warning btnSms" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> Kirim Pengingat</button>
                                             <!-- <a role="button" href="https://wa.me/6281235607716?text=Saya%20tertarik%20untuk%20membeli%20mobil%20Anda%20(TEST)" target="_blank" class="btn btn-success" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> WA</button> -->

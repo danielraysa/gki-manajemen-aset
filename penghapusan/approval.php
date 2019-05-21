@@ -3,7 +3,7 @@
         <section class="content-header">
             <h1>
                 Approval Usulan Penghapusan Aset
-                <small>Sarana Prasarana</small>
+                <!-- <small>Sarana Prasarana</small> -->
             </h1>
 
         </section>
@@ -14,8 +14,8 @@
             ?>
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                Success adding new data. This alert is dismissable.
+                <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+                Berhasil menambah data baru.
             </div>
             <?php
                     }
@@ -59,23 +59,23 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Pengusul</th>
                                         <th>Keterangan</th>
-                                        <th>Barang Usulan</th>
+                                        <th>Aset Usulan</th>
                                         <th>Tanggal Ditambahkan</th>
-                                        
                                         <th>Status Usulan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                        //$query = mysqli_query($koneksi,"SELECT p.id_penghapusan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_approval FROM penghapusan_usul p WHERE p.status_usulan = 'Aktif'");
-                                        $query = mysqli_query($koneksi,"SELECT p.id_penghapusan, p.keterangan_penghapusan, p.tanggal_usulan, p.hasil_approval FROM penghapusan_aset p WHERE p.status_usulan = 'Aktif'");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_penghapusan, u.nama_lengkap, p.keterangan_penghapusan, p.tanggal_usulan, p.hasil_approval FROM penghapusan_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_usulan = 'Aktif' AND p.hasil_approval = 'Pending'");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
+                                        <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_penghapusan']; ?></td>
                                         <td><button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-check-square-o"></i> Detail</button></td>
                                         <td><?php echo $row['tanggal_usulan']; ?></td>
@@ -105,14 +105,14 @@
                                             <?php
                                             if($row['hasil_approval'] == "Pending") {
                                             ?>
-                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
-                                            <button class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-close"></i> Reject</button>
+                                            <button class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-check-circle"></i> Terima</button>
+                                            <button class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-close"></i> Tolak</button>
                                             <?php 
                                             }
                                             else{
                                             ?>
-                                            <button disabled class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-check-circle"></i> Approve</button>
-                                            <button disabled class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-close"></i> Reject</button>
+                                            <button disabled class="btn btn-success modalApprove" data-toggle="modal" data-target="#modal-approve" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-check-circle"></i> Terima</button>
+                                            <button disabled class="btn btn-danger modalReject" data-toggle="modal" data-target="#modal-reject" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-close"></i> Tolak</button>
                                             <?php
                                             }
                                             ?>

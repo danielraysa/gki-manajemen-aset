@@ -101,7 +101,7 @@ $('.addPinjam').on('click', function () {
 });
 
 //Hapus Item
-$('#remove').on('click', function () {
+$('.remove').on('click', function () {
   var id = $(this).attr('data-id');
   $.ajax({
     url: "ajax.php",
@@ -136,8 +136,8 @@ $('#btnSimpan').click(function () {
     success: function (result) {
       console.log(result);
       swal({
-        title: "Success!",
-        text: "Closing in 2 seconds.",
+        title: "Sukses",
+        text: "Harap tunggu sejenak.",
         type: "success",
         timer: 2000,
         showConfirmButton: false
@@ -197,8 +197,8 @@ $('#btnApprove').click(function () {
     success: function (result) {
       console.log(result);
       swal({
-        title: "Success!",
-        text: "Closing in 2 seconds.",
+        title: "Sukses",
+        text: "Harap tunggu sejenak.",
         type: "success",
         timer: 2000,
         showConfirmButton: false
@@ -224,8 +224,8 @@ $('#btnReject').click(function () {
     success: function (result) {
       console.log(result);
       swal({
-        title: "Success!",
-        text: "Closing in 2 seconds.",
+        title: "Sukses",
+        text: "Harap tunggu sejenak.",
         type: "success",
         timer: 2000,
         showConfirmButton: false
@@ -272,8 +272,8 @@ $('#btnKembali').click(function () {
     success: function (result) {
       console.log(result);
       swal({
-        title: "Success!",
-        text: "Closing in 2 seconds.",
+        title: "Sukses",
+        text: "Harap tunggu sejenak.",
         type: "success",
         timer: 2000,
         showConfirmButton: false
@@ -318,8 +318,8 @@ $('.logout').on('click', function (event) {
   }).then((result) => {
     if (result.value) {
       swal({
-        title: "Success!",
-        text: "Redirecting in 2 seconds.",
+        title: "Sukses",
+        text: "Harap tunggu sejenak.",
         type: "success",
         timer: 2000,
         showConfirmButton: false

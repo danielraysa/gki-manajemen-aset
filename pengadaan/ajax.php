@@ -1,11 +1,10 @@
 <?php
     session_start();
     include "../connection.php";
-
+    date_default_timezone_set("Asia/Jakarta");
+    setlocale(LC_TIME, 'INDONESIA');
     setlocale(LC_NUMERIC, 'INDONESIA');
-    function asRupiah($value) {
-        return 'Rp. ' . number_format($value);
-    }
+    
     
     if(isset($_POST['add_barang'])) {
         $nama = $_POST['nama'];
@@ -116,7 +115,8 @@
     // approve pengadaan
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
-        $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Diterima' WHERE ID_PENGADAAN = '".$id."'");
+        $date = date('Y-m-d H:i:s');
+        $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Diterima', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -127,7 +127,7 @@
 
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
-        $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Ditolak' WHERE ID_PENGADAAN = '".$id."'");
+        $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }

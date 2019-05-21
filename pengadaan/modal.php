@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Add Item</h4>
+                <h4 class="modal-title">Tambah Barang</h4>
             </div>
             <div class="modal-body">
                 <form action="" method="post">
@@ -36,29 +36,11 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label>Merk:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <input type="text" class="form-control" name="merk" placeholder="Merk barang">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Seri/Model:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <input type="text" class="form-control" name="serimodel" placeholder="Seri/Model barang">
-                    </div>
-                </div> -->
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" id="addBarang" data-dismiss="modal" name="add-barang"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" id="addBarang" data-dismiss="modal" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -73,7 +55,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Add Merk</h4>
+                <h4 class="modal-title">Tambah Merk</h4>
             </div>
             <div class="modal-body">
                 
@@ -89,8 +71,8 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" data-dismiss="modal" id="addMerk" name="add-merk"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" data-dismiss="modal" id="addMerk" name="add-merk"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -105,7 +87,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Add Ruangan</h4>
+                <h4 class="modal-title">Tambah Ruangan</h4>
             </div>
             <div class="modal-body">
                 
@@ -130,8 +112,8 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" data-dismiss="modal" id="addRuangan" name="add-ruangan"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" data-dismiss="modal" id="addRuangan" name="add-ruangan"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -146,12 +128,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Add Komisi</h4>
+                <h4 class="modal-title">Tambah Komisi Jemaat</h4>
             </div>
             <div class="modal-body">
                 <form action="" method="post">
                 <div class="form-group">
-                    <label>Nama Komisi:</label>
+                    <label>Nama Komisi Jemaat:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
@@ -160,7 +142,7 @@
                     </div>  
                 </div>
                 <div class="form-group">
-                    <label>Kode Komisi:</label>
+                    <label>Kode Komisi Jemaat:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
@@ -171,8 +153,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" data-dismiss="modal" id="addKomisi" name="add-komisi"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" data-dismiss="modal" id="addKomisi" name="add-komisi"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -217,7 +199,7 @@
                         ?>
                     </select>
                     <!-- <div class="input-group-btn">
-                        <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New</button>
+                        <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Tambah</button>
                     </div> -->
                     </div>
                 </div>
@@ -253,7 +235,7 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
                 <button class="btn btn-success pull-right" type="submit" name="edit"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
@@ -269,7 +251,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Delete Item</h4>
+                <h4 class="modal-title">Hapus Usulan</h4>
             </div>
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
@@ -331,13 +313,11 @@
                 <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <!-- Modal Aset -->
-<div class="modal fade" id="modal-aset">
+<!-- <div class="modal fade" id="modal-aset">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -390,9 +370,6 @@
                         }
                         ?>
                     </select>
-                    <!-- <div class="input-group-btn">
-                        <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New</button>
-                    </div> -->
                     </div>
                 </div>
                 <div class="form-group">
@@ -462,14 +439,12 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
                 <button class="btn btn-success pull-right" type="submit" name="tambah_aset"><i class="fa fa-save"></i> Tambah Aset</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+</div> -->
 
 <!-- Modal Detail Usulan -->
 <div class="modal fade" id="modal-detail">
@@ -478,7 +453,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Detail Items</h4>
+                <h4 class="modal-title">Detail Aset yang Diusulkan</h4>
             </div>
             <div class="modal-body">
                 <table id="example4" class="table table-bordered table-hover table-responsive" cellspacing="0" width="100%">
@@ -493,8 +468,8 @@
                 </table>                
             </div>
             <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Add Item</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
             </div>  -->
         </div>
         <!-- /.modal-content -->

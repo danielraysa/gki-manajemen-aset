@@ -107,8 +107,8 @@
                 if (mysqli_num_rows($select) == 0) {  
                     // if you don't get a result, then you're good
                     $is_unique = true;
-                    ECHO "INSERT INTO pengadaan_aset (ID_PENGADAAN, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$keterangan."','".$tanggal."','Pending','Aktif') <br>";
-                    $query = mysqli_query($koneksi, "INSERT INTO pengadaan_aset (ID_PENGADAAN, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$keterangan."','".$tanggal."','Pending','Aktif')");
+                    ECHO "INSERT INTO pengadaan_aset (ID_PENGADAAN, ID_USER, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$_SESSION['id_user']."','".$keterangan."','".$tanggal."','Pending','Aktif') \n";
+                    $query = mysqli_query($koneksi, "INSERT INTO pengadaan_aset (ID_PENGADAAN, ID_USER, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$_SESSION['id_user']."','".$keterangan."','".$tanggal."','Pending','Aktif')");
                     if(!$query) {
                         $_SESSION['error-msg'] = mysqli_error($koneksi);
                         echo $_SESSION['error-msg'];

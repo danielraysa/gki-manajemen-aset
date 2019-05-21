@@ -108,10 +108,10 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
-            <li><a href="laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
-            <li><a href="laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
-            <li><a href="laporan/?penghapusan"><i class="fa fa-gears text-red"></i> Penghapusan Aset</a></li>
+            <li><a href="../laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
+            <li><a href="../laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
+            <li><a href="../laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
+            <li><a href="../laporan/?penghapusan"><i class="fa fa-trash text-red"></i> Penghapusan Aset</a></li>
           </ul>
         </li>
         

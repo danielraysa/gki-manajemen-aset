@@ -1,5 +1,7 @@
 <?php
     session_start();
+    setlocale (LC_TIME, 'INDONESIAN');
+    date_default_timezone_set("Asia/Jakarta");
     include "../connection.php";
     
     if (isset($_GET['approve'])) {

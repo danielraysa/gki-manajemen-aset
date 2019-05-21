@@ -23,8 +23,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success editing data. This alert is dismissable.
+        <h4><i class="icon fa fa-pencil"></i> Sukses!</h4>
+        Berhasil mengubah data.
     </div>
     <?php
     }
@@ -103,7 +103,7 @@
                   </select>
                   <input type="hidden" name="nama_barang" id="nama_barang"/>
                   <div class="input-group-btn">
-                    <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
                   </div>
                 </div>
               </div>
@@ -119,7 +119,7 @@
                 </div>  
               </div>
 
-              <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Add Item</button>
+              <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button>
                 </form>
             </div>
           </div>
@@ -208,16 +208,15 @@
                   <tr>
                     <th>No.</th>
                     <th>Keterangan</th>
-                    <th>Barang Usulan</th>
+                    <th>Aset Usulan</th>
                     <th>Tanggal Ditambahkan</th>
-                    
                     <th>Status Usulan</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php
-                  $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif'");
+                  $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif' AND p.id_user = '".$_SESSION['id_user']."'");
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {
                 ?>

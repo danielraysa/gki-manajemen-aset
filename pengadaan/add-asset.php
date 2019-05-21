@@ -8,9 +8,7 @@
       $_SESSION['temp_item_2'] = array();
     }
     setlocale(LC_NUMERIC, 'INDONESIA');
-    function asRupiah($value) {
-        return 'Rp. ' . number_format($value);
-    }
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +27,7 @@
     <section class="content-header">
       <h1>
         Pengadaan Aset
-        <small>Sarana Prasarana</small>
+        <!-- <small>Sarana Prasarana</small> -->
       </h1>
       
     </section>
@@ -160,7 +158,7 @@
                                 ?>
                             </select>
                             <!-- <div class="input-group-btn">
-                                <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New</button>
+                                <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Tambah</button>
                             </div> -->
                             </div>
                         </div>

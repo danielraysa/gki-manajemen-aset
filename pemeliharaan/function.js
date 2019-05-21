@@ -193,7 +193,7 @@ $('#addJadwal').click(function () {
     }
     location.reload();
     //alert(pilihan_tgl);
-    /* if(opsi!="custom"){
+    if(opsi!="custom"){
         $.ajax({
             url: "ajax.php",
             type: "POST",
@@ -202,8 +202,8 @@ $('#addJadwal').click(function () {
             success: function (result) {
                 console.log(result);
                 swal({
-                    title: "Success!",
-                    text: "Closing in 2 seconds.",
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
                     type: "success",
                     timer: 2000,
                     showConfirmButton: false
@@ -221,8 +221,8 @@ $('#addJadwal').click(function () {
             success: function (result) {
                 console.log(result);
                 swal({
-                    title: "Success!",
-                    text: "Closing in 2 seconds.",
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
                     type: "success",
                     timer: 2000,
                     showConfirmButton: false
@@ -231,7 +231,7 @@ $('#addJadwal').click(function () {
                 });
             }
         });
-    } */
+    }
 });
 
 // Modal Maintenance
@@ -257,7 +257,7 @@ $('#btnMaintenance').click(function () {
     var id = $('#id_maintenance').val();
     var hrg = $('#harga').val();
     var tgl_pelihara = $('#datepicker1').val();
-    var tgl_selesai = $('#datepicker1').val();
+    var tgl_selesai = $('#datepicker2').val();
     var ket = $('#keterangan').val();
     $.ajax({
         url: "ajax.php",
@@ -266,8 +266,8 @@ $('#btnMaintenance').click(function () {
         success: function (result) {
             console.log(result);
             swal({
-                title: "Success!",
-                text: "Closing in 2 seconds.",
+                title: "Sukses",
+                text: "Harap tunggu sejenak.",
                 type: "success",
                 timer: 2000,
                 showConfirmButton: false
@@ -294,8 +294,8 @@ $('#btnDelete').click(function () {
         success: function (result) {
             console.log(result);
             swal({
-                title: "Success!",
-                text: "Closing in 2 seconds.",
+                title: "Sukses",
+                text: "Harap tunggu sejenak.",
                 type: "success",
                 timer: 2000,
                 showConfirmButton: false
@@ -319,8 +319,8 @@ $('.logout').on('click', function (event) {
     }).then((result) => {
         if (result.value) {
             swal({
-                title: "Success!",
-                text: "Redirecting in 2 seconds.",
+                title: "Sukses",
+                text: "Harap tunggu sejenak.",
                 type: "success",
                 timer: 2000,
                 showConfirmButton: false

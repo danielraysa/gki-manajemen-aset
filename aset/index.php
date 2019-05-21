@@ -3,10 +3,10 @@
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
     }
+    setlocale (LC_TIME, 'INDONESIAN');
+    date_default_timezone_set("Asia/Jakarta");
     setlocale(LC_NUMERIC, 'INDONESIA');
-    function asRupiah($value) {
-        return 'Rp. ' . number_format($value);
-    }
+    
     $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
@@ -38,8 +38,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success adding new data. This alert is dismissable.
+        <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+        Berhasil menambahkan data baru.
     </div>
     <?php
     }
@@ -47,8 +47,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success editing data. This alert is dismissable.
+        <h4><i class="icon fa fa-pencil"></i> Sukses!</h4>
+        Berhasil mengubah data.
     </div>
     <?php
     }
@@ -56,8 +56,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success deleting data. This alert is dismissable.
+        <h4><i class="icon fa fa-trash"></i> Sukses!</h4>
+        Berhasil menghapus data.
     </div>
     <?php
     }
@@ -98,7 +98,7 @@
                 <tbody>
                 <?php
                   //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.barang_usulan, b.nama_barang, p.id_barang, p.jumlah, p.harga, p.keterangan_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.hasil_approval = 'Pending' AND p.status_usulan = 'Aktif'");
-                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI");
+                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif'");
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {
                 ?>
@@ -108,13 +108,13 @@
                     <td><?php echo $row['NAMA_ASET']; ?></td>
                     <td><?php echo $row['NAMA_MERK']; ?></td>
                     <td><?php echo str_replace(',','.',asRupiah($row['HARGA_PEMBELIAN'])); ?></td>
-                    <td><?php echo $row['TANGGAL_PEMBELIAN']; ?></td>
+                    <td><?php echo strftime("%d %B %Y", strtotime($row['TANGGAL_PEMBELIAN'])); ?></td>
                     <td><?php echo $row['NAMA_RUANGAN']; ?></td>
                     <td><?php echo $row['NAMA_KOMISI']; ?></td>
                     <td><?php echo $row['MASA_MANFAAT']; ?> tahun</td>
                     <td><?php echo $row['STATUS_ASET']; ?></td>
                     <td>
-                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-edit" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $row['ID_ASET']; ?>"><i class="fa fa-pencil"></i> Edit</button>
                       <!-- <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-trash"></i> Hapus</button> -->
                     </td>
                   </tr>
@@ -153,8 +153,8 @@
                     Hapus item ini?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="delete">Delete</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" name="delete">Hapus</button>
                 </div>
             </div>
         </form>

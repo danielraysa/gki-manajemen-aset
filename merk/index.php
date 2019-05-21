@@ -36,8 +36,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success adding new data. This alert is dismissable.
+        <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+        Berhasil menambahkan data baru.
     </div>
     <?php
     }
@@ -45,8 +45,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success editing data. This alert is dismissable.
+        <h4><i class="icon fa fa-pencil"></i> Sukses!</h4>
+        Berhasil mengubah data.
     </div>
     <?php
     }
@@ -54,8 +54,8 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        Success deleting data. This alert is dismissable.
+        <h4><i class="icon fa fa-trash"></i> Sukses!</h4>
+        Berhasil menghapus data.
     </div>
     <?php
     }
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success btn-block" type="submit" name="add">Add Item</button>
+                    <button class="btn btn-success btn-block" type="submit" name="add">Tambah</button>
                     </form>
                 </div>
             </div>
@@ -157,8 +157,8 @@
                     Hapus item ini?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="delete">Delete</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" name="delete">Hapus</button>
                 </div>
             </div>
         </form>
