@@ -8,7 +8,7 @@
                 <h4 class="modal-title">Penjadwalan Pemeliharaan</h4>
             </div>
             <div class="modal-body">
-                <form action="form-action.php" method="post">
+                <!-- <form action="form-action.php" method="post"> -->
                 <input type="hidden" class="form-control" id="id_aset" name="id">
                 <div class="form-group">
                     <div class="row">
@@ -41,7 +41,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" id="datepicker" name="pemeliharaan">
+                                <input type="text" class="form-control" id="datepicker" name="pemeliharaan"required>
                             </div>
                         </div>
                         <div class="col-xs-3">
@@ -55,25 +55,21 @@
                         </div>
                         <div class="col-xs-4">
                             <label>Pilihan:</label>
-                        <!-- <input class="minimal" type="checkbox" id="check_penjadwalan" name="penjadwalan"> Penjadwalan Berkala -->
-                            <!--     <input class="minimal" type="radio" name="radio_repeat" id="radio_repeat" value="sekali" checked> Sekali
-                                <input class="minimal" type="radio" name="radio_repeat" id="radio_repeat" value="berulang"> Berulang -->
-                                <select class="form-control select2" id="opsi_berkala" name="satuan" style="width: 100%;" required>
-                                    <option value="sekali">Sekali</option>
-                                    <option value="bulan">Tiap Bulan</option>
-                                    <option value="awal_bulan">Tiap Awal Bulan</option>
-                                    <option value="akhir_bulan">Tiap Akhir Bulan</option>
-                                    <option value="tahun">Tiap Tahun</option>
-                                    <option value="custom">Kustom</option>
-                                </select>
-                            
+                            <select class="form-control select2" id="opsi_berkala" name="satuan" style="width: 100%;" required>
+                                <option value="sekali">Sekali</option>
+                                <option value="bulan">Tiap Bulan</option>
+                                <option value="awal_bulan">Tiap Awal Bulan</option>
+                                <option value="akhir_bulan">Tiap Akhir Bulan</option>
+                                <option value="tahun">Tiap Tahun</option>
+                                <option value="custom">Kustom</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div id="custom-box">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-xs-4">
+                            <div class="col-xs-6">
                             <label>Interval/Jarak antar Jadwal:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -82,7 +78,7 @@
                                     <input type="number" class="form-control" id="interval" name="jumlah" placeholder="" required>
                                 </div>
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-6">
                                 <label>Frekuensi:</label>
                                 <select class="form-control select2" id="satuan" name="satuan" style="width: 100%;" required>
                                     <option value="Minggu">Minggu</option>
@@ -90,7 +86,7 @@
                                     <option value="Tahun">Tahun</option>
                                 </select>
                             </div>
-                            <div class="col-xs-5">
+                            <!-- <div class="col-xs-5">
                                 <div class="opsi_bulan">
                                     <label>Pilihan tanggal:</label>
                                     <div class="input-group">
@@ -109,15 +105,15 @@
                                         <input type="text" class="form-control" id="year-picker" name="tgl_pemeliharaan" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-                </form>
+                <!-- </form> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" id="addJadwal" name="add-jadwal" data-dismiss="modal"><i class="fa fa-plus"></i> Add Schedule</button>
+                <button class="btn btn-success pull-right" id="addJadwal" name="add-jadwal" data-dismiss="modal"><i class="fa fa-plus"></i> Jadwalkan</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -135,7 +131,7 @@
                 <h4 class="modal-title">Pemeliharaan Aset</h4>
             </div>
             <div class="modal-body">
-            <form action="form-action.php" method="post">
+            <!-- <form action="form-action.php" method="post"> -->
                 <input type="hidden" class="form-control" id="id_maintenance" name="id">
                 <div class="form-group">
                     <div class="row">
@@ -145,6 +141,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
+                                <input type="hidden" class="form-control" id="id_aset_s">
                                 <input type="text" class="form-control" id="kode_aset_s" name="kode" placeholder="Kode Aset" readonly>
                             </div>  
                         </div>
@@ -215,7 +212,7 @@
                     </div>  
                 </div>
                 
-            </form>
+            <!-- </form> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>

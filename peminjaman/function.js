@@ -1,3 +1,5 @@
+$('.select2').select2();
+//$('.select2-selection').css('border-radius','0px')
 $('#example1').DataTable({
   'paging': true,
   'ordering': true,
@@ -69,6 +71,22 @@ $('#realisasi_pengembalian').datepicker({
   autoclose: true
 });
 
+$('#nohp').keypress(function (e) {
+  //if the letter is not digit then display error and don't type anything
+  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+     //display error message
+    $("#errmsg").html("Input berupa angka").show().fadeOut("slow");
+      return false;
+ }
+});
+function validationMessage() {
+  //var inpObj = document.getElementById("id1");
+  var inpObj = $(this).val();
+  if (!inpObj.checkValidity()) {
+    //document.getElementById("demo").innerHTML = inpObj.validationMessage;
+    alert("data tidak boleh kosong");
+  }
+}
 /* $("#example1").on('click', '#remove', function (e) {
   $(this).parent().parent().remove();
   //console.log(e);
@@ -122,30 +140,62 @@ $('#btnSimpan').click(function () {
   var ket = $('#keterangan').val();
   //alert(peminjam+" / "+komisi+" / "+no_hp);
   //alert(komisi+" / "+no_hp);
-  $.ajax({
-    url: "ajax.php",
-    type: "POST",
-    data: {
-      simpan_pinjam: true,
-      //id_peminjam: peminjam,
-      id_komisi: komisi,
-      no_hp: no_hp,
-      tgl_peminjaman: tgl,
-      keterangan: ket
-    },
-    success: function (result) {
-      console.log(result);
-      swal({
-        title: "Sukses",
-        text: "Harap tunggu sejenak.",
-        type: "success",
-        timer: 2000,
-        showConfirmButton: false
-      }).then(function () {
-        location.reload();
-      });
-    }
-  });
+  if(no_hp == '' || tgl == '' || ket == '') {
+    swal({
+      title: "Peringatan",
+      text: "Data tidak boleh ada yang kosong.",
+      type: "warning",
+      timer: 2000,
+      showConfirmButton: false
+    });
+  }
+  else {
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      data: {
+        simpan_pinjam: true,
+        //id_peminjam: peminjam,
+        id_komisi: komisi,
+        no_hp: no_hp,
+        tgl_peminjaman: tgl,
+        keterangan: ket
+      },
+      success: function (result) {
+        console.log(result);
+        swal({
+          title: "Sukses",
+          text: "Data telah disimpan.",
+          type: "success",
+          timer: 2000,
+          //confirmButtonText: '<a href="print_form.php?print_id='+result+'" target="_blank">Cetak form</a>'
+          showConfirmButton: false
+        }).then(function () {
+          window.location.href = 'print_form.php?print_id='+result; // <- This is what makes it open in a new window.
+          //window.open('print_form.php?print_id='+result,'_blank'); // <- This is what makes it open in a new window.
+          //location.reload();
+        });
+        /* Swal.fire({
+          title: "Sukses",
+          text: "Harap tunggu sejenak.",
+          type: "success",
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success',
+              2000
+            )
+          }
+        }) */
+      }
+    });
+  }
 });
 
 // Modal Detail Pnjam
@@ -237,9 +287,9 @@ $('#btnReject').click(function () {
 });
 
 // Modal Pengembalian
-$('.modalGambar').click(function () {
+/* $('.modalGambar').click(function () {
   $("#gambar").attr("src","../dist/img/avatar2.png");
-});
+}); */
 $('.modalKembali').click(function () {
   var id = $(this).attr('data-id');
   console.log(id);
@@ -265,23 +315,34 @@ $('#btnKembali').click(function () {
   var catat = $('input[name="catatan[]"]').map(function(){return $(this).val();}).get().join("|");
   console.log(id);
   //alert(catat);
-  $.ajax({
-    url: "ajax.php",
-    type: "POST",
-    data: {kembali: id, realisasi_pengembalian: tgl_realisasi, item_detil: detil_item, catatan: catat, keterangan: ket},
-    success: function (result) {
-      console.log(result);
-      swal({
-        title: "Sukses",
-        text: "Harap tunggu sejenak.",
-        type: "success",
-        timer: 2000,
-        showConfirmButton: false
-      }).then(function () {
-        location.reload();
-      });
-    }
-  });
+  if(ket == '' || tgl_realisasi == '') {
+    swal({
+      title: "Peringatan",
+      text: "Data tidak boleh ada yang kosong.",
+      type: "warning",
+      timer: 2000,
+      showConfirmButton: false
+    });
+  }
+  else {
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      data: {kembali: id, realisasi_pengembalian: tgl_realisasi, item_detil: detil_item, catatan: catat, keterangan: ket},
+      success: function (result) {
+        console.log(result);
+        swal({
+          title: "Sukses",
+          text: "Harap tunggu sejenak.",
+          type: "success",
+          timer: 2000,
+          showConfirmButton: false
+        }).then(function () {
+          location.reload();
+        });
+      }
+    });
+  }
 });
 
 //SMS

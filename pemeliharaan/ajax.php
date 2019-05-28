@@ -4,30 +4,6 @@
     date_default_timezone_set("Asia/Jakarta");
     include "../connection.php";
     
-    if (isset($_GET['approve'])) {
-        $id = $_GET['approve'];
-        $query = mysqli_query($koneksi, "UPDATE pengadaan SET hasil_approval = 'Approved' WHERE id_pengadaan = '".$id."'");
-        if(!$query) {
-            echo mysqli_error($koneksi);
-        }
-        else {
-            echo "Success";
-        }
-        //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'jumlah' => $jumlah, 'harga' => $harga, 'keterangan' => $keterangan);
-    }
-    if (isset($_GET['reject'])) {
-        $id = $_GET['reject'];
-        $query = mysqli_query($koneksi, "UPDATE pengadaan SET hasil_approval = 'Rejected' WHERE id_pengadaan = '".$id."'");
-        if(!$query) {
-            echo mysqli_error($koneksi);
-        }
-        else {
-            echo "Success";
-        }
-        //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'jumlah' => $jumlah, 'harga' => $harga, 'keterangan' => $keterangan);
-        
-    }
-    
     if(isset($_POST['id_aset'])) {
         $query = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE ID_ASET = '".$_POST['id_aset']."'");
         $fetch = mysqli_fetch_array($query);
@@ -43,59 +19,20 @@
         $id_aset = $_POST['id_aset'];
         $tgl = $_POST['tgl_pemeliharaan'];
         $notif = $_POST['notifikasi'];
+        $pilihan = $_POST['pilihan'];
         $date = str_replace('/', '-', $tgl);
         echo $date."\n";
         $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
         echo $tgl_awal."\n";
-        $pilihan = $_POST['pilihan'];
+
         $random_id = randomID('pemeliharaan_berkala', 'ID_PENJADWALAN', 10);
-        //$satuan = $_POST['satuan'];
-        /* if($satuan == "Bulan") {
-            $bulan_awal = date('n', $tgl_awal);
-            $bulan_akhir = date('n', $tgl_akhir);
-        } */
-        //$jml = $_POST['jumlah'];
-        //echo $tgl;
-        $date = str_replace('/', '-', $tgl);
-        //echo $date."\n";
-        $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
-        echo $tgl_awal."\n";
-        $tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
-        echo $tgl_akhir."\n";
+        ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Aktif') \n";
+        $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Aktif')");
         
-        $date1=date_create($tgl_awal);
-        $date2=date_create($tgl_akhir);
-        $diff=date_diff($date1, $date2);
-        $range = $diff->format("%a");
-        //echo $diff->format("%R%a days | ");
-        $interval = round($range/$jml);
-        //echo $interval;
-        $newdate = date('Y-m-d', strtotime($tgl_awal. ' +'.$interval.' days'));
-        for($x = 1; $x <= $jml; $x++) {
-            $random_id = randString(10);
-            $is_unique = false;
-            while (!$is_unique) {
-                $select = mysqli_query($koneksi, "SELECT * FROM pemeliharaan_aset WHERE ID_PEMELIHARAAN = '".$random_id."'");
-                if (mysqli_num_rows($select) == 0) {  
-                    // if you don't get a result, then you're good
-                    $is_unique = true;
-                    ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, STATUS_PEMELIHARAAN) VALUES ('".$random_id."','".$id_aset."','".$newdate."','Aktif') \n";
-                    $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, STATUS_PEMELIHARAAN) VALUES ('".$random_id."','".$id_aset."','".$newdate."','Aktif')");
-                    if(!$query) {
-                        $_SESSION['error-msg'] = mysqli_error($koneksi);
-                        echo $_SESSION['error-msg'];
-                        break;
-                    } 
-                }
-                else {
-                    $random_id = randString(10);
-                }
-            }
-            $newdate = date('Y-m-d', strtotime($newdate.' +'.$interval.' days'));
-        }
-        /* $myObj = array('id_aset' => $id, 'kode_aset' => $tgl_awal, 'nama_aset' => $tgl_akhir);
-        $myJSON = json_encode($myObj);
-        echo $myJSON; */
+        $random_id_new = randomID('pemeliharaan_aset', 'ID_PEMELIHARAAN', 10);
+        ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif') \n";
+        $query_new = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif')");
+
     }
 
     if(isset($_POST['add_jadwal'])) {
@@ -108,71 +45,29 @@
         echo $tgl_awal."\n";
         $pilihan = $_POST['pilihan'];
         
-        /* switch ($pilihan) {
-            case "bulan":
-                ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')";
-                $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')");
-                break;
-            case "awal_bulan":
-                ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')";
-                $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')");
-                break;
-            case "akhir_bulan":
-                ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')";
-                $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')");
-                break;
-            case "tahun":
-                ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')";
-                $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')");
-                break;
-            default:
-                echo "Your favorite color is neither red, blue, nor green!";
-        } */
-        //$tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
-        //echo $tgl_akhir."\n";
         if($pilihan != "sekali"){
             $random_id = randomID('pemeliharaan_berkala', 'ID_PENJADWALAN', 10);
-            ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif') \n";
-            $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, KUSTOM, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Tidak','Aktif')");
+            ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Aktif') \n";
+            $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Aktif')");
         }
-        /* $random_id = randString(10);
-        $is_unique = false; */
+        
         $random_id_new = randomID('pemeliharaan_aset', 'ID_PEMELIHARAAN', 10);
         
         ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif') \n";
         $query_new = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif')");
 
-        /* while (!$is_unique) {
-            $select = mysqli_query($koneksi, "SELECT * FROM pemeliharaan_aset WHERE ID_PEMELIHARAAN = '".$random_id."'");
-            if (mysqli_num_rows($select) == 0) {  
-                // if you don't get a result, then you're good
-                $is_unique = true;
-                ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, STATUS_PEMELIHARAAN) VALUES ('".$random_id."','".$id_aset."','".$tgl_awal."','Aktif') \n";
-                $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, STATUS_PEMELIHARAAN) VALUES ('".$random_id."','".$id_aset."','".$tgl_awal."','Aktif')");
-                if(!$query) {
-                    $_SESSION['error-msg'] = mysqli_error($koneksi);
-                    echo $_SESSION['error-msg'];
-                    break;
-                }
-            }
-            else {
-                $random_id = randString(10);
-            }
-        } */
-        /* $myObj = array('id_aset' => $id, 'kode_aset' => $tgl_awal, 'nama_aset' => $tgl_akhir);
-        $myJSON = json_encode($myObj);
-        echo $myJSON; */
     }
     
     if(isset($_POST['id_maint'])) {
         $id = $_POST['id_maint'];
         $query = mysqli_query($koneksi, "SELECT p.ID_PEMELIHARAAN, d.KODE_ASET, d.NAMA_ASET, p.ID_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMELIHARAAN = '".$id."'");
         $fetch = mysqli_fetch_array($query);
+        $aset = $fetch['ID_ASET'];
         $kode = $fetch['KODE_ASET'];
         $nama = $fetch['NAMA_ASET'];
         $tgl = date('d/m/Y', strtotime($fetch['TANGGAL_PENJADWALAN']));
         //$tgl = $fetch['TANGGAL_PENJADWALAN'];
-        $myObj = array('id_maint' => $id, 'kode_aset' => $kode, 'nama_aset' => $nama, 'tgl_jadwal' => $tgl);
+        $myObj = array('id_maint' => $id, 'id_aset' => $aset, 'kode_aset' => $kode, 'nama_aset' => $nama, 'tgl_jadwal' => $tgl);
         //$myObj = array('kode_aset' => $kode, 'nama_aset' => $nama);
         $myJSON = json_encode($myObj);
         echo $myJSON;
@@ -180,6 +75,7 @@
 
     if(isset($_POST['id_maintenance'])) {
         $id_maintenance = $_POST['id_maintenance'];
+        $id_aset = $_POST['id_aset'];
         $tgl = $_POST['tgl_pemeliharaan'];
         $tgl2 = $_POST['tgl_selesai'];
         $date = str_replace('/', '-', $tgl);
@@ -196,8 +92,47 @@
         $query = mysqli_query($koneksi, "UPDATE pemeliharaan_aset SET TANGGAL_PEMELIHARAAN = '".$tgl_pemeliharaan."', SELESAI_PEMELIHARAAN = '".$tgl_selesai."', BIAYA_PEMELIHARAAN = '".$biaya."', HASIL_PEMELIHARAAN = '".$keterangan."', STATUS_PEMELIHARAAN = 'Selesai' WHERE ID_PEMELIHARAAN = '".$id_maintenance."'");
         if(!$query) {
             echo mysqli_error($koneksi);
-        }   
+        }
+
+        //Buat next jadwal pemeliharaan
+        $select = mysqli_query($koneksi, "SELECT * FROM penjadwalan_pemeliharaan WHERE ID_ASET = '".$id_aset."'");
+        $get = mysqli_num_rows($select);
+        if($get = 1){
+            $row = mysqli_fetch_array($select);
+            if($row['PILIHAN'] == 'custom') {
+                $frekuensi = $row['FREKUENSI'];
+                $interval = $row['JARAK_INTERVAL'];
+                if($frekuensi == 'Minggu'){
+                    $day = $interval * 7;
+                    $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +'.$day.' days'));
+                }
+                if($frekuensi == 'Bulan'){
+                    $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +'.$interval.' months'));
+                }
+                if($frekuensi == 'Tahun'){
+                    $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +'.$interval.' years'));
+                }
+            }
+            if($row['PILIHAN'] == 'tahun'){
+                $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 year'));
+            }
+            if($row['PILIHAN'] == 'bulan'){
+                $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
+            }
+            if($row['PILIHAN'] == 'awal_bulan'){
+                $month = date('m',strtotime($tgl_selesai));
+                $new_date = date('Y-'.$month.'-01', strtotime($tgl_selesai. ' +1 month'));
+                //$new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
+            }
+            if($row['PILIHAN'] == 'akhir_bulan'){
+                $new_date = date('Y-m-t', strtotime($tgl_selesai. ' +1 month'));
+            }
+
+            ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$new_date."',".$notif.",'Aktif') \n";
+            $query_new = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$new_date."',".$notif.",'Aktif')");
+        }
     }
+
     if(isset($_POST['id_cancel'])) {
         $id_maintenance = $_POST['id_cancel'];
         
@@ -206,7 +141,47 @@
 
         if(!$query) {
             echo mysqli_error($koneksi);
-        }   
+        }
+        // jadwal berikutnya
+        $select_first = mysqli_query($koneksi, "SELECT * FROM pemeliharaan_aset WHERE ID_PEMELIHARAAN = '".$id_maintenance."'");
+        $fet_first = mysqli_fetch_array($select_first);
+        $tgl_selesai = $fet_first['TANGGAL_PENJADWALAN'];
+        $select = mysqli_query($koneksi, "SELECT * FROM penjadwalan_pemeliharaan WHERE ID_ASET = '".$fet_first['ID_ASET']."'");
+        $get = mysqli_num_rows($select);
+        if($get = 1){
+            $row = mysqli_fetch_array($select);
+            if($row['PILIHAN'] == 'custom') {
+                $frekuensi = $row['FREKUENSI'];
+                $interval = $row['JARAK_INTERVAL'];
+                if($frekuensi == 'Minggu'){
+                    $day = $interval * 7;
+                    $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +'.$day.' days'));
+                }
+                if($frekuensi == 'Bulan'){
+                    $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +'.$interval.' months'));
+                }
+                if($frekuensi == 'Tahun'){
+                    $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +'.$interval.' years'));
+                }
+            }
+            if($row['PILIHAN'] == 'tahun'){
+                $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 year'));
+            }
+            if($row['PILIHAN'] == 'bulan'){
+                $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
+            }
+            if($row['PILIHAN'] == 'awal_bulan'){
+                $month = date('m',strtotime($tgl_selesai));
+                $new_date = date('Y-'.$month.'-01', strtotime($tgl_selesai. ' +1 month'));
+                //$new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
+            }
+            if($row['PILIHAN'] == 'akhir_bulan'){
+                $new_date = date('Y-m-t', strtotime($tgl_selesai. ' +1 month'));
+            }
+
+            ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$new_date."',".$notif.",'Aktif') \n";
+            $query_new = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$new_date."',".$notif.",'Aktif')");
+        }
     }
 
 ?>

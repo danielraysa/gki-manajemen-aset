@@ -54,6 +54,7 @@
               <h3 class="box-title">Data Peminjaman</h3>
             </div>
             <div class="box-body">
+            <!-- <form> -->
             <!-- <form action="form-action.php" method="post"> -->
               <!-- <div class="form-group">
                 <label>Peminjam:</label>
@@ -80,7 +81,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                <select class="form-control select2" id="komisi_peminjam" name="komisi" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <select class="form-control select2" id="komisi_peminjam" name="komisi" style="width: 100%;">
                     <?php
                     $data = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
                     while ($row = mysqli_fetch_array($data)) {
@@ -89,7 +90,7 @@
                     <?php
                     }
                     ?>
-                </select>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -98,8 +99,9 @@
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="number" class="form-control" id="nohp" name="nohp" required/>
+                  <input type="text" class="form-control" id="nohp" name="nohp" required/>
                 </div>
+                <span id="errmsg"></span>
               </div>
               <div class="form-group">
                 <label>Tanggal Pinjam - Kembali:</label>

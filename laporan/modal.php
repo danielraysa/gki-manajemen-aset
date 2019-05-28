@@ -23,6 +23,18 @@
                         <input type="text" class="form-control" id="datepicker1" >
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Jenis Laporan:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <select class="form-control select2" id="jenis_laporan" name="jenis_laporan" style="width: 100%;" required>
+                            <option value="1">Detil</option>
+                            <option value="2">Ringkasan (Summary)</option>
+                        </select>
+                    </div>
+                </div>
                 <!-- <div class="form-group">
                     <label>Pilih Periode:</label>
                     <div class="row">

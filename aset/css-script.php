@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -19,6 +21,7 @@
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
   
   <link rel="stylesheet" href="../plugins/sweetalert2/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="../plugins/iCheck/all.css">
   
   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

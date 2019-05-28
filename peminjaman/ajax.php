@@ -2,7 +2,7 @@
     session_start();
     setlocale (LC_TIME, 'INDONESIAN');
     date_default_timezone_set("Asia/Jakarta");
-    include "../sms-config.php";
+    //include "../sms-config.php";
     include "../connection.php";
 
     include "../vendor/autoload.php";
@@ -108,9 +108,12 @@
             'phoneNumber' => $no_hp, 'message' => 'Pengajuan peminjaman pada '.$date_now.' berhasil disimpan. (NOREPLY)', 'deviceId' => 104188
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
-        if($sentMessages){
+        /* if($sentMessages){
             print_r($sentMessages); 
-        }
+        } */
+        // buat print
+        //$_SESSION['print_id'] = $random_id;
+        echo $random_id;
     }
 
     if (isset($_POST['usulan_pinjam'])) {

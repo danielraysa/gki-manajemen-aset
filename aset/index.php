@@ -114,8 +114,8 @@
                     <td><?php echo $row['MASA_MANFAAT']; ?> tahun</td>
                     <td><?php echo $row['STATUS_ASET']; ?></td>
                     <td>
-                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $row['ID_ASET']; ?>"><i class="fa fa-pencil"></i> Edit</button>
-                      <!-- <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-trash"></i> Hapus</button> -->
+                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['ID_ASET']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+                      <!-- <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" data-id="<?php  ?>"><i class="fa fa-trash"></i> Hapus</button>  -->
                     </td>
                   </tr>
                 <?php
@@ -134,8 +134,8 @@
       </div>
       <!-- /.row -->
       <!-- Modal -->
-      <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
+      <div class="modal fade" id="modal-test">
+        <div class="modal-dialog modal-lg">
             <?php include "modal-update.php"; ?>
         </div>
       </div>

@@ -39,6 +39,11 @@
         return $tgl;
     }
 
+    function tglIndo_day($date) {
+        $tgl = strftime("%A, %d %B %Y", strtotime($date));
+        return $tgl;
+    }
+
     function tglIndo_full($date) {
         $tgl = strftime("%d %B %Y %H:%M:%S", strtotime($date));
         return $tgl;

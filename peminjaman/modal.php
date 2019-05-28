@@ -146,7 +146,6 @@
             </div>
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
-
                 <div class="form-group">
                     <label>ID Peminjaman:</label>
                     <div class="input-group">

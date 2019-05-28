@@ -94,11 +94,18 @@ $('#opsi_berkala').on('change', function(){
     if (opt == "custom") {
         $('#custom-box').show();
     }
+    else if (opt == "awal_bulan" || opt == "akhir_bulan") {
+        $('#custom-box').hide();
+        $('#datepicker').val('');
+        $('#datepicker').prop('readonly', true);
+    }
     else {
         $('#custom-box').hide();
+        $('#datepicker').prop('readonly', false);
     }
 });
-$('#satuan').on('change', function(){
+
+/* $('#satuan').on('change', function(){
     var sat = $('#satuan').val();
     if (sat == "Bulan") {
         $('.opsi_bulan').show();
@@ -112,7 +119,7 @@ $('#satuan').on('change', function(){
         $('.opsi_bulan').hide();
         $('.opsi_tahun').hide();
     }
-});
+}); */
 
 // Inputmask
 $('#currency').inputmask("numeric", {
@@ -178,11 +185,9 @@ $('#addJadwal').click(function () {
     var tgl = $('#datepicker').val();
     var opsi = $('#opsi_berkala').val();
     var notif = $('#notif').val();
-    //var opsi_pilihan = $('#multidate').val();
-    //var pilihan_bln = $('#year-picker').val();
     var frekuensi = $('#satuan').val();
     var interv = $('#interval').val();
-    if(satuan == "Bulan") {
+    /* if(satuan == "Bulan") {
         var opsi_pilihan = $('#multidate').val();
     }
     else if(satuan == "Tahun") {
@@ -190,47 +195,59 @@ $('#addJadwal').click(function () {
     }
     else {
         var opsi_pilihan = "minggu";
-    }
-    location.reload();
+    } */
+    //location.reload();
     //alert(pilihan_tgl);
-    if(opsi!="custom"){
-        $.ajax({
-            url: "ajax.php",
-            type: "POST",
-            //data: {jadwal_periodik: true, id_aset: id, masa_pemeliharaan: periode, jumlah: jml},
-            data: {add_jadwal: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, pilihan: opsi},
-            success: function (result) {
-                console.log(result);
-                swal({
-                    title: "Sukses",
-                    text: "Harap tunggu sejenak.",
-                    type: "success",
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(function () {
-                    location.reload();
-                });
-            }
+    if(opsi != '' || notif != '' || tgl != '') {
+        swal({
+          title: "Peringatan",
+          text: "Data tidak boleh ada yang kosong.",
+          type: "warning",
+          timer: 2000,
+          showConfirmButton: false
         });
     }
     else {
-        $.ajax({
-            url: "ajax.php",
-            type: "POST",
-            data: {jadwal_custom: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, interval: interv, satuan: frekuensi, pilihan_tgl: opsi_pilihan},
-            success: function (result) {
-                console.log(result);
-                swal({
-                    title: "Sukses",
-                    text: "Harap tunggu sejenak.",
-                    type: "success",
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(function () {
-                    location.reload();
-                });
-            }
-        });
+        if(opsi!="custom"){
+            $.ajax({
+                url: "ajax.php",
+                type: "POST",
+                //data: {jadwal_periodik: true, id_aset: id, masa_pemeliharaan: periode, jumlah: jml},
+                data: {add_jadwal: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, pilihan: opsi},
+                success: function (result) {
+                    console.log(result);
+                    swal({
+                        title: "Sukses",
+                        text: "Harap tunggu sejenak.",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(function () {
+                        location.reload();
+                    });
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: "ajax.php",
+                type: "POST",
+                data: {jadwal_custom: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, interval: interv, satuan: frekuensi},
+                //data: {jadwal_custom: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, interval: interv, satuan: frekuensi, pilihan_tgl: opsi_pilihan},
+                success: function (result) {
+                    console.log(result);
+                    swal({
+                        title: "Sukses",
+                        text: "Harap tunggu sejenak.",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(function () {
+                        location.reload();
+                    });
+                }
+            });
+        }
     }
 });
 
@@ -247,6 +264,7 @@ $('.modalMaintenance').click(function () {
         success: function (result) {
             console.log(result);
             var data = JSON.parse(result);
+            $('#id_aset_s').val(data.id_aset);
             $('#kode_aset_s').val(data.kode_aset);
             $('#nama_aset_s').val(data.nama_aset);
             $('#datepicker_read').val(data.tgl_jadwal);
@@ -255,27 +273,39 @@ $('.modalMaintenance').click(function () {
 });
 $('#btnMaintenance').click(function () {
     var id = $('#id_maintenance').val();
+    var aset = $('#id_aset_s').val();
     var hrg = $('#harga').val();
     var tgl_pelihara = $('#datepicker1').val();
     var tgl_selesai = $('#datepicker2').val();
     var ket = $('#keterangan').val();
-    $.ajax({
-        url: "ajax.php",
-        type: "POST",
-        data: {id_maintenance: id, biaya: hrg, tgl_pemeliharaan: tgl_pelihara, tgl_selesai: tgl_selesai, keterangan: ket},
-        success: function (result) {
-            console.log(result);
-            swal({
-                title: "Sukses",
-                text: "Harap tunggu sejenak.",
-                type: "success",
-                timer: 2000,
-                showConfirmButton: false
-            }).then(function () {
-                location.reload();
-            });
-        }
-    });
+    if(hrg != '' || tgl_pelihara != '' || tgl_selesai != '' || ket != '') {
+        swal({
+          title: "Peringatan",
+          text: "Data tidak boleh ada yang kosong.",
+          type: "warning",
+          timer: 2000,
+          showConfirmButton: false
+        });
+    }
+    else {
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: {id_maintenance: id, id_aset: aset, biaya: hrg, tgl_pemeliharaan: tgl_pelihara, tgl_selesai: tgl_selesai, keterangan: ket},
+            success: function (result) {
+                console.log(result);
+                swal({
+                    title: "Sukses",
+                    text: "Harap tunggu sejenak.",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload();
+                });
+            }
+        });
+    }
 });
 
 // Modal Delete

@@ -16,6 +16,8 @@
 <script src="../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <!-- SweetAlert2 -->
 <script src="../plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->

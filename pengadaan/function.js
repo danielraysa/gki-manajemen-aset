@@ -365,23 +365,6 @@ $(document).ready(function() {
                 $('#example4').dataTable().fnClearTable();
                 //$('#example4').dataTable().fnDestroy();
                 table4.rows.add(data).draw();
-                /* $('#example4').DataTable({
-                    'paging': true,
-                    'lengthChange': false,
-                    'searching': false,
-                    'ordering': true,
-                    'info': true,
-                    'autoWidth': true,
-                    'responsive': true,
-                    'pageLength': 5,
-                    'data': data,
-                    'columns': [
-                        { "data": "engine" },
-                        { "data": "browser" },
-                        { "data": "platform" },
-                        { "data": "grade" }
-                    ]
-                }); */
             }
         });
     });
@@ -418,10 +401,12 @@ $(document).ready(function() {
     $('#check_jml').on('ifChecked', function(event){
         //alert(event.type + ' callback');
         $('#jumlah_aset').prop("disabled", false);
-        
+        $('#nomor_aset').val('');
+        $('#nomor_aset').prop("readonly", true);
     });
     $('#check_jml').on('ifUnchecked', function(event){
         $('#jumlah_aset').prop("disabled", true);
+        $('#nomor_aset').prop("readonly", false);
     });
     $('#penyusutan').on('ifChecked', function(event){
         $('#currency').prop("disabled", false);
@@ -485,7 +470,7 @@ $(document).ready(function() {
 
     $("#imgInp").change(function(){
         var input = $(this),
-			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.trigger('fileselect', [label]);
         //alert(label)
         readURL(this);

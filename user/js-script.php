@@ -12,6 +12,8 @@
 <script src="../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- SweetAlert2 -->
 <script src="../plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -42,8 +44,10 @@
       'autoWidth'   : false
     })
   })
-</script>
-<script>
+  
+  $('#hak_akses').select2({
+    minimumResultsForSearch: -1
+  });
 	$('.modalLink').click(function(){
 		var id = $(this).attr('data-id');
 		console.log(id);

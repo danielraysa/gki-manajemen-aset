@@ -63,7 +63,6 @@
                                         <th>Keterangan</th>
                                         <th>Barang Usulan</th>
                                         <th>Tanggal Ditambahkan</th>
-                                        
                                         <th>Status Usulan</th>
                                         <th>Action</th>
                                     </tr>
@@ -79,7 +78,7 @@
                                         <td><?php echo $a; ?></td>
                                         <td><?php echo $row['keterangan_usulan']; ?></td>
                                         <td><button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-square-o"></i> Detail</button></td>
-                                        <td><?php echo $row['tanggal_usulan']; ?></td>
+                                        <td><?php echo tglIndo_full($row['tanggal_usulan']); ?></td>
                                         <td>
                                             <?php
                                                 if($row['hasil_approval'] == "Diterima") {

@@ -71,7 +71,7 @@
                                 <tbody>
                                     <?php
                                         $date = date('Y-m-d');
-                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.hasil_pengajuan = 'Pending' AND p.tanggal_peminjaman >= NOW()");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.hasil_pengajuan = 'Pending' AND p.tanggal_peminjaman >= CURDATE()");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
@@ -179,6 +179,7 @@
                                             ?>
                                         </td>
                                         <td>
+                                            <!-- <a target="_blank" class="btn btn-primary modalDetail" href="testprint.php?print_id=<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Print</a> -->
                                             <button class="btn btn-primary modalPinjam" data-toggle="modal" data-target="#modal-pinjam" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button>
                                             <button class="btn btn-success modalKembali" data-toggle="modal" data-target="#modal-pengembalian" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Pengembalian</button>
                                             <!-- <button class="btn btn-success modalGambar" data-toggle="modal" data-target="#modal-gambar" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Gambar</button> -->
@@ -193,6 +194,7 @@
                                         </td>
                                     </tr>
                                     <?php
+                                        $a++;
                                         }
                                     ?>
                                 </tbody>

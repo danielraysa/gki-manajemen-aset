@@ -1,5 +1,5 @@
-    <form action="form-action.php" method="post">
-        <div class="modal-content modal-lg">
+    <form action="form-action.php" method="post" enctype="multipart/form-data">
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
@@ -13,7 +13,6 @@
                             <h3 class="box-title">Penamaan Aset</h3>
                         </div>
                         <div class="box-body">
-                            <input type="hidden" class="form-control" id="id_aset" name="id_usulan" readonly/>
                             <div class="form-group">
                                 <label>Kode Aset:</label>
                                 <div class="input-group">
@@ -30,15 +29,6 @@
                                         <i class="fa fa-laptop"></i>
                                     </div>
                                     <input type="text" class="form-control" id="nama_aset" name="nama" placeholder="Nama Aset" required>
-                                </div>  
-                            </div>
-                            <div class="form-group">
-                                <label>Nomor Aset:</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
-                                    </div>
-                                    <input type="text" class="form-control" id="nomor_aset" name="nomor" placeholder="Nomor Aset" required>
                                 </div>  
                             </div>
                             
@@ -60,6 +50,10 @@
                                 </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Gambar:</label>
+                                <img id="gambar_aset" src="" class="img-responsive" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,27 +63,6 @@
                             <h3 class="box-title">Keterangan Aset</h3>
                         </div>
                         <div class="box-body">
-                            <div class="form-group">
-                                <label>Barang:</label>
-                                <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-laptop"></i>
-                                </div>
-                                <select class="form-control select2" id="barang_aset" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                    <?php
-                                    $data = mysqli_query($koneksi, "SELECT b.ID_BARANG, k.KODE_KATEGORI, b.NAMA_BARANG FROM barang b JOIN kategori k ON b.ID_KATEGORI = k.ID_KATEGORI");
-                                    while ($row = mysqli_fetch_array($data)) {
-                                    ?>
-                                    <option value="<?php echo $row['ID_BARANG']; ?>" data-item="<?php echo $row['KODE_KATEGORI']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                                <!-- <div class="input-group-btn">
-                                    <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Tambah</button>
-                                </div> -->
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label>Merk:</label>
                                 <div class="input-group">
@@ -106,9 +79,9 @@
                                     }
                                     ?>
                                 </select>
-                                <div class="input-group-btn">
-                                    <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-merk">Add</button>
-                                </div>
+                                <!-- <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-merk"><i class="fa fa-plus"></i></button>
+                                </div> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -136,9 +109,9 @@
                                     }
                                     ?>
                                 </select>
-                                <div class="input-group-btn">
-                                    <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ruangan">Add</button>
-                                </div>
+                                <!-- <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
+                                </div> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -157,19 +130,19 @@
                                     }
                                     ?>
                                 </select>
-                                <div class="input-group-btn">
-                                    <i class="fa fa-plus"></i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-komisi">Add</button>
-                                </div>
+                                <!-- <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-komisi"><i class="fa fa-plus"></i></button>
+                                </div> -->
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input class="minimal" type="checkbox" name="pinjam" checked> Dapat dipinjam
+                                <input class="minimal" id="checkbox_pinjam" type="checkbox" name="pinjam" checked> Dapat dipinjam
                             </div>
                             <div class="form-group">
                                 <label>Upload Gambar:</label>
                                 <img id="img-upload" class="img-responsive" />  
                                 <div class="btn btn-default btn-file btn-block">
-                                    Browse… <input type="file" id="imgInp" accept="image/*">
+                                    Browse… <input type="file" id="imgInp" name="foto" accept="image/*">
                                 </div>
                             </div>
                             
@@ -180,7 +153,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" name="edit">Simpan</button>
+                <button type="submit" class="btn btn-primary" id="btnEdit" name="edit">Simpan</button>
             </div>
         </div>
     </form>
