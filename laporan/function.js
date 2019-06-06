@@ -1,3 +1,11 @@
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 // Select2
 $('.select2').select2();
 
@@ -18,6 +26,18 @@ $('#example2').DataTable({
     'responsive': true,
     'pageLength': 5,
     "scrollX": true
+});
+
+var ringkas = $('#ringkas').DataTable({
+    'retrieve': true,
+    'paging': false,
+    'lengthChange': false,
+    'searching': false,
+    'ordering': true,
+    //'info': true,
+    'autoWidth': true,
+    'responsive': true
+    //'pageLength': 5
 });
 
 // datepicker
@@ -110,6 +130,7 @@ $('#harga').inputmask("numeric", {
     }
 });
 
+$('#summary').hide();
 // Modal Filter
 $('.Filter').click(function () {
     var id = $(this).attr('data-id');
@@ -120,18 +141,85 @@ $('#btnFilter').click(function () {
     var id = $('#id_filter').val();
     var tgl_awal = $('#datepicker').val();
     var tgl_akhir = $('#datepicker1').val();
+    var jenis = $("input[name='radio_jenis']:checked").val();
     console.log(id);
-    $.ajax({
-        url: "ajax.php",
-        type: "POST",
-        data: {filter: id, tgl_awal: tgl_awal, tgl_akhir: tgl_akhir},
-        success: function (result) {
-            console.log(result);
-            var data = JSON.parse(result);
-            $('#example1').dataTable().fnClearTable();
-            tabel.rows.add(data).draw();
+    //alert(jenis);
+    if(tgl_awal == '' || tgl_akhir == '' || jenis == '') {
+        swal({
+          title: "Peringatan",
+          text: "Data tidak boleh ada yang kosong.",
+          type: "warning",
+          timer: 2000,
+          showConfirmButton: false
+        });
+    }
+      else {
+        if(jenis == 'detil'){
+            $.ajax({
+                url: "ajax.php",
+                type: "POST",
+                data: {filter: id, tgl_awal: tgl_awal, tgl_akhir: tgl_akhir, jenis_laporan: jenis},
+                success: function (result) {
+                    console.log(result);
+                    var data = JSON.parse(result);
+                    $('#example1').dataTable().fnClearTable();
+                    tabel.rows.add(data).draw();
+                    $('#detil').show();
+                    $('#summary').hide();
+                }
+            });
         }
-    });
+        else {
+            $.ajax({
+                url: "ajax.php",
+                type: "POST",
+                data: {filter: id, tgl_awal: tgl_awal, tgl_akhir: tgl_akhir, jenis_laporan: jenis},
+                success: function (result) {
+                    console.log(result);
+                    var data = JSON.parse(result);
+                    $('#ringkas').dataTable().fnClearTable();
+                    ringkas.rows.add(data).draw();
+                }
+            });
+            $.ajax({
+                url: "ajax-graph.php",
+                type: "POST",
+                data: {filter: id, tgl_awal: tgl_awal, tgl_akhir: tgl_akhir, jenis_laporan: jenis},
+                success: function (result) {
+                    console.log(result);
+                    var data = JSON.parse(result);
+                    
+                    var ruang = [];
+                    var jumlahdata = [];
+                    var warna = [];
+                    //alert(data.grafik);
+                    for(var i in data) {
+                        ruang.push(data[i].aset);
+                        jumlahdata.push(data[i].jumlah);
+                        warna.push(getRandomColor());
+                    }
+                    var ctx = document.getElementById("myChartA");
+                    var barGraph = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ruang,
+                            datasets: [{
+                                label: 'Jumlah Pemeliharaan',
+                                data: jumlahdata,
+                                backgroundColor: warna
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                }
+            });
+            $('#summary').show();
+            $('#detil').hide();
+        }
+    }
 });
 
 // Logout

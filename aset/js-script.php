@@ -73,7 +73,8 @@
       readURL(this);
   });
 
-	$('.modalLink').click(function(){
+  // update datatable second page
+	$('#example1').on('click','.modalLink', function(){
 		var id = $(this).attr('data-id');
     console.log(id);
     $('#id_aset').val(id);

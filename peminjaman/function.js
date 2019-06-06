@@ -171,28 +171,11 @@ $('#btnSimpan').click(function () {
           //confirmButtonText: '<a href="print_form.php?print_id='+result+'" target="_blank">Cetak form</a>'
           showConfirmButton: false
         }).then(function () {
-          window.location.href = 'print_form.php?print_id='+result; // <- This is what makes it open in a new window.
+          //window.location.href = 'print_form.php'; 
           //window.open('print_form.php?print_id='+result,'_blank'); // <- This is what makes it open in a new window.
-          //location.reload();
+          window.open('print_form.php','_blank');
+          location.reload();
         });
-        /* Swal.fire({
-          title: "Sukses",
-          text: "Harap tunggu sejenak.",
-          type: "success",
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.value) {
-            Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success',
-              2000
-            )
-          }
-        }) */
       }
     });
   }
@@ -355,7 +338,7 @@ $('.btnSms').click(function () {
     success: function (result) {
       console.log(result);
       swal({
-        title: "Success!",
+        title: "Sukses!",
         text: "Berhasil mengirim pesan.",
         type: "success",
         timer: 2000,

@@ -51,7 +51,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <select class="form-control" id="hak_akses" name="hak_akses">
+                            <select class="form-control" id="hak_akses_up" name="hak_akses">
                                 <!-- <option value="Administrator">Administrator</option> -->
                                 <option value="Ketua MJ">Ketua MJ</option>
                                 <option value="Anggota MJ">Anggota MJ</option>

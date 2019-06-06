@@ -20,11 +20,10 @@
 <script src="../dist/js/demo.js"></script>
 <!-- page script -->
 <script>
-  $(document).ready(function() {
+  //$(document).ready(function() {
     $('.select-box').select2();
-});
-</script>
-<script>
+    $('#kategori').select2();
+//});
   $(function () {
     $('#example1').DataTable({
     'autoWidth': true,
@@ -65,6 +64,7 @@
         $('#id_barang').val(data.id);
         $('#nama').val(data.nama);
         $('#kategori').val(data.kategori);
+        $("#kategori").select2("destroy").select2();
         $('#merk').val(data.merk);
         $('#serimodel').val(data.serimodel);
 			}

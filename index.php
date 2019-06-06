@@ -131,25 +131,18 @@
                     <div class="box-body">
                         <canvas id="myChart" height="400px"></canvas>
                     </div>
-                    <!-- /.box-body -->
                 </div>
             </div>
-            <!-- /.col -->
             <div class="col-lg-6 col-md-12 col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-                    <form method="post" action="action.php">
                         <h3 class="box-title">Jumlah Aset Tiap Komisi Jemaat</h3>
-                    </form>
                     </div>
-                    <!-- /.box-header -->
                     <div class="box-body">
                         <canvas id="myChartA" height="400px"></canvas>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
-                </div>
+            </div>
         </div>
         <?php 
         }
@@ -248,25 +241,18 @@
                     <div class="box-body">
                         <canvas id="myChart" height="400px"></canvas>
                     </div>
-                    <!-- /.box-body -->
                 </div>
             </div>
-            <!-- /.col -->
             <div class="col-lg-6 col-md-12 col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-                    <form method="post" action="action.php">
                         <h3 class="box-title">Jumlah Aset Tiap Komisi Jemaat</h3>
-                    </form>
                     </div>
-                    <!-- /.box-header -->
                     <div class="box-body">
                         <canvas id="myChartA" height="400px"></canvas>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
-                </div>
+            </div>
         </div>
         
         <?php 

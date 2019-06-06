@@ -163,7 +163,7 @@ $('#txt_harga').inputmask("numeric", {
     $('#custom-box').hide();
 }); */
 // Modal Jadwal
-$('.modalJadwal').click(function () {
+$('#example1').on('click', '.modalJadwal', function () {
     var id = $(this).attr('data-id');
     console.log(id);
     $("#id_aset").val(id);
@@ -198,7 +198,7 @@ $('#addJadwal').click(function () {
     } */
     //location.reload();
     //alert(pilihan_tgl);
-    if(opsi != '' || notif != '' || tgl != '') {
+    if(opsi == '' || notif == '' || tgl == '') {
         swal({
           title: "Peringatan",
           text: "Data tidak boleh ada yang kosong.",
@@ -208,7 +208,7 @@ $('#addJadwal').click(function () {
         });
     }
     else {
-        if(opsi!="custom"){
+        if(opsi!= "custom"){
             $.ajax({
                 url: "ajax.php",
                 type: "POST",
@@ -232,8 +232,7 @@ $('#addJadwal').click(function () {
             $.ajax({
                 url: "ajax.php",
                 type: "POST",
-                data: {jadwal_custom: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, interval: interv, satuan: frekuensi},
-                //data: {jadwal_custom: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, interval: interv, satuan: frekuensi, pilihan_tgl: opsi_pilihan},
+                data: {jadwal_custom: true, id_aset: id, tgl_pemeliharaan: tgl, notifikasi: notif, pilihan: opsi, interval: interv, satuan: frekuensi},
                 success: function (result) {
                     console.log(result);
                     swal({
@@ -252,7 +251,7 @@ $('#addJadwal').click(function () {
 });
 
 // Modal Maintenance
-$('.modalMaintenance').click(function () {
+$('.modalMaintenance').on('click', function () {
     var id = $(this).attr('data-id');
     //var ids = $(this).attr('data-ids');
     console.log(id);
@@ -278,7 +277,7 @@ $('#btnMaintenance').click(function () {
     var tgl_pelihara = $('#datepicker1').val();
     var tgl_selesai = $('#datepicker2').val();
     var ket = $('#keterangan').val();
-    if(hrg != '' || tgl_pelihara != '' || tgl_selesai != '' || ket != '') {
+    if(hrg == '' || tgl_pelihara == '' || tgl_selesai == '' || ket == '') {
         swal({
           title: "Peringatan",
           text: "Data tidak boleh ada yang kosong.",

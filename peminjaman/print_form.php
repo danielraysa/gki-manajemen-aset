@@ -2,7 +2,7 @@
 session_start();
 setlocale (LC_TIME, 'INDONESIAN');
 date_default_timezone_set("Asia/Jakarta");
-$id =$_GET['print_id'];
+$id = $_SESSION['print_id'];
 use setasign\Fpdi\Fpdi;
 use setasign\fpdf;
 //require_once('../module/TCPDF-master/tcpdf.php');

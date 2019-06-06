@@ -92,7 +92,8 @@
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
                   $date = date('Y-m-d');
-                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET)");
+                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET) AND p.ID_ASET IN (SELECT ID_ASET FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET ORDER BY TANGGAL_PENJADWALAN)");
+                  //$query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET)");
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>

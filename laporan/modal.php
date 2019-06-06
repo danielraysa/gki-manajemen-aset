@@ -1,6 +1,6 @@
 <!-- Modal Filter -->
 <div class="modal fade" id="modal-filter">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,8 +24,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Jenis Laporan:</label>
-                    <div class="input-group">
+                    <label>Jenis Laporan:</label> &nbsp;
+                    <input class="minimal" type="radio" name="radio_jenis" value="detil" checked> Detil &nbsp;
+                    <input class="minimal" type="radio" name="radio_jenis" value="ringkasan"> Ringkasan
+                    <!-- <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
@@ -33,7 +35,7 @@
                             <option value="1">Detil</option>
                             <option value="2">Ringkasan (Summary)</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- <div class="form-group">
                     <label>Pilih Periode:</label>
@@ -76,7 +78,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-filter">
+<div class="modal fade" id="modal-filter-lama">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">

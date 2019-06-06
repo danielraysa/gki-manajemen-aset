@@ -26,6 +26,7 @@
 <script src="../dist/js/demo.js"></script>
 <!-- page script -->
 <script src="../plugins/iCheck/icheck.min.js"></script>
+<script src="../bower_components/chart.js/Chart-2.8.0.js"></script>
 <script>
   $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
     checkboxClass: 'icheckbox_minimal-green',

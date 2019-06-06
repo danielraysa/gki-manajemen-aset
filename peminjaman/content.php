@@ -14,7 +14,7 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Success!</h4>
+        <h4><i class="icon fa fa-check"></i> Sukses!</h4>
         <?php echo $_SESSION['success-msg']; ?>
     </div>
     <?php
@@ -32,7 +32,7 @@
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-trash"></i> Alert!</h4>
+        <h4><i class="icon fa fa-trash"></i> Sukses!</h4>
        <?php echo $_SESSION['success-msg']; ?>
     </div>
     <?php
@@ -114,7 +114,7 @@
                 <!-- /.input group -->
               </div>
               <div class="form-group">
-                <label>Keterangan Peminjaman:</label>
+                <label>Keterangan Peminjaman/Penggunaan:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>

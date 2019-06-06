@@ -48,6 +48,9 @@
   $('#hak_akses').select2({
     minimumResultsForSearch: -1
   });
+  $('#hak_akses_up').select2({
+    minimumResultsForSearch: -1
+  });
 	$('.modalLink').click(function(){
 		var id = $(this).attr('data-id');
 		console.log(id);
@@ -63,7 +66,7 @@
         $('#nama').val(data.nama);
         $('#username').val(data.username);
         $('#password').val(data.password);
-        $('#hak_akses').val(data.role);
+        $('#hak_akses_up').val(data.role);
         $('#keterangan').val(data.keterangan);
 			}
 		});

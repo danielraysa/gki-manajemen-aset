@@ -112,7 +112,7 @@
             print_r($sentMessages); 
         } */
         // buat print
-        //$_SESSION['print_id'] = $random_id;
+        $_SESSION['print_id'] = $random_id;
         echo $random_id;
     }
 

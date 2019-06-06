@@ -22,7 +22,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
                         </div>
-                        <select class="form-control select-box" id="kategori" name="kategori" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                        <select class="form-control" id="kategori" name="kategori" style="width: 100%;" tabindex="-1" aria-hidden="true">
                             <?php
                                 $query = mysqli_query($koneksi, "SELECT * FROM kategori");
                                 while ($row = mysqli_fetch_array($query)) {
