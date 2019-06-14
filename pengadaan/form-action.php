@@ -65,6 +65,10 @@
             $nama = $_POST['nama'];
         }
         $barang = $_POST['barang'];
+        $barang_backup = $_POST['barang_backup'];
+        if($barang_backup != $barang) {
+            $barang = $barang_backup;
+        }
         //$nama_barang = $_POST['nama_barang'];
         //if($nama_barang == "") {
         $query = mysqli_query($koneksi, "SELECT * FROM barang WHERE ID_BARANG = '".$barang."'");  

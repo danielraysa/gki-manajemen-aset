@@ -58,7 +58,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title">Data Usulan yang Diajukan</h3>
+              <h3 class="box-title">Daftar Aset yang Dihapus</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -79,8 +79,8 @@
                 $id = $_GET['id'];
                 $_SESSION['penghapusan_aset'] = $id;
                 $a = 1;
-                $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET JOIN detil_usulan_penghapusan dp ON dp.ID_ASET = d.ID_ASET WHERE dp.ID_PENGHAPUSAN = '".$id."'");
-                //$query = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE ID_ASET = '".$id."'"); 
+                //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET JOIN detil_usulan_penghapusan dp ON dp.ID_ASET = d.ID_ASET WHERE dp.ID_PENGHAPUSAN = '".$id."'");
+                $query = mysqli_query($koneksi,"SELECT dp.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, (SELECT COUNT(ID_ASET) FROM pemeliharaan_aset WHERE ID_ASET = dp.ID_ASET AND STATUS_PEMELIHARAAN = 'Selesai') as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM detil_usulan_penghapusan dp JOIN daftar_aset d ON dp.ID_ASET = d.ID_ASET WHERE dp.ID_PENGHAPUSAN = '".$id."'");
                 while($row = mysqli_fetch_array($query)){
                     $id_aset = $row['ID_ASET'];
                     $nama_aset = $row['NAMA_ASET'];

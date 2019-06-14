@@ -54,7 +54,7 @@
               <h3 class="box-title">Tambah Usulan Pengadaan</h3>
             </div>
             <div class="box-body">
-            <form action="form-action.php" method="post">
+            <form action="form-action.php" id="form_add" method="post">
               <div class="form-group">
                 <label>Usulan Aset:</label>
                 <div class="input-group">
@@ -72,6 +72,7 @@
                       }
                     ?>
                   </select>
+                  <input type="hidden" name="barang_backup" id="barang_backup"/>
                 </div>
               </div>
               <div class="form-group">
@@ -114,7 +115,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-money"></i>
                     </div>
-                    <input type="text" class="form-control" id="currency" name="harga" placeholder="Harga per item">
+                    <input type="text" class="form-control" id="currency" name="harga" placeholder="Harga per item" required>
                     <input type="hidden" name="rupiah" id="rupiah" />
                 </div>  
               </div>

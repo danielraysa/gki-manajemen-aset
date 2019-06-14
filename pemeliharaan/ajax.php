@@ -51,6 +51,15 @@
             $random_id = randomID('pemeliharaan_berkala', 'ID_PENJADWALAN', 10);
             ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Aktif') \n";
             $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','Aktif')");
+            if($pilihan == 'awal_bulan'){
+                $tgl_temp = date('Y-m-d');
+                $month = date('Y-m',strtotime($tgl_temp. ' +1 month'));
+                $tgl_awal = date($month.'-01');
+            }
+            if($pilihan == 'akhir_bulan'){
+                $tgl_temp = date('Y-m-d');
+                $tgl_awal = date('Y-m-t', strtotime($tgl_temp. ' +1 month'));
+            }
         }
         
         $random_id_new = randomID('pemeliharaan_aset', 'ID_PEMELIHARAAN', 10);
@@ -90,7 +99,7 @@
         $def = str_replace('.', '', $abc);
         $biaya = str_replace('Rp', '', $def);
         $keterangan = $_POST['keterangan'];
-        //echo "UPDATE pemeliharaan_aset SET TANGGAL_PEMELIHARAAN = '".$tgl_pemeliharaan."', BIAYA_PEMELIHARAAN = '".$biaya."', HASIL_PEMELIHARAAN = '".$keterangan."' WHERE ID_PEMELIHARAAN = '".$id_maintenance."'";
+        
         $query = mysqli_query($koneksi, "UPDATE pemeliharaan_aset SET TANGGAL_PEMELIHARAAN = '".$tgl_pemeliharaan."', SELESAI_PEMELIHARAAN = '".$tgl_selesai."', BIAYA_PEMELIHARAAN = '".$biaya."', HASIL_PEMELIHARAAN = '".$keterangan."', STATUS_PEMELIHARAAN = 'Selesai' WHERE ID_PEMELIHARAAN = '".$id_maintenance."'");
         if(!$query) {
             echo mysqli_error($koneksi);
@@ -180,9 +189,8 @@
                 $new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
             }
             if($row['PILIHAN'] == 'awal_bulan'){
-                $month = date('m',strtotime($tgl_selesai));
-                $new_date = date('Y-'.$month.'-01', strtotime($tgl_selesai. ' +1 month'));
-                //$new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
+                $month = date('Y-m',strtotime($tgl_selesai. ' +1 month'));
+                $new_date = date($month.'-01');
             }
             if($row['PILIHAN'] == 'akhir_bulan'){
                 $new_date = date('Y-m-t', strtotime($tgl_selesai. ' +1 month'));

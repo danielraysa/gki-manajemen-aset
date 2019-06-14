@@ -231,12 +231,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Delete Item</h4>
+                <h4 class="modal-title">Batalkan Jadwal</h4>
             </div>
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_delete" name="id"/>
-                Batalkan dan hapus jadwal?
+                Batalkan dan hapus jadwal pemeliharaan aset ini?
                 <!-- </form> -->
             </div>
             <div class="modal-footer">

@@ -161,7 +161,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar-check-o"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="tgl_pengembalian" name="tgl_pengembalian" placeholder="Tanggal pengembalian" required>
+                        <input type="text" class="form-control" id="tgl_pengembalian" name="tgl_pengembalian" placeholder="Tanggal pengembalian" readonly>
                     </div>  
                 </div>
                 <div class="form-group">
@@ -170,7 +170,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar-check-o"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="realisasi_pengembalian" name="realisasi_pengembalian" placeholder="Realisasi pengembalian" required>
+                        <input type="text" class="form-control" id="realisasi_pengembalian" name="realisasi_pengembalian" placeholder="Realisasi pengembalian" required>
                     </div>  
                 </div>
                 <table id="tabel_catatan" class="table table-bordered table-hover table-responsive" cellspacing="0" width="100%">

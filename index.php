@@ -42,7 +42,7 @@
                         echo $fetch['jumlah'];
                     ?></h3>
 
-                        <p>Total aset dimiliki</p>
+                        <p>Total aset aktif</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-television"></i>
@@ -262,7 +262,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="box box-success">
                     <div class="box-header">
-                        <h3 class="box-title">Daftar Usulan Peminjaman</h3>
+                        <h3 class="box-title">Daftar Pengajuan Peminjaman</h3>
                     </div>
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-hover table-responsive" style="width:100%">

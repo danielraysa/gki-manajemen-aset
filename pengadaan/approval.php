@@ -60,6 +60,7 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Pengusul</th>
                                         <th>Keterangan</th>
                                         <th>Barang Usulan</th>
                                         <th>Tanggal Ditambahkan</th>
@@ -70,12 +71,13 @@
                                 <tbody>
                                     <?php
                                         //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
-                                        $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif' AND p.hasil_approval = 'Pending'");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, u.nama_lengkap, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_usulan = 'Aktif' AND p.hasil_approval = 'Pending'");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
+                                        <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_usulan']; ?></td>
                                         <td><button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_pengadaan']; ?>"><i class="fa fa-check-square-o"></i> Detail</button></td>
                                         <td><?php echo tglIndo_full($row['tanggal_usulan']); ?></td>

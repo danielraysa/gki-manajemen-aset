@@ -58,6 +58,7 @@
         echo $tgl_akhir."\n";
         $date_now = date('Y-m-d H:i:s');
         $random_id = randString(10);
+        $_SESSION['print_id'] = $random_id;
         $is_unique = false;
 
         while (!$is_unique) {
@@ -65,7 +66,7 @@
             if (mysqli_num_rows($select) == 0) {  
                 // if you don't get a result, then you're good
                 $is_unique = true;
-                ECHO "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif') <br>";
+                ECHO "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif') \n";
                 $query = mysqli_query($koneksi, "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, NO_HP, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$no_hp."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif')");
                 if(!$query) {
                     $_SESSION['error-msg'] = mysqli_error($koneksi);
@@ -87,7 +88,7 @@
                 if (mysqli_num_rows($select) == 0) {
                     // if you don't get a result, then you're good
                     $is_unique_new = true;
-                    echo "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$random_id."','".$value['id_aset']."') <br>";
+                    echo "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$random_id."','".$value['id_aset']."') \n";
                     $insert = mysqli_query($koneksi, "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$random_id."','".$value['id_aset']."')");
                     if(!$insert) {
                         $_SESSION['error-msg'] = mysqli_error($koneksi);
@@ -112,8 +113,8 @@
             print_r($sentMessages); 
         } */
         // buat print
-        $_SESSION['print_id'] = $random_id;
-        echo $random_id;
+        //$_SESSION['print_id'] = $random_id;
+        //echo $random_id;
     }
 
     if (isset($_POST['usulan_pinjam'])) {

@@ -34,7 +34,7 @@ var ringkas = $('#ringkas').DataTable({
     'lengthChange': false,
     'searching': false,
     'ordering': true,
-    //'info': true,
+    'info': false,
     'autoWidth': true,
     'responsive': true
     //'pageLength': 5

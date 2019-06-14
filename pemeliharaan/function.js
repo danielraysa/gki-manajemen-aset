@@ -96,7 +96,7 @@ $('#opsi_berkala').on('change', function(){
     }
     else if (opt == "awal_bulan" || opt == "akhir_bulan") {
         $('#custom-box').hide();
-        $('#datepicker').val('');
+        //$('#datepicker').val('');
         $('#datepicker').prop('readonly', true);
     }
     else {
@@ -195,16 +195,17 @@ $('#addJadwal').click(function () {
     }
     else {
         var opsi_pilihan = "minggu";
-    } */
-    //location.reload();
-    //alert(pilihan_tgl);
-    if(opsi == '' || notif == '' || tgl == '') {
+    } 
+    alert("tgl : "+tgl);
+    alert("opsi : "+opsi);
+    alert("notif : "+notif); */
+    if((opsi == 'sekali' || opsi == 'bulan' || opsi == 'tahun') && tgl == '' || notif == '') {
         swal({
-          title: "Peringatan",
-          text: "Data tidak boleh ada yang kosong.",
-          type: "warning",
-          timer: 2000,
-          showConfirmButton: false
+            title: "Peringatan",
+            text: "Data tidak boleh ada yang kosong.",
+            type: "warning",
+            timer: 2000,
+            showConfirmButton: false
         });
     }
     else {

@@ -2,6 +2,7 @@
 session_start();
 setlocale (LC_TIME, 'INDONESIAN');
 date_default_timezone_set("Asia/Jakarta");
+//$id = $_GET['print_id'];
 $id = $_SESSION['print_id'];
 use setasign\Fpdi\Fpdi;
 use setasign\fpdf;
@@ -14,7 +15,7 @@ require_once('../module/fpdi/src/autoload.php');
 //use setasign\Fpdi\PdfReader;
 
 include '../connection.php';
-$query = mysqli_query($koneksi,"SELECT p.ID_PEMINJAMAN, u.NAMA_LENGKAP, p.NO_HP, k.NAMA_KOMISI, p.KETERANGAN_PINJAM, p.TANGGAL_PEMINJAMAN, p.TANGGAL_PENGAJUAN FROM peminjaman_aset p JOIN user u ON p.ID_USER = u.ID_USER JOIN komisi_jemaat k ON p.ID_KOMISI = k.ID_KOMISI WHERE p.ID_PEMINJAMAN = '".$id."'");
+$query = mysqli_query($koneksi,"SELECT p.ID_PEMINJAMAN, u.NAMA_LENGKAP, p.NO_HP, k.NAMA_KOMISI, p.KETERANGAN_PINJAM, p.TANGGAL_PEMINJAMAN, p.TANGGAL_PENGEMBALIAN, p.TANGGAL_PENGAJUAN FROM peminjaman_aset p JOIN user u ON p.ID_USER = u.ID_USER JOIN komisi_jemaat k ON p.ID_KOMISI = k.ID_KOMISI WHERE p.ID_PEMINJAMAN = '".$id."'");
 $row = mysqli_fetch_array($query);
 $pdf = new setasign\Fpdi\Fpdi();
 $pageCount = $pdf->setSourceFile('Formulir Peminjaman Inventaris Gereja web.pdf');
@@ -30,7 +31,7 @@ $pdf->SetFont('Times','',12);
 $pdf->Text(55, 48, $row['NAMA_LENGKAP']);
 $pdf->Text(55, 54, $row['NAMA_KOMISI']);
 $pdf->Text(55, 60, $row['NO_HP']);
-$pdf->Text(55, 78, tglIndo_day($row['TANGGAL_PEMINJAMAN']));
+$pdf->Text(55, 78, tglIndo_day($row['TANGGAL_PEMINJAMAN'])." - ".tglIndo_day($row['TANGGAL_PENGEMBALIAN']));
 $pdf->Text(55, 84, $row['KETERANGAN_PINJAM']);
 $pdf->Text(30, 115, strftime("%d %B %Y", time()));
 //$pdf->Text(162, 18.5, $row['ID_PEMINJAMAN']);

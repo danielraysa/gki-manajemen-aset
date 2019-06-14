@@ -61,10 +61,10 @@ $('#reservation').daterangepicker({
   }
 });
 
-$('#tgl_pengembalian').datepicker({
+/* $('#tgl_pengembalian').datepicker({
   format: 'dd/mm/yyyy',
   autoclose: true
-});
+}); */
 
 $('#realisasi_pengembalian').datepicker({
   format: 'dd/mm/yyyy',
@@ -105,7 +105,7 @@ $('.emptyData').on('click', function () {
 });
 
 //Tambah Pinjam
-$('.addPinjam').on('click', function () {
+$('#example1').on('click', '.addPinjam', function () {
   var id = $(this).attr('data-id');
   $.ajax({
     url: "ajax.php",
@@ -171,10 +171,10 @@ $('#btnSimpan').click(function () {
           //confirmButtonText: '<a href="print_form.php?print_id='+result+'" target="_blank">Cetak form</a>'
           showConfirmButton: false
         }).then(function () {
-          //window.location.href = 'print_form.php'; 
+          //window.location.href = 'print_form.php?print_id='+result; 
           //window.open('print_form.php?print_id='+result,'_blank'); // <- This is what makes it open in a new window.
-          window.open('print_form.php','_blank');
           location.reload();
+          window.open('print_form.php','_blank');
         });
       }
     });

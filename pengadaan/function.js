@@ -9,25 +9,25 @@ $(document).ready(function() {
       
           reader.readAsDataURL(input.files[0]);
         }
-      }
-      
-      var $form = $("#imageUploadForm"), 
-          $file = $("#file"), 
-          $uploadedImg = $("#uploadedImg"), 
-          $helpText = $("#helpText")
-      ;
-      $file.on('change', function(){
+    }
+    
+    var $form = $("#imageUploadForm"), 
+        $file = $("#file"), 
+        $uploadedImg = $("#uploadedImg"), 
+        $helpText = $("#helpText")
+    ;
+    $file.on('change', function(){
         readURL(this);
         $form.addClass('loading');
-      });
-      $uploadedImg.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
+    });
+    $uploadedImg.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
         $form.addClass('loaded');
-      });
-      $helpText.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
+    });
+    $helpText.on('webkitAnimationEnd MSAnimationEnd oAnimationEnd animationend', function(){
         setTimeout(function() {
-          $file.val('');  $form.removeClass('loading').removeClass('loaded');
+            $file.val('');  $form.removeClass('loading').removeClass('loaded');
         }, 5000);
-      });
+    });
     // Select2
     $('.select2').select2();
 
@@ -275,6 +275,41 @@ $(document).ready(function() {
         });
     });
 
+    $('#form_add').submit(function() {
+        var nomorasli = $('#barangusulan').find(':selected').data('items');
+        $('#barang_backup').val(nomorasli);
+        var cek = $('#barangusulan').prop('disabled');
+        var cek1 = $('#nama').prop('disabled');
+        if(cek) {
+            var nama = $('#nama').val();
+        }
+        if(cek1){
+            var nama = $('#barangusulan').val();
+        }
+        var barang = $('#barang').val();
+        var harga = $('#currency').val();
+        /* if(nomorasli != barang) {
+            alert('beda');
+        }
+        else {
+            alert('sama');
+        }
+        alert(nama+" / "+barang+" / "+harga+" / jenis : "+nomorasli); */
+        if(nama == '' || barang == '' || harga == ''){
+            swal({
+                title: "Peringatan",
+                text: "Data tidak boleh ada yang kosong.",
+                type: "warning",
+                timer: 2000,
+                showConfirmButton: false
+            });
+            return false;
+        }
+        else {
+            //alert(nama+" / "+barang+" / "+harga);
+            return true;
+        }
+    });
     // Modal Approve
     $('.modalApprove').click(function () {
         var id = $(this).attr('data-id');

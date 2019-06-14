@@ -48,46 +48,11 @@
     }
     ?>
       <div class="row">
-        <!--<div class="col-lg-4 col-md-12 col-sm-12">
-          <div class="box box-success">
-            <div class="box-header">
-              <h3 class="box-title">Tambah Usulan Penghapusan</h3>
-            </div>
-            <div class="box-body">
-            
-              <div class="form-group">
-                <label>Nama Aset:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-laptop"></i>
-                  </div>
-                  <select class="form-control select2" id="barang" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                    <?php
-                      /* $data = mysqli_query($koneksi, "SELECT * FROM daftar_aset");
-                      while ($row = mysqli_fetch_array($data)) {
-                    ?>
-                      <option value="<?php echo $row['ID_ASET']; ?>"><?php echo $row['NAMA_ASET']; ?></option>
-                    <?php
-                      } */
-                    ?>
-                  </select>
-                  <input type="hidden" name="nama_barang" id="nama_barang"/>
-                  
-                </div>
-              </div>
-
-              <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button>
-              
-            </div>
-          </div>
-        </div> -->
         <div class="col-lg-6 col-md-6 col-xs-12">
           <div class="box box-success">
             <div class="box-header">
               <h3 class="box-title">Data Usulan yang Diajukan</h3>
             </div>
-            <!-- <button class="btn btn-danger pull-right" id="empty-all">Delete All</button> -->
-            <!-- /.box-header -->
             <div class="box-body">
             <form action="form-action.php" method="post">
               <table id="example2" class="table table-bordered table-hover table-responsive" style="width:100%">
@@ -149,17 +114,14 @@
             </div>
             </form>
             </div>
-            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
-      <!-- </div>
+        <!-- </div>
       <div class="row"> -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title">Daftar Aset</h3>
+              <h3 class="box-title">Daftar Aset Direkomendasikan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -177,14 +139,16 @@
                 <tbody>
                 <?php
                 if (empty($_SESSION['temp_hapus'])) {
-                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'Selesai' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' GROUP BY p.ID_ASET");
+                  //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'Selesai' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' GROUP BY p.ID_ASET");
+                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, (SELECT COUNT(ID_ASET) FROM pemeliharaan_aset WHERE ID_ASET = d.ID_ASET AND STATUS_PEMELIHARAAN = 'Selesai') as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d WHERE d.STATUS_ASET = 'Aktif' HAVING JML_PEMELIHARAAN > 0 ORDER BY JML_PEMELIHARAAN DESC");
                 }
                 else {
                   $arr = array();
                   foreach ($_SESSION["temp_hapus"] as $key => $select){
                     array_push($arr, $select['id_aset']);
                   }
-                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'Selesai' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' AND d.ID_ASET NOT IN ('".implode("', '", $arr)."') GROUP BY p.ID_ASET");
+                  //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'Selesai' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' AND d.ID_ASET NOT IN ('".implode("', '", $arr)."') GROUP BY p.ID_ASET");
+                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, (SELECT COUNT(ID_ASET) FROM pemeliharaan_aset WHERE ID_ASET = d.ID_ASET AND STATUS_PEMELIHARAAN = 'Selesai') as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d WHERE d.STATUS_ASET = 'Aktif' AND d.ID_ASET NOT IN ('".implode("', '", $arr)."') HAVING JML_PEMELIHARAAN > 0 ORDER BY JML_PEMELIHARAAN DESC");
                 }
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {

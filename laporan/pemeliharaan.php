@@ -5,6 +5,7 @@
                 <div class="box-header">
                     <!-- <h3 class="box-title">Daftar Usulan Pengadaan Aset</h3> -->
                     <button class="btn btn-success Filter" data-toggle="modal" data-target="#modal-filter" data-id="pemeliharaan"><i class="fa fa-search"></i> Filter</button>
+                    <button class="btn btn-primary" data-id="pemeliharaan"><i class="fa fa-file"></i> Print</button>
                     <!-- <button class="btn btn-warning Print" data-id="pengadaan"><i class="fa fa-print"></i> Cetak</button> -->
                 </div>
                 <!-- /.box-header -->
@@ -22,7 +23,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.HASIL_PEMELIHARAAN, p.BIAYA_PEMELIHARAAN, p.TANGGAL_PENJADWALAN, p.TANGGAL_PEMELIHARAAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Selesai'");
+                                $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.HASIL_PEMELIHARAAN, p.BIAYA_PEMELIHARAAN, p.TANGGAL_PENJADWALAN, p.TANGGAL_PEMELIHARAAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Selesai' ORDER BY p.TANGGAL_PENJADWALAN");
                                 $a = 1;
                                 while($row = mysqli_fetch_array($query)) {
                                 ?>

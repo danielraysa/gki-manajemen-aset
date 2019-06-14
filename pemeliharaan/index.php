@@ -157,7 +157,23 @@
                       <td><?php echo $row['NAMA_RUANGAN']; ?></td>
                       <td><?php echo $row['NAMA_KOMISI']; ?></td>
                       <td><?php echo $row['STATUS_ASET']; ?></td>
-                      <td><button type="button" data-toggle="modal" data-target="#modal-jadwal" data-id="<?php echo $row['ID_ASET']; ?>"  class="btn btn-warning modalJadwal"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button></td>
+                      <td>
+                        <?php
+                          $check = mysqli_query($koneksi,"SELECT * FROM pemeliharaan_berkala WHERE ID_ASET = '".$row['ID_ASET']."' AND STATUS_BERKALA = 'Aktif'");
+                          if(mysqli_num_rows($check) == 1) {
+                            $get = mysqli_fetch_array($check);
+                        ?>
+                          <!-- <button type="button" data-toggle="modal" data-target="#modal-mati" data-id="<?php echo $row['ID_PENJADWALAN']; ?>" class="btn btn-danger modalMati"><i class="fa fa-calendar-times-o"></i> Matikan Jadwal Berkala</button> -->
+                          <button type="button" disabled class="btn btn-warning"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button>
+                        <?php
+                          }
+                        else {
+                          ?>
+                          <button type="button" data-toggle="modal" data-target="#modal-jadwal" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-warning modalJadwal"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button>
+                        <?php
+                        }
+                        ?>
+                      </td>
                     </tr>
                     <?php
                       $a++;

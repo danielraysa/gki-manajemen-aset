@@ -22,32 +22,32 @@
 <script src="graph.js"></script>
 <!-- page script -->
 <script>
-  $(function () {
-    $('#example1').DataTable({
-    'autoWidth': true,
-    'responsive': true,
-    "scrollX": true
-});
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      'responsive'  : true
-    })
-    $('#example3').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
-<script>
+  
+  $('#example1').DataTable({
+  'autoWidth': true,
+  'responsive': true,
+  "scrollX": true
+  });
+  $('#example2').DataTable({
+    'paging'      : true,
+    'lengthChange': false,
+    'searching'   : false,
+    'ordering'    : true,
+    'info'        : true,
+    'autoWidth'   : true,
+    'responsive'  : true
+  });
+  $('#example3').DataTable({
+    'paging'      : true,
+    'lengthChange': false,
+    'searching'   : false,
+    'ordering'    : true,
+    'info'        : true,
+    'autoWidth'   : false
+  });
+  $('#notif').on('click', function(){
+    $('#notif_count').hide();
+  });
   $('.logout').on('click', function (event) {
       event.preventDefault();
       swal({

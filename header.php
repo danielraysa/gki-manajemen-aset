@@ -95,51 +95,79 @@
             </ul>
           </li> -->
           <!-- Notifications: style can be found in dropdown.less -->
+          <?php
+            $total = 0;
+            if($_SESSION['role'] == "Peminjam" || $_SESSION['role'] == "Anggota MJ"){
+              if($_SESSION['role'] == "Peminjam"){
+                $query1 = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.hasil_pengajuan != 'Pending' AND p.tanggal_peminjaman >= NOW() AND p.id_user = '".$_SESSION['id_user']."'");
+                if (mysqli_num_rows($query1) > 0) {
+                  $pinjam1 = mysqli_num_rows($query1);
+                  $total = $total + 1;  
+                }
+              }
+              if($_SESSION['role'] == "Anggota MJ"){
+                $query1 = mysqli_query($koneksi, "SELECT ID_ASET, TANGGAL_PENJADWALAN, DATE_SUB(TANGGAL_PENJADWALAN, INTERVAL NOTIF DAY) AS Batas FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' HAVING Batas <= CURDATE() ORDER BY TANGGAL_PENJADWALAN ASC");
+                $query2 = mysqli_query($koneksi, "SELECT ID_ASET, TANGGAL_PENJADWALAN, DATE_SUB(TANGGAL_PENJADWALAN, INTERVAL NOTIF DAY) AS Batas FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' HAVING Batas <= CURDATE() ORDER BY TANGGAL_PENJADWALAN ASC");
+                if (mysqli_num_rows($query1) > 0) {
+                  //$row1 = mysqli_fetch_array($query1);
+                  $no1 = mysqli_num_rows($query1);
+                  $total = $total + 1;
+                }
+                if (mysqli_num_rows($query2) > 0) {
+                  //$row1 = mysqli_fetch_array($query1);
+                  //$no1 = mysqli_num_rows($query1);
+                  $total = $total + 1;
+                }
+              }
+              if ($total > 0) {
+          ?>
           <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" id="notif" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-danger">
-                
+              <span id="notif_count" class="label label-danger">
+                <?php echo $total; ?>
               </span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">You have <?php echo $total; ?> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
+                  <!-- <li>
+                    <a href="pengadaan/">
                       <i class="fa fa-shopping-cart text-yellow"></i> Very long description here that may not fit into the
                       page and may cause design problems
                     </a>
-                  </li>
+                  </li> -->
+                  <?php if(isset($pinjam1)) { ?>
                   <li>
                     <a href="#">
-                      <i class="fa fa-edit text-blue"></i> 5 new members joined
+                      <i class="fa fa-edit text-blue"></i> Notifikasi pengajuan peminjaman aset
                     </a>
                   </li>
-
+                  <?php } 
+                  if(isset($no1)) { 
+                    ?>
                   <li>
-                    <a href="#">
-                      <i class="fa fa-gears text-green"></i> 25 sales made
+                    <a href="pemeliharaan/">
+                      <i class="fa fa-gears text-green"></i> <?php echo $no1; ?> pengingat pemeliharaan aset 
                     </a>
                   </li>
-                  <li>
-                    <a href="#">
+                  <?php } ?>
+                  <!-- <li>
+                    <a href="penghapusan/">
                       <i class="fa fa-trash text-red"></i> You changed your username
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <!-- <li class="footer"><a href="#">View all</a></li> -->
             </ul>
           </li>
-          
+          <?php
+            }
+          }
+          ?>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
