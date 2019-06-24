@@ -109,7 +109,9 @@
             </div>
             <div class="box-body">
                 <div class="col-lg-6 col-md-12 col-xs-12">
-                    <canvas id="myChartA" height="400px"></canvas>
+                    <div id="chart_box">
+                        <canvas id="myChartA" height="400px"></canvas>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-xs-12">
                     <table id="ringkas" class="table table-bordered table-hover table-responsive" style="width: 100%">

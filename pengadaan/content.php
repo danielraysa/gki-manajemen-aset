@@ -62,6 +62,7 @@
                     <i class="fa fa-laptop"></i>
                   </div>
                   <select class="form-control select2" id="barangusulan" name="barangusulan" style="width: 100%;">
+                    <option value="-">Pilih barang</option>
                     <?php
                       //$data = mysqli_query($koneksi, "SELECT DISTINCT(BARANG_USULAN) as NAMA_BARANG FROM `detil_usulan_pengadaan` UNION SELECT DISTINCT(NAMA_ASET) FROM daftar_aset");
                       $data = mysqli_query($koneksi, "SELECT DISTINCT(BARANG_USULAN) as NAMA_BARANG, ID_BARANG FROM `detil_usulan_pengadaan` UNION SELECT DISTINCT(d.NAMA_ASET), b.ID_BARANG FROM daftar_aset d JOIN detil_usulan_pengadaan du ON d.ID_USULAN_TAMBAH = du.ID_USULAN_TAMBAH JOIN barang b ON du.ID_BARANG = b.ID_BARANG");
@@ -93,6 +94,7 @@
                     <i class="fa fa-laptop"></i>
                   </div>
                   <select class="form-control select2" id="barang" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    <option value="-">Pilih barang</option>
                     <?php
                       $data = mysqli_query($koneksi, "SELECT * FROM barang");
                       while ($row = mysqli_fetch_array($data)) {

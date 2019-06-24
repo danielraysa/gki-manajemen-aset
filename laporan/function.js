@@ -6,6 +6,21 @@ function getRandomColor() {
     }
     return color;
 }
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
 // Select2
 $('.select2').select2();
 
@@ -137,6 +152,16 @@ $('.Filter').click(function () {
     console.log(id);
     $("#id_filter").val(id);
 });
+
+/* var ctx = document.getElementById("myChartA");
+var barGraph = new Chart(ctx, {
+    type: 'pie',
+    data: {},
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+}); */
 $('#btnFilter').click(function () {
     var id = $('#id_filter').val();
     var tgl_awal = $('#datepicker').val();
@@ -188,7 +213,10 @@ $('#btnFilter').click(function () {
                 success: function (result) {
                     console.log(result);
                     var data = JSON.parse(result);
-                    
+                    $("#myChartA").remove();// removing previous canvas element
+                    //change the data values or add new values for new graph
+                    $("#chart_box").after("<canvas id='myChartA' height='400px'></canvas>");
+                    var ctx = document.getElementById("myChartA");
                     var ruang = [];
                     var jumlahdata = [];
                     var warna = [];
@@ -198,13 +226,21 @@ $('#btnFilter').click(function () {
                         jumlahdata.push(data[i].jumlah);
                         warna.push(getRandomColor());
                     }
-                    var ctx = document.getElementById("myChartA");
-                    var barGraph = new Chart(ctx, {
+                    //removeData(barGraph);
+                    //addData(barGraph, ruang, jumlahdata);
+                    /* barGraph.data = {
+                        labels: ruang,
+                        datasets: [{
+                            data: jumlahdata,
+                            backgroundColor: warna
+                        }]
+                    };
+                    barGraph.update(); */
+                    barGraph = new Chart(ctx, {
                         type: 'pie',
                         data: {
                             labels: ruang,
                             datasets: [{
-                                label: 'Jumlah Pemeliharaan',
                                 data: jumlahdata,
                                 backgroundColor: warna
                             }]
@@ -214,6 +250,8 @@ $('#btnFilter').click(function () {
                             maintainAspectRatio: false
                         }
                     });
+                    //var backup = barGraph;
+                    
                 }
             });
             $('#summary').show();

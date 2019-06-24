@@ -180,6 +180,63 @@ $('#example1').on('click', '.modalJadwal', function () {
         }
     });
 });
+$('#example1').on('click', '.modalEdit', function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $("#id_penjadwalan_edit").val(id);
+    $.ajax({
+        url: "ajax.php",
+        type: "POST",
+        data: {cek_jadwal: id},
+        success: function (result) {
+            console.log(result+"\n");
+            var data = JSON.parse(result);
+            $('#id_aset_edit').val(data.id_aset);
+            $('#kode_aset_edit').val(data.kode_aset);
+            $('#nama_aset_edit').val(data.nama_aset);
+            $('#datepicker_edit').val(data.tanggal_jadwal);
+            $('#notif_edit').val(data.notif);
+            $('#opsi_berkala_edit').val(data.pilihan);
+            $("#opsi_berkala_edit").select2("destroy").select2();
+            if(data.pilihan == 'custom'){
+                $('#custom-box-edit').show();
+                $('#interval_edit').val(data.interval);
+                $('#satuan_edit').val(data.frekuensi);
+                $("#satuan_edit").select2("destroy").select2();
+            }
+            else {
+                $('#custom-box-edit').hide();
+            }
+        }
+    });
+});
+$('#example1').on('click', '.modalDisable', function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $("#id_disable").val(id);
+});
+$('#btnDisable').click(function () {
+    var id = $('#id_disable').val();
+    console.log(id);
+    $.ajax({
+        url: "ajax.php",
+        type: "POST",
+        data: "mati_jadwal=" + id,
+        success: function (result) {
+            console.log(result);
+            swal({
+                title: "Sukses",
+                text: "Harap tunggu sejenak.",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+            }).then(function () {
+                location.reload();
+            });
+        }
+    });
+});
+
 $('#addJadwal').click(function () {
     var id = $('#id_aset').val();
     var tgl = $('#datepicker').val();
@@ -252,7 +309,8 @@ $('#addJadwal').click(function () {
 });
 
 // Modal Maintenance
-$('.modalMaintenance').on('click', function () {
+///$('.modalMaintenance').on('click', function () {
+$('#example2').on('click', '.modalMaintenance', function () {
     var id = $(this).attr('data-id');
     //var ids = $(this).attr('data-ids');
     console.log(id);

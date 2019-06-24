@@ -137,7 +137,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="box box-success">
                         <div class="box-header">
-                            <h3 class="box-title">Pengembalian Aset</h3>
+                            <h3 class="box-title">Daftar Peminjaman Aset</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -145,6 +145,7 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Tgl Peminjaman</th>
                                         <th>Tgl Pengembalian</th>
                                         <th>Pemohon</th>
                                         <th>Keterangan</th>
@@ -161,6 +162,7 @@
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
+                                        <td><?php echo tglIndo($row['tanggal_peminjaman']); ?></td>
                                         <td><?php echo tglIndo($row['tanggal_pengembalian']); ?></td>
                                         <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>

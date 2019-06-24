@@ -49,28 +49,28 @@
     $('#notif_count').hide();
   });
   $('.logout').on('click', function (event) {
-      event.preventDefault();
-      swal({
-          title: 'Apakah anda ingin keluar?',
-          type: 'warning',
-          showCancelButton: true,
-          //confirmButtonColor: '#d9534f',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
-      }).then((result) => {
-          if (result.value) {
-              swal({
-                  title: "Sukses",
-                    text: "Harap tunggu sejenak.",
-                  type: "success",
-                  timer: 2000,
-                  showConfirmButton: false
-                  }).then(function(){
-                      window.location.href = "logout.php";
-                      //return false;
-                  })
-              }
-          }
-      )
+    event.preventDefault();
+    swal({
+      title: 'Apakah anda ingin keluar?',
+      type: 'warning',
+      showCancelButton: true,
+      //confirmButtonColor: '#d9534f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        swal({
+            title: "Sukses",
+              text: "Harap tunggu sejenak.",
+            type: "success",
+            timer: 2000,
+            showConfirmButton: false
+            }).then(function(){
+                window.location.href = "logout.php";
+                //return false;
+            })
+        }
+      }
+    )
   });
 </script>

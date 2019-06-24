@@ -171,6 +171,15 @@
 
             if($success) {
                 $_SESSION['success-msg'] = "Sukses menambah data usulan.";
+                $cek_data = mysqli_query($koneksi, "SELECT * FROM pengadaan_aset WHERE ID_USER = '".$_SESSION['id_user']."' AND HASIL_APPROVAL = 'Pending'");
+                if(!isset($_SESSION['notifikasi-pengadaan'])){
+                    $_SESSION['notifikasi-pengadaan'] = array();
+                }
+                while($baris = mysqli_fetch_array($cek_data)){
+                    $add = array('id_pengadaan' => $baris['ID_PENGADAAN'], 'status' => $baris['HASIL_APPROVAL']);
+                    array_push($_SESSION['notifikasi-pengadaan'], $add);
+                }
+                print_r($_SESSION['notifikasi-pengadaan']);
                 unset($_SESSION['temp_item']);
                 unset($_SESSION['temp_item_2']);
                 $_SESSION['temp_item'] = array();

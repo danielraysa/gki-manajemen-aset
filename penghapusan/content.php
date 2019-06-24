@@ -150,16 +150,16 @@
                   //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'Selesai' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' AND d.ID_ASET NOT IN ('".implode("', '", $arr)."') GROUP BY p.ID_ASET");
                   $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, (SELECT COUNT(ID_ASET) FROM pemeliharaan_aset WHERE ID_ASET = d.ID_ASET AND STATUS_PEMELIHARAAN = 'Selesai') as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d WHERE d.STATUS_ASET = 'Aktif' AND d.ID_ASET NOT IN ('".implode("', '", $arr)."') HAVING JML_PEMELIHARAAN > 0 ORDER BY JML_PEMELIHARAAN DESC");
                 }
-                  $a = 1;
-                  while($row = mysqli_fetch_array($query)) {
-                    /* $futureDate=date('Y-m-d', strtotime('+'.$row['MASA_MANFAAT'].' year', strtotime($row['TANGGAL_PEMBELIAN'])) );
-                    $d1 = new DateTime($futureDate);
-                    $d2 = new DateTime($row['TANGGAL_PEMBELIAN']);
+                $a = 1;
+                while($row = mysqli_fetch_array($query)) {
+                  /* $futureDate=date('Y-m-d', strtotime('+'.$row['MASA_MANFAAT'].' year', strtotime($row['TANGGAL_PEMBELIAN'])) );
+                  $d1 = new DateTime($futureDate);
+                  $d2 = new DateTime($row['TANGGAL_PEMBELIAN']);
 
-                    $diff = $d2->diff($d1);
-                    echo $diff->y; */
-                    $bagi = ($row['HARGA_PEMBELIAN']-$row['NILAI_RESIDU'])/$row['MASA_MANFAAT'];
-                    $nilai = $row['HARGA_PEMBELIAN']-($bagi*($row['MASA_MANFAAT']-$row['DIFF']));
+                  $diff = $d2->diff($d1);
+                  echo $diff->y; */
+                  $bagi = ($row['HARGA_PEMBELIAN']-$row['NILAI_RESIDU'])/$row['MASA_MANFAAT'];
+                  $nilai = $row['HARGA_PEMBELIAN']-($bagi*($row['MASA_MANFAAT']-$row['DIFF']));
                 ?>
                   <tr>
                     <td><?php echo $a; ?></td>

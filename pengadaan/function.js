@@ -288,13 +288,7 @@ $(document).ready(function() {
         }
         var barang = $('#barang').val();
         var harga = $('#currency').val();
-        /* if(nomorasli != barang) {
-            alert('beda');
-        }
-        else {
-            alert('sama');
-        }
-        alert(nama+" / "+barang+" / "+harga+" / jenis : "+nomorasli); */
+        //alert(nama+" / "+barang+" / "+harga+" / jenis : "+nomorasli);
         if(nama == '' || barang == '' || harga == ''){
             swal({
                 title: "Peringatan",
@@ -306,7 +300,6 @@ $(document).ready(function() {
             return false;
         }
         else {
-            //alert(nama+" / "+barang+" / "+harga);
             return true;
         }
     });

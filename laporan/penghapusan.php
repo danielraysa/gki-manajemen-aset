@@ -31,7 +31,6 @@
                                 <td><?php echo $row['nama_lengkap']; ?></td>
                                 <td><?php echo tglIndo($row['tanggal_usulan']); ?></td>
                                 <td><?php echo $row['keterangan_penghapusan']; ?></td>
-                                <!-- <td><?php echo tglIndo($row['SELESAI_PEMELIHARAAN']); ?></td> -->
                             </tr>
                             <?php
                                 $a++;
@@ -53,7 +52,9 @@
             </div>
             <div class="box-body">
                 <div class="col-lg-6 col-md-12 col-xs-12">
-                    <canvas id="myChartA" height="400px"></canvas>
+                    <div id="chart_box">
+                        <canvas id="myChartA" height="400px"></canvas>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-xs-12">
                     <table id="ringkas" class="table table-bordered table-hover table-responsive" style="width: 100%">

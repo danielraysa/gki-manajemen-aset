@@ -120,6 +120,127 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<!-- Modal Tambah Jadwal Pemeliharaan -->
+<div class="modal fade" id="modal-jadwal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Ubah Penjadwalan Pemeliharaan</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <form action="form-action.php" method="post"> -->
+                <input type="hidden" class="form-control" id="id_penjadwalan_edit" name="id_penjadwalan">
+                <input type="hidden" class="form-control" id="id_aset_edit" name="id_aset">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <label>Kode Aset:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-laptop"></i>
+                                </div>
+                                <input type="text" class="form-control" id="kode_aset_edit" name="kode" placeholder="Kode Aset" readonly>
+                            </div>  
+                        </div>  
+                        <div class="col-xs-7">
+                            <label>Nama Aset:</label>
+                            <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <input type="text" class="form-control" id="nama_aset_edit" name="nama" placeholder="Nama Aset" readonly>
+                        </div>  
+                    </div>  
+                    </div>  
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <label>Tanggal Pemeliharaan:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" id="datepicker_edit" name="pemeliharaan" required>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>Notifikasi sebelum:</label>
+                            <div class="input-group">
+                                <input type="number" min="0" class="form-control" id="notif_edit" name="notif" required>
+                                <div class="input-group-addon">
+                                    hari
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>Pilihan:</label>
+                            <select class="form-control select2" id="opsi_berkala_edit" name="satuan" style="width: 100%;" required>
+                                <option value="sekali">Sekali</option>
+                                <option value="bulan">Tiap Bulan</option>
+                                <option value="awal_bulan">Tiap Awal Bulan</option>
+                                <option value="akhir_bulan">Tiap Akhir Bulan</option>
+                                <option value="tahun">Tiap Tahun</option>
+                                <option value="custom">Kustom</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="custom-box-edit">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            <label>Interval/Jarak antar Jadwal:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="number" class="form-control" id="interval_edit" name="jumlah" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <label>Frekuensi:</label>
+                                <select class="form-control select2" id="satuan_edit" name="satuan" style="width: 100%;" required>
+                                    <option value="Minggu">Minggu</option>
+                                    <option value="Bulan">Bulan</option>
+                                    <option value="Tahun">Tahun</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-success pull-right" id="editJadwal" data-dismiss="modal"><i class="fa fa-edit"></i> Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Nonaktif Jadwal -->
+<div class="modal fade" id="modal-nonaktif">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Matikan Penjadwalan Pemeliharaan </h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="id_disable" name="id"/>
+                Matikan fitur penjadwalal pemeliharaan aset ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-danger pull-right" id="btnDisable" data-dismiss="modal" name="delete"><i class="fa fa-power-off"></i> Matikan</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Maintenance -->
 <div class="modal fade" id="modal-maintenance">
@@ -156,7 +277,6 @@
                         </div>
                     </div>    
                 </div>
-                
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 col-xs-12">

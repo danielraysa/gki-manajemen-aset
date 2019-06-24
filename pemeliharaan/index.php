@@ -135,10 +135,8 @@
                     <th>No.</th>
                     <th>Kode Aset</th>
                     <th>Nama Aset</th>
-                    <th>Merk</th>
                     <th>Ruangan</th>
                     <th>Komisi</th>
-                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -153,23 +151,22 @@
                       <td><?php echo $a; ?></td>
                       <td><?php echo $row['KODE_ASET']; ?></td>
                       <td><?php echo $row['NAMA_ASET']; ?></td>
-                      <td><?php echo $row['NAMA_MERK']; ?></td>
                       <td><?php echo $row['NAMA_RUANGAN']; ?></td>
                       <td><?php echo $row['NAMA_KOMISI']; ?></td>
-                      <td><?php echo $row['STATUS_ASET']; ?></td>
                       <td>
                         <?php
                           $check = mysqli_query($koneksi,"SELECT * FROM pemeliharaan_berkala WHERE ID_ASET = '".$row['ID_ASET']."' AND STATUS_BERKALA = 'Aktif'");
+                          //$check = mysqli_query($koneksi,"SELECT * FROM pemeliharaan_berkala WHERE ID_ASET = '".$row['ID_ASET']."'");
                           if(mysqli_num_rows($check) == 1) {
                             $get = mysqli_fetch_array($check);
                         ?>
-                          <!-- <button type="button" data-toggle="modal" data-target="#modal-mati" data-id="<?php echo $row['ID_PENJADWALAN']; ?>" class="btn btn-danger modalMati"><i class="fa fa-calendar-times-o"></i> Matikan Jadwal Berkala</button> -->
-                          <button type="button" disabled class="btn btn-warning"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button>
+                          <!-- <button type="button" data-toggle="modal" data-target="#modal-jadwal-edit" data-id="<?php echo $get['ID_PENJADWALAN']; ?>" class="btn btn-warning modalEdit"><i class="fa fa-calendar-minus-o"></i> Ubah</button> -->
+                          <button type="button" data-toggle="modal" data-target="#modal-nonaktif" data-id="<?php echo $get['ID_PENJADWALAN']; ?>" class="btn btn-danger modalDisable"><i class="fa fa-calendar-times-o"></i> Matikan</button>
                         <?php
                           }
                         else {
                           ?>
-                          <button type="button" data-toggle="modal" data-target="#modal-jadwal" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-warning modalJadwal"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button>
+                          <button type="button" data-toggle="modal" data-target="#modal-jadwal" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-primary modalJadwal"><i class="fa fa-calendar-check-o"></i> Jadwalkan</button>
                         <?php
                         }
                         ?>

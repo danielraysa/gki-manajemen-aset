@@ -28,6 +28,15 @@
                 $_SESSION['success-msg'] = "Sukses menambah data usulan.";
                 unset($_SESSION['temp_hapus']);
                 $_SESSION['temp_hapus'] = array();
+                
+                $cek_data = mysqli_query($koneksi, "SELECT * FROM penghapusan_aset WHERE ID_USER = '".$_SESSION['id_user']."' AND HASIL_APPROVAL = 'Pending'");
+                if(!isset($_SESSION['notifikasi-penghapusan'])){
+                    $_SESSION['notifikasi-penghapusan'] = array();
+                }
+                while($baris = mysqli_fetch_array($cek_data)){
+                    $add = array('id_penghapusan' => $baris['ID_PENGHAPUSAN'], 'status' => $baris['HASIL_APPROVAL']);
+                    array_push($_SESSION['notifikasi-penghapusan'], $add);
+                }
                 header("location: ../penghapusan/?success");
             }
             else {
