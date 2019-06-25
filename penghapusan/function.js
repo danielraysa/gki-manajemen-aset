@@ -6,6 +6,9 @@ $(document).ready(function() {
     $('#example1').DataTable({
         'autoWidth': true,
         'responsive': true,
+        'lengthChange': false,
+        'searching': false,
+        'pageLength': 5,
         "scrollX": true
     });
     $('#tabeldata').DataTable({
@@ -107,7 +110,7 @@ $(document).ready(function() {
     });
 
     // Modal Delete
-    $('.modalDelete').click(function () {
+    $('#example1').on('click', '.modalDelete', function () {
         var id = $(this).attr('data-id');
         //var id = $('#id_delete').val();
         console.log(id);
@@ -117,6 +120,18 @@ $(document).ready(function() {
             data: "usulan-hapus=" + id,
             success: function (result) {
                 console.log(result);
+                location.reload();
+            }
+        });
+    });
+    $('.hapus-item').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: "hapus-item="+id,
+            success: function() {
+                //console.log(result);
                 location.reload();
             }
         });

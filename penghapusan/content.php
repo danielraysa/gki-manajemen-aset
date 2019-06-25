@@ -15,6 +15,15 @@
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+        Berhasil menambah usulan penghapusan aset.
+    </div>
+    <?php
+    }
+    if(isset($_GET['disposal'])) {
+    ?>
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h4><i class="icon fa fa-check"></i> Sukses!</h4>
         Berhasil melakukan penghapusan aset.
     </div>
     <?php
@@ -54,7 +63,6 @@
               <h3 class="box-title">Data Usulan yang Diajukan</h3>
             </div>
             <div class="box-body">
-            <form action="form-action.php" method="post">
               <table id="example2" class="table table-bordered table-hover table-responsive" style="width:100%">
                 <thead>
                 <tr>
@@ -82,7 +90,8 @@
                     <td><?php echo $items['jumlah_pemeliharaan']; ?> kali</td>
                     <td><?php echo asRupiah($items['nilai']); ?></td>
                     <td>
-                      <button class="btn btn-danger" type="submit" name="hapus-item" value="<?php echo $items['temp_id']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                      <!-- <button class="btn btn-danger" type="submit" name="hapus-item" value="<?php echo $items['temp_id']; ?>"><i class="fa fa-trash"></i> Hapus</button> -->
+                      <button class="btn btn-danger hapus-item" data-id="<?php echo $items['temp_id']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                     </td>
                   </tr>
                 <?php
@@ -91,13 +100,14 @@
                 ?>
                 </tbody>
             </table>
+            <form id="form_hapus" action="form-action.php" method="post">
             <div class="form-group">
               <label>Keterangan Usulan:</label>
               <div class="input-group">
                 <div class="input-group-addon">
                 <i class="fa fa-laptop"></i>
                 </div>
-                <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan" required></textarea>
               </div> <br>
               <?php
               if(empty($_SESSION['temp_hapus'])) {
@@ -160,6 +170,9 @@
                   echo $diff->y; */
                   $bagi = ($row['HARGA_PEMBELIAN']-$row['NILAI_RESIDU'])/$row['MASA_MANFAAT'];
                   $nilai = $row['HARGA_PEMBELIAN']-($bagi*($row['MASA_MANFAAT']-$row['DIFF']));
+                  if($row['DIFF'] <= 0){
+                    $nilai = $row['NILAI_RESIDU'];
+                  }
                 ?>
                   <tr>
                     <td><?php echo $a; ?></td>
@@ -202,7 +215,7 @@
                 </thead>
                 <tbody>
                 <?php
-                $query = mysqli_query($koneksi,"SELECT p.id_penghapusan, p.keterangan_penghapusan, p.tanggal_usulan, p.hasil_approval FROM penghapusan_aset p WHERE p.status_usulan = 'Aktif' AND p.id_user = '".$_SESSION['id_user']."'");
+                $query = mysqli_query($koneksi,"SELECT p.id_penghapusan, p.keterangan_penghapusan, p.tanggal_usulan, p.hasil_approval FROM penghapusan_aset p WHERE p.status_usulan = 'Aktif' AND p.id_user = '".$_SESSION['id_user']."' ORDER BY p.tanggal_usulan DESC");
                   //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' GROUP BY p.ID_ASET");
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {

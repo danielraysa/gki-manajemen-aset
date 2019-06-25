@@ -86,6 +86,7 @@
                             //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_pengajuan FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
                             $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.keterangan_pinjam, p.no_hp, p.tanggal_pengajuan, p.hasil_pengajuan, p.tanggal_peminjaman, p.tanggal_pengembalian FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.hasil_pengajuan = 'Diterima' AND p.id_user = '".$_SESSION['id_user']."'");
                             $a = 1;
+                            $date = date('Y-m-d');
                             while($row = mysqli_fetch_array($query)) {
                             ?>
                         <tr>
@@ -98,6 +99,11 @@
                                 if ($row['tanggal_pengembalian'] < $date){
                                 ?>
                                 <button class="btn btn-danger"><i class="fa fa-close"></i> Melewati Batas</button>
+                                <?php
+                                }
+                                else if($row['tanggal_peminjaman'] > $date) {
+                                ?>
+                                <button class="btn btn-success"><i class="fa fa-check"></i> Siap Pinjam</button>
                                 <?php
                                 }
                                 else {

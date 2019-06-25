@@ -78,7 +78,7 @@
                                         <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_penghapusan']; ?></td>
                                         <td><button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_penghapusan']; ?>"><i class="fa fa-check-square-o"></i> Detail</button></td>
-                                        <td><?php echo $row['tanggal_usulan']; ?></td>
+                                        <td><?php echo tglIndo_full($row['tanggal_usulan']); ?></td>
                                         <td>
                                             <?php
                                                 if($row['hasil_approval'] == "Diterima") {

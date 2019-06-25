@@ -127,6 +127,7 @@
 
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
+        $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);

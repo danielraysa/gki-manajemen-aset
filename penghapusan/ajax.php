@@ -9,11 +9,19 @@
         unset($_SESSION['temp_hapus']);
         //header("location:../penghapusan");
     }
+    
+    if(isset($_POST['hapus-item'])) {
+        $val = $_POST['hapus-item'];
+        
+        $key_index = array_search($val, array_column($_SESSION['temp_hapus'], 'nama'));
+        array_splice($_SESSION['temp_hapus'], $key_index, 1);
+        
+    }
 
     if(isset($_POST['usulan-hapus'])) {
         $id = $_POST['usulan-hapus'];
         $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, d.MASA_MANFAAT, d.TANGGAL_PEMBELIAN, DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR) AS EXP_DATE, TIMESTAMPDIFF(YEAR,CURRENT_DATE(),DATE_ADD(d.TANGGAL_PEMBELIAN, INTERVAL (d.MASA_MANFAAT) YEAR)) AS DIFF, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, d.NILAI_RESIDU, d.HARGA_PEMBELIAN FROM daftar_aset d LEFT OUTER JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.ID_ASET = '".$id."'");
-        //$query = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE ID_ASET = '".$id."'"); 
+        
         $row = mysqli_fetch_array($query);
         $id_aset = $row['ID_ASET'];
         $nama_aset = $row['NAMA_ASET'];
@@ -33,15 +41,14 @@
         }
         $add = array('temp_id' => $random_id, 'id_aset' => $id_aset, 'nama' => $nama_aset, 'umur' => $umur, 'jumlah_pemeliharaan' => $jml_pemeliharaan, 'nilai' => $nilai);
         array_push($_SESSION['temp_hapus'], $add);
-        //echo $_SESSION['temp_hapus'];
-        //header("location: ../penghapusan/");
+        
     }
 
     // approve penghapusan
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
         $date = date('Y-m-d H:i:s');
-        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Diterima', TANGGAL_APPROVAL = '".$date."' WHERE ID_penghapusan = '".$id."'");
+        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Diterima', TANGGAL_APPROVAL = '".$date."' WHERE ID_PENGHAPUSAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -53,7 +60,7 @@
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
         $date = date('Y-m-d H:i:s');
-        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVAL = '".$date."' WHERE ID_penghapusan = '".$id."'");
+        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVAL = '".$date."' WHERE ID_PENGHAPUSAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }

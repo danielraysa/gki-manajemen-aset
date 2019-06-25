@@ -50,15 +50,20 @@
     if(isset($_POST['hapus_aset'])) {
         $id = $_POST['id_hapus'];
         //echo $id;
+        $tgl = $_POST['tgl_penghapusan'];
+        $date = str_replace('/', '-', $tgl);
+        //echo $date."\n";
+        $tgl_penghapusan = date("Y-m-d", strtotime($date));
         $arr_aset = $_POST['aset'];
         $arr_status = $_POST['status'];
+        $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET TANGGAL_PENGHAPUSAN = '".$tgl_penghapusan."' WHERE ID_PENGHAPUSAN = '".$id."'");
         print_r($arr_status);
         for($a = 0; $a < count($arr_aset); $a++){
             echo "UPDATE daftar_aset SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."' \n";
             $upd = mysqli_query($koneksi, "UPDATE detil_usulan_penghapusan SET CATATAN = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'");
             $update = mysqli_query($koneksi, "UPDATE daftar_aset SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'");
         }
-        header("location:../penghapusan/?success");
+        header("location:../penghapusan/?disposal");
     }
 
 ?>

@@ -184,7 +184,7 @@
                   </li>
                   
                   <?php } 
-                  if($no2 != 0) { 
+                  if(isset($no2) && $no2 != 0) { 
                     ?>
                   <li>
                     <a href="pengadaan/">
@@ -193,7 +193,7 @@
                   </li>
                   
                   <?php } 
-                  if($no3 != 0) { 
+                  if(isset($no3) && $no3 != 0) { 
                     ?>
                   <li>
                     <a href="penghapusan/">

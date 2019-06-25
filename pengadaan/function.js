@@ -504,6 +504,22 @@ $(document).ready(function() {
         readURL(this);
     }); 	
 
+    /* $('#form_pengadaan').submit(function() {
+        var nama = $('#nama_aset').val();
+        if(nama != "") {
+            return true;   
+        }
+        else{
+            swal({
+                title: "Peringatan",
+                text: "Data tidak boleh ada yang kosong.",
+                type: "warning",
+                timer: 2000,
+                showConfirmButton: false
+            });
+            return false;
+        }
+    }); */
     // Logout
     $('.logout').on('click', function (event) {
         event.preventDefault();

@@ -219,7 +219,7 @@
                 </thead>
                 <tbody>
                 <?php
-                  $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif' AND p.id_user = '".$_SESSION['id_user']."'");
+                  $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval FROM pengadaan_aset p WHERE p.status_usulan = 'Aktif' AND p.id_user = '".$_SESSION['id_user']."' ORDER BY p.tanggal_usulan DESC");
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {
                 ?>

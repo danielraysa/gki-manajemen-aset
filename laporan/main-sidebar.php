@@ -77,7 +77,7 @@
       ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
+        <li class="">
           <a href="../index.php">
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
