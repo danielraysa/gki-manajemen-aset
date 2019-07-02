@@ -139,14 +139,6 @@
                         }
                     ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Kategori</th>
-                    <th>Kode Kategori</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->

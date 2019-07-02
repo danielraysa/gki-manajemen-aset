@@ -73,7 +73,7 @@
       readURL(this);
   });
 
-  // update datatable second page
+  // update with image
 	$('#example1').on('click','.modalLink', function(){
 		var id = $(this).attr('data-id');
     console.log(id);
@@ -109,11 +109,12 @@
       event.preventDefault();
       swal({
           title: 'Apakah anda ingin keluar?',
-          type: 'warning',
-          showCancelButton: true,
-          //confirmButtonColor: '#d9534f',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
+      type: 'warning',
+      showCancelButton: true,
+      //confirmButtonColor: '#d9534f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak'
       }).then((result) => {
           if (result.value) {
               swal({

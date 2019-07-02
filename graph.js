@@ -1,49 +1,17 @@
 $(document).ready(function(){
-    /* $.ajax({
-        url: "graph-data.php",
-        method: "GET",
-        success: function(data) {
-            console.log(data);
-            var player = [];
-            var score = [];
-            for(var i in data) {
-                player.push("Bulan-" + data[i].bulan);
-                score.push(data[i].jumlah);
-            }
-            var chartdata = {
-                labels: player,
-                datasets : [
-                    {
-                        label: 'Jumlah Aset per Ruangan',
-                        backgroundColor: 'rgb(0, 174, 255)',
-                        data: score
-                    }
-                ]
-            };
-            var ctx = $("#mycanvas");
-            var barGraph = new Chart(ctx, {
-                type: 'bar',
-                data: chartdata,
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Jumlah Pendaftar per Bulan',
-                        fontSize: 18
-                    },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    }); */
+    var tabel_detil = $('#example4').DataTable({
+        'retrieve': true,
+        'paging': true,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': true,
+        'info': true,
+        'autoWidth': true,
+        'responsive': true
+    });
+    var komisi, ruang, jumlahdata, jumlahdata1, warna1, warna, id_ruang, id_komisi;
+    var ctx, ctx1;
+    var barGraph, barGraph1;
     function getRandomColor() {
         var letters = '0123456789ABCDEF'.split('');
         var color = '#';
@@ -59,29 +27,33 @@ $(document).ready(function(){
         success: function(result) {
             console.log(result);
             var data = JSON.parse(result);
-            var ruang = [];
-            var jumlahdata = [];
-            var warna = [];
+            ruang = [];
+            jumlahdata1 = [];
+            warna1 = [];
+            id_ruang = [];
 
             for(var i in data) {
                 ruang.push(data[i].ruangan);
-                jumlahdata.push(data[i].jumlah);
-                warna.push(getRandomColor());
+                jumlahdata1.push(data[i].jumlah);
+                id_ruang.push(data[i].id);
+                warna1.push(getRandomColor());
             }
-            var ctx = document.getElementById("myChart");
-            var barGraph = new Chart(ctx, {
+            ctx = document.getElementById("myChart").getContext("2d");
+            barGraph = new Chart(ctx, {
                 type: 'pie',
                 data: {
+                    id: id_ruang,
                     labels: ruang,
                     datasets: [{
                         label: 'Jumlah Aset',
-                        data: jumlahdata,
-                        backgroundColor: warna
+                        data: jumlahdata1,
+                        backgroundColor: warna1
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    onClick: graphClickEvent
                 }
             });
         },
@@ -96,19 +68,22 @@ $(document).ready(function(){
         success: function(result) {
             console.log(result);
             var data = JSON.parse(result);
-            var komisi = [];
-            var jumlahdata = [];
-            var warna = [];
+            komisi = [];
+            id_komisi = [];
+            jumlahdata = [];
+            warna = [];
 
             for(var i in data) {
                 komisi.push(data[i].komisi);
                 jumlahdata.push(data[i].jumlah);
+                id_komisi.push(data[i].id);
                 warna.push(getRandomColor());
             }
-            var ctx = document.getElementById("myChartA");
-            var barGraph = new Chart(ctx, {
+            ctx1 = document.getElementById("myChartA").getContext("2d");
+            barGraph1 = new Chart(ctx1, {
                 type: 'pie',
                 data: {
+                    id: id_komisi,
                     labels: komisi,
                     datasets: [{
                         label: 'Jumlah Aset',
@@ -118,7 +93,8 @@ $(document).ready(function(){
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    onClick: graphClickEvent_komisi
                 }
             });
         },
@@ -126,4 +102,56 @@ $(document).ready(function(){
             console.log(data);
         }
     });
+    function graphClickEvent(event, array){
+    //function graphClickEvent(array){
+        var activePoints = barGraph.getElementsAtEvent(event);
+        if (activePoints[0]) {
+            var chartData = activePoints[0]['_chart'].config.data;
+            var idx = activePoints[0]['_index'];
+            var nama = chartData.labels[idx];
+            var label = chartData.id[idx];
+            $('#modal_list').text('Daftar Aset pada '+nama);
+            $.ajax({
+                url: "graph-data.php",
+                method: "POST",
+                data: "item_ruangan="+label,
+                success: function(result) {
+                    console.log(result);
+                    var data = JSON.parse(result);
+                    $('#example4').dataTable().fnClearTable();
+                    tabel_detil.rows.add(data).draw();
+                    $('#modal-list').modal('show');
+                }
+            });
+            /* var value = chartData.datasets[0].data[idx];
+            var url = "http://example.com/?label=" + label + "&value=" + value;
+            console.log(url);
+            alert(url); */
+        }
+    }
+    function graphClickEvent_komisi(event, array){
+    //function graphClickEvent(array){
+        var activePoints = barGraph1.getElementsAtEvent(event);
+        console.log(activePoints);
+        if (activePoints[0]) {
+            var chartData = activePoints[0]['_chart'].config.data;
+            var idx = activePoints[0]['_index'];
+    
+            var nama = chartData.labels[idx];
+            var label = chartData.id[idx];
+            $('#modal_list').text('Daftar Aset pada '+nama);
+            $.ajax({
+                url: "graph-data.php",
+                method: "POST",
+                data: "item_komisi="+label,
+                success: function(result) {
+                    console.log(result);
+                    var data = JSON.parse(result);
+                    $('#example4').dataTable().fnClearTable();
+                    tabel_detil.rows.add(data).draw();
+                    $('#modal-list').modal('show');
+                }
+            });
+        }
+    }
 });

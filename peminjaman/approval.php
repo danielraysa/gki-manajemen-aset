@@ -71,7 +71,7 @@
                                 <tbody>
                                     <?php
                                         $date = date('Y-m-d');
-                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.hasil_pengajuan = 'Pending' AND p.tanggal_peminjaman >= CURDATE()");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengembalian, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.hasil_pengajuan = 'Pending' AND p.tanggal_peminjaman >= CURDATE() ORDER BY p.tanggal_pengajuan");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
@@ -80,7 +80,7 @@
                                         <td><?php echo tglIndo_full($row['tanggal_pengajuan']); ?></td>
                                         <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['no_hp']; ?></td>
-                                        <td><?php echo tglIndo($row['tanggal_peminjaman']); ?></td>
+                                        <td><?php echo tglIndo($row['tanggal_peminjaman'])." - ".tglIndo($row['tanggal_pengembalian']); ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
                                             <?php
@@ -98,7 +98,7 @@
                                                 }
                                                 if($row['hasil_pengajuan'] == "Pending") {
                                             ?>
-                                            <button class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i>
+                                            <button class="btn btn-primary"><i class="fa fa-hourglass-end"></i>
                                                 <?php echo $row['hasil_pengajuan']; ?></button>
                                             <?php
                                                 }
@@ -173,9 +173,14 @@
                                             <button class="btn btn-danger"><i class="fa fa-close"></i> Melewati Batas</button>
                                             <?php
                                             }
+                                            else if ($row['tanggal_peminjaman'] > $date){
+                                            ?>
+                                            <button class="btn btn-success"><i class="fa fa-check"></i> Siap Pinjam</button>
+                                            <?php
+                                            }
                                             else {
                                             ?>
-                                            <button class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i> Terpinjam</button>
+                                            <button class="btn btn-primary"><i class="fa fa-external-link-square"></i> Terpinjam</button>
                                             <?php
                                             }
                                             ?>

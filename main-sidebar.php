@@ -46,6 +46,7 @@
           <ul class="treeview-menu">
             <li><a href="barang/"><i class="fa fa-tv text-red"></i> Barang</a></li>
             <li><a href="kategori/"><i class="fa fa-cubes text-yellow"></i> Kategori Barang</a></li>
+            <li><a href="merk/"><i class="fa fa-industry text-aqua"></i> Merk</a></li>
             <li><a href="ruangan/"><i class="fa fa-map-o text-blue"></i> Ruangan</a></li>
             <li><a href="komisi/"><i class="fa fa-group text-green"></i> Komisi</a></li>
             <li><a href="status/"><i class="fa fa-refresh text-teal"></i> Status</a></li>

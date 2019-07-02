@@ -47,6 +47,15 @@
   });
   $('#notif').on('click', function(){
     $('#notif_count').hide();
+    <?php
+      if($_SESSION['role'] == 'Peminjam') {
+        unset($_SESSION['notifikasi-peminjaman']);
+      }
+      if($_SESSION['role'] == 'Peminjam') {
+        unset($_SESSION['notifikasi-pengadaan']);
+        unset($_SESSION['notifikasi-penghapusan']);
+      }
+    ?>
   });
   $('.logout').on('click', function (event) {
     event.preventDefault();
@@ -56,7 +65,8 @@
       showCancelButton: true,
       //confirmButtonColor: '#d9534f',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak'
     }).then((result) => {
       if (result.value) {
         swal({

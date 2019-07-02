@@ -50,8 +50,6 @@ var catat_tabel = $('#tabel_catatan').DataTable({
   'responsive': true,
   'pageLength': 5
 });
-
-
 //var table = $('#example').DataTable();
 
 $('#reservation').daterangepicker({
@@ -75,7 +73,7 @@ $('#nohp').keypress(function (e) {
   //if the letter is not digit then display error and don't type anything
   if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
      //display error message
-    $("#errmsg").html("Input berupa angka").show().fadeOut("slow");
+    $("#errmsg").html("Input berupa angka").show().fadeOut(800);
       return false;
  }
 });
@@ -180,6 +178,54 @@ $('#btnSimpan').click(function () {
     });
   }
 });
+$('#btnUpdate').click(function () {
+  //var peminjam = $('#peminjam_aset').val();
+  var komisi = $('#komisi_peminjam').val();
+  var no_hp = $('#nohp').val();
+  var tgl = $('#reservation').val();
+  var ket = $('#keterangan').val();
+  //alert(peminjam+" / "+komisi+" / "+no_hp);
+  //alert(komisi+" / "+no_hp);
+  if(no_hp == '' || tgl == '' || ket == '') {
+    swal({
+      title: "Peringatan",
+      text: "Data tidak boleh ada yang kosong.",
+      type: "warning",
+      timer: 2000,
+      showConfirmButton: false
+    });
+  }
+  else {
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      data: {
+        simpan_pinjam: true,
+        //id_peminjam: peminjam,
+        id_komisi: komisi,
+        no_hp: no_hp,
+        tgl_peminjaman: tgl,
+        keterangan: ket
+      },
+      success: function (result) {
+        console.log(result);
+        swal({
+          title: "Sukses",
+          text: "Data telah disimpan.",
+          type: "success",
+          timer: 2000,
+          //confirmButtonText: '<a href="print_form.php?print_id='+result+'" target="_blank">Cetak form</a>'
+          showConfirmButton: false
+        }).then(function () {
+          //window.location.href = 'print_form.php?print_id='+result; 
+          //window.open('print_form.php?print_id='+result,'_blank'); // <- This is what makes it open in a new window.
+          location.reload();
+          window.open('print_form.php','_blank');
+        });
+      }
+    });
+  }
+});
 
 // Modal Detail Pnjam
 $('.modalDetail').click(function () {
@@ -188,7 +234,7 @@ $('.modalDetail').click(function () {
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "usulan_pinjam=" + id,
+    data: "usulan_pinjam_cek=" + id,
     success: function (result) {
       console.log(result)
       var data = JSON.parse(result);
@@ -358,7 +404,8 @@ $('.logout').on('click', function (event) {
     showCancelButton: true,
     //confirmButtonColor: '#d9534f',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes'
+    confirmButtonText: 'Ya',
+    cancelButtonText: 'Tidak'
   }).then((result) => {
     if (result.value) {
       swal({

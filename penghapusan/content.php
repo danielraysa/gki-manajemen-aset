@@ -68,7 +68,7 @@
                 <tr>
                   <th>No.</th>
                   <th>Usulan Aset</th>
-                  <th>Sisa Umur Manfaat</th>
+                  <th>Sisa Umur Aset</th>
                   <th>Total Pemeliharaan</th>
                   <th>Nilai Aset</th>
                   <th>Action</th>
@@ -140,7 +140,7 @@
                   <tr>
                     <th>No.</th>
                     <th>Nama Aset</th>
-                    <th>Sisa Umur Manfaat</th>
+                    <th>Sisa Umur Aset</th>
                     <th>Total Pemeliharaan</th>
                     <th>Nilai Aset</th>
                     <th>Action</th>
@@ -177,7 +177,7 @@
                   <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $row['NAMA_ASET']; ?></td>
-                    <td><?php echo $row['DIFF']; ?> tahun</td>
+                    <td><?php echo $row['DIFF']; ?> tahun <?php if($row['DIFF'] < 0) echo "(Sudah tidak layak)" ?> </td>
                     <td><?php echo $row['JML_PEMELIHARAAN']; ?> kali</td>
                     <td id=""><?php echo asRupiah($nilai); ?></td>
                     <td>

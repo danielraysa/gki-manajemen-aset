@@ -78,34 +78,37 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-filter-lama">
+<div class="modal fade" id="modal-cetak">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Filter Laporan</h4>
+                <h4 class="modal-title">Export Laporan</h4>
             </div>
+            <form action="export-pdf.php" target="_blank" method="post">
             <div class="modal-body">
-                <!-- <form action="" method="post"> -->
-                <input type="hidden" id="id_filter" name="id"/>
-                
+                <input type="hidden" name="filter" id="id_print" value=""/>
                 <div class="form-group">
                     <label>Pilih Tanggal:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" id="reservation" >
+                        <input type="text" name="tgl_awal" class="form-control" id="date_export" >
+                        <div class="input-group-addon">
+                            s.d.
+                        </div>
+                        <input type="text" name="tgl_akhir" class="form-control" id="date_export1" >
                     </div>
                 </div>
-
-                <!-- </form> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" id="btnFilter" type="submit" data-dismiss="modal"><i class="fa fa-search"></i> Filter</button>
+                <button class="btn btn-success pull-right" name="export" type="submit"><i class="fa fa-print"></i> Cetak</button>
+                <!-- <button class="btn btn-success pull-right" id="btnCetak" type="submit" data-dismiss="modal"><i class="fa fa-print"></i> Cetak</button> -->
             </div>
+            </form>
         </div>
         
     </div>

@@ -188,16 +188,6 @@
                         }
                     ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Pengguna</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Keterangan</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->

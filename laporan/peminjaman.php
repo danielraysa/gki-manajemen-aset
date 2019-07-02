@@ -5,7 +5,7 @@
                 <div class="box-header">
                     <!-- <h3 class="box-title">Daftar Usulan Pengadaan Aset</h3> -->
                     <button class="btn btn-success Filter" data-toggle="modal" data-target="#modal-filter" data-id="peminjaman"><i class="fa fa-search"></i> Filter</button>
-                    <!-- <button class="btn btn-warning Print" data-id="pengadaan"><i class="fa fa-print"></i> Cetak</button> -->
+                    <button class="btn btn-warning Print" data-toggle="modal" data-target="#modal-cetak" data-id="peminjaman"><i class="fa fa-print"></i> Cetak</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -54,6 +54,7 @@
         <div class="box box-info">
             <div class="box-header">
                 <button class="btn btn-success Filter" data-toggle="modal" data-target="#modal-filter" data-id="peminjaman"><i class="fa fa-search"></i> Filter</button>
+                <button class="btn btn-warning Print" data-toggle="modal" data-target="#modal-cetak" data-id="peminjaman"><i class="fa fa-print"></i> Cetak</button>
             </div>
             <div class="box-body">
                 <div class="col-lg-6 col-md-12 col-xs-12">

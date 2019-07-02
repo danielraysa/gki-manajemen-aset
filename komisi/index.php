@@ -131,14 +131,6 @@
                         }
                     ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Komisi</th>
-                    <th>Kode Komisi</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->

@@ -528,8 +528,8 @@ $(document).ready(function() {
             type: 'warning',
             showCancelButton: true,
             //confirmButtonColor: '#d9534f',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
         }).then((result) => {
             if (result.value) {
                 swal({

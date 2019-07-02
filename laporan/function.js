@@ -84,7 +84,15 @@ $('#datepicker1').daterangepicker({
         format: 'DD/MM/YYYY'
     }
 });
-$('#datepicker2').daterangepicker({
+$('#date_export').daterangepicker({
+    singleDatePicker: true,
+    autoclose: true,
+    locale: {
+        cancelLabel: 'Clear',
+        format: 'DD/MM/YYYY'
+    }
+});
+$('#date_export1').daterangepicker({
     singleDatePicker: true,
     autoclose: true,
     locale: {
@@ -151,6 +159,11 @@ $('.Filter').click(function () {
     var id = $(this).attr('data-id');
     console.log(id);
     $("#id_filter").val(id);
+});
+$('.Print').click(function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $("#id_print").val(id);
 });
 
 /* var ctx = document.getElementById("myChartA");

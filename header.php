@@ -228,6 +228,7 @@
                 <p>
                   <?php echo $_SESSION['nama_user']; ?>
                 </p>
+                <b><?php echo $_SESSION['role']; ?></b>
               </li>
               
               <!-- Menu Footer-->

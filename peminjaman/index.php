@@ -7,6 +7,7 @@
       $_SESSION['item_pinjam'] = array();
     }
     setlocale (LC_TIME, 'INDONESIAN');
+    date_default_timezone_set("Asia/Jakarta");
     $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
@@ -21,7 +22,12 @@
       include "header.php";
       include "main-sidebar.php";
       if($_SESSION['role'] == "Peminjam") {
-        include "content.php";
+        if(isset($_GET['edit'])){
+          include "edit-peminjaman.php";
+        }
+        else {
+          include "content.php";
+        }
       }
       if($_SESSION['role'] == "Anggota MJ") {
         include "approval.php";
@@ -32,5 +38,25 @@
     <?php include "../control-sidebar.php"; ?>
     </div>
     <?php include "js-script.php"; ?>
+    <?php
+      if(isset($_GET['edit'])) {
+        $id = $_GET['edit'];
+        $data = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $fetch = mysqli_fetch_array($data);
+        $date1 = date("d/m/Y", strtotime($fetch['TANGGAL_PEMINJAMAN']));
+        $date2 = date("d/m/Y", strtotime($fetch['TANGGAL_PENGEMBALIAN']));
+        $new_date = $date1." - ".$date2;
+        ?>
+        <script>
+            $('#komisi_peminjam').val('<?php echo $fetch['ID_KOMISI']; ?>');
+            $('#nohp').val('<?php echo $fetch['NO_HP']; ?>');
+            $('#keterangan').val('<?php echo $fetch['KETERANGAN_PINJAM']; ?>');
+            //$('#reservation').daterangepicker({ startDate: '<?php echo $date1; ?>', endDate: '<?php echo $date2; ?>' });
+            $('#reservation').data('daterangepicker').setStartDate('<?php echo $date1; ?>');
+            $('#reservation').data('daterangepicker').setEndDate('<?php echo $date2; ?>');
+        </script>
+        <?php
+      }
+    ?>
 </body>
 </html>

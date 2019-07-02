@@ -41,6 +41,53 @@
         }
         ?>
         <!-- /.row -->
+        <div class="modal fade" id="modal-list">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="modal_list"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="example4" class="table table-bordered table-hover table-responsive" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Kode Aset</th>
+                                <th>Nama Aset</th>
+                                <th>Jenis Barang</th>
+                            </tr>
+                            </thead>
+                        </table>     
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-detail">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Daftar Aset yang Dipinjam</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="example3" class="table table-bordered table-hover table-responsive" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Aset</th>
+                                <th>Jenis Barang</th>
+                            </tr>
+                            </thead>
+                        </table>     
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 

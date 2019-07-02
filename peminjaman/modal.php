@@ -89,7 +89,7 @@
                         <th>No.</th>
                         <th>Nama Aset</th>
                         <th>Jenis Barang</th>
-                        
+                        <th>Status</th>
                     </tr>
                     </thead>
                 </table>                
@@ -123,7 +123,7 @@
                         
                     </tr>
                     </thead>
-                </table>                
+                </table>            
             </div>
             <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>

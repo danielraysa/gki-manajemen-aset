@@ -136,6 +136,30 @@
         echo $myJSON;
     }
 
+    if (isset($_POST['usulan_pinjam_cek'])) {
+        $id = $_POST['usulan_pinjam_cek'];
+        $myObj = array();
+        $a = 1;
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND z.REALISASI_PENGEMBALIAN IS NULL AND z.TANGGAL_PENGEMBALIAN >= (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."')) as stat, p.ID_ASET, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        while($row = mysqli_fetch_array($query)){
+            $nama = $row['nama_aset'];
+            $barang = $row['nama_barang'];
+            $id_item = $row['id_detil_pinjam'];
+            if($row['stat'] > 0){
+                $status = "<b>Dipesan/dipakai</b>";
+            }
+            else {
+                $status = "Tersedia";
+            }
+            $array = array($a, $nama, $barang, $status);
+            array_push($myObj, $array);
+            $a++;
+        }
+        //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
+        $myJSON = json_encode($myObj);
+        echo $myJSON;
+    }
+
     // approve pengadaan
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
