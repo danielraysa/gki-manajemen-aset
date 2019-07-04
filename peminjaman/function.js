@@ -179,7 +179,7 @@ $('#btnSimpan').click(function () {
   }
 });
 $('#btnUpdate').click(function () {
-  //var peminjam = $('#peminjam_aset').val();
+  var id = $('#id_peminjaman_edit').val();
   var komisi = $('#komisi_peminjam').val();
   var no_hp = $('#nohp').val();
   var tgl = $('#reservation').val();
@@ -200,8 +200,8 @@ $('#btnUpdate').click(function () {
       url: "ajax.php",
       type: "POST",
       data: {
-        simpan_pinjam: true,
-        //id_peminjam: peminjam,
+        update_pinjam: true,
+        id_peminjaman: id,
         id_komisi: komisi,
         no_hp: no_hp,
         tgl_peminjaman: tgl,
