@@ -20,13 +20,16 @@
     <?php
     }
     if(isset($_GET['edit'])) {
+      if($_GET['edit'] == 'success') {
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-pencil"></i> Sukses!</h4>
-        Berhasil mengubah data.
+        <h4><i class="icon fa fa-check"></i> Sukses!</h4>
+        Berhasil memperbarui peminjaman
+        <?php //echo $_SESSION['success-msg']; ?>
     </div>
     <?php
+      }
     }
     if(isset($_GET['delete'])) {
     ?>
@@ -120,10 +123,21 @@
                     <i class="fa fa-laptop"></i>
                   </div>
                   <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
-                </div> <br>
+                </div>
                 
-                <button <?php if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" id="btnSimpan" name="simpan-pinjam">Simpan</button>
               </div>
+              <?php if(isset($_GET['edit'])){
+                  ?>
+                  <input type="hidden" id="id_peminjaman_edit" name="edit_peminjaman" value=<?php echo $_GET['edit']; ?> />
+                  <button <?php if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" id="btnUpdate" name="update-pinjam">Simpan Perubahan</button>
+                  <?php
+                  }
+                  else {
+                  ?>
+                  <button <?php if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" id="btnSimpan" name="simpan-pinjam">Simpan</button>
+                  <?php
+                    }
+                  ?>
               <!-- <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button> -->
               
             <!-- </form> -->
@@ -155,6 +169,25 @@
                     //include('plugins/phpqrcode/qrlib.php');
                     $a = 1;
                     //foreach ($_SESSION["cart_item"] as $select){
+                      if(isset($_GET['edit'])){
+                        $id = $_GET['edit'];
+                        $temp_edit = array();
+                        $query = mysqli_query($koneksi,"SELECT p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, b.NAMA_BARANG, m.NAMA_MERK FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN detil_usulan_pengadaan dp ON d.ID_USULAN_TAMBAH = dp.ID_USULAN_TAMBAH JOIN barang b ON dp.ID_BARANG = b.ID_BARANG JOIN detail_peminjaman p ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMINJAMAN = '".$id."'");
+                        while($fet = mysqli_fetch_array($query)){
+                            $id_aset = $fet['ID_ASET'];
+                            $kode_aset = $fet['KODE_ASET'];
+                            $nama_aset = $fet['NAMA_ASET'];
+                            $nama_barang = $fet['NAMA_BARANG'];
+                            //$key_index = array_search($id_aset, array_column($_SESSION['item_pinjam'], 'id_aset'));
+                            //$b = $key_index;
+                            //if(!in_array($id_aset,array_column($_SESSION['item_pinjam'], 'id_aset'))) {
+                            $add = array('id_aset' => $id_aset, 'kode_aset' => $kode_aset, 'nama_aset' => $nama_aset, 'barang' => $nama_barang);
+                            array_push($temp_edit, $add);
+                        }
+                        if(empty($_SESSION['item_pinjam']) && !empty($temp_edit)) {
+                          $_SESSION['item_pinjam'] = $temp_edit;
+                        }
+                    }
                     foreach ($_SESSION["item_pinjam"] as $key => $select){
                   ?>
                   <tr>

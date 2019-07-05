@@ -22,12 +22,13 @@
       include "header.php";
       include "main-sidebar.php";
       if($_SESSION['role'] == "Peminjam") {
-        if(isset($_GET['edit'])){
+        /* if(isset($_GET['edit'])){
           include "edit-peminjaman.php";
         }
         else {
           include "content.php";
-        }
+        } */
+        include "content.php";
       }
       if($_SESSION['role'] == "Anggota MJ") {
         include "approval.php";
@@ -49,6 +50,7 @@
         ?>
         <script>
             $('#komisi_peminjam').val('<?php echo $fetch['ID_KOMISI']; ?>');
+            $("#komisi_peminjam").select2("destroy").select2();
             $('#nohp').val('<?php echo $fetch['NO_HP']; ?>');
             $('#keterangan').val('<?php echo $fetch['KETERANGAN_PINJAM']; ?>');
             //$('#reservation').daterangepicker({ startDate: '<?php echo $date1; ?>', endDate: '<?php echo $date2; ?>' });

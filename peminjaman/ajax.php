@@ -252,8 +252,8 @@
         //$random_id = randString(10);
         $_SESSION['print_id'] = $id_peminjaman;
         
-        echo "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."' \n";
-        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', NO_HP = '".$no_hp."' TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."'");
+        echo "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', NO_HP = '".$no_hp."', TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."' \n";
+        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', NO_HP = '".$no_hp."', TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."'");
         if(!$query) {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
             echo $_SESSION['error-msg'];
@@ -262,7 +262,7 @@
         foreach($_SESSION['item_pinjam'] as $select => $value){
             //$random_id_item = randString(10);
             $random_id_item = randomID('detail_peminjaman', 'ID_DETIL_PINJAM', '10');
-            echo "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$random_id."','".$value['id_aset']."') \n";
+            echo "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."') \n";
             $insert = mysqli_query($koneksi, "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."')");
         }
         unset($_SESSION['item_pinjam']);

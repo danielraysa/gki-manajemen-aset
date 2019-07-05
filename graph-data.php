@@ -52,4 +52,23 @@ if(isset($_POST['item_komisi'])) {
     echo $json;
 }
 
+if (isset($_POST['pinjam_detail'])) {
+    $id = $_POST['pinjam_detail'];
+    $myObj = array();
+    $a = 1;
+    $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+    while($row = mysqli_fetch_array($query)){
+        $nama = $row['nama_aset'];
+        $barang = $row['nama_barang'];
+        $id_item = $row['id_detil_pinjam'];
+        
+        $array = array($a, $nama, $barang);
+        array_push($myObj, $array);
+        $a++;
+    }
+    //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
+    $myJSON = json_encode($myObj);
+    echo $myJSON;
+}
+
 ?>

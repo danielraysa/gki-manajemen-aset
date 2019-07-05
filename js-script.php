@@ -37,7 +37,7 @@
     'autoWidth'   : true,
     'responsive'  : true
   });
-  $('#example3').DataTable({
+  var table3 = $('#example3').DataTable({
     'paging'      : true,
     'lengthChange': false,
     'searching'   : false,
@@ -57,6 +57,22 @@
       }
     ?>
   });
+  $('.modalDetail').click(function () {
+        var id = $(this).attr('data-id');
+        console.log(id);
+        $.ajax({
+            url: "graph-data.php",
+            type: "POST",
+            data: "pinjam_detail=" + id,
+            success: function (result) {
+                console.log(result)
+                var data = JSON.parse(result);
+                $('#example3').dataTable().fnClearTable();
+                //$('#example4').dataTable().fnDestroy();
+                table3.rows.add(data).draw();
+            }
+        });
+    });
   $('.logout').on('click', function (event) {
     event.preventDefault();
     swal({
