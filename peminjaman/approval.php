@@ -156,7 +156,7 @@
                                 <tbody>
                                     <?php
                                         //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_pengajuan FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
-                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.keterangan_pinjam, p.no_hp, p.tanggal_pengajuan, p.hasil_pengajuan, p.tanggal_peminjaman, p.tanggal_pengembalian FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.hasil_pengajuan = 'Diterima' AND p.realisasi_pengembalian IS NULL");
+                                        $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.keterangan_pinjam, p.no_hp, p.tanggal_pengajuan, p.hasil_pengajuan, p.tanggal_peminjaman, p.tanggal_pengembalian FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.hasil_pengajuan = 'Diterima' AND p.realisasi_pengembalian IS NULL ORDER BY p.tanggal_peminjaman");
                                         $a = 1;
                                         while($row = mysqli_fetch_array($query)) {
                                         ?>
