@@ -196,9 +196,9 @@
                 $new_date = date('Y-m-d', strtotime($tgl_jadwal. ' +1 month'));
             }
             if($row['PILIHAN'] == 'awal_bulan'){
-                $month = date('m',strtotime($tgl_jadwal));
-                $new_date = date('Y-'.$month.'-01', strtotime($tgl_jadwal. ' +1 month'));
-                //$new_date = date('Y-m-d', strtotime($tgl_selesai. ' +1 month'));
+                //$month = date('m',strtotime($tgl_jadwal));
+                //$new_date = date('Y-'.$month.'-01', strtotime($tgl_jadwal. ' +1 month'));
+                $new_date = date('Y-m-d', strtotime($tgl_jadwal. ' +1 month'));
             }
             if($row['PILIHAN'] == 'akhir_bulan'){
                 $new_date = date('Y-m-t', strtotime($tgl_jadwal. ' +1 month'));

@@ -108,7 +108,7 @@
             <div class="box-header">
                 <button class="btn btn-success Filter" data-toggle="modal" data-target="#modal-filter" data-id="pengadaan"><i class="fa fa-search"></i> Filter</button>
                 <button class="btn btn-warning Print" data-toggle="modal" data-target="#modal-cetak" data-id="pengadaan"><i class="fa fa-print"></i> Cetak</button>
-                <!-- <button onclick="window.print();" class="btn btn-warning Print" data-id="pengadaan"><i class="fa fa-print"></i> Cetak</!--> -->
+                <!-- <button onclick="window.print();" class="btn btn-warning Print" data-id="pengadaan"><i class="fa fa-print"></i> Cetak</!-->
             </div>
             <div class="box-body">
                 <div class="col-lg-6 col-md-12 col-xs-12">

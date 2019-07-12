@@ -35,7 +35,8 @@
             }
             else {
                 $query = mysqli_query($koneksi,"SELECT d.nama_aset, COUNT(d.nama_aset) as jumlah, SUM(d.harga_pembelian) as total FROM pengadaan_aset p JOIN detil_usulan_pengadaan dp ON p.id_pengadaan = dp.id_pengadaan JOIN user u ON p.id_user = u.id_user JOIN daftar_aset d ON d.id_usulan_tambah = dp.id_usulan_tambah WHERE p.hasil_approval = 'Diterima' AND (d.tanggal_pembelian BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') GROUP BY d.nama_aset");
-
+                $total_item = 0;
+                $total_rp = 0;
                 while($row = mysqli_fetch_array($query)){
                     $aset = $row['nama_aset'];
                     $jml = $row['jumlah'];
@@ -45,7 +46,11 @@
                     //$inc = array('aset' => $aset, 'jumlah' => $jml);
                     array_push($myObj, $array);
                     $a++;
+                    $total_item = $total_item + $jml;
+                    $total_rp = $total_rp + $row['total'];
                 }
+                $last = array("<b>Total</b>", "", $total_item, asRupiah($total_rp));
+                array_push($myObj, $last);
             }
         }
         if($filter == "peminjaman") {
@@ -65,7 +70,7 @@
             }
             else {
                 $query = mysqli_query($koneksi,"SELECT d.nama_aset, COUNT(*) as jumlah FROM peminjaman_aset p JOIN detail_peminjaman dp ON p.id_peminjaman = dp.id_peminjaman JOIN daftar_aset d ON dp.id_aset = d.id_aset WHERE p.hasil_pengajuan = 'Diterima' AND (p.tanggal_peminjaman BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') GROUP BY d.nama_aset");
-
+                $total_item = 0;
                 while($row = mysqli_fetch_array($query)){
                     $aset = $row['nama_aset'];
                     $jml = $row['jumlah'];
@@ -73,7 +78,10 @@
                     //$inc = array('aset' => $aset, 'jumlah' => $jml);
                     array_push($myObj, $array);
                     $a++;
+                    $total_item = $total_item + $jml;
                 }
+                $last = array("<b>Total</b>", "", $total_item);
+                array_push($myObj, $last);
             }
         }
         if($filter == "pemeliharaan") {
@@ -93,7 +101,8 @@
             }
             else {
                 $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, SUM(CASE WHEN p.BIAYA_PEMELIHARAAN IS NULL THEN 0 ELSE p.BIAYA_PEMELIHARAAN END) AS BIAYA_PEMELIHARAAN FROM daftar_aset d JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' AND (p.TANGGAL_PENJADWALAN BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') GROUP BY p.ID_ASET");
-
+                $total_item = 0;
+                $total_rp = 0;
                 while($row = mysqli_fetch_array($query)){
                     $aset = $row['NAMA_ASET'];
                     $jml = $row['JML_PEMELIHARAAN'];
@@ -102,16 +111,21 @@
                     //$inc = array('aset' => $aset, 'jumlah' => $jml);
                     array_push($myObj, $array);
                     $a++;
+                    $total_item = $total_item + $jml;
+                    $total_rp = $total_rp + $row['BIAYA_PEMELIHARAAN'];
                 }
+                $last = array("<b>Total</b>", "", $total_item, asRupiah($total_rp));
+                array_push($myObj, $last);
             }
         }
         if($filter == "penghapusan") {
             if($jenis == "detil") {
-                $query = mysqli_query($koneksi,"SELECT p.id_penghapusan, d.kode_aset, d.nama_aset, u.nama_lengkap, p.keterangan_penghapusan, p.tanggal_usulan, p.hasil_approval FROM penghapusan_aset p JOIN detil_usulan_penghapusan dp ON p.id_penghapusan = dp.id_penghapusan JOIN user u ON p.id_user = u.id_user JOIN daftar_aset d ON d.id_aset = dp.id_aset WHERE p.hasil_approval = 'Diterima' AND (p.tanggal_usulan BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') ORDER BY p.tanggal_usulan");
+                $query = mysqli_query($koneksi,"SELECT p.id_penghapusan, d.kode_aset, d.nama_aset, u.nama_lengkap, p.keterangan_penghapusan, p.tanggal_usulan, p.tanggal_penghapusan, p.hasil_approval FROM penghapusan_aset p JOIN detil_usulan_penghapusan dp ON p.id_penghapusan = dp.id_penghapusan JOIN user u ON p.id_user = u.id_user JOIN daftar_aset d ON d.id_aset = dp.id_aset WHERE p.hasil_approval = 'Diterima' AND p.tanggal_penghapusan IS NOT NULL AND (p.tanggal_penghapusan BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') ORDER BY p.tanggal_penghapusan");
                 while($row = mysqli_fetch_array($query)){
                     $aset = $row['nama_aset'];
                     $nama = $row['nama_lengkap'];
-                    $tgl = tglIndo($row['tanggal_usulan']);
+                    //$tgl = tglIndo($row['tanggal_usulan']);
+                    $tgl = tglIndo($row['tanggal_penghapusan']);
                     $keterangan = $row['keterangan_penghapusan'];
                     $array = array($a, $aset, $nama, $tgl, $keterangan);
                     array_push($myObj, $array);
@@ -120,8 +134,8 @@
             }
             else {
                 //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.NAMA_ASET, SUM(CASE WHEN p.STATUS_PEMELIHARAAN = 'SELESAI' THEN +1 ELSE 0 END) as JML_PEMELIHARAAN, SUM(CASE WHEN p.BIAYA_PEMELIHARAAN IS NULL THEN 0 ELSE p.BIAYA_PEMELIHARAAN END) AS BIAYA_PEMELIHARAAN FROM daftar_aset d JOIN pemeliharaan_aset p ON d.ID_ASET = p.ID_ASET WHERE d.STATUS_ASET = 'Aktif' GROUP BY p.ID_ASET");
-                $query = mysqli_query($koneksi,"SELECT d.NAMA_ASET, COUNT(*) AS JUMLAH FROM penghapusan_aset p JOIN detil_usulan_penghapusan dp ON p.ID_PENGHAPUSAN = dp.ID_PENGHAPUSAN JOIN daftar_aset d ON d.ID_ASET = dp.ID_ASET WHERE p.HASIL_APPROVAL = 'Diterima' AND (p.TANGGAL_USULAN BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') GROUP BY d.NAMA_ASET");
-
+                $query = mysqli_query($koneksi,"SELECT d.NAMA_ASET, COUNT(*) AS JUMLAH FROM penghapusan_aset p JOIN detil_usulan_penghapusan dp ON p.ID_PENGHAPUSAN = dp.ID_PENGHAPUSAN JOIN daftar_aset d ON d.ID_ASET = dp.ID_ASET WHERE p.HASIL_APPROVAL = 'Diterima' AND p.TANGGAL_PENGHAPUSAN IS NOT NULL AND (p.TANGGAL_PENGHAPUSAN BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."') GROUP BY d.NAMA_ASET");
+                $total_item = 0;
                 while($row = mysqli_fetch_array($query)){
                     $aset = $row['NAMA_ASET'];
                     $jml = $row['JUMLAH'];
@@ -129,7 +143,10 @@
                     //$inc = array('aset' => $aset, 'jumlah' => $jml);
                     array_push($myObj, $array);
                     $a++;
+                    $total_item = $total_item + $jumlah;
                 }
+                $last = array("<b>Total</b>", "", $total_item);
+                array_push($myObj, $last);
             }
         }
         $myJSON = json_encode($myObj);
