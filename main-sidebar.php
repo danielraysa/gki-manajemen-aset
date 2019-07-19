@@ -5,7 +5,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['nama_user']; ?></p>
@@ -30,12 +30,12 @@
       ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
-          <a href="index.php">
+        <li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>index.php">
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
         </li>
-        <li class="treeview">
+        <li class="treeview <?php if ($dir == "barang" || $dir == "kategori" || $dir == "merk" || $dir == "ruangan" || $dir == "komisi" || $dir == "status" || $dir == "user") echo "active"; ?>">
           <a href="#">
             <i class="fa fa-laptop text-red"></i>
             <span>Data Master</span>
@@ -44,38 +44,37 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="barang/"><i class="fa fa-tv text-red"></i> Barang</a></li>
-            <li><a href="kategori/"><i class="fa fa-cubes text-yellow"></i> Kategori Barang</a></li>
-            <li><a href="merk/"><i class="fa fa-industry text-aqua"></i> Merk</a></li>
-            <li><a href="ruangan/"><i class="fa fa-map-o text-blue"></i> Ruangan</a></li>
-            <li><a href="komisi/"><i class="fa fa-group text-green"></i> Komisi</a></li>
-            <li><a href="status/"><i class="fa fa-refresh text-teal"></i> Status</a></li>
-            <li><a href="user/"><i class="fa fa-user text-red"></i> User</a></li>
+            <li class="<?php if ($dir == "barang") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>barang/"><i class="fa fa-tv text-red"></i> Barang</a></li>
+            <li class="<?php if ($dir == "kategori") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>kategori/"><i class="fa fa-cubes text-yellow"></i> Kategori Barang</a></li>
+            <li class="<?php if ($dir == "merk") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>merk/"><i class="fa fa-industry text-aqua"></i> Merk</a></li>
+            <li class="<?php if ($dir == "ruangan") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>ruangan/"><i class="fa fa-map-o text-blue"></i> Ruangan</a></li>
+            <li class="<?php if ($dir == "komisi") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>komisi/"><i class="fa fa-group text-green"></i> Komisi</a></li>
+            <li class="<?php if ($dir == "status") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>status/"><i class="fa fa-refresh text-teal"></i> Status</a></li>
+            <li class="<?php if ($dir == "user") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>user/"><i class="fa fa-user text-red"></i> User</a></li>
           </ul>
         </li>
-        <li>
-          <a href="aset/">
+        <li class="<?php if ($dir == "aset") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>aset/">
             <i class="fa fa-barcode"></i> <span>Daftar Aset</span>
           </a>
         </li>
-        <li>
-          <a href="pengadaan/">
+        <li class="<?php if ($dir == "pengadaan") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
             <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
           </a>
         </li>
-        <li>
-        <li>
-          <a href="peminjaman/">
+        <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>peminjaman/">
             <i class="fa fa-edit text-teal"></i> <span>Peminjaman Aset</span>
           </a>
         </li>
-        <li>
-          <a href="pemeliharaan/">
+        <li class="<?php if ($dir == "pemeliharaan") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pemeliharaan/">
             <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan Aset</span>
           </a>
         </li>
-        <li>
-          <a href="penghapusan/">
+        <li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/">
             <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
           </a>
         </li>
@@ -87,29 +86,29 @@
       ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
-          <a href="index.php">
+        <li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>index.php">
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
         </li>
         
-        <li>
-          <a href="aset/">
+        <li class="<?php if ($dir == "aset") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>aset/">
             <i class="fa fa-barcode"></i> <span>Daftar Aset</span>
           </a>
         </li>
-        <li>
-          <a href="pengadaan/">
+        <li class="<?php if ($dir == "pengadaan") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
             <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
           </a>
         </li>
 
-        <li>
-          <a href="penghapusan/">
+        <li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/">
             <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
           </a>
         </li>
-        <li class="treeview">
+        <li class="treeview <?php if ($dir == "laporan") echo "active"; ?>">
           <a href="#">
             <i class="fa fa-file-text-o"></i> <span>Laporan</span>
             <span class="pull-right-container">
@@ -117,13 +116,17 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
-            <li><a href="laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
-            <li><a href="laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
-            <li><a href="../laporan/?penghapusan"><i class="fa fa-trash text-red"></i> Penghapusan Aset</a></li>
+            <li class="<?php if (isset($_GET['pengadaan'])) echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>laporan/?pengadaan"><i class="fa fa-cart-plus text-orange"></i> Pengadaan Aset</a></li>
+            <li class="<?php if (isset($_GET['peminjaman'])) echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>laporan/?peminjaman"><i class="fa fa-edit text-blue"></i> Peminjaman Aset</a></li>
+            <li class="<?php if (isset($_GET['pemeliharaan'])) echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>laporan/?pemeliharaan"><i class="fa fa-gears text-green"></i> Pemeliharaan Aset</a></li>
+            <li class="<?php if (isset($_GET['penghapusan'])) echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>laporan/?penghapusan"><i class="fa fa-trash text-red"></i> Penghapusan Aset</a></li>
           </ul>
         </li>
-        
+        <li>
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>konfigurasi/">
+            <i class="fa fa-gear"></i> <span>Konfigurasi</span>
+          </a>
+        </li>
       </ul>
       <?php
       }
@@ -132,13 +135,13 @@
       ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
-          <a href="index.php">
+        <li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>index.php">
             <i class="fa fa-home"></i> <span>Home</span>
           </a>
         </li>
-        <li>
-          <a href="peminjaman/">
+        <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>peminjaman/">
             <i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
           </a>
         </li>

@@ -133,6 +133,7 @@
     // approve pengadaan
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
+        $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Diterima' WHERE ID_PEMINJAMAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
@@ -140,6 +141,7 @@
         else {
             echo "Success";
         }
+        $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('peminjaman_aset', '".$id."', '".$date."', 0)");
         $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
         $row = mysqli_fetch_array($select);
         $sendMessageRequest = new SendMessageRequest([
@@ -153,6 +155,7 @@
 
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
+        $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Ditolak' WHERE ID_PEMINJAMAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
@@ -160,6 +163,7 @@
         else {
             echo "Success";
         }
+        $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('peminjaman_aset', '".$id."', '".$date."', 0)");
         $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
         $row = mysqli_fetch_array($select);
         $sendMessageRequest = new SendMessageRequest([

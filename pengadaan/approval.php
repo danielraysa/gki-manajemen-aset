@@ -56,7 +56,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
+                            <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -97,7 +97,7 @@
                                                 }
                                                 if($row['hasil_approval'] == "Pending") {
                                             ?>
-                                            <button class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i>
+                                            <button class="btn btn-primary"><i class="fa fa-hourglass-end"></i>
                                                 <?php echo $row['hasil_approval']; ?></button>
                                             <?php
                                                 }
@@ -121,6 +121,7 @@
                                         </td>
                                     </tr>
                                     <?php
+                                        $a++;
                                         }
                                     ?>
                                 </tbody>

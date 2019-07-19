@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" height="50px"></span>
+      <span class="logo-mini"><b>GKI</b>S</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" height="50px"> GKISarpras</span>
+      <span class="logo-lg"><b>GKI</b>Sarpras</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -18,9 +18,89 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <!-- <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success">4</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 4 messages</li>
+              <li>
+                <ul class="menu"> -->
+                  <!-- <li>
+                  <a href="#">
+                      <div class="pull-left">
+                        <img src="<?php echo getcwd(); ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Support Team
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li> -->
+                  <!-- end message -->
+                  <!-- <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        AdminLTE Design Team
+                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Developers
+                        <small><i class="fa fa-clock-o"></i> Today</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Sales Department
+                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Reviewers
+                        <small><i class="fa fa-clock-o"></i> 2 days</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li> -->
           <!-- Notifications: style can be found in dropdown.less -->
           <?php
             $total = 0;
+            
+            $notif_penghapusan = mysqli_query($koneksi, "SELECT n.ID_NOTIF, p.ID_PENGHAPUSAN, n.TGL_NOTIF, n.READ_NOTIF FROM notifikasi n JOIN penghapusan_aset p ON n.ID_REF = p.ID_PENGHAPUSAN WHERE n.TABEL_REF = 'penghapusan_aset' AND p.ID_USER = '".$_SESSION['id_user']."'");
+            
+            //$row = mysqli_fetch_array($notif_pengadaan)
             if($_SESSION['role'] == "Peminjam" || $_SESSION['role'] == "Anggota MJ"){
               if($_SESSION['role'] == "Peminjam"){
                 $notif_peminjaman = mysqli_query($koneksi, "SELECT n.ID_NOTIF, p.ID_PEMINJAMAN, n.TGL_NOTIF, n.READ_NOTIF FROM notifikasi n JOIN peminjaman_aset p ON n.ID_REF = p.ID_PEMINJAMAN WHERE n.TABEL_REF = 'peminjaman_aset' AND p.ID_USER = '".$_SESSION['id_user']."' AND n.READ_NOTIF = 0");
@@ -36,15 +116,12 @@
               }
               if($_SESSION['role'] == "Anggota MJ"){
                 $notif_pengadaan = mysqli_query($koneksi, "SELECT n.ID_NOTIF, p.ID_PENGADAAN, n.TGL_NOTIF, n.READ_NOTIF FROM notifikasi n JOIN pengadaan_aset p ON n.ID_REF = p.ID_PENGADAAN WHERE n.TABEL_REF = 'pengadaan_aset' AND p.ID_USER = '".$_SESSION['id_user']."' AND n.READ_NOTIF = 0");
-                $notif_penghapusan = mysqli_query($koneksi, "SELECT n.ID_NOTIF, p.ID_PENGHAPUSAN, n.TGL_NOTIF, n.READ_NOTIF FROM notifikasi n JOIN penghapusan_aset p ON n.ID_REF = p.ID_PENGHAPUSAN WHERE n.TABEL_REF = 'penghapusan_aset' AND p.ID_USER = '".$_SESSION['id_user']."' AND n.READ_NOTIF = 0");
                 $arr_peng = array();
                 $arr_hapus = array();
-                $no2 = mysqli_num_rows($notif_pengadaan);
-                $no3 = mysqli_num_rows($notif_penghapusan);
-                //$no2 = 0;
-                //$no3 = 0;
+                $no2 = 0;
+                $no3 = 0;
                 //$get = mysqli_fetch_array($_SESSION['notifikasi-pengadaan']);
-                /* if(isset($_SESSION['notifikasi-pengadaan'])){
+                if(isset($_SESSION['notifikasi-pengadaan'])){
                   foreach ($_SESSION['notifikasi-pengadaan'] as $key => $select){
                     array_push($arr_peng, $select['id_pengadaan']);
                   }
@@ -65,7 +142,7 @@
                       $no3 = $no3 + 1;
                     }
                   }
-                } */
+                }
                 //print_r($arr_peng);
                 $query1 = mysqli_query($koneksi, "SELECT ID_ASET, TANGGAL_PENJADWALAN, DATE_SUB(TANGGAL_PENJADWALAN, INTERVAL NOTIF DAY) AS Batas FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' HAVING Batas <= CURDATE() ORDER BY TANGGAL_PENJADWALAN ASC");
                 
@@ -134,8 +211,14 @@
                     </a>
                   </li>
                   <?php } ?>
+                  <!-- <li>
+                    <a href="penghapusan/">
+                      <i class="fa fa-trash text-red"></i> You changed your username
+                    </a>
+                  </li> -->
                 </ul>
               </li>
+              <!-- <li class="footer"><a href="#">View all</a></li> -->
             </ul>
           </li>
           <?php
@@ -145,13 +228,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['nama_user']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 <p>
                   <?php echo $_SESSION['nama_user']; ?>
                 </p>
@@ -166,7 +249,10 @@
               </li>
             </ul>
           </li>
-          
+          <!-- Control Sidebar Toggle Button -->
+          <!-- <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li> -->
         </ul>
       </div>
     </nav>

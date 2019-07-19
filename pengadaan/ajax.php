@@ -117,6 +117,7 @@
         $id = $_GET['approve'];
         $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Diterima', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
+        $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('pengadaan_aset', '".$id."', '".$date."', 0)");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -129,6 +130,7 @@
         $id = $_GET['reject'];
         $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
+        $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('pengadaan_aset', '".$id."', '".$date."', 0)");
         if(!$query) {
             echo mysqli_error($koneksi);
         }

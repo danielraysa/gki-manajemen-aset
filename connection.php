@@ -12,6 +12,13 @@
         return $str;
     }
 
+    function loadKonfigurasi($input) {
+        $koneksi = mysqli_connect("localhost","root","","gki_backup");
+        $query = mysqli_query($koneksi,"SELECT ".$input." as hasil FROM konfigurasi");
+        $row = mysqli_fetch_array($query);
+        return $row['hasil'];
+    }
+
     function randomID($table, $id_table, $char) {
         $koneksi = mysqli_connect("localhost","root","","gki_backup");
         $random_id = randString($char);

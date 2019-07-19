@@ -46,7 +46,16 @@
     'autoWidth'   : false
   });
   $('#notif').on('click', function(){
+    var id = "<?php echo $_SESSION['id_user']; ?>";
     $('#notif_count').hide();
+    $.ajax({
+      url: "graph-data.php",
+      type: "POST",
+      data: "id_notif=" + id,
+      success: function (result) {
+        console.log(result)
+      }
+    });
     <?php
       if($_SESSION['role'] == 'Peminjam') {
         unset($_SESSION['notifikasi-peminjaman']);

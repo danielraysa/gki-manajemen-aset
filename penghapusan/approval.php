@@ -95,7 +95,7 @@
                                                 }
                                                 if($row['hasil_approval'] == "Pending") {
                                             ?>
-                                            <button class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i>
+                                            <button class="btn btn-primary"><i class="fa fa-hourglass-end"></i>
                                                 <?php echo $row['hasil_approval']; ?></button>
                                             <?php
                                                 }
