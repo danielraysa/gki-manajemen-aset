@@ -4,7 +4,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" height="50px"></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" height="50px"> GKISarpras</span>
+      <span class="logo-lg"><img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" height="50px"> <?php echo loadKonfigurasi("nama_web"); ?></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -111,7 +111,7 @@
                   if(isset($no1)) { 
                     ?>
                   <li>
-                    <a href="pemeliharaan/">
+                    <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pemeliharaan/">
                       <i class="fa fa-gears text-green"></i> <?php echo $no1; ?> pengingat pemeliharaan aset 
                     </a>
                   </li>
@@ -120,7 +120,7 @@
                   if(isset($no2) && $no2 != 0) { 
                     ?>
                   <li>
-                    <a href="pengadaan/">
+                    <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
                       <i class="fa fa-shopping-cart text-blue"></i> <?php echo $no2; ?> pengajuan pengadaan aset 
                     </a>
                   </li>
@@ -129,7 +129,7 @@
                   if(isset($no3) && $no3 != 0) { 
                     ?>
                   <li>
-                    <a href="penghapusan/">
+                    <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/">
                       <i class="fa fa-trash text-red"></i> <?php echo $no3; ?> pengajuan penghapusan aset 
                     </a>
                   </li>

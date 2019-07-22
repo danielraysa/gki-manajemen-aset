@@ -1,5 +1,6 @@
 $('.select2').select2();
 //$('.select2-selection').css('border-radius','0px')
+$('[data-toggle="tooltip"]').popover();
 $('#example1').DataTable({
   'paging': true,
   'ordering': true,

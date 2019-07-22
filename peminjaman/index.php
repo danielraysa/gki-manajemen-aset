@@ -19,8 +19,8 @@
 <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
     <?php
-      include "header.php";
-      include "main-sidebar.php";
+      include "../header.php";
+      include "../main-sidebar.php";
       if($_SESSION['role'] == "Peminjam") {
         /* if(isset($_GET['edit'])){
           include "edit-peminjaman.php";

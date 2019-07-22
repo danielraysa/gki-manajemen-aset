@@ -170,7 +170,7 @@
                                             <?php
                                             if ($row['tanggal_pengembalian'] < $date){
                                             ?>
-                                            <button class="btn btn-danger"><i class="fa fa-close"></i> Melewati Batas</button>
+                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="<?php echo round((strtotime($date)-strtotime($row['tanggal_pengembalian']))/(60*60*24)); ?> hari"><i class="fa fa-close"></i> Melewati Batas</button>
                                             <?php
                                             }
                                             else if ($row['tanggal_peminjaman'] > $date){
@@ -194,7 +194,7 @@
                                             if ($row['tanggal_pengembalian'] <= $date){
                                             ?>
                                             <button class="btn btn-warning btnSms" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> Kirim Pengingat</button>
-                                            <!-- <a role="button" href="https://wa.me/6281235607716?text=Saya%20tertarik%20untuk%20membeli%20mobil%20Anda%20(TEST)" target="_blank" class="btn btn-success" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> WA</button> -->
+                                            <!-- <a role="button" href="https://wa.me/6281235607716?text=Saya%20tertarik%20untuk%20membeli%20mobil%20Anda%20(TEST)" target="_blank" class="btn btn-success" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> WA</b> -->
                                             <?php
                                             }
                                             ?>

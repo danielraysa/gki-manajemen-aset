@@ -122,7 +122,7 @@
             <li class="<?php if (isset($_GET['penghapusan'])) echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>laporan/?penghapusan"><i class="fa fa-trash text-red"></i> Penghapusan Aset</a></li>
           </ul>
         </li>
-        <li>
+        <li class="<?php if ($dir == "konfigurasi") echo "active"; ?>">
           <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>konfigurasi/">
             <i class="fa fa-gear"></i> <span>Konfigurasi</span>
           </a>
