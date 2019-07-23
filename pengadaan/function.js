@@ -276,8 +276,8 @@ $(document).ready(function() {
     });
 
     $('#form_add').submit(function() {
-        var nomorasli = $('#barangusulan').find(':selected').data('items');
-        $('#barang_backup').val(nomorasli);
+        /* var nomorasli = $('#barangusulan').find(':selected').data('items');
+        $('#barang_backup').val(nomorasli); */
         var cek = $('#barangusulan').prop('disabled');
         var cek1 = $('#nama').prop('disabled');
         if(cek) {

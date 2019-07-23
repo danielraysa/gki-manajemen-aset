@@ -1,4 +1,4 @@
-<?php include "../connection.php"; ?>
+<?php include "../connection.php"; $dir = basename(__DIR__); ?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -21,6 +21,7 @@
             $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];
             $_SESSION['role'] = $row['ROLE'];
             $_SESSION['success_login'] = 1;
+            $_SESSION['notif'] = true;
             header("location:../");
         }
         else {

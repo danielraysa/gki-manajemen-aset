@@ -22,7 +22,15 @@
 <script src="graph.js"></script>
 <!-- page script -->
 <script>
-  
+  /* $.ajax({
+    url: "notif-data.php",
+    type: "POST",
+    data: "user_notif=<?php echo $_SESSION['id_user']; ?>",
+    success: function (result) {
+      console.log(result);
+      $('#notification_content').html(result);
+    }
+  }); */
   $('#example1').DataTable({
   'autoWidth': true,
   'responsive': true,
@@ -46,25 +54,20 @@
     'autoWidth'   : false
   });
   $('#notif').on('click', function(){
-    var id = "<?php echo $_SESSION['id_user']; ?>";
     $('#notif_count').hide();
+    <?php unset($_SESSION['notif']); ?>
+  });
+  $('.item-notif').on('click', function(){
+    var id = "<?php echo $_SESSION['id_user']; ?>";
+    var tabel = $(this).attr('id');
     $.ajax({
-      url: "graph-data.php",
+      url: "notif-data.php",
       type: "POST",
-      data: "id_notif=" + id,
+      data: {id_notif: id, tabel: tabel},
       success: function (result) {
         console.log(result)
       }
     });
-    <?php
-      if($_SESSION['role'] == 'Peminjam') {
-        unset($_SESSION['notifikasi-peminjaman']);
-      }
-      if($_SESSION['role'] == 'Peminjam') {
-        unset($_SESSION['notifikasi-pengadaan']);
-        unset($_SESSION['notifikasi-penghapusan']);
-      }
-    ?>
   });
   $('.modalDetail').click(function () {
         var id = $(this).attr('data-id');

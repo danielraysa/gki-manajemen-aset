@@ -65,16 +65,17 @@
             $nama = $_POST['nama'];
         }
         $barang = $_POST['barang'];
-        $barang_backup = $_POST['barang_backup'];
+        echo $barang."<br >";
+        /* $barang_backup = $_POST['barang_backup'];
+        echo $barang_backup."<br >";
         if($barang_backup != $barang) {
             $barang = $barang_backup;
-        }
-        //$nama_barang = $_POST['nama_barang'];
-        //if($nama_barang == "") {
+        } */
+        
         $query = mysqli_query($koneksi, "SELECT * FROM barang WHERE ID_BARANG = '".$barang."'");  
         $fet = mysqli_fetch_array($query);
         $nama_barang = $fet['NAMA_BARANG'];
-        //}
+        
         //$jumlah = $_POST['jumlah'];
         $harga = $_POST['harga'];
         $rupiah = $_POST['rupiah'];
@@ -134,7 +135,6 @@
                     $_SESSION['error-msg'] = mysqli_error($koneksi);
                     echo $_SESSION['error-msg'];
                     header("location: ../pengadaan/?error");
-                    $success = false;
                     break;
                 }
             }
@@ -154,11 +154,11 @@
                 unset($_SESSION['temp_item_2']);
                 $_SESSION['temp_item'] = array();
                 $_SESSION['temp_item_2'] = array();
-                //header("location: ../pengadaan/?success");
+                header("location: ../pengadaan/?success");
             }
             else {
                 $_SESSION['error-msg'] = mysqli_error($koneksi);
-                //header("location: ../pengadaan/?error");
+                header("location: ../pengadaan/?error");
             }
         }
     }

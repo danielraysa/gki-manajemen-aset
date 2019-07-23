@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include "connection.php";
 
@@ -69,20 +68,6 @@ if (isset($_POST['pinjam_detail'])) {
     //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
     $myJSON = json_encode($myObj);
     echo $myJSON;
-}
-if (isset($_POST['id_notif'])) {
-    $id = $_POST['id_notif'];
-    if($_SESSION['role'] == "Peminjam") {
-        $query = mysqli_query($koneksi, "UPDATE notifikasi n JOIN peminjaman_aset p ON n.ID_REF = p.ID_PEMINJAMAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'peminjaman_aset' AND p.ID_USER = '".$id."'");
-        echo "UPDATE notifikasi n JOIN peminjaman_aset p ON n.ID_REF = p.ID_PEMINJAMAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'peminjaman_aset' AND p.ID_USER = '".$id."'";
-    }
-    if($_SESSION['role'] == "Anggota MJ") {
-        $query = mysqli_query($koneksi, "UPDATE notifikasi n JOIN pengadaan_aset p ON n.ID_REF = p.ID_PENGADAAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'pengadaan_aset' AND p.ID_USER = '".$id."'");
-        $query2 = mysqli_query($koneksi, "UPDATE notifikasi n JOIN penghapusan_aset p ON n.ID_REF = p.ID_PENGHAPUSAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'peminjaman_aset' AND p.ID_USER = '".$id."'");
-        echo "UPDATE notifikasi n JOIN pengadaan_aset p ON n.ID_REF = p.ID_PENGADAAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'pengadaan_aset' AND p.ID_USER = '".$id."' \n";
-        echo "UPDATE notifikasi n JOIN penghapusan_aset p ON n.ID_REF = p.ID_PENGHAPUSAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'peminjaman_aset' AND p.ID_USER = '".$id."'";
-    }
-    
 }
 
 ?>
