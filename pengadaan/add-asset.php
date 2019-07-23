@@ -8,7 +8,7 @@
       $_SESSION['temp_item_2'] = array();
     }
     setlocale(LC_NUMERIC, 'INDONESIA');
-    
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>

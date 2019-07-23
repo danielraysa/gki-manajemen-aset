@@ -81,6 +81,18 @@
                   $total = $total + 1;
                 }
               }
+              if($_SESSION['role'] == "Ketua MJ"){
+                $notif_approval = mysqli_query($koneksi, "SELECT * FROM pengadaan_aset WHERE hasil_approval = 'Pending'");
+                $notif_approval2 = mysqli_query($koneksi, "SELECT * FROM penghapusan_aset WHERE hasil_approval = 'Pending'");
+                if (mysqli_num_rows($notif_approval) > 0) {
+                  $approval = mysqli_num_rows($notif_approval);
+                  $total = $total+$approval;
+                }
+                if (mysqli_num_rows($notif_approval2) > 0) {
+                  $approval2 = mysqli_num_rows($notif_approval2);
+                  $total = $total+$approval2;
+                }
+              }
               if ($total > 0) {
           ?>
           <li class="dropdown notifications-menu">
@@ -93,14 +105,7 @@
             <ul class="dropdown-menu">
               <li class="header">Anda memiliki <?php echo $total; ?> notifikasi</li>
               <li>
-                <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <!-- <li>
-                    <a href="pengadaan/">
-                      <i class="fa fa-shopping-cart text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li> -->
                   <?php if(isset($pinjam1)) { ?>
                   <li>
                     <a href="#">
@@ -124,13 +129,32 @@
                       <i class="fa fa-shopping-cart text-blue"></i> <?php echo $no2; ?> pengajuan pengadaan aset 
                     </a>
                   </li>
-                  
+
                   <?php } 
-                  if(isset($no3) && $no3 != 0) { 
+                  if(isset($no3) && $no3 != 0) {
                     ?>
                   <li>
                     <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/">
                       <i class="fa fa-trash text-red"></i> <?php echo $no3; ?> pengajuan penghapusan aset 
+                    </a>
+                  </li>
+                  <?php } ?>
+
+                  <?php
+                  if(isset($approval) && $approval != 0) { 
+                    ?>
+                  <li>
+                    <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
+                      <i class="fa fa-shopping-cart text-blue"></i> <?php echo $approval; ?> pengajuan pengadaan aset 
+                    </a>
+                  </li>
+
+                  <?php } 
+                  if(isset($approval2) && $approval2 != 0) {
+                    ?>
+                  <li>
+                    <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/">
+                      <i class="fa fa-trash text-red"></i> <?php echo $approval2; ?> pengajuan penghapusan aset 
                     </a>
                   </li>
                   <?php } ?>
@@ -160,8 +184,11 @@
               
               <!-- Menu Footer-->
               <li class="user-footer">
+                <div class="pull-left">
+                  <button role="button" class="btn btn-primary btn-flat">Profil</button>
+                </div>
                 <div class="pull-right">
-                  <a role="button" class="btn btn-danger btn-flat logout">Keluar</a>
+                  <button role="button" class="btn btn-danger btn-flat logout">Keluar</button>
                 </div>
               </li>
             </ul>

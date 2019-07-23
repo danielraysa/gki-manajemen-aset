@@ -20,76 +20,43 @@
 <script src="../dist/js/demo.js"></script>
 <!-- page script -->
 <script>
-  $(function () {
-    $('#example1').DataTable({
-    'autoWidth': true,
-    'responsive': true,
-    "scrollX": true
-});
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      'responsive'  : true
-    })
-    $('#example3').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
+  /* function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#img-upload').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  } */
+  $("#imgInp").change(function(){
+      var input = $(this),
+          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [label]);
+      //readURL(this);
+      if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#img-upload').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(this.files[0]);
+      }
+  });
+  $("#imgInp-2").change(function(){
+      var input = $(this),
+          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [label]);
+      //alert(label)
+      //readURL(this);
+      if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#img-upload-2').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(this.files[0]);
+      }
+  });
   
-  $('#hak_akses').select2({
-    minimumResultsForSearch: -1
-  });
-  $('#hak_akses_up').select2({
-    minimumResultsForSearch: -1
-  });
-	$('.modalLink').click(function(){
-		var id = $(this).attr('data-id');
-		console.log(id);
-		$.ajax({
-			url:"ajax.php",
-			cache:false,
-			type: "GET",
-			data: "ID="+id,
-			success:function(result){
-				console.log(result);
-        var data = JSON.parse(result);
-        $('#id_user').val(data.id);
-        $('#nama').val(data.nama);
-        $('#username').val(data.username);
-        $('#password').val(data.password);
-        $('#hak_akses_up').val(data.role);
-        $('#keterangan').val(data.keterangan);
-			}
-		});
-	});
-  $('.modalDelete').click(function(){
-    var id = $(this).attr('delete-id');
-    console.log(id);
-    $("#id-komisi").val(id);
-  });
-  $('#password, #confirm_password').on('keyup', function () {
-    if ($('#password').val() == $('#confirm_password').val()) {
-      $('#message').html('Matching').css('color', 'green');
-    } else 
-      $('#message').html('Not Matching').css('color', 'red');
-  });
-  $('#new_password, #new_confirm_password').on('keyup', function () {
-    if ($('#new_password').val() == $('#new_confirm_password').val()) {
-      $('#message1').html('Matching').css('color', 'green');
-    } else 
-      $('#message1').html('Not Matching').css('color', 'red');
-  });
-</script>
-<script>
   $('.logout').on('click', function (event) {
       event.preventDefault();
       swal({

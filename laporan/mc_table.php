@@ -9,10 +9,11 @@ function Header() {
     $this->SetFont('Times','B',13);
     //$this->Text(110,18,'DAFTAR '.strtoupper($filter).' ASET');
     //$this->Image('../logoGKI.jpg', 10, 10, $width, $height);
-    $this->Image('../logoGKI.jpg', 20, 10, 20, 20);
-    $this->Text(50,18,'GEREJA KRISTEN INDONESIA SIDOARJO');
+    $this->Image('../gambar/konfig/'.loadKonfigurasi("logo_print"), 20, 10, 18, 18);
+    $this->Text(50,18, strtoupper(loadKonfigurasi("nama_gereja")));
+    //$this->Text(50,18,'GEREJA KRISTEN INDONESIA SIDOARJO');
     $this->SetFont('Times','',11);
-    $this->Text(50,23,'Jl. Trunojoyo No. 39A, Sidoarjo   Telp. : 031.8921922');
+    $this->Text(50,23, loadKonfigurasi("alamat_gereja").'   Telp. '.loadKonfigurasi("no_telp"));
     $this->SetFont('Times','I',9);
     $this->Text(160,10, 'Cetakan tanggal '.strftime("%d %B %Y", time()));
     // Line break

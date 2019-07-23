@@ -169,8 +169,9 @@
                                         <td>
                                             <?php
                                             if ($row['tanggal_pengembalian'] < $date){
+                                                $jarak = round((strtotime($date)-strtotime($row['tanggal_pengembalian']))/(60*60*24));
                                             ?>
-                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="<?php echo round((strtotime($date)-strtotime($row['tanggal_pengembalian']))/(60*60*24)); ?> hari"><i class="fa fa-close"></i> Melewati Batas</button>
+                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="<?php echo $jarak; ?> hari"><i class="fa fa-close"></i> Melewati Batas</button>
                                             <?php
                                             }
                                             else if ($row['tanggal_peminjaman'] > $date){

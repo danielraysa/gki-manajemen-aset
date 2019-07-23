@@ -69,13 +69,22 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <center>
-                        <img id="img-upload" class="img-responsive" /> 
-                        <img id="img-upload-2" class="img-responsive" />  
+                        <h3><?php echo loadKonfigurasi("nama_gereja"); ?></h3>
+                        <h4><?php echo loadKonfigurasi("alamat_gereja"); ?> | Telp. <?php echo loadKonfigurasi("no_telp"); ?></h4>
+                        <br >
+                        <div class="form-group">
+                            <label>Logo (Print):</label>
+                            <img id="img-upload" class="img-responsive" width="200px" src="../gambar/konfig/<?php echo loadKonfigurasi("logo_print"); ?>" /> 
+                        </div>
+                        <div class="form-group">
+                            <label>Logo Web:</label>
+                            <img id="img-upload-2" class="img-responsive" width="100px" src="../gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" />
+                        </div>
                     </center>
                 
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <form action="form-action.php" method="post">
+                    <form action="form-action.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label>Nama Gereja:</label>
                         <div class="input-group">
@@ -117,14 +126,20 @@
                         <label>Upload Gambar (File Print):</label>
                         <!-- <img id="img-upload" class="img-responsive" />   -->
                         <div class="btn btn-default btn-file btn-block">
-                            Browse… <input type="file" id="imgInp" name="foto" accept="image/*">
+                            Browse… <input type="file" id="imgInp" name="print" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Gambar (Logo Web):</label>
+                        <!-- <img id="img-upload-2" class="img-responsive" />   -->
+                        <div class="btn btn-default btn-file btn-block">
+                            Browse… <input type="file" id="imgInp-2" name="logo" accept="image/*">
                         </div>
                     </div>
                     <!-- <div class="form-group">
-                        <label>Upload Gambar (Logo Web):</label>
-                        <img id="img-upload-2" class="img-responsive" />  
+                        <label>Upload Gambar (Icon Web):</label>
                         <div class="btn btn-default btn-file btn-block">
-                            Browse… <input type="file" id="imgInp-2" name="foto-2" accept="image/*">
+                            Browse… <input type="file" id="imgInp-3" name="icon" accept=".ico">
                         </div>
                     </div> -->
                 <button class="btn btn-success btn-block" type="submit" name="edit">Simpan</button>

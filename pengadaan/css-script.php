@@ -34,7 +34,6 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-  <!-- <link rel="stylesheet" href="upload.scss"> -->
 
   <style>
   /* source-sans-pro-regular - latin */

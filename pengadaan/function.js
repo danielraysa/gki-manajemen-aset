@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    function readURL(input) {
+    /* function readURL(input) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
       
@@ -27,7 +27,7 @@ $(document).ready(function() {
         setTimeout(function() {
             $file.val('');  $form.removeClass('loading').removeClass('loaded');
         }, 5000);
-    });
+    }); */
     // Select2
     $('.select2').select2();
 
@@ -502,7 +502,7 @@ $(document).ready(function() {
         input.trigger('fileselect', [label]);
         //alert(label)
         readURL(this);
-    }); 	
+    });
 
     /* $('#form_pengadaan').submit(function() {
         var nama = $('#nama_aset').val();
@@ -528,6 +528,7 @@ $(document).ready(function() {
             type: 'warning',
             showCancelButton: true,
             //confirmButtonColor: '#d9534f',
+            cancelButtonColor: '#d33',
             confirmButtonText: 'Ya',
             cancelButtonText: 'Tidak'
         }).then((result) => {

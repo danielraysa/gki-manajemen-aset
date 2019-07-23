@@ -8,7 +8,7 @@
     }
     setlocale(LC_TIME, 'INDONESIA');
     setlocale(LC_NUMERIC, 'INDONESIA');
-    
+    $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>
