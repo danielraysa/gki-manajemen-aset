@@ -5,7 +5,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/user/<?php echo $_SESSION['foto_user']; ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['nama_user']; ?></p>

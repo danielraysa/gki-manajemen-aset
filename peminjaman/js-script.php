@@ -22,6 +22,23 @@
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-
+<script>
+$('#notif').on('click', function(){
+    $('#notif_count').hide();
+    <?php unset($_SESSION['notif']); ?>
+  });
+  $('.item-notif').on('click', function(){
+    var id = "<?php echo $_SESSION['id_user']; ?>";
+    var tabel = $(this).attr('id');
+    $.ajax({
+      url: "notif-data.php",
+      type: "POST",
+      data: {id_notif: id, tabel: tabel},
+      success: function (result) {
+        console.log(result)
+      }
+    });
+});
+</script>
 <script src="function.js"></script>
 <!-- page script -->

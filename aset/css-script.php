@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../plugins/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="../plugins/iCheck/all.css">
   
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
 
   <style>
   /* source-sans-pro-regular - latin */

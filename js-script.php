@@ -22,15 +22,6 @@
 <script src="graph.js"></script>
 <!-- page script -->
 <script>
-  /* $.ajax({
-    url: "notif-data.php",
-    type: "POST",
-    data: "user_notif=<?php echo $_SESSION['id_user']; ?>",
-    success: function (result) {
-      console.log(result);
-      $('#notification_content').html(result);
-    }
-  }); */
   $('#example1').DataTable({
   'autoWidth': true,
   'responsive': true,

@@ -29,68 +29,23 @@
   $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
     checkboxClass: 'icheckbox_minimal-green',
     radioClass   : 'iradio_minimal-green'
-  })
+  });
+  $('#notif').on('click', function(){
+    $('#notif_count').hide();
+    <?php unset($_SESSION['notif']); ?>
+  });
+  $('.item-notif').on('click', function(){
+    var id = "<?php echo $_SESSION['id_user']; ?>";
+    var tabel = $(this).attr('id');
+    $.ajax({
+      url: "notif-data.php",
+      type: "POST",
+      data: {id_notif: id, tabel: tabel},
+      success: function (result) {
+        console.log(result)
+      }
+    });
+  });
 </script>
 <!-- page script -->
 <script src="function.js"></script>
-
-<!-- Include the Fallback JS library.
-<script src="fallback.js"></script> -->
-
-<!-- // Script block to execute Fallback JS -->
-<script>
-/* 
-	// Here we actually invoke Fallback JS to retrieve the following libraries for the page.
-	fallback.load({
-		// Include your stylesheets, this can be an array of stylesheets or a string!
-		css: 'css-script.php',
-
-		// JavaScript library. THE KEY MUST BE THE LIBRARIES WINDOW VARIABLE!
-		JSON: '//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min.js',
-
-		// Here goes a failover example. The first will fail, therefore Fallback JS will load the second!
-		jQuery: [
-			'//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.FAIL_ON_PURPOSE.min.js',
-			'//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js',
-			'//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js'
-		],
-
-		'jQuery.ui': [
-			'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-			'//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-			'//js/loader.js?i=vendor/jquery-ui.min.js'
-		]
-	}, {
-		// Shim jQuery UI so that it will only load after jQuery has completed!
-		shim: {
-			'jQuery.ui': ['jQuery']
-		},
-
-		callback: function(success, failed) {
-			// success - object containing all libraries that loaded successfully.
-			// failed - object containing all libraries that failed to load.
-
-			// All of my libraries have finished loading!
-
-			// Execute my code that applies to all of my libraries here!
-		}
-	});
-
-	fallback.ready(['jQuery'], function() {
-		// jQuery Finished Loading
-
-		// Execute my jQuery dependent code here!
-	});
-
-	fallback.ready(['jQuery', 'JSON'], function() {
-		// jQuery and JSON Finished Loading
-
-		// Execute my jQuery + JSON dependent code here!
-	});
-
-	fallback.ready(function() {
-		// All of my libraries have finished loading!
-
-		// Execute my code that applies to all of my libraries here!
-	}); */
-</script>

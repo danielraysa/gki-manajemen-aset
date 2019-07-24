@@ -55,7 +55,7 @@
             }
         }
 
-        /* $query = mysqli_query($koneksi, "UPDATE konfigurasi SET nama_gereja = '".$nama."', alamat_gereja = '".$username."', no_telp = '".$password."', nama_web = '".$hak_akses."'");
+        $query = mysqli_query($koneksi, "UPDATE konfigurasi SET nama_gereja = '".$nama."', alamat_gereja = '".$username."', no_telp = '".$password."', nama_web = '".$hak_akses."'");
         if($query) {
             $_SESSION['success-msg'] = "Sukses mengubah data.";
             header("location: ../konfigurasi/?edit");
@@ -63,6 +63,6 @@
         else {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
             header("location: ../konfigurasi/?error");
-        } */
+        }
     }
 ?>

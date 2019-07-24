@@ -20,28 +20,23 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="../plugins/iCheck/all.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
   <style>
     /* source-sans-pro-regular - latin */
     @font-face {
       font-family: 'Source Sans Pro';
       font-style: normal;
       font-weight: 400;
-      src: url('fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
+      src: url('../fonts/source-sans-pro-v12-latin-regular.eot'); /* IE9 Compat Modes */
       src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
-          url('fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-          url('fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-          url('fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
-          url('fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-          url('fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+          url('../fonts/source-sans-pro-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+          url('../fonts/source-sans-pro-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+          url('../fonts/source-sans-pro-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+          url('../fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+          url('../fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
     }
   </style>
 </head>

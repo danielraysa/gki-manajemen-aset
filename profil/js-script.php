@@ -18,8 +18,13 @@
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script src="../plugins/iCheck/icheck.min.js"></script>
 <!-- page script -->
 <script>
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-green',
+        radioClass   : 'iradio_minimal-green'
+    });
     $('#notif').on('click', function(){
         $('#notif_count').hide();
         <?php unset($_SESSION['notif']); ?>
@@ -49,19 +54,15 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
-    $("#imgInp-2").change(function(){
-        var input = $(this),
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [label]);
-        //alert(label)
-        //readURL(this);
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#img-upload-2').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        }
+    $('#change_pass').on('ifChecked', function(event){
+        //$('#nama').show();
+        $('#pass').prop("disabled", false);
+        $('#ulang_pass').prop("disabled", false);
+    });
+    $('#change_pass').on('ifUnchecked', function(event){
+        //$('#nama').show();
+        $('#pass').prop("disabled", true);
+        $('#ulang_pass').prop("disabled", true);
     });
     
     $('.logout').on('click', function (event) {

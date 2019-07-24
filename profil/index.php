@@ -25,7 +25,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Konfigurasi
+        Profil Pengguna
       </h1>
       
     </section>
@@ -63,84 +63,67 @@
     ?>
       <div class="box">
           <div class="box-header">
-              <h3 class="box-title">Biodata Gereja</h3>
+              
           </div>
           <div class="box-body">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <center>
-                        <h3><?php echo loadKonfigurasi("nama_gereja"); ?></h3>
-                        <h4><?php echo loadKonfigurasi("alamat_gereja"); ?> | Telp. <?php echo loadKonfigurasi("no_telp"); ?></h4>
-                        <br >
                         <div class="form-group">
-                            <label>Logo (Print):</label>
-                            <img id="img-upload" class="img-responsive" width="200px" src="../gambar/konfig/<?php echo loadKonfigurasi("logo_print"); ?>" /> 
+                            <img id="img-upload" class="img-responsive img-circle" width="200px" src="../gambar/user/<?php echo $_SESSION['foto_user']; ?>" /> 
                         </div>
                         <div class="form-group">
-                            <label>Logo Web:</label>
-                            <img id="img-upload-2" class="img-responsive" width="100px" src="../gambar/konfig/<?php echo loadKonfigurasi("logo_web"); ?>" />
+                        <label>Upload Foto/Gambar:</label>
+                        <!-- <img id="img-upload" class="img-responsive" />   -->
+                        <div class="btn btn-default btn-file btn-block">
+                            Browse… <input type="file" id="imgInp" name="foto" accept="image/*">
                         </div>
+                    </div>
                     </center>
                 
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-8 col-md-8 col-sm-12">
                     <form action="form-action.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
-                        <label>Nama Gereja:</label>
+                        <label>Nama Lengkap:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="text" class="form-control" name="nama" value="<?php echo loadKonfigurasi("nama_gereja"); ?>">
+                            <input type="text" class="form-control" name="nama" value="<?php echo $_SESSION['nama_user']; ?>">
                         </div>  
                     </div>
                     <div class="form-group">
-                        <label>Alamat Gereja:</label>
+                        <label>Username:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="text" class="form-control" name="alamat" value="<?php echo loadKonfigurasi("alamat_gereja"); ?>">
+                            <input type="text" class="form-control" name="username" value="<?php echo $_SESSION['username']; ?>">
                         </div>  
                     </div>
                     <div class="form-group">
-                        <label>No. Telepon:</label>
+                        <input class="minimal" type="checkbox" id="change_pass" name="change_pass"> Ubah password
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="text" class="form-control" name="notelp" value="<?php echo loadKonfigurasi("no_telp"); ?>">
+                            <input type="password" class="form-control" id="pass" name="password" disabled>
                         </div>  
                     </div>
                     <div class="form-group">
-                        <label>Nama Web:</label>
+                        <label>Ulangi Password:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="text" class="form-control" name="nama_web" value="<?php echo loadKonfigurasi("nama_web"); ?>">
-                        </div>
+                            <input type="password" class="form-control" id="ulang_pass" name="ulang" disabled>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        <label>Upload Gambar (File Print):</label>
-                        <!-- <img id="img-upload" class="img-responsive" />   -->
-                        <div class="btn btn-default btn-file btn-block">
-                            Browse… <input type="file" id="imgInp" name="print" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Upload Gambar (Logo Web):</label>
-                        <!-- <img id="img-upload-2" class="img-responsive" />   -->
-                        <div class="btn btn-default btn-file btn-block">
-                            Browse… <input type="file" id="imgInp-2" name="logo" accept="image/*">
-                        </div>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label>Upload Gambar (Icon Web):</label>
-                        <div class="btn btn-default btn-file btn-block">
-                            Browse… <input type="file" id="imgInp-3" name="icon" accept=".ico">
-                        </div>
-                    </div> -->
+                    
                 <button class="btn btn-success btn-block" type="submit" name="edit">Simpan</button>
                 </form>
                 </div>

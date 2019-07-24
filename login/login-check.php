@@ -19,8 +19,9 @@
             $_SESSION['login_user'] = $myusername;
             $_SESSION['id_user'] = $row['ID_USER'];
             $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];
+            $_SESSION['username'] = $row['USERNAME'];
             $_SESSION['role'] = $row['ROLE'];
-            $_SESSION['success_login'] = 1;
+            $_SESSION['foto_user'] = $row['FOTO_USER'];
             $_SESSION['notif'] = true;
             header("location:../");
         }
