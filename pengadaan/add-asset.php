@@ -142,12 +142,13 @@
                             </div>
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label>Barang:</label>
+                                    <label>Jenis Barang:</label>
                                     <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-laptop"></i>
                                     </div>
                                     <select class="form-control select2" id="barang_aset" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                        <option value="">Pilih Barang</option>
                                         <?php
                                         $data = mysqli_query($koneksi, "SELECT b.ID_BARANG, k.KODE_KATEGORI, b.NAMA_BARANG FROM barang b JOIN kategori k ON b.ID_KATEGORI = k.ID_KATEGORI");
                                         while ($row = mysqli_fetch_array($data)) {
@@ -169,6 +170,7 @@
                                         <i class="fa fa-laptop"></i>
                                     </div>
                                     <select class="form-control select2" id="merk_aset" name="merk" style="width: 100%;" aria-hidden="true">
+                                        <option value="">Pilih Merk</option>
                                         <?php
                                         $data = mysqli_query($koneksi, "SELECT * FROM merk");
                                         while ($row = mysqli_fetch_array($data)) {
@@ -199,6 +201,7 @@
                                         <i class="fa fa-laptop"></i>
                                     </div>
                                     <select class="form-control select2" id="ruangan_aset" name="ruangan_aset" style="width: 100%;">
+                                        <option value="">Pilih Ruangan</option>
                                         <?php
                                         $data = mysqli_query($koneksi, "SELECT * FROM ruangan");
                                         while ($row = mysqli_fetch_array($data)) {
@@ -220,6 +223,7 @@
                                         <i class="fa fa-laptop"></i>
                                     </div>
                                     <select class="form-control select2" id="komisi_aset" name="komisi" style="width: 100%;" aria-hidden="true">
+                                        <option value="">Pilih Komisi</option>
                                         <?php
                                         $data = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
                                         while ($row = mysqli_fetch_array($data)) {
@@ -235,7 +239,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input class="minimal" type="checkbox" name="pinjam" checked> Dapat dipinjam
+                                    <input class="minimal" type="checkbox" name="pinjam"> Dapat dipinjam
                                 </div>
                                 <div class="form-group">
                                     <label>Upload Gambar:</label>

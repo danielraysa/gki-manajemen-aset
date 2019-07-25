@@ -29,7 +29,7 @@
   });
   $('#notif').on('click', function(){
     $('#notif_count').hide();
-    <?php unset($_SESSION['notif']); ?>
+    
   });
   $('.item-notif').on('click', function(){
     var id = "<?php echo $_SESSION['id_user']; ?>";

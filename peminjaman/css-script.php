@@ -31,7 +31,7 @@
   
 
   <!-- Google Font -->
-  <!-- <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"> --> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
   
   <style>
   /* source-sans-pro-regular - latin */

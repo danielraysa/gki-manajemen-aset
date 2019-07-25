@@ -18,6 +18,8 @@ if (isset($_POST['id_notif'])) {
             echo "UPDATE notifikasi n JOIN penghapusan_aset p ON n.ID_REF = p.ID_PENGHAPUSAN SET n.READ_NOTIF = 0 WHERE n.TABEL_REF = 'peminjaman_aset' AND p.ID_USER = '".$id."'";
         }
     }
-    
+    if(isset($_SESSION['notif'])){
+        unset($_SESSION['notif']);
+    }
 }
 ?>
