@@ -3,8 +3,7 @@
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
     }
-    setlocale (LC_TIME, 'INDONESIAN');
-    date_default_timezone_set("Asia/Jakarta");
+    
     setlocale(LC_NUMERIC, 'INDONESIA');
     
     $dir = basename(__DIR__);

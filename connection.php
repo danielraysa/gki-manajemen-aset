@@ -1,5 +1,8 @@
 <?php
-
+    setlocale (LC_TIME, 'INDONESIAN');
+    date_default_timezone_set("Asia/Jakarta");
+    setlocale(LC_NUMERIC, 'INDONESIA');
+    
     $koneksi = mysqli_connect("localhost","root","","gki_backup");
     
     function randString($length) {

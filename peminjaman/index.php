@@ -6,8 +6,7 @@
     if(!isset($_SESSION['item_pinjam'])) {
       $_SESSION['item_pinjam'] = array();
     }
-    setlocale (LC_TIME, 'INDONESIAN');
-    date_default_timezone_set("Asia/Jakarta");
+    
     $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>

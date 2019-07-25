@@ -1,7 +1,6 @@
 <?php
     session_start();
-    setlocale (LC_TIME, 'INDONESIAN');
-    date_default_timezone_set("Asia/Jakarta");
+    
     //include "../sms-config.php";
     include "../connection.php";
 
