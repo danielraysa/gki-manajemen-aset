@@ -1,4 +1,4 @@
-Introduction
+Asset Management App
 ============
 
 ![Bower version](https://img.shields.io/bower/v/adminlte.svg)
@@ -6,7 +6,11 @@ Introduction
 [![Packagist](https://img.shields.io/packagist/v/almasaeed2010/adminlte.svg)](https://packagist.org/packages/almasaeed2010/adminlte)
 [![CDNJS](https://img.shields.io/cdnjs/v/admin-lte.svg)](https://cdnjs.com/libraries/admin-lte)
 
-Asset Management Application, based on **AdminLTE**.
-**AdminLTE** -- is a fully responsive admin template. Based on **[Bootstrap 3](https://github.com/twbs/bootstrap)** framework. Highly customizable and easy to use. Fits many screen resolutions from small mobile devices to large desktops. Check out the live preview now and see for yourself.
+Asset Management Application, based on **[AdminLTE.IO](https://adminlte.io)**.
 
-**Download & Preview on [AdminLTE.IO](https://adminlte.io)**
+Main modules:
+1. Acquisiton
+2. Lending
+3. Maintenance
+4. Disposal
+5. Report
