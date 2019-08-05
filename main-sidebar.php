@@ -58,10 +58,20 @@
             <i class="fa fa-barcode"></i> <span>Daftar Aset</span>
           </a>
         </li>
-        <li class="<?php if ($dir == "pengadaan") echo "active"; ?>">
-          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
+        <li class="treeview <?php if ($dir == "pengadaan") echo "active"; ?>">
+          <a href="#">
             <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li class="<?php if ($file == "") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
+            <li class="<?php if ($file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah dari Jemaat</a></li>
+          </ul>
+          <!-- <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
+            <i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
+          </a> -->
         </li>
         <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
           <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>peminjaman/">
