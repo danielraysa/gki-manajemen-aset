@@ -58,7 +58,7 @@
                 <div class="box">
                 <div class="box-body">
                 <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="box box-success bg-gray">
                             <div class="box-header">
                                 <h3 class="box-title">Penamaan Aset</h3>
@@ -135,7 +135,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="box box-success bg-gray">
                             <div class="box-header">
                                 <h3 class="box-title">Keterangan Aset</h3>
@@ -252,7 +252,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="box box-success bg-gray">
                             <div class="box-header">
                                 <h3 class="box-title">Pembelian Aset</h3>

@@ -116,9 +116,9 @@
                 <button class="btn btn-success pull-right" id="addJadwal" name="add-jadwal" data-dismiss="modal"><i class="fa fa-plus"></i> Jadwalkan</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 <!-- Modal Tambah Jadwal Pemeliharaan -->
 <div class="modal fade" id="modal-jadwal-edit">
@@ -339,9 +339,9 @@
                 <button class="btn btn-success pull-right" id="btnMaintenance" type="submit" name="edit"data-dismiss="modal"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Delete -->
@@ -365,7 +365,7 @@
                 <!-- <button class="btn btn-danger pull-right" id="btnDelete" type="submit" data-dismiss="modal" name="delete"><i class="fa fa-trash"></i> Hapus</button> -->
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>

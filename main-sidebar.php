@@ -66,7 +66,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="<?php if ($file == "") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
+            <li class="<?php if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
             <li class="<?php if ($file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah dari Jemaat</a></li>
           </ul>
           <!-- <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pengadaan/">
@@ -78,15 +78,39 @@
             <i class="fa fa-edit text-teal"></i> <span>Peminjaman Aset</span>
           </a>
         </li>
-        <li class="<?php if ($dir == "pemeliharaan") echo "active"; ?>">
+        <!-- <li class="<?php if ($dir == "pemeliharaan") echo "active"; ?>">
           <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pemeliharaan/">
             <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan Aset</span>
           </a>
+        </li> -->
+        <li class="treeview <?php if ($dir == "pemeliharaan") echo "active"; ?>">
+          <a href="#">
+            <i class="fa fa-wrench text-lime"></i> <span>Pemeliharaan Aset</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?php if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pemeliharaan/"><i class="fa fa-calendar text-red"></i> Penjadwalan Pemeliharaan</a></li>
+            <li class="<?php if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>pemeliharaan/"><i class="fa fa-gear text-yellow"></i> Pemeliharaan</a></li>
+          </ul>
         </li>
-        <li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
+        <!-- <li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
           <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/">
             <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
           </a>
+        </li> -->
+        <li class="treeview <?php if ($dir == "penghapusan") echo "active"; ?>">
+          <a href="#">
+            <i class="fa fa-trash text-red"></i> <span>Penghapusan Aset</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?php if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/"><i class="fa fa-tv text-red"></i> Usulan Penghapusan</a></li>
+            <li class="<?php if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>penghapusan/"><i class="fa fa-cubes text-yellow"></i> Penghapusan</a></li>
+          </ul>
         </li>
       </ul>
       <?php

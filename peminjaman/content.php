@@ -97,7 +97,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Nomor untuk dihubungi:</label>
+                <label>Nomor Peminjam:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
@@ -114,7 +114,15 @@
                   </div>
                 <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
                 </div>
-                <!-- /.input group -->
+              </div>
+              <div class="form-group">
+                <label>Tanggal Pinjam - Kembali:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                </div>
               </div>
               <div class="form-group">
                 <label>Keterangan Peminjaman/Penggunaan:</label>
