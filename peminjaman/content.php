@@ -26,7 +26,6 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i> Sukses!</h4>
         Berhasil memperbarui peminjaman
-        <?php //echo $_SESSION['success-msg']; ?>
     </div>
     <?php
       }
@@ -212,6 +211,7 @@
                 </tbody>
                 
               </table>
+              <button <?php //if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-tambah" id="btnModal">Simpan Perubahan</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -282,7 +282,7 @@
         </div>
       </div>
       <!-- /.row -->
-      
+      <?php include "modal.php"; ?>
     </section>
     <!-- /.content -->
   </div>

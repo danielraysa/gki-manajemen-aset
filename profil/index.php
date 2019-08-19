@@ -66,6 +66,7 @@
           </div>
           <div class="box-body">
             <div class="row">
+            <form action="form-action.php" enctype="multipart/form-data" method="post">
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <center>
                         <div class="form-group">
@@ -82,7 +83,6 @@
                 
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-12">
-                    <form action="form-action.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label>Nama Lengkap:</label>
                         <div class="input-group">
@@ -124,8 +124,8 @@
                     </div>
                     
                 <button class="btn btn-success btn-block" type="submit" name="edit">Simpan</button>
-                </form>
                 </div>
+            </form>
             </div>
           </div>
       </div>

@@ -1,12 +1,12 @@
 
 <!-- Modal Delete Usulan -->
-<div class="modal fade" id="modal-delete">
-    <div class="modal-dialog modal-sm">
+<div class="modal fade" id="modal-tambah">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Hapus Item</h4>
+                <h4 class="modal-title">Simpan Peminjaman</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -253,7 +253,7 @@
                         <div class="input-group-addon">
                         <i class="fa fa-laptop"></i>
                         </div>
-                        <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                        <textarea class="form-control" id="keterangan_kembali" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                     </div>  
                 </div>
                 <!-- <input type="hidden" id="id_pinjam" name="id"/> -->
@@ -261,7 +261,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" id="btnKembali" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-save"></i> Simpan</button>
+                <button class="btn btn-success pull-right" id="btnKembali" type="submit" data-dismiss="modal"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
         

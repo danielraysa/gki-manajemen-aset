@@ -338,12 +338,12 @@ $('.modalKembali').click(function () {
 });
 $('#btnKembali').click(function () {
   var id = $('#id_pinjam').val();
-  var ket = $('#keterangan').val();
+  var ket = $('#keterangan_kembali').val();
   var tgl_realisasi = $('#realisasi_pengembalian').val();
   var detil_item = $('input[name="detil_item[]"]').map(function(){return $(this).val();}).get().join("|");
   var catat = $('input[name="catatan[]"]').map(function(){return $(this).val();}).get().join("|");
-  console.log(id);
-  //alert(catat);
+  //console.log(id);
+  //alert(ket);
   if(ket == '' || tgl_realisasi == '') {
     swal({
       title: "Peringatan",

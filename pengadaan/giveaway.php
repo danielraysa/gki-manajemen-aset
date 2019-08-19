@@ -204,6 +204,15 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="form-group">
+                                        <label>Tanggal Pemberian:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar-check-o"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_pengadaan" placeholder="Tanggal pemberian" required>
+                                        </div>  
+                                    </div>
+                                    <div class="form-group">
                                         <label>Ruangan:</label>
                                         <div class="input-group">
                                         <div class="input-group-addon">
@@ -273,7 +282,7 @@
   <!-- /.content-wrapper -->
     <?php include "../footer.php"; ?>
     <?php include "../control-sidebar.php"; ?>
-    </!-->
+    </div>
     <?php include "modal.php"; ?>
     <?php include "js-script.php"; ?>
 </body>
