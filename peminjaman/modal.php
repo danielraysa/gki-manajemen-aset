@@ -132,7 +132,8 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_reject" name="id"/>
-                Tolak pengajuan peminjaman?
+                Tolak pengajuan peminjaman? Beri alasan/keterangan sebagai informasi bagi peminjam
+                <textarea class="form-control" id="keterangan_tolak_pengadaan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 <!-- </form> -->
             </div>
             <div class="modal-footer">

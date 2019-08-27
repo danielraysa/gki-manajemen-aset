@@ -305,12 +305,13 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_reject" name="id"/>
-                Tolak usulan pengadaan aset ini?
+                Tolak usulan pengadaan aset ini? <br> Beri alasan/keterangan sebagai informasi bagi pengusul <br><br>
+                <textarea class="form-control" id="keterangan_tolak_pengadaan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 <!-- </form> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Ya</button>
+                <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Tolak dan Simpan</button>
             </div>
         </div>
     </div>

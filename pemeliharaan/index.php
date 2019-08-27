@@ -102,7 +102,7 @@
                       <td>
                         <button type="button" data-toggle="modal" data-target="#modal-maintenance"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" class="btn btn-success modalMaintenance"><i class="fa fa-gear"></i> Pemeliharaan</button>
                         <button type="button" data-toggle="modal" data-target="#modal-delete"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" class="btn btn-danger modalDelete"><i class="fa fa-close"></i> Batalkan</button>
-                        </td>
+                      </td>
                     </tr>
                     <?php
                       $a++;

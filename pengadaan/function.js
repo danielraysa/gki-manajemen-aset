@@ -225,7 +225,14 @@ $(document).ready(function() {
                     timer: 2000,
                     showConfirmButton: false
                 }).then(function () {
-                    location.reload();
+                    $.ajax({
+                        url: "select-populate.php",
+                        type: "POST",
+                        data: "load_merk",
+                        success: function(array) {
+                            $('#merk_aset').html(array);
+                        }
+                    });
                 });
             }
         });
@@ -247,7 +254,14 @@ $(document).ready(function() {
                     timer: 2000,
                     showConfirmButton: false
                 }).then(function () {
-                    location.reload();
+                    $.ajax({
+                        url: "select-populate.php",
+                        type: "POST",
+                        data: "load_ruangan",
+                        success: function(array) {
+                            $('#ruangan_aset').html(array);
+                        }
+                    });
                 });
             }
         });
@@ -269,7 +283,16 @@ $(document).ready(function() {
                     timer: 2000,
                     showConfirmButton: false
                 }).then(function () {
-                    location.reload();
+                    //location.reload();
+                    $.ajax({
+                        url: "select-populate.php",
+                        type: "POST",
+                        data: "load_komisi",
+                        success: function(array) {
+                            $('#komisi_aset').html(array);
+                            //$("#komisi_aset").select2("destroy").select2();
+                        }
+                    });
                 });
             }
         });
@@ -338,11 +361,12 @@ $(document).ready(function() {
     });
     $('#btnReject').click(function () {
         var id = $('#id_reject').val();
+        var catatan = $('#keterangan_tolak_pengadaan').val();
         console.log(id);
         $.ajax({
             url: "ajax.php",
             type: "GET",
-            data: "reject=" + id,
+            data: {reject: id, keterangan: catatan},
             success: function (result) {
                 console.log(result);
                 swal({

@@ -16,6 +16,8 @@
 
         // If result matched $myusername and $mypassword, table row must be 1 row        
         if($count == 1) {
+            $date = date('Y-m-d H:i:s');
+            $query = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG) VALUES ('".$row['ID_USER']."','".$date."', 'login')");
             $_SESSION['login_user'] = $myusername;
             $_SESSION['id_user'] = $row['ID_USER'];
             $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];

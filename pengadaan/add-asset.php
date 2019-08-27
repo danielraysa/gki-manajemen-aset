@@ -59,9 +59,9 @@
                 <div class="box-body">
                 <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="box box-success bg-gray">
+                        <div class="box box-success bg-light-blue">
                             <div class="box-header">
-                                <h3 class="box-title">Penamaan Aset</h3>
+                                <b class="box-title text-black">Penamaan Aset</b>
                             </div>
                             <div class="box-body">
                                 <!-- <div class="form-group">
@@ -136,9 +136,9 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="box box-success bg-gray">
+                        <div class="box box-success bg-light-blue">
                             <div class="box-header">
-                                <h3 class="box-title">Keterangan Aset</h3>
+                                <b class="box-title text-black">Keterangan Aset</b>
                             </div>
                             <div class="box-body">
                                 <div class="form-group">
@@ -181,7 +181,7 @@
                                         ?>
                                     </select>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-merk"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-merk"><i class="fa fa-plus"></i></button>
                                     </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                         ?>
                                     </select>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
                                     </div>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@
                                         ?>
                                     </select>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-komisi"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-komisi"><i class="fa fa-plus"></i></button>
                                     </div>
                                     </div>
                                 </div>
@@ -253,9 +253,9 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="box box-success bg-gray">
+                        <div class="box box-success bg-light-blue">
                             <div class="box-header">
-                                <h3 class="box-title">Pembelian Aset</h3>
+                                <b class="box-title text-black">Pembelian Aset</b>
                             </div>
                             <div class="box-body">
                                 
@@ -305,7 +305,6 @@
 
                     <div class="box-footer">
                         <button class="btn btn-success btn-block" type="submit" id="addAsset" name="simpan-aset">Tambah Aset</button>
-                        <input type="hidden" id="id_aset" name="id"/>
                     </div>
                 </form>
                 </div>

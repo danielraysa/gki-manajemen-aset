@@ -78,6 +78,7 @@
         $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Diterima', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
         $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('pengadaan_aset', '".$id."', '".$date."', 0)");
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'pengadaan', '".$id."','terima_pengadaan')");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -88,9 +89,11 @@
 
     if (isset($_GET['reject'])) {
         $id = $_GET['reject'];
+        $keterangan = $_GET['keterangan'];
         $date = date('Y-m-d H:i:s');
-        $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVE = '".$date."' WHERE ID_PENGADAAN = '".$id."'");
+        $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET HASIL_APPROVAL = 'Ditolak', TANGGAL_APPROVE = '".$date."', CATATAN_APPROVAL = '".$keterangan."' WHERE ID_PENGADAAN = '".$id."'");
         $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('pengadaan_aset', '".$id."', '".$date."', 0)");
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'pengadaan', '".$id."','tolak_pengadaan')");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
@@ -100,7 +103,9 @@
     }
     if (isset($_POST['delete-usulan'])) {
         $id = $_POST['delete-usulan'];
+        $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE pengadaan_aset SET STATUS_USULAN = 'Dihapus' WHERE ID_PENGADAAN = '".$id."'");
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'pengadaan', '".$id."','hapus_usulan')");
         if(!$query) {
             echo mysqli_error($koneksi);
         }
