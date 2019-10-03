@@ -5,20 +5,8 @@
     if(isset($_POST['add'])) {
         $nama = $_POST['nama'];
         $kode = $_POST['kode'];
-        $random_id = randString(10);
-        $is_unique = false;
-            
-        while (!$is_unique) {
-            $select = mysqli_query($koneksi, "SELECT * FROM kategori WHERE ID_KATEGORI = '".$random_id."'");
-            if (mysqli_num_rows($select) == 0) {  
-                // if you don't get a result, then you're good
-                $is_unique = true;
-                $query = mysqli_query($koneksi, "INSERT INTO kategori (ID_KATEGORI, NAMA_KATEGORI, KODE_KATEGORI, STATUS_KATEGORI) VALUES ('".$random_id."','".$nama."','".$kode."','Aktif')");        
-            }
-            else {
-                $random_id = randString(10);
-            }
-        }
+        $random_id = randomID('kategori', 'ID_KATEGORI', 10);
+        $query = mysqli_query($koneksi, "INSERT INTO kategori (ID_KATEGORI, NAMA_KATEGORI, KODE_KATEGORI, STATUS_KATEGORI) VALUES ('".$random_id."','".$nama."','".$kode."','Aktif')");        
         
         if($query) {
             $_SESSION['success-msg'] = "Sukses menambah data.";

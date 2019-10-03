@@ -19,11 +19,9 @@
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="../plugins/iCheck/all.css">
-
-  
-
-  <!-- Google Font -->
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="268524586141-8as92crhk19mnj9ppak38ghjqo2k5dn4.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <style>
     /* source-sans-pro-regular - latin */
     @font-face {
@@ -45,7 +43,7 @@
   <div class="login-logo">
     <a href="#"><b>GKI</b>Sarpras</a>
   </div>
-  <!-- /.login-logo -->
+  
   <div class="login-box-body">
     <?php
     if (isset($_GET['error'])) {
@@ -78,16 +76,20 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-sm-8 col-xs-12">
           <div class="form-group">
             <input type="checkbox" class="minimal" id="password_check"> Show password
           </div>
         </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
+        
+        <div class="col-sm-4 col-xs-12">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div> 
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div style="margin:10px;" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
         </div>
-        <!-- /.col -->
       </div>
     </form>
 
@@ -113,6 +115,36 @@
   $('#password_check').on('ifUnchecked', function(){
     $('#pwd').prop('type', 'password');
   });
+
+  function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+
+    // The ID token you need to pass to your backend:
+    var id_token = googleUser.getAuthResponse().id_token;
+    console.log("ID Token: " + id_token);
+
+    $.ajax({
+        type: 'POST',
+        url: 'login_google.php',
+        data: {id: profile.getId(), nama: profile.getName(), email: profile.getEmail(), gambar: profile.getImageUrl()}
+      }).done(function(data){
+        console.log(data);
+        window.location.href = '../';
+      }).fail(function() { 
+          alert( "Posting failed." );
+      });
+  }
+  
+  if(profile){
+      
+  }
 </script>
 </body>
 </html>

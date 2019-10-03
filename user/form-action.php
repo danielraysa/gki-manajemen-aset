@@ -8,19 +8,8 @@
         $password = $_POST['password'];
         $hak_akses = $_POST['hak_akses'];
         //$keterangan = $_POST['keterangan'];
-        $random_id = randString(10);
-        $is_unique = false;
-        while (!$is_unique) {
-            $select = mysqli_query($koneksi, "SELECT * FROM user WHERE ID_USER = '".$random_id."'");
-            if (mysqli_num_rows($select) == 0) {  
-                // if you don't get a result, then you're good
-                $is_unique = true;
-                $query = mysqli_query($koneksi, "INSERT INTO user (ID_USER,USERNAME, PASSWORD, NAMA_LENGKAP, ROLE, STATUS_USER) VALUES ('".$random_id."','".$username."','".$password."','".$nama."','".$hak_akses."','Aktif')");
-            }
-            else {
-                $random_id = randString(10);
-            }
-        }
+        $random_id = randomID('user', 'ID_USER', 10);
+        $query = mysqli_query($koneksi, "INSERT INTO user (ID_USER,USERNAME, PASSWORD, NAMA_LENGKAP, ROLE, STATUS_USER) VALUES ('".$random_id."','".$username."','".$password."','".$nama."','".$hak_akses."','Aktif')");
         
         if($query) {
             $_SESSION['success-msg'] = "Sukses menambah data.";
