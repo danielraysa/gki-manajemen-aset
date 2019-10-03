@@ -7,11 +7,16 @@
     //$_POST['email'];
     echo $_POST['gambar'];
     $url =  $_POST['gambar'];
-    $img = 'newgoogle.jpg';  
-  
+    $imageFileType = pathinfo($url,PATHINFO_EXTENSION);
+    $img = randomID('user','FOTO_USER', 10);
+    $img_name = $img.$imageFileType;
+    $dir = "../gambar/user"; // Full Path
+    // get username based email
+    $user = strstr($_POST['email'], '@', true);
     // Function to write image into file 
-    file_put_contents($img, file_get_contents($url));
-    
+    //file_put_contents($img, file_get_contents($url));
+    copy($url, $dir . DIRECTORY_SEPARATOR .$img_name);
+
 	$load = mysqli_query($koneksi, "SELECT * FROM user WHERE email= '".$_POST['email']."'");
 	
 	if(mysqli_num_rows($load) != 0 ){
@@ -21,7 +26,7 @@
     }
     else{
         $random_id = randomID('user', 'ID_USER', 10);
-        $query = mysqli_query($koneksi, "INSERT INTO user (ID_USER, USERNAME, PASSWORD, NAMA_LENGKAP, GOOGLE_ID, EMAIL, ROLE, FOTO_USER, STATUS_USER) VALUES ('".$random_id."','".$_POST['email']."','12345678','".$_POST['nama']."', '".$google_id."','".$_POST['email']."', 'Peminjam', '".$_POST['gambar']."', 'Aktif')");
+        $query = mysqli_query($koneksi, "INSERT INTO user (ID_USER, USERNAME, PASSWORD, NAMA_LENGKAP, GOOGLE_ID, EMAIL, ROLE, FOTO_USER, STATUS_USER) VALUES ('".$random_id."','".$user."','12345678','".$_POST['nama']."', '".$google_id."','".$_POST['email']."', 'Peminjam', '".$img_name."', 'Aktif')");
     }
 
     $sql = mysqli_query($koneksi, "SELECT * FROM user WHERE email = '".$_POST['email']."'");
