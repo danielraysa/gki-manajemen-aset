@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'SMSGatewayMe\\Client\\' => array($vendorDir . '/smsgatewayme/client/lib'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

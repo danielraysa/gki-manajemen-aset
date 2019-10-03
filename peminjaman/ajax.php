@@ -3,8 +3,7 @@
     
     //include "../sms-config.php";
     include "../connection.php";
-
-    include "../vendor/autoload.php";
+    require_once('../vendor/autoload.php');
 
     use SMSGatewayMe\Client\ApiClient;
     use SMSGatewayMe\Client\Configuration;
