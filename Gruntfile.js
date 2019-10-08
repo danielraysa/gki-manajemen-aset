@@ -59,7 +59,7 @@ module.exports = function (grunt) { // jshint ignore:line
         },
         files  : {
           // compilation.css  :  source.less
-          'dist/css/AdminLTE.min.css'                     : 'build/less/AdminLTE.less',
+          'dist/css/AdminLTE.css'                     : 'build/less/AdminLTE.less',
           // AdminLTE without plugins
           'dist/css/alt/AdminLTE-without-plugins.min.css' : 'build/less/AdminLTE-without-plugins.less',
           // Separate plugins
@@ -117,7 +117,7 @@ module.exports = function (grunt) { // jshint ignore:line
       },
       production: {
         files: {
-          'dist/js/adminlte.min.js': ['dist/js/adminlte.js']
+          'dist/js/adminlte.js': ['dist/js/adminlte.js']
         }
       }
     },

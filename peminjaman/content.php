@@ -56,7 +56,6 @@
               <h3 class="box-title">Data Peminjaman</h3>
             </div>
             <div class="box-body">
-            <!-- <form> -->
             <!-- <form action="form-action.php" method="post"> -->
               <!-- <div class="form-group">
                 <label>Peminjam:</label>
@@ -106,21 +105,22 @@
                 <span id="errmsg"></span>
               </div>
               <div class="form-group">
-                <label>Tanggal Pinjam - Kembali:</label>
+                <label>Tanggal Pinjam:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                <!-- <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required> -->
+                <input type="text" class="form-control" id="tgl_pinjam" name="tgl_pinjam" required>
                 </div>
               </div>
               <div class="form-group">
-                <label>Tanggal Pinjam - Kembali:</label>
+                <label>Tanggal Kembali:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                <input type="text" class="form-control" id="tgl_kembali" name="tgl_kembali" required>
                 </div>
               </div>
               <div class="form-group">

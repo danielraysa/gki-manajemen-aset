@@ -46,13 +46,15 @@
         $id_user = $_SESSION['id_user'];
         $id_komisi = $_POST['id_komisi'];
         $no_hp = $_POST['no_hp'];
-        $tgl = $_POST['tgl_peminjaman'];
+        $tgl = $_POST['tgl_pinjam'];
+        $tgl2 = $_POST['tgl_kembali'];
         $keterangan = $_POST['keterangan'];
         $date = str_replace('/', '-', $tgl);
+        $date2 = str_replace('/', '-', $tgl2);
         echo $date."\n";
-        $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
+        $tgl_awal = date("Y-m-d", strtotime($date)); // $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
         echo $tgl_awal."\n";
-        $tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
+        $tgl_akhir = date("Y-m-d", strtotime($date2)); // $tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
         echo $tgl_akhir."\n";
         $date_now = date('Y-m-d H:i:s');
         //$random_id = randString(10);

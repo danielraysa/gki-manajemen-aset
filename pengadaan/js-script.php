@@ -18,7 +18,7 @@
 <!-- InputMask -->
 <script src="../plugins/input-mask/jquery.inputmask.bundle.js"></script>
 <!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+<script src="../dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 <script src="../plugins/iCheck/icheck.min.js"></script>

@@ -60,10 +60,20 @@ $('#reservation').daterangepicker({
   }
 });
 
-/* $('#tgl_pengembalian').datepicker({
-  format: 'dd/mm/yyyy',
-  autoclose: true
-}); */
+$('#tgl_pinjam').daterangepicker({
+  singleDatePicker: true,
+  autoclose: true,
+  locale: {
+    format: 'DD/MM/YYYY'
+  }
+});
+$('#tgl_kembali').daterangepicker({
+  singleDatePicker: true,
+  autoclose: true,
+  locale: {
+    format: 'DD/MM/YYYY'
+  }
+});
 
 $('#realisasi_pengembalian').datepicker({
   format: 'dd/mm/yyyy',
@@ -83,13 +93,9 @@ function validationMessage() {
   var inpObj = $(this).val();
   if (!inpObj.checkValidity()) {
     //document.getElementById("demo").innerHTML = inpObj.validationMessage;
-    alert("data tidak boleh kosong");
+    alert("Data tidak boleh kosong");
   }
 }
-/* $("#example1").on('click', '#remove', function (e) {
-  $(this).parent().parent().remove();
-  //console.log(e);
-}); */
 
 $('.emptyData').on('click', function () {
   $.ajax({
@@ -135,7 +141,8 @@ $('#btnSimpan').click(function () {
   //var peminjam = $('#peminjam_aset').val();
   var komisi = $('#komisi_peminjam').val();
   var no_hp = $('#nohp').val();
-  var tgl = $('#reservation').val();
+  var tgl = $('#tgl_pinjam').val();
+  var tgl2 = $('#tgl_pinjam').val();
   var ket = $('#keterangan').val();
   //alert(peminjam+" / "+komisi+" / "+no_hp);
   //alert(komisi+" / "+no_hp);
@@ -157,7 +164,8 @@ $('#btnSimpan').click(function () {
         //id_peminjam: peminjam,
         id_komisi: komisi,
         no_hp: no_hp,
-        tgl_peminjaman: tgl,
+        tgl_pinjam: tgl,
+        tgl_kembali: tgl2,
         keterangan: ket
       },
       success: function (result) {

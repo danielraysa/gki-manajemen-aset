@@ -13,7 +13,7 @@
 <!-- SweetAlert2 -->
 <script src="plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 
