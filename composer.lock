@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a23a08eaa8f7887178cc99afc2f71e9",
+    "content-hash": "8e40585fe4962f8a6d796a1eaef58172",
     "packages": [
         {
             "name": "composer/installers",
@@ -170,6 +170,56 @@
                 "swagger"
             ],
             "time": "2018-05-16T00:07:48+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "5.38.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "68491e33e5f98a96ca620ceac0fc75baecfa86e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/68491e33e5f98a96ca620ceac0fc75baecfa86e0",
+                "reference": "68491e33e5f98a96ca620ceac0fc75baecfa86e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "apigen/apigen": "^4.1",
+                "guzzlehttp/guzzle": "^6.3",
+                "phpunit/phpunit": ">=4.5"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "http://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2019-10-30T20:45:10+00:00"
         }
     ],
     "packages-dev": [],
