@@ -398,11 +398,45 @@ $('.btnSms').click(function () {
         timer: 2000,
         showConfirmButton: false
       }).then(function () {
-        location.reload();
+        //location.reload();
       });
     }
   });
-
+});
+// WA test
+$('.btnWA').click(function () {
+  var id = $(this).attr('data-id');
+  var phonenumber = $(this).attr('data-number');
+  //alert(phonenumber);
+  if(navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)){
+      //code for iPad here
+      window.location.href = "https://api.whatsapp.com/send?phone="+phonenumber+"";
+  }
+  else if(navigator.userAgent.match(/Android/i)){
+      //code for Android here
+      window.location.href = "intent://send/"+phonenumber+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end"
+      //alert('this is an Android');
+  }
+  else {
+      window.location.href = "https://api.whatsapp.com/send?phone="+phonenumber+"";
+  }
+  /* $.ajax({
+    url: "ajax.php",
+    type: "POST",
+    data: {wa_reminder: true, id_peminjaman: id},
+    success: function (result) {
+      console.log(result);
+      swal({
+        title: "Sukses!",
+        text: "Berhasil mengirim pesan.",
+        type: "success",
+        timer: 2000,
+        showConfirmButton: false
+      }).then(function () {
+        //location.reload();
+      });
+    }
+  }); */
 });
 $('.logout').on('click', function (event) {
   event.preventDefault();

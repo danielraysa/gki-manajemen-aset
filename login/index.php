@@ -36,9 +36,23 @@
           url('../fonts/source-sans-pro-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
           url('../fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
     }
+    body {
+      background-image: url("GKI-Sidoarjo-Baru-ok.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      background-color: grey;
+      background-blend-mode: soft-light;
+    }
+    /* .g-signin2 {
+      width: 100%;
+    } */
+    .g-signin2 > div {
+      margin: 0 auto;
+    }
   </style>
 </head>
-<body class="hold-transition login-page">
+<body class="">
 <div class="login-box">
   <div class="login-logo">
     <a href="#"><b>GKI</b>Sarpras</a>
@@ -88,6 +102,7 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <center><b>or Login using</b></center>
           <div style="margin:10px;" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
         </div>
       </div>

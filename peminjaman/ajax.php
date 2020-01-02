@@ -10,6 +10,27 @@
     use SMSGatewayMe\Client\Api\MessageApi;
     use SMSGatewayMe\Client\Model\SendMessageRequest;
 
+    // Update the path below to your autoload.php,
+    // see https://getcomposer.org/doc/01-basic-usage.md
+    use Twilio\Rest\Client;
+    
+    // Find your Account Sid and Auth Token at twilio.com/console
+    // DANGER! This is insecure. See http://twil.io/secure
+    $sid    = "AC11c4a6659b166118f38b4c28767ed8c3";
+    $token  = "fa8e8ee787be28cc1b1e28f457590a38";
+    // $twilio = new Client($sid, $token);
+    //new number +12019480809
+    //"from" => "whatsapp:+14155238886",
+    /* $message = $twilio->messages
+                        ->create("whatsapp:+6282230143314", // to
+                                array(
+                                    "from" => "whatsapp:+6289624762088",
+                                    "body" => "Hello there! This is Twilio API"
+                                )
+                        );
+    
+    print($message->sid); */
+
     // Configure client
     $config = Configuration::getDefaultConfiguration();
     $config->setApiKey('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTU1NjIyMDUyMywiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjYzMjA3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.TxSPGIZqTbeKu_vcN0jGdX04eZ0DoTt-dhn1fwI82jc');
@@ -244,6 +265,21 @@
             'phoneNumber' => $row['NO_HP'], 'message' => 'Peminjaman tgl '.$row['TANGGAL_PENGAJUAN'].' berakhir pada '.$row['TANGGAL_PENGEMBALIAN'].'. Harap segera dikembalikan tepat waktu. NOREPLY', 'deviceId' => 104188
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+    }
+
+    if(isset($_POST['wa_reminder'])){
+        $id = $_POST['id_peminjaman'];
+        $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $row = mysqli_fetch_array($select);
+        $twilio = new Client($sid, $token);
+        $message = $twilio->messages
+                        ->create("whatsapp:+6289624762088", // to
+                                array(
+                                    "from" => "whatsapp:+12019480809",
+                                    "body" => "Hello there! This is Twilio API"
+                                )
+                        );
+        print($message->sid);
     }
 
     if(isset($_POST['update_pinjam'])){

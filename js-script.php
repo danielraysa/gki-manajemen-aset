@@ -95,7 +95,8 @@
             timer: 2000,
             showConfirmButton: false
             }).then(function(){
-                window.location.href = "logout.php";
+                document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/gki-sarpras/logout.php";
+                //window.location.href = "logout.php";
                 //return false;
             })
         }
