@@ -26,8 +26,8 @@
   },
   "require": {
     "composer/installers": "1.*",
-    "bower-asset/jquery": ">=1.9.0 <4.0.0",
-    "smsgatewayme/client": "^0.0.1"
+    "smsgatewayme/client": "^0.0.1",
+    "twilio/sdk": "^5.38"
   },
   "repositories": [
     {

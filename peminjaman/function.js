@@ -60,10 +60,20 @@ $('#reservation').daterangepicker({
   }
 });
 
-/* $('#tgl_pengembalian').datepicker({
-  format: 'dd/mm/yyyy',
-  autoclose: true
-}); */
+$('#tgl_pinjam').daterangepicker({
+  singleDatePicker: true,
+  autoclose: true,
+  locale: {
+    format: 'DD/MM/YYYY'
+  }
+});
+$('#tgl_kembali').daterangepicker({
+  singleDatePicker: true,
+  autoclose: true,
+  locale: {
+    format: 'DD/MM/YYYY'
+  }
+});
 
 $('#realisasi_pengembalian').datepicker({
   format: 'dd/mm/yyyy',
@@ -83,13 +93,9 @@ function validationMessage() {
   var inpObj = $(this).val();
   if (!inpObj.checkValidity()) {
     //document.getElementById("demo").innerHTML = inpObj.validationMessage;
-    alert("data tidak boleh kosong");
+    alert("Data tidak boleh kosong");
   }
 }
-/* $("#example1").on('click', '#remove', function (e) {
-  $(this).parent().parent().remove();
-  //console.log(e);
-}); */
 
 $('.emptyData').on('click', function () {
   $.ajax({
@@ -135,7 +141,8 @@ $('#btnSimpan').click(function () {
   //var peminjam = $('#peminjam_aset').val();
   var komisi = $('#komisi_peminjam').val();
   var no_hp = $('#nohp').val();
-  var tgl = $('#reservation').val();
+  var tgl = $('#tgl_pinjam').val();
+  var tgl2 = $('#tgl_pinjam').val();
   var ket = $('#keterangan').val();
   //alert(peminjam+" / "+komisi+" / "+no_hp);
   //alert(komisi+" / "+no_hp);
@@ -157,7 +164,8 @@ $('#btnSimpan').click(function () {
         //id_peminjam: peminjam,
         id_komisi: komisi,
         no_hp: no_hp,
-        tgl_peminjaman: tgl,
+        tgl_pinjam: tgl,
+        tgl_kembali: tgl2,
         keterangan: ket
       },
       success: function (result) {
@@ -338,12 +346,12 @@ $('.modalKembali').click(function () {
 });
 $('#btnKembali').click(function () {
   var id = $('#id_pinjam').val();
-  var ket = $('#keterangan').val();
+  var ket = $('#keterangan_kembali').val();
   var tgl_realisasi = $('#realisasi_pengembalian').val();
   var detil_item = $('input[name="detil_item[]"]').map(function(){return $(this).val();}).get().join("|");
   var catat = $('input[name="catatan[]"]').map(function(){return $(this).val();}).get().join("|");
-  console.log(id);
-  //alert(catat);
+  //console.log(id);
+  //alert(ket);
   if(ket == '' || tgl_realisasi == '') {
     swal({
       title: "Peringatan",
@@ -390,11 +398,45 @@ $('.btnSms').click(function () {
         timer: 2000,
         showConfirmButton: false
       }).then(function () {
-        location.reload();
+        //location.reload();
       });
     }
   });
-
+});
+// WA test
+$('.btnWA').click(function () {
+  var id = $(this).attr('data-id');
+  var phonenumber = $(this).attr('data-number');
+  //alert(phonenumber);
+  if(navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)){
+      //code for iPad here
+      window.location.href = "https://api.whatsapp.com/send?phone="+phonenumber+"";
+  }
+  else if(navigator.userAgent.match(/Android/i)){
+      //code for Android here
+      window.location.href = "intent://send/"+phonenumber+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end"
+      //alert('this is an Android');
+  }
+  else {
+      window.location.href = "https://api.whatsapp.com/send?phone="+phonenumber+"";
+  }
+  /* $.ajax({
+    url: "ajax.php",
+    type: "POST",
+    data: {wa_reminder: true, id_peminjaman: id},
+    success: function (result) {
+      console.log(result);
+      swal({
+        title: "Sukses!",
+        text: "Berhasil mengirim pesan.",
+        type: "success",
+        timer: 2000,
+        showConfirmButton: false
+      }).then(function () {
+        //location.reload();
+      });
+    }
+  }); */
 });
 $('.logout').on('click', function (event) {
   event.preventDefault();

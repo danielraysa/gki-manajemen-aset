@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2019 at 06:46 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Oct 08, 2019 at 11:06 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,7 +37,7 @@ CREATE TABLE `aset` (
   `tanggal_pengadaan` date NOT NULL,
   `lokasi_aset` int(11) NOT NULL,
   `masa_manfaat` int(11) NOT NULL,
-  `gambar` text,
+  `gambar` text DEFAULT NULL,
   `tgl_added` date NOT NULL,
   `aset_pinjam` int(11) NOT NULL,
   `status_pinjam` int(11) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `daftar_aset` (
   `MASA_MANFAAT` int(11) DEFAULT NULL,
   `NILAI_RESIDU` int(11) DEFAULT NULL,
   `PERBOLEHAN_PINJAM` int(11) DEFAULT NULL,
-  `FOTO_ASET` text,
+  `FOTO_ASET` text DEFAULT NULL,
   `STATUS_ASET` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -402,6 +402,32 @@ INSERT INTO `konfigurasi` (`nama_gereja`, `alamat_gereja`, `logo_web`, `logo_ico
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `log_akses`
+--
+
+CREATE TABLE `log_akses` (
+  `ID_LOG` int(11) NOT NULL,
+  `ID_USER` varchar(10) DEFAULT NULL,
+  `TANGGAL_LOG` datetime DEFAULT NULL,
+  `ACTIVITY_LOG` varchar(30) DEFAULT NULL,
+  `ACTIVITY_DETAIL` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `log_akses`
+--
+
+INSERT INTO `log_akses` (`ID_LOG`, `ID_USER`, `TANGGAL_LOG`, `ACTIVITY_LOG`, `ACTIVITY_DETAIL`) VALUES
+(1, '1', '2019-10-08 11:21:20', 'login', NULL),
+(2, '2', '2019-10-08 13:39:36', 'login', NULL),
+(3, '5', '2019-10-08 13:47:12', 'login', NULL),
+(4, 'JNOZ120MX4', '2019-10-08 13:47:51', 'login', NULL),
+(5, '3', '2019-10-08 14:09:57', 'login', NULL),
+(6, '4', '2019-10-08 14:29:48', 'login', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `merk`
 --
 
@@ -596,7 +622,7 @@ INSERT INTO `peminjaman_aset` (`ID_PEMINJAMAN`, `ID_USER`, `ID_KOMISI`, `NAMA_PE
 ('CO9CS23KNX', '5', '1', NULL, '0787574123', 'mengisi pujian', 'Diterima', '2019-07-09 14:52:52', '2019-07-27', '2019-07-28', NULL, 'Aktif'),
 ('EQFVVX2O2T', 'ADSHJ128SD', '04GRQP', NULL, '081232457234', 'ngedit video', 'Diterima', '2019-06-27 16:00:30', '2019-06-28', '2019-06-29', '2019-06-29 00:00:00', 'Aktif'),
 ('ESTWEAMXT1', 'JNOZ120MX4', 'U7MEHG', NULL, '082113130251', 'transportasi pembicara', 'Diterima', '2019-05-28 17:34:53', '2019-05-30', '2019-06-01', '2019-06-05 00:00:00', 'Aktif'),
-('F6LTHV8OWU', '4', '2', NULL, '089754221114', 'Latihan solo vokal', 'Diterima', '2019-07-06 06:48:59', '2019-07-31', '2019-08-02', NULL, 'Aktif'),
+('F6LTHV8OWU', '4', '2', NULL, '085790386444', 'Latihan solo vokal', 'Diterima', '2019-07-06 06:48:59', '2019-07-31', '2019-08-02', NULL, 'Aktif'),
 ('K86EH9QETD', 'JNOZ120MX4', '2', NULL, '', 'acara KA', 'Ditolak', '2019-05-28 17:38:14', '2019-05-29', '2019-05-30', NULL, 'Aktif'),
 ('KDAZ3GJ27Y', 'JNOZ120MX4', '04GRQP', NULL, '', '', 'Ditolak', '2019-05-28 18:28:41', '2019-05-28', '2019-05-28', NULL, 'Aktif'),
 ('N37OIPFUHJ', 'JNOZ120MX4', '2MR0JZ', NULL, '082113130251', 'acara baksos', 'Diterima', '2019-05-28 17:28:13', '2019-05-28', '2019-05-31', '2019-06-05 00:00:00', 'Aktif'),
@@ -625,6 +651,7 @@ CREATE TABLE `pengadaan_aset` (
   `TANGGAL_MODIFIKASI` datetime DEFAULT NULL,
   `TANGGAL_APPROVE` datetime DEFAULT NULL,
   `HASIL_APPROVAL` varchar(10) DEFAULT NULL,
+  `CATATAN_APPROVAL` text DEFAULT NULL,
   `STATUS_USULAN` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -632,25 +659,25 @@ CREATE TABLE `pengadaan_aset` (
 -- Dumping data for table `pengadaan_aset`
 --
 
-INSERT INTO `pengadaan_aset` (`ID_PENGADAAN`, `ID_USER`, `KETERANGAN_USULAN`, `TANGGAL_USULAN`, `TANGGAL_MODIFIKASI`, `TANGGAL_APPROVE`, `HASIL_APPROVAL`, `STATUS_USULAN`) VALUES
-('1', '3', 'Usulan 1', '2019-03-25 01:15:47', '2019-03-25 01:15:47', '2019-03-27 00:00:00', 'Diterima', 'Aktif'),
-('1AXS2NTK7W', '3', 'untuk komunikasi antar panitia/petugas multimedia', '2019-06-24 16:58:10', NULL, '2019-07-18 00:26:16', 'Diterima', 'Aktif'),
-('2', '3', 'Usulan ke 2', '2019-03-26 13:40:53', '2019-03-26 13:40:53', '2019-03-29 00:00:00', 'Ditolak', 'Aktif'),
-('4BA2CT3NEW', '3', 'untuk pemuda', '2019-04-18 16:04:56', NULL, NULL, 'Diterima', 'Aktif'),
-('565RCH5L8T', '67ZM8J5L5S', 'keperluan kantor dan multimedia untuk editing', '2019-06-06 23:45:21', NULL, '2019-06-06 23:45:30', 'Diterima', 'Aktif'),
-('5JYWGCOMK2', '3', 'keperluan multimedia untuk dokumentasi', '2019-06-24 16:20:45', NULL, '2019-07-17 22:45:01', 'Diterima', 'Aktif'),
-('6FEA35OUWD', 'B1M4SPOQ78', 'untuk mobilitas pendeta', '2019-06-24 17:26:43', NULL, '2019-06-25 00:00:00', 'Diterima', 'Aktif'),
-('7MVBFRFE92', 'B1M4SPOQ78', 'keperluan kantor gereja', '2019-05-23 23:52:35', NULL, '2019-05-24 14:54:31', 'Diterima', 'Aktif'),
-('BA42TDY13Q', 'B1M4SPOQ78', 'Mitsuhshi 2PK non converter', '2019-07-25 20:39:55', NULL, '2019-07-25 20:41:13', 'Diterima', 'Aktif'),
-('CBMOP58VK9', '67ZM8J5L5S', 'untuk menampilkan teks lagu/kebutuhan presentasi', '2019-06-07 00:17:18', NULL, '2019-06-07 00:18:34', 'Diterima', 'Aktif'),
-('G24ZIOQCB5', 'B1M4SPOQ78', 'kebutuhan acara paskah', '2019-06-25 14:43:32', NULL, '2019-07-18 00:26:22', 'Diterima', 'Aktif'),
-('N4OVYRZF0N', '67ZM8J5L5S', 'AC 2PK', '2019-07-26 00:25:03', NULL, NULL, 'Pending', 'Aktif'),
-('PCIKOCPWQ9', '67ZM8J5L5S', 'untuk foto acara gereja baru', '2019-07-18 10:23:36', NULL, '2019-07-18 10:24:01', 'Diterima', 'Aktif'),
-('QQTC4HY65P', '3', 'keperluan ibadah', '2019-06-13 00:41:57', NULL, '2019-06-25 01:14:06', 'Diterima', 'Aktif'),
-('S00MFO1E0Z', 'B1M4SPOQ78', 'kebutuhan kantoria dan paduan suara', '2019-06-06 23:25:32', NULL, '2019-06-06 23:26:20', 'Diterima', 'Aktif'),
-('SSAXJRLWH0', '67ZM8J5L5S', 'transportasi massal', '2019-06-25 14:15:13', NULL, '2019-07-17 23:51:33', 'Diterima', 'Aktif'),
-('U7O59FVV5C', '3', 'Untuk keperluan pemuda', '2019-04-15 09:11:50', NULL, NULL, 'Diterima', 'Aktif'),
-('ZIIJIK57CT', '67ZM8J5L5S', 'penambahan untuk dokumentasi', '2019-07-26 00:29:32', NULL, '2019-08-06 01:38:26', 'Diterima', 'Aktif');
+INSERT INTO `pengadaan_aset` (`ID_PENGADAAN`, `ID_USER`, `KETERANGAN_USULAN`, `TANGGAL_USULAN`, `TANGGAL_MODIFIKASI`, `TANGGAL_APPROVE`, `HASIL_APPROVAL`, `CATATAN_APPROVAL`, `STATUS_USULAN`) VALUES
+('1', '3', 'Usulan 1', '2019-03-25 01:15:47', '2019-03-25 01:15:47', '2019-03-27 00:00:00', 'Diterima', NULL, 'Aktif'),
+('1AXS2NTK7W', '3', 'untuk komunikasi antar panitia/petugas multimedia', '2019-06-24 16:58:10', NULL, '2019-07-18 00:26:16', 'Diterima', NULL, 'Aktif'),
+('2', '3', 'Usulan ke 2', '2019-03-26 13:40:53', '2019-03-26 13:40:53', '2019-03-29 00:00:00', 'Ditolak', NULL, 'Aktif'),
+('4BA2CT3NEW', '3', 'untuk pemuda', '2019-04-18 16:04:56', NULL, NULL, 'Diterima', NULL, 'Aktif'),
+('565RCH5L8T', '67ZM8J5L5S', 'keperluan kantor dan multimedia untuk editing', '2019-06-06 23:45:21', NULL, '2019-06-06 23:45:30', 'Diterima', NULL, 'Aktif'),
+('5JYWGCOMK2', '3', 'keperluan multimedia untuk dokumentasi', '2019-06-24 16:20:45', NULL, '2019-07-17 22:45:01', 'Diterima', NULL, 'Aktif'),
+('6FEA35OUWD', 'B1M4SPOQ78', 'untuk mobilitas pendeta', '2019-06-24 17:26:43', NULL, '2019-06-25 00:00:00', 'Diterima', NULL, 'Aktif'),
+('7MVBFRFE92', 'B1M4SPOQ78', 'keperluan kantor gereja', '2019-05-23 23:52:35', NULL, '2019-05-24 14:54:31', 'Diterima', NULL, 'Aktif'),
+('BA42TDY13Q', 'B1M4SPOQ78', 'Mitsuhshi 2PK non converter', '2019-07-25 20:39:55', NULL, '2019-07-25 20:41:13', 'Diterima', NULL, 'Aktif'),
+('CBMOP58VK9', '67ZM8J5L5S', 'untuk menampilkan teks lagu/kebutuhan presentasi', '2019-06-07 00:17:18', NULL, '2019-06-07 00:18:34', 'Diterima', NULL, 'Aktif'),
+('G24ZIOQCB5', 'B1M4SPOQ78', 'kebutuhan acara paskah', '2019-06-25 14:43:32', NULL, '2019-07-18 00:26:22', 'Diterima', NULL, 'Aktif'),
+('N4OVYRZF0N', '67ZM8J5L5S', 'AC 2PK', '2019-07-26 00:25:03', NULL, NULL, 'Pending', NULL, 'Aktif'),
+('PCIKOCPWQ9', '67ZM8J5L5S', 'untuk foto acara gereja baru', '2019-07-18 10:23:36', NULL, '2019-07-18 10:24:01', 'Diterima', NULL, 'Aktif'),
+('QQTC4HY65P', '3', 'keperluan ibadah', '2019-06-13 00:41:57', NULL, '2019-06-25 01:14:06', 'Diterima', NULL, 'Aktif'),
+('S00MFO1E0Z', 'B1M4SPOQ78', 'kebutuhan kantoria dan paduan suara', '2019-06-06 23:25:32', NULL, '2019-06-06 23:26:20', 'Diterima', NULL, 'Aktif'),
+('SSAXJRLWH0', '67ZM8J5L5S', 'transportasi massal', '2019-06-25 14:15:13', NULL, '2019-07-17 23:51:33', 'Diterima', NULL, 'Aktif'),
+('U7O59FVV5C', '3', 'Untuk keperluan pemuda', '2019-04-15 09:11:50', NULL, NULL, 'Diterima', NULL, 'Aktif'),
+('ZIIJIK57CT', '67ZM8J5L5S', 'penambahan untuk dokumentasi', '2019-07-26 00:29:32', NULL, '2019-08-06 01:38:26', 'Diterima', NULL, 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -666,6 +693,7 @@ CREATE TABLE `penghapusan_aset` (
   `TANGGAL_PENGHAPUSAN` date DEFAULT NULL,
   `HASIL_APPROVAL` varchar(10) DEFAULT NULL,
   `TANGGAL_APPROVAL` datetime DEFAULT NULL,
+  `INFORMASI_TAMBAHAN` text DEFAULT NULL,
   `STATUS_USULAN` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -673,9 +701,9 @@ CREATE TABLE `penghapusan_aset` (
 -- Dumping data for table `penghapusan_aset`
 --
 
-INSERT INTO `penghapusan_aset` (`ID_PENGHAPUSAN`, `ID_USER`, `TANGGAL_USULAN`, `KETERANGAN_PENGHAPUSAN`, `TANGGAL_PENGHAPUSAN`, `HASIL_APPROVAL`, `TANGGAL_APPROVAL`, `STATUS_USULAN`) VALUES
-('0816UDQZ0A', '67ZM8J5L5S', '2019-07-29 10:49:52', 'sering rusak', NULL, 'Pending', NULL, 'Aktif'),
-('DFW358LVGJ', '3', '2019-05-17 05:09:58', 'rusak total', '2019-05-27', 'Diterima', '2019-05-26 00:00:00', 'Aktif');
+INSERT INTO `penghapusan_aset` (`ID_PENGHAPUSAN`, `ID_USER`, `TANGGAL_USULAN`, `KETERANGAN_PENGHAPUSAN`, `TANGGAL_PENGHAPUSAN`, `HASIL_APPROVAL`, `TANGGAL_APPROVAL`, `INFORMASI_TAMBAHAN`, `STATUS_USULAN`) VALUES
+('0816UDQZ0A', '67ZM8J5L5S', '2019-07-29 10:49:52', 'sering rusak', NULL, 'Pending', NULL, NULL, 'Aktif'),
+('DFW358LVGJ', '3', '2019-05-17 05:09:58', 'rusak total', '2019-05-27', 'Diterima', '2019-05-26 00:00:00', NULL, 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -741,9 +769,11 @@ CREATE TABLE `user` (
   `ID_USER` varchar(10) NOT NULL,
   `USERNAME` varchar(20) NOT NULL,
   `PASSWORD` varchar(20) NOT NULL,
+  `GOOGLE_ID` text DEFAULT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
   `NAMA_LENGKAP` varchar(50) DEFAULT NULL,
   `ROLE` varchar(20) NOT NULL,
-  `FOTO_USER` text,
+  `FOTO_USER` text DEFAULT NULL,
   `KETERANGAN` varchar(50) DEFAULT NULL,
   `STATUS_USER` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -752,17 +782,19 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`ID_USER`, `USERNAME`, `PASSWORD`, `NAMA_LENGKAP`, `ROLE`, `FOTO_USER`, `KETERANGAN`, `STATUS_USER`) VALUES
-('1', 'admin', 'admin', 'Admin', 'Administrator', 'user2-160x160.jpg', 'Hak akses penuh', 'Tidak Aktif'),
-('2', 'ketuamj', 'ketuamj', 'Pak Ketua', 'Ketua MJ', 'user2-160x160.jpg', 'Untuk melihat laporan', 'Aktif'),
-('3', 'mjbid4', 'mjbid4', 'Pak Anggota', 'Anggota MJ', 'user2-160x160.jpg', 'Untuk transaksi aset', 'Aktif'),
-('4', 'kpr', 'kpr', 'Daniel', 'Peminjam', 'user2-160x160.jpg', 'Untuk peminjaman (KPR)', 'Aktif'),
-('5', 'ka', 'ka', 'Raysa', 'Peminjam', 'user2-160x160.jpg', 'Untuk peminjaman (KA)', 'Aktif'),
-('67ZM8J5L5S', 'dhani', 'dhani', 'Dhani', 'Anggota MJ', 'user2-160x160.jpg', NULL, 'Aktif'),
-('ADSHJ128SD', 'piyo', 'piyo', 'Olivia', 'Peminjam', 'user2-160x160.jpg', NULL, 'Aktif'),
-('AJHDAJ1289', 'ruth', 'ruth', 'Daniella Ruth', 'Peminjam', 'user2-160x160.jpg', NULL, 'Aktif'),
-('B1M4SPOQ78', 'anggota', 'anggota', 'Pak ANggota 2', 'Anggota MJ', 'user2-160x160.jpg', NULL, 'Aktif'),
-('JNOZ120MX4', 'ongky', 'ongky', 'Ongky', 'Peminjam', 'user2-160x160.jpg', NULL, 'Aktif');
+INSERT INTO `user` (`ID_USER`, `USERNAME`, `PASSWORD`, `GOOGLE_ID`, `EMAIL`, `NAMA_LENGKAP`, `ROLE`, `FOTO_USER`, `KETERANGAN`, `STATUS_USER`) VALUES
+('1', 'admin', 'admin', NULL, 'anel.raysa@gmail.com', 'Admin', 'Administrator', 'user2-160x160.jpg', 'Hak akses penuh', 'Tidak Aktif'),
+('2', 'ketuamj', 'ketuamj', NULL, NULL, 'Pak Ketua', 'Ketua MJ', 'user2-160x160.jpg', 'Untuk melihat laporan', 'Aktif'),
+('3', 'mjbid4', 'mjbid4', NULL, 'anelzraysa@gmail.com', 'Pak Anggota', 'Anggota MJ', 'user2-160x160.jpg', 'Untuk transaksi aset', 'Aktif'),
+('4', 'kpr', 'kpr', NULL, NULL, 'Daniel', 'Peminjam', 'user2-160x160.jpg', 'Untuk peminjaman (KPR)', 'Aktif'),
+('5', 'ka', 'ka', NULL, NULL, 'Raysa', 'Peminjam', 'user2-160x160.jpg', 'Untuk peminjaman (KA)', 'Aktif'),
+('67ZM8J5L5S', 'dhani', 'dhani', NULL, NULL, 'Dhani', 'Anggota MJ', 'user2-160x160.jpg', NULL, 'Aktif'),
+('ADSHJ128SD', 'piyo', 'piyo', NULL, NULL, 'Olivia', 'Peminjam', 'user2-160x160.jpg', NULL, 'Aktif'),
+('AJHDAJ1289', 'ruth', 'ruth', NULL, NULL, 'Daniella Ruth', 'Peminjam', 'user2-160x160.jpg', NULL, 'Aktif'),
+('AMLM4STC5K', '15410100100@dinamika', '12345678', '108565781945119906109', '15410100100@dinamika.ac.id', 'Daniel Raysa', 'Peminjam', 'https://lh3.googleusercontent.com/a-/AAuE7mCJSCDBUB7JOHxnSbc_7Vw1AqGrK9YPQDFnpf1dZQ=s96-c', NULL, 'Aktif'),
+('B1M4SPOQ78', 'anggota', 'anggota', NULL, NULL, 'Pak ANggota 2', 'Anggota MJ', 'user2-160x160.jpg', NULL, 'Aktif'),
+('H907HUXGRY', 'daniel@dinamika.ac.i', '12345678', '108902631535908379922', 'daniel@dinamika.ac.id', 'Daniel Raysa Putra', 'Peminjam', 'https://lh3.googleusercontent.com/a-/AAuE7mBiv8VtN5-UHmD5OCvIr0AOjyZ-r1mcEAaqj-PS=s96-c', NULL, 'Aktif'),
+('JNOZ120MX4', 'ongky', 'ongky', NULL, NULL, 'Ongky', 'Peminjam', 'user2-160x160.jpg', NULL, 'Aktif');
 
 --
 -- Indexes for dumped tables
@@ -815,6 +847,12 @@ ALTER TABLE `kategori`
 --
 ALTER TABLE `komisi_jemaat`
   ADD PRIMARY KEY (`ID_KOMISI`);
+
+--
+-- Indexes for table `log_akses`
+--
+ALTER TABLE `log_akses`
+  ADD PRIMARY KEY (`ID_LOG`);
 
 --
 -- Indexes for table `merk`
@@ -885,6 +923,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `aset`
   MODIFY `id_aset` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `log_akses`
+--
+ALTER TABLE `log_akses`
+  MODIFY `ID_LOG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `notifikasi`

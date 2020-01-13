@@ -162,9 +162,8 @@
                   <th>No.</th>
                   <th>Nama Pengguna</th>
                   <th>Username</th>
-                  <th>Password</th>
+                  <!-- <th>Password</th> -->
                   <th>Hak Akses</th>
-                  
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -179,9 +178,8 @@
                         <td><?php echo $a; ?></td>
                         <td><?php echo $select['NAMA_LENGKAP']; ?></td>
                         <td><?php echo $select['USERNAME']; ?></td>
-                        <td>*****</td>
+                        <!-- <td>*****</td> -->
                         <td><?php echo $select['ROLE']; ?></td>
-                        
                         <td><center>
                         <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_USER']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
                         <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_USER']; ?>"><i class="fa fa-trash"></i> Hapus</button>

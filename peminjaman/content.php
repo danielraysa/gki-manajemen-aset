@@ -26,7 +26,6 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i> Sukses!</h4>
         Berhasil memperbarui peminjaman
-        <?php //echo $_SESSION['success-msg']; ?>
     </div>
     <?php
       }
@@ -57,7 +56,6 @@
               <h3 class="box-title">Data Peminjaman</h3>
             </div>
             <div class="box-body">
-            <!-- <form> -->
             <!-- <form action="form-action.php" method="post"> -->
               <!-- <div class="form-group">
                 <label>Peminjam:</label>
@@ -97,7 +95,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Nomor untuk dihubungi:</label>
+                <label>Nomor Peminjam:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
@@ -107,14 +105,23 @@
                 <span id="errmsg"></span>
               </div>
               <div class="form-group">
-                <label>Tanggal Pinjam - Kembali:</label>
+                <label>Tanggal Pinjam:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                <!-- <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required> -->
+                <input type="text" class="form-control" id="tgl_pinjam" name="tgl_pinjam" required>
                 </div>
-                <!-- /.input group -->
+              </div>
+              <div class="form-group">
+                <label>Tanggal Kembali:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                <input type="text" class="form-control" id="tgl_kembali" name="tgl_kembali" required>
+                </div>
               </div>
               <div class="form-group">
                 <label>Keterangan Peminjaman/Penggunaan:</label>
@@ -204,6 +211,7 @@
                 </tbody>
                 
               </table>
+              <button <?php //if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-tambah" id="btnModal">Simpan Perubahan</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -274,7 +282,7 @@
         </div>
       </div>
       <!-- /.row -->
-      
+      <?php include "modal.php"; ?>
     </section>
     <!-- /.content -->
   </div>

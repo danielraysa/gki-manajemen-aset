@@ -6,21 +6,7 @@ function getRandomColor() {
     }
     return color;
 }
-function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
-    chart.update();
-}
 
-function removeData(chart) {
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-    chart.update();
-}
 // Select2
 $('.select2').select2();
 
@@ -239,16 +225,7 @@ $('#btnFilter').click(function () {
                         jumlahdata.push(data[i].jumlah);
                         warna.push(getRandomColor());
                     }
-                    //removeData(barGraph);
-                    //addData(barGraph, ruang, jumlahdata);
-                    /* barGraph.data = {
-                        labels: ruang,
-                        datasets: [{
-                            data: jumlahdata,
-                            backgroundColor: warna
-                        }]
-                    };
-                    barGraph.update(); */
+                    
                     barGraph = new Chart(ctx, {
                         type: 'pie',
                         data: {

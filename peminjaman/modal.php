@@ -1,5 +1,80 @@
 
 <!-- Modal Delete Usulan -->
+<div class="modal fade" id="modal-tambah">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Simpan Peminjaman</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Komisi Peminjam:</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-laptop"></i>
+                    </div>
+                    <select class="form-control select2" id="komisi_peminjam" name="komisi" style="width: 100%;">
+                        <?php
+                        $data = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
+                        while ($row = mysqli_fetch_array($data)) {
+                        ?>
+                        <option value="<?php echo $row['ID_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nomor Peminjam:</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-laptop"></i>
+                    </div>
+                    <input type="text" class="form-control" id="nohp" name="nohp" required/>
+                    </div>
+                    <span id="errmsg"></span>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Pinjam - Kembali:</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Pinjam - Kembali:</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Keterangan Peminjaman/Penggunaan:</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-laptop"></i>
+                    </div>
+                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button class="btn btn-danger pull-right" type="submit" id="btnSimpan" name="simpan"><i class="fa fa-save"></i> Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete Usulan -->
 <div class="modal fade" id="modal-delete">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -19,9 +94,7 @@
                 <button class="btn btn-danger pull-right" type="submit" id="btnDelete" name="delete"><i class="fa fa-trash"></i> Hapus</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <!-- Modal Approve -->
@@ -44,10 +117,9 @@
                 <button class="btn btn-success pull-right" id="btnApprove" type="submit" data-dismiss="modal" name="approve"><i class="fa fa-save"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
+
 <!-- Modal Reject -->
 <div class="modal fade" id="modal-reject">
     <div class="modal-dialog modal-sm">
@@ -60,7 +132,8 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_reject" name="id"/>
-                Tolak pengajuan peminjaman?
+                Tolak pengajuan peminjaman? Beri alasan/keterangan sebagai informasi bagi peminjam
+                <textarea class="form-control" id="keterangan_tolak_pengadaan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 <!-- </form> -->
             </div>
             <div class="modal-footer">
@@ -68,9 +141,7 @@
                 <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <!-- Modal Detail Usulan -->
@@ -94,14 +165,11 @@
                     </thead>
                 </table>                
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
-            </div>  -->
+            
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Detail Usulan -->
@@ -125,14 +193,11 @@
                     </thead>
                 </table>            
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
-            </div>  -->
+            
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Pengembalian -->
@@ -189,7 +254,7 @@
                         <div class="input-group-addon">
                         <i class="fa fa-laptop"></i>
                         </div>
-                        <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                        <textarea class="form-control" id="keterangan_kembali" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                     </div>  
                 </div>
                 <!-- <input type="hidden" id="id_pinjam" name="id"/> -->
@@ -197,28 +262,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" id="btnKembali" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-save"></i> Simpan</button>
+                <button class="btn btn-success pull-right" id="btnKembali" type="submit" data-dismiss="modal"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade" id="modal-gambar">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Daftar Aset Terpinjam</h4>
-            </div>
-            <div class="modal-body">
-                <img src="../dist/img/avatar.png" id="gambar">
-            </div>
-            
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+    
 </div>

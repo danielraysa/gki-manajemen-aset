@@ -3,13 +3,33 @@
     
     //include "../sms-config.php";
     include "../connection.php";
-
-    include "../vendor/autoload.php";
+    require_once('../vendor/autoload.php');
 
     use SMSGatewayMe\Client\ApiClient;
     use SMSGatewayMe\Client\Configuration;
     use SMSGatewayMe\Client\Api\MessageApi;
     use SMSGatewayMe\Client\Model\SendMessageRequest;
+
+    // Update the path below to your autoload.php,
+    // see https://getcomposer.org/doc/01-basic-usage.md
+    use Twilio\Rest\Client;
+    
+    // Find your Account Sid and Auth Token at twilio.com/console
+    // DANGER! This is insecure. See http://twil.io/secure
+    $sid    = "AC11c4a6659b166118f38b4c28767ed8c3";
+    $token  = "fa8e8ee787be28cc1b1e28f457590a38";
+    // $twilio = new Client($sid, $token);
+    //new number +12019480809
+    //"from" => "whatsapp:+14155238886",
+    /* $message = $twilio->messages
+                        ->create("whatsapp:+6282230143314", // to
+                                array(
+                                    "from" => "whatsapp:+6289624762088",
+                                    "body" => "Hello there! This is Twilio API"
+                                )
+                        );
+    
+    print($message->sid); */
 
     // Configure client
     $config = Configuration::getDefaultConfiguration();
@@ -47,13 +67,15 @@
         $id_user = $_SESSION['id_user'];
         $id_komisi = $_POST['id_komisi'];
         $no_hp = $_POST['no_hp'];
-        $tgl = $_POST['tgl_peminjaman'];
+        $tgl = $_POST['tgl_pinjam'];
+        $tgl2 = $_POST['tgl_kembali'];
         $keterangan = $_POST['keterangan'];
         $date = str_replace('/', '-', $tgl);
+        $date2 = str_replace('/', '-', $tgl2);
         echo $date."\n";
-        $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
+        $tgl_awal = date("Y-m-d", strtotime($date)); // $tgl_awal = date("Y-m-d", strtotime(substr($date,0,10)));
         echo $tgl_awal."\n";
-        $tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
+        $tgl_akhir = date("Y-m-d", strtotime($date2)); // $tgl_akhir = date("Y-m-d", strtotime(substr($date,13)));
         echo $tgl_akhir."\n";
         $date_now = date('Y-m-d H:i:s');
         //$random_id = randString(10);
@@ -61,6 +83,7 @@
         $_SESSION['print_id'] = $random_id;
         echo "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, KETERANGAN_PINJAM, NO_HP, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$keterangan."','".$no_hp."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif') \n";
         $query = mysqli_query($koneksi, "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, NO_HP, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$no_hp."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif')");
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date_now."', 'peminjaman', '".$random_id."','pengajuan_peminjaman')");
         if(!$query) {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
             echo $_SESSION['error-msg'];
@@ -143,6 +166,7 @@
         $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('peminjaman_aset', '".$id."', '".$date."', 0)");
         $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
         $row = mysqli_fetch_array($select);
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'peminjaman', '".$id."','terima_peminjaman')");
         $sendMessageRequest = new SendMessageRequest([
             'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' telah diterima.', 'deviceId' => 104188
         ]);
@@ -165,6 +189,7 @@
         $insert = mysqli_query($koneksi, "INSERT INTO notifikasi(TABEL_REF, ID_REF, TGL_NOTIF, READ_NOTIF) VALUES ('peminjaman_aset', '".$id."', '".$date."', 0)");
         $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
         $row = mysqli_fetch_array($select);
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'peminjaman', '".$id."','tolak_peminjaman')");
         $sendMessageRequest = new SendMessageRequest([
             'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' ditolak.', 'deviceId' => 104188
         ]);
@@ -176,6 +201,7 @@
 
     if (isset($_POST['delete-usulan'])) {
         $id = $_POST['delete-usulan'];
+        $date = date('Y-m-d H:i:s');
         $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Dihapus' WHERE ID_PEMINJAMAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
@@ -183,6 +209,7 @@
         else {
             echo "Success";
         }
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'peminjaman', '".$id."','hapus_pengajuan')");
     }
 
     if(isset($_POST['cek_pinjam'])) {
@@ -210,6 +237,7 @@
     }
 
     if(isset($_POST['kembali'])) {
+        $now = date('Y-m-d H:i:s');
         $id = $_POST['kembali'];
         //$catatan = $_POST['catatan'];
         $arr_catatan = explode("|",$_POST['catatan']);
@@ -222,6 +250,7 @@
         echo $tgl_kembali."\n";
         //$query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET KETERANGAN_PENGEMBALIAN = '".$keterangan."', REALISASI_PENGEMBALIAN = '".$tgl_kembali."' WHERE ID_PEMINJAMAN = '".$id."'");
         $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET REALISASI_PENGEMBALIAN = '".$tgl_kembali."' WHERE ID_PEMINJAMAN = '".$id."'");
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$now."', 'peminjaman', '".$id."','pengembalian')");
         for($a = 0; $a < count($arr_catatan); $a++){
             //$query2 = mysqli_query($koneksi, "UPDATE detail_peminjaman SET CATATAN = '".$keterangan."' WHERE ID_PEMINJAMAN = '".$id."'");
             $query2 = mysqli_query($koneksi, "UPDATE detail_peminjaman SET CATATAN = '".$arr_catatan[$a]."' WHERE ID_DETIL_PINJAM = '".$arr_item[$a]."'");
@@ -236,6 +265,21 @@
             'phoneNumber' => $row['NO_HP'], 'message' => 'Peminjaman tgl '.$row['TANGGAL_PENGAJUAN'].' berakhir pada '.$row['TANGGAL_PENGEMBALIAN'].'. Harap segera dikembalikan tepat waktu. NOREPLY', 'deviceId' => 104188
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+    }
+
+    if(isset($_POST['wa_reminder'])){
+        $id = $_POST['id_peminjaman'];
+        $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
+        $row = mysqli_fetch_array($select);
+        $twilio = new Client($sid, $token);
+        $message = $twilio->messages
+                        ->create("whatsapp:+6289624762088", // to
+                                array(
+                                    "from" => "whatsapp:+12019480809",
+                                    "body" => "Hello there! This is Twilio API"
+                                )
+                        );
+        print($message->sid);
     }
 
     if(isset($_POST['update_pinjam'])){
@@ -268,6 +312,7 @@
             echo "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."') \n";
             $insert = mysqli_query($koneksi, "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."')");
         }
+        $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date_now."', 'peminjaman', '".$id_peminjaman."','ubah_pengajuan')");
         unset($_SESSION['item_pinjam']);
 
     }

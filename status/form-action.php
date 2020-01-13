@@ -4,19 +4,9 @@
 
     if(isset($_POST['add'])) {
         $nama = $_POST['nama'];
-        $random_id = randString(10);
-        $is_unique = false;
-        while (!$is_unique) {
-            $select = mysqli_query($koneksi, "SELECT * FROM status WHERE ID_STATUS = '".$random_id."'");
-            if (mysqli_num_rows($select) == 0) {  
-                // if you don't get a result, then you're good
-                $is_unique = true;
-                $query = mysqli_query($koneksi, "INSERT INTO status (ID_STATUS, NAMA_STATUS) VALUES ('".$random_id."','".$nama."')");
-            }
-            else {
-                $random_id = randString(10);
-            }
-        }
+        $random_id = randomID('status', 'ID_STATUS', 10);
+        $query = mysqli_query($koneksi, "INSERT INTO status (ID_STATUS, NAMA_STATUS) VALUES ('".$random_id."','".$nama."')");
+         
         // $query = mysqli_query($koneksi, "INSERT INTO status (NAMA_STATUS, status) VALUES ('".$nama."', 'Aktif')");
         if($query) {
             $_SESSION['success-msg'] = "Sukses menambah data.";

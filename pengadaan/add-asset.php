@@ -58,10 +58,10 @@
                 <div class="box">
                 <div class="box-body">
                 <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="box box-success bg-gray">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="box box-success bg-light-blue">
                             <div class="box-header">
-                                <h3 class="box-title">Penamaan Aset</h3>
+                                <b class="box-title text-black">Penamaan Aset</b>
                             </div>
                             <div class="box-body">
                                 <!-- <div class="form-group">
@@ -135,10 +135,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="box box-success bg-gray">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="box box-success bg-light-blue">
                             <div class="box-header">
-                                <h3 class="box-title">Keterangan Aset</h3>
+                                <b class="box-title text-black">Keterangan Aset</b>
                             </div>
                             <div class="box-body">
                                 <div class="form-group">
@@ -181,7 +181,7 @@
                                         ?>
                                     </select>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-merk"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-merk"><i class="fa fa-plus"></i></button>
                                     </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                         ?>
                                     </select>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
                                     </div>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@
                                         ?>
                                     </select>
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-komisi"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-komisi"><i class="fa fa-plus"></i></button>
                                     </div>
                                     </div>
                                 </div>
@@ -245,17 +245,17 @@
                                     <label>Upload Gambar:</label>
                                     <img id="img-upload" class="img-responsive" />  
                                     <div class="btn btn-default btn-file btn-block">
-                                        Browse… <input type="file" id="imgInp" name="foto" accept="image/*">
+                                        Browse… <input type="file" id="imgInp" name="foto" accept="image/*" capture>
                                     </div>
                                 </div>
                                 
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="box box-success bg-gray">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="box box-success bg-light-blue">
                             <div class="box-header">
-                                <h3 class="box-title">Pembelian Aset</h3>
+                                <b class="box-title text-black">Pembelian Aset</b>
                             </div>
                             <div class="box-body">
                                 
@@ -305,63 +305,54 @@
 
                     <div class="box-footer">
                         <button class="btn btn-success btn-block" type="submit" id="addAsset" name="simpan-aset">Tambah Aset</button>
-                        <input type="hidden" id="id_aset" name="id"/>
                     </div>
                 </form>
                 </div>
             </div>
         </div>
         <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <div class="box box-success">
-            <div class="box-header">
-              <h3 class="box-title">Data Usulan yang Diajukan</h3>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">Data Usulan yang Diajukan</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover table-responsive" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Aset</th>
+                                    <th>Jenis Barang</th>
+                                    <th>Harga</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $id = $_GET['id'];
+                            $_SESSION['pengadaan_aset'] = $id;
+                            $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, b.nama_barang, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
+                            $a = 1;
+                            while($row = mysqli_fetch_array($query)) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $a; ?></td>
+                                    <td><?php echo $row['barang_usulan']; ?></td>
+                                    <td><?php echo $row['nama_barang']; ?></td>
+                                    <td><?php echo str_replace(',','.',asRupiah($row['harga'])); ?></td>
+                                    <td>
+                                    <button class="btn btn-success insert-item" value="<?php echo $row['id_usulan_tambah']; ?>"><i class="fa fa-check"></i> Tambah</button>
+                                    </td>
+                                </tr>
+                            <?php
+                                $a++;
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-            <!-- <form action="form-action.php" method="post"> -->
-              <table id="example2" class="table table-bordered table-hover table-responsive" style="width:100%">
-                <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Nama Aset</th>
-                  <th>Jenis Barang</th>
-                  <th>Harga</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                $id = $_GET['id'];
-                $_SESSION['pengadaan_aset'] = $id;
-                //$query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, b.nama_barang, p.barang_usulan, p.harga FROM pengadaan_barang p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
-                $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, b.nama_barang, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
-                $a = 1;
-                while($row = mysqli_fetch_array($query)) {
-                //foreach($_SESSION['temp_item_2'] as $items) {
-                ?>
-                  <tr>
-                    <td><?php echo $a; ?></td>
-                    <td><?php echo $row['barang_usulan']; ?></td>
-                    <td><?php echo $row['nama_barang']; ?></td>
-                    <td><?php echo str_replace(',','.',asRupiah($row['harga'])); ?></td>
-                    <td>
-                      <button class="btn btn-success insert-item" value="<?php echo $row['id_usulan_tambah']; ?>"><i class="fa fa-check"></i> Tambah</button>
-                    </td>
-                  </tr>
-                <?php
-                    $a++;
-                  }
-                ?>
-                </tbody>
-            </table>
-            
-            <!-- </form> -->
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->

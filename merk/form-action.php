@@ -4,21 +4,9 @@
 
     if(isset($_POST['add'])) {
         $merk = $_POST['merk'];
-        $random_id = randString(10);
-        $is_unique = false;
+        $random_id = randomID('merk', 'ID_MERK', 6);
+        $query = mysqli_query($koneksi, "INSERT INTO merk(ID_MERK, NAMA_MERK, STATUS_MERK) VALUES ('".$random_id."', '".$merk."', 'Aktif')");
             
-        while (!$is_unique) {
-            $select = mysqli_query($koneksi, "SELECT * FROM merk WHERE ID_MERK = '".$random_id."'");
-            if (mysqli_num_rows($select) == 0) {  
-                // if you don't get a result, then you're good
-                $is_unique = true;
-                $query = mysqli_query($koneksi, "INSERT INTO merk(ID_MERK, NAMA_MERK, STATUS_MERK) VALUES ('".$random_id."', '".$merk."', 'Aktif')");
-            }
-            else {
-                $random_id = randString(10);
-            }
-        }
-        
         if($query) {
             $_SESSION['success-msg'] = "Sukses menambah data.";
             header("location: ../merk/?success");

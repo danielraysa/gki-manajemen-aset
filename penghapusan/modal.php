@@ -19,9 +19,9 @@
                 <button class="btn btn-danger pull-right" type="submit" id="btnDelete" name="delete"><i class="fa fa-trash"></i> Hapus</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Approve -->
@@ -44,9 +44,9 @@
                 <button class="btn btn-success pull-right" id="btnApprove" type="submit" data-dismiss="modal" name="approve"><i class="fa fa-save"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 <!-- Modal Reject -->
 <div class="modal fade" id="modal-reject">
@@ -68,9 +68,9 @@
                 <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Detail Usulan -->
@@ -97,9 +97,9 @@
             </div>
             
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 <!-- Modal Detail Usulan -->
 <div class="modal fade" id="modal-penyusutan">

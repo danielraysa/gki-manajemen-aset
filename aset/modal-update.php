@@ -142,7 +142,7 @@
                                 <label>Upload Gambar:</label>
                                 <img id="img-upload" class="img-responsive" />  
                                 <div class="btn btn-default btn-file btn-block">
-                                    Browse… <input type="file" id="imgInp" name="foto" accept="image/*">
+                                    Browse… <input type="file" id="imgInp" name="foto" accept="image/*" capture>
                                 </div>
                             </div>
                             

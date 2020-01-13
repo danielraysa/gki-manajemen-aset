@@ -43,9 +43,9 @@
                 <button class="btn btn-success pull-right" id="addBarang" data-dismiss="modal" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Add Merk -->
@@ -75,9 +75,9 @@
                 <button class="btn btn-success pull-right" data-dismiss="modal" id="addMerk" name="add-merk"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Add Ruangan -->
@@ -116,9 +116,9 @@
                 <button class="btn btn-success pull-right" data-dismiss="modal" id="addRuangan" name="add-ruangan"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Add Komisi -->
@@ -157,9 +157,9 @@
                 <button class="btn btn-success pull-right" data-dismiss="modal" id="addKomisi" name="add-komisi"><i class="fa fa-plus"></i> Tambah</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Edit -->
@@ -239,9 +239,9 @@
                 <button class="btn btn-success pull-right" type="submit" name="edit"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Delete Usulan -->
@@ -264,9 +264,9 @@
                 <button class="btn btn-danger pull-right" type="submit" id="btnDelete" name="delete"><i class="fa fa-trash"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 
 <!-- Modal Approve -->
@@ -289,9 +289,9 @@
                 <button class="btn btn-success pull-right" id="btnApprove" type="submit" data-dismiss="modal" name="approve"><i class="fa fa-save"></i> Ya</button>
             </div>
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>
 <!-- Modal Reject -->
 <div class="modal fade" id="modal-reject">
@@ -305,12 +305,13 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_reject" name="id"/>
-                Tolak usulan pengadaan aset ini?
+                Tolak usulan pengadaan aset ini? <br> Beri alasan/keterangan sebagai informasi bagi pengusul <br><br>
+                <textarea class="form-control" id="keterangan_tolak_pengadaan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 <!-- </form> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Ya</button>
+                <button class="btn btn-danger pull-right" id="btnReject" type="submit" data-dismiss="modal" name="reject"><i class="fa fa-close"></i> Tolak dan Simpan</button>
             </div>
         </div>
     </div>
@@ -472,7 +473,7 @@
                 <button class="btn btn-success pull-right" type="submit" name="add-barang"><i class="fa fa-plus"></i> Tambah</button>
             </div>  -->
         </div>
-        <!-- /.modal-content -->
+        
     </div>
-    <!-- /.modal-dialog -->
+    
 </div>

@@ -7,16 +7,32 @@ namespace Composer\Autoload;
 class ComposerStaticInitfa5baf8e9e76fcf480d13479b8dd184b
 {
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twilio\\' => 7,
+        ),
         'S' => 
         array (
             'SMSGatewayMe\\Client\\' => 20,
         ),
+        'C' => 
+        array (
+            'Composer\\Installers\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twilio\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twilio/sdk/src/Twilio',
+        ),
         'SMSGatewayMe\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/smsgatewayme/client/lib',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
     );
 

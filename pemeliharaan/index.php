@@ -1,6 +1,5 @@
 <?php
     session_start();
-    
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
     }
@@ -73,7 +72,6 @@
             <div class="box-header">
               <h3 class="box-title">Jadwal Pemeliharaan</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover table-responsive" style="width: 100%">
               <thead>
@@ -104,7 +102,7 @@
                       <td>
                         <button type="button" data-toggle="modal" data-target="#modal-maintenance"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" class="btn btn-success modalMaintenance"><i class="fa fa-gear"></i> Pemeliharaan</button>
                         <button type="button" data-toggle="modal" data-target="#modal-delete"  data-id="<?php echo $row['ID_PEMELIHARAAN']; ?>" class="btn btn-danger modalDelete"><i class="fa fa-close"></i> Batalkan</button>
-                        </td>
+                      </td>
                     </tr>
                     <?php
                       $a++;
@@ -114,11 +112,8 @@
               </table>
               <?php include "modal.php"; ?>
             </div>
-            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -126,7 +121,6 @@
             <div class="box-header">
               <h3 class="box-title">Penjadwalan Pemeliharaan Aset</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
               <thead>

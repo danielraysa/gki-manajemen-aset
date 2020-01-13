@@ -145,10 +145,10 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Tgl Peminjaman</th>
-                                        <th>Tgl Pengembalian</th>
+                                        <th>Tgl Pinjam - Kembali</th>
                                         <th>Pemohon</th>
                                         <th>Keterangan</th>
+                                        <th>Detail</th>
                                         <th>Status Peminjaman</th>
                                         <th>Action</th>
                                     </tr>
@@ -162,8 +162,8 @@
                                         ?>
                                     <tr>
                                         <td><?php echo $a; ?></td>
-                                        <td><?php echo tglIndo($row['tanggal_peminjaman']); ?></td>
-                                        <td><?php echo tglIndo($row['tanggal_pengembalian']); ?></td>
+                                        <td><?php echo tglIndo($row['tanggal_peminjaman'])." - ".tglIndo($row['tanggal_pengembalian']); ?></td>
+                                        <!-- <td><?php //echo tglIndo($row['tanggal_pengembalian']); ?></td> -->
                                         <td><?php echo $row['nama_lengkap']; ?></td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
@@ -186,15 +186,16 @@
                                             }
                                             ?>
                                         </td>
+                                        <td><button class="btn btn-primary modalPinjam" data-toggle="modal" data-target="#modal-pinjam" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button></td>
                                         <td>
                                             <!-- <a target="_blank" class="btn btn-primary modalDetail" href="testprint.php?print_id=<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Print</a> -->
-                                            <button class="btn btn-primary modalPinjam" data-toggle="modal" data-target="#modal-pinjam" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button>
                                             <button class="btn btn-success modalKembali" data-toggle="modal" data-target="#modal-pengembalian" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Pengembalian</button>
                                             <!-- <button class="btn btn-success modalGambar" data-toggle="modal" data-target="#modal-gambar" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-share-square"></i> Gambar</button> -->
                                             <?php
                                             if ($row['tanggal_pengembalian'] <= $date){
                                             ?>
                                             <button class="btn btn-warning btnSms" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> Kirim Pengingat</button>
+                                            <button class="btn btn-success btnWA" data-id="<?php echo $row['id_peminjaman']; ?>" data-number="<?php echo $row['no_hp']; ?>"><i class="fa fa-whatsapp" aria-hidden="true"></i> Chat WA</button>
                                             <!-- <a role="button" href="https://wa.me/6281235607716?text=Saya%20tertarik%20untuk%20membeli%20mobil%20Anda%20(TEST)" target="_blank" class="btn btn-success" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-envelope"></i> WA</b> -->
                                             <?php
                                             }

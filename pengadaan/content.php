@@ -84,17 +84,17 @@
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Usulan barang baru" disabled>
+                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama barang baru" disabled>
                 </div>  
               </div>
               <div class="form-group">
-                <label>Barang:</label>
+                <label>Jenis Barang:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
                   <select class="form-control select2" id="barang" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                    <option>Pilih barang</option>
+                    <option>Pilih jenis barang</option>
                     <?php
                       $data = mysqli_query($koneksi, "SELECT * FROM barang");
                       while ($row = mysqli_fetch_array($data)) {
@@ -120,6 +120,15 @@
                     <input type="text" class="form-control" id="currency" name="harga" placeholder="Harga per item" required>
                     <input type="hidden" name="rupiah" id="rupiah" />
                 </div>  
+              </div>
+              <div class="form-group">
+                <label>Keterangan:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                  <i class="fa fa-laptop"></i>
+                  </div>
+                  <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                </div>
               </div>
 
               <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button>
@@ -168,15 +177,16 @@
                   }
                 ?>
                 </tbody>
-            </table>
-            <div class="form-group">
-              <label>Keterangan Usulan:</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                <i class="fa fa-laptop"></i>
+              </table>
+              <div class="form-group">
+                <label>Keterangan Usulan:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                  <i class="fa fa-laptop"></i>
+                  </div>
+                  <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 </div>
-                <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
-              </div> <br>
+              </div>
               <?php
               if(empty($_SESSION['temp_item'])) {
               ?>
@@ -189,7 +199,7 @@
               <?php
               }
               ?>
-            </div>
+            
             </form>
             </div>
             <!-- /.box-body -->
