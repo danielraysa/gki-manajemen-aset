@@ -139,6 +139,7 @@ $(document).ready(function(){
     
             var nama = chartData.labels[idx];
             var label = chartData.id[idx];
+            //alert(label);
             $('#modal_list').text('Daftar Aset pada '+nama);
             $.ajax({
                 url: "graph-data.php",

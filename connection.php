@@ -3,7 +3,7 @@
     date_default_timezone_set("Asia/Jakarta");
     setlocale(LC_NUMERIC, 'INDONESIA');
     
-    $koneksi = mysqli_connect("localhost","root","","gki_backup");
+    $koneksi = mysqli_connect("localhost","root","","gki_aset");
     
     function randString($length) {
         $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -16,14 +16,14 @@
     }
 
     function loadKonfigurasi($input) {
-        $koneksi = mysqli_connect("localhost","root","","gki_backup");
+        $koneksi = mysqli_connect("localhost","root","","gki_aset");
         $query = mysqli_query($koneksi,"SELECT ".$input." as hasil FROM konfigurasi");
         $row = mysqli_fetch_array($query);
         return $row['hasil'];
     }
 
     function randomID($table, $id_table, $char) {
-        $koneksi = mysqli_connect("localhost","root","","gki_backup");
+        $koneksi = mysqli_connect("localhost","root","","gki_aset");
         $random_id = randString($char);
         $is_unique = false;
         while (!$is_unique) {

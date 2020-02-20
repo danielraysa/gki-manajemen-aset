@@ -85,37 +85,30 @@
                   <th>Kode Aset</th>
                   <th>Nama Aset</th>
                   <th>Merk</th>
-                  <th>Harga Beli</th>
-                  <th>Tanggal Beli</th>
                   <th>Ruangan</th>
                   <th>Komisi</th>
-                  <th>Masa Manfaat</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <!-- <th>Action</th> -->
                 </tr>
                 </thead>
                 <tbody>
                 <?php
-                  //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.barang_usulan, b.nama_barang, p.id_barang, p.jumlah, p.harga, p.keterangan_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.hasil_approval = 'Pending' AND p.status_usulan = 'Aktif'");
-                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI");
+                  //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI");
+                  $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru");
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {
                 ?>
                   <tr>
                     <td><?php echo $a; ?></td>
-                    <td><?php echo $row['KODE_ASET']; ?></td>
-                    <td><?php echo $row['NAMA_ASET']; ?></td>
-                    <td><?php echo $row['NAMA_MERK']; ?></td>
-                    <td><?php echo str_replace(',','.',asRupiah($row['HARGA_PEMBELIAN'])); ?></td>
-                    <td><?php echo strftime("%d %B %Y", strtotime($row['TANGGAL_PEMBELIAN'])); ?></td>
-                    <td><?php echo $row['NAMA_RUANGAN']; ?></td>
-                    <td><?php echo $row['NAMA_KOMISI']; ?></td>
-                    <td><?php echo $row['MASA_MANFAAT']; ?> tahun</td>
+                    <td><?php echo $row['KODE_BARANG']; ?></td>
+                    <td><?php echo $row['NAMA_BARANG']; ?></td>
+                    <td><?php echo $row['MERK']; ?></td>
+                    <td><?php echo $row['LOKASI_BARANG']; ?></td>
+                    <td><?php echo $row['KOMISI']; ?></td>
                     <td><?php echo $row['STATUS_ASET']; ?></td>
-                    <td>
-                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['ID_ASET']; ?>"><i class="fa fa-pencil"></i> Edit</button>
-                      <!-- <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" data-id="<?php  ?>"><i class="fa fa-trash"></i> Hapus</button>  -->
-                    </td>
+                    <!-- <td>
+                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['ID_BARANG']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+                    </td> -->
                   </tr>
                 <?php
                   $a++;

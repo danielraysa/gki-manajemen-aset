@@ -233,7 +233,6 @@
                     <th>No.</th>
                     <th>Kode Aset</th>
                     <th>Nama Aset</th>
-                    <th>Barang</th>
                     <th>Merk</th>
                     <th>Ruangan</th>
                     <th>Komisi</th>
@@ -246,29 +245,28 @@
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
                   if(empty($_SESSION['item_pinjam'])){
-                    $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, b.NAMA_BARANG, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN detil_usulan_pengadaan dp ON dp.ID_USULAN_TAMBAH = d.ID_USULAN_TAMBAH JOIN barang b ON b.ID_BARANG = dp.ID_BARANG JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif' AND d.PERBOLEHAN_PINJAM = 1");
+                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' LIMIT 100");
                   }
                   else {
                     $arr = array();
                     foreach ($_SESSION["item_pinjam"] as $key => $select){
                       array_push($arr, $select['id_aset']);
                     }
-                    $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, b.NAMA_BARANG, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN detil_usulan_pengadaan dp ON dp.ID_USULAN_TAMBAH = d.ID_USULAN_TAMBAH JOIN barang b ON b.ID_BARANG = dp.ID_BARANG  JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif' AND d.PERBOLEHAN_PINJAM = 1 AND d.ID_ASET NOT IN ( '" . implode( "', '" , $arr ) . "' )");
+                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND ID_BARANG NOT IN ( '" . implode( "', '" , $arr ) . "' )");
                     //$sql = "SELECT * FROM albums WHERE name NOT IN ( '" . implode( "', '" , $ban_album_names ) . "' )";
                   }
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                       <td><?php echo $a; ?></td>
-                      <td><?php echo $row['KODE_ASET']; ?></td>
-                      <td><?php echo $row['NAMA_ASET']; ?></td>
+                      <td><?php echo $row['KODE_BARANG']; ?></td>
                       <td><?php echo $row['NAMA_BARANG']; ?></td>
-                      <td><?php echo $row['NAMA_MERK']; ?></td>
-                      <td><?php echo $row['NAMA_RUANGAN']; ?></td>
-                      <td><?php echo $row['NAMA_KOMISI']; ?></td>
+                      <td><?php echo $row['MERK']; ?></td>
+                      <td><?php echo $row['LOKASI_BARANG']; ?></td>
+                      <td><?php echo $row['KOMISI']; ?></td>
                       <!-- <td><?php echo $row['STATUS_ASET']; ?></td> -->
                       
-                      <td><button type="button" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
+                      <td><button type="button" data-id="<?php echo $row['ID_BARANG']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
                     </tr>
                     <?php
                       $a++;

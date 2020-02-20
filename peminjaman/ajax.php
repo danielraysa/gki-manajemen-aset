@@ -43,11 +43,11 @@
 
     if(isset($_POST['add-pinjam'])) {
         $id = $_POST['add-pinjam'];
-        $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, b.NAMA_BARANG, m.NAMA_MERK FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN detil_usulan_pengadaan dp ON d.ID_USULAN_TAMBAH = dp.ID_USULAN_TAMBAH JOIN barang b ON dp.ID_BARANG = b.ID_BARANG WHERE d.ID_ASET = '".$id."'");
+        $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE ID_BARANG = '".$id."'");
         $fet = mysqli_fetch_array($query);
-        $kode_aset = $fet['KODE_ASET'];
-        $nama_aset = $fet['NAMA_ASET'];
-        $nama_barang = $fet['NAMA_BARANG'];
+        $kode_aset = $fet['KODE_BARANG'];
+        $nama_aset = $fet['NAMA_BARANG'];
+        $nama_barang = $fet['JENIS'];
         
         $add = array('id_aset' => $id, 'kode_aset' => $kode_aset, 'nama_aset' => $nama_aset, 'barang' => $nama_barang);
         array_push($_SESSION['item_pinjam'], $add);
