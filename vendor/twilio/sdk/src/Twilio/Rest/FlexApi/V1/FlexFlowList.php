@@ -76,7 +76,7 @@ class FlexFlowList extends ListResource {
      * @return FlexFlowInstance[] Array of results
      */
     public function read($options = array(), $limit = null, $pageSize = null) {
-        return iterator_to_array($this->stream($options, $limit, $pageSize), false);
+        return \iterator_to_array($this->stream($options, $limit, $pageSize), false);
     }
 
     /**
@@ -153,6 +153,7 @@ class FlexFlowList extends ListResource {
             'Integration.CreationOnMessage' => Serialize::booleanToString($options['integrationCreationOnMessage']),
             'LongLived' => Serialize::booleanToString($options['longLived']),
             'JanitorEnabled' => Serialize::booleanToString($options['janitorEnabled']),
+            'Integration.RetryCount' => $options['integrationRetryCount'],
         ));
 
         $payload = $this->version->create(

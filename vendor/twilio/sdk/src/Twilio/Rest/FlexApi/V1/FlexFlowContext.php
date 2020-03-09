@@ -30,7 +30,7 @@ class FlexFlowContext extends InstanceContext {
         // Path Solution
         $this->solution = array('sid' => $sid, );
 
-        $this->uri = '/FlexFlows/' . rawurlencode($sid) . '';
+        $this->uri = '/FlexFlows/' . \rawurlencode($sid) . '';
     }
 
     /**
@@ -78,6 +78,7 @@ class FlexFlowContext extends InstanceContext {
             'Integration.CreationOnMessage' => Serialize::booleanToString($options['integrationCreationOnMessage']),
             'LongLived' => Serialize::booleanToString($options['longLived']),
             'JanitorEnabled' => Serialize::booleanToString($options['janitorEnabled']),
+            'Integration.RetryCount' => $options['integrationRetryCount'],
         ));
 
         $payload = $this->version->update(
@@ -110,6 +111,6 @@ class FlexFlowContext extends InstanceContext {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.FlexApi.V1.FlexFlowContext ' . implode(' ', $context) . ']';
+        return '[Twilio.FlexApi.V1.FlexFlowContext ' . \implode(' ', $context) . ']';
     }
 }

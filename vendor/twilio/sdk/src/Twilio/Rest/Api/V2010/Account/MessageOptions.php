@@ -29,12 +29,17 @@ abstract class MessageOptions {
      * @param int $validityPeriod The number of seconds that the message can remain
      *                            in our outgoing queue.
      * @param bool $forceDelivery Reserved
+     * @param string $contentRetention Determines if the message content can be
+     *                                 stored or redacted based on privacy settings
+     * @param string $addressRetention Determines if the address can be stored or
+     *                                 obfuscated based on privacy settings
      * @param bool $smartEncoded Whether to detect Unicode characters that have a
      *                           similar GSM-7 character and replace them
+     * @param string $persistentAction Rich actions for Channels Messages.
      * @return CreateMessageOptions Options builder
      */
-    public static function create($from = Values::NONE, $messagingServiceSid = Values::NONE, $body = Values::NONE, $mediaUrl = Values::NONE, $statusCallback = Values::NONE, $applicationSid = Values::NONE, $maxPrice = Values::NONE, $provideFeedback = Values::NONE, $validityPeriod = Values::NONE, $forceDelivery = Values::NONE, $smartEncoded = Values::NONE) {
-        return new CreateMessageOptions($from, $messagingServiceSid, $body, $mediaUrl, $statusCallback, $applicationSid, $maxPrice, $provideFeedback, $validityPeriod, $forceDelivery, $smartEncoded);
+    public static function create($from = Values::NONE, $messagingServiceSid = Values::NONE, $body = Values::NONE, $mediaUrl = Values::NONE, $statusCallback = Values::NONE, $applicationSid = Values::NONE, $maxPrice = Values::NONE, $provideFeedback = Values::NONE, $validityPeriod = Values::NONE, $forceDelivery = Values::NONE, $contentRetention = Values::NONE, $addressRetention = Values::NONE, $smartEncoded = Values::NONE, $persistentAction = Values::NONE) {
+        return new CreateMessageOptions($from, $messagingServiceSid, $body, $mediaUrl, $statusCallback, $applicationSid, $maxPrice, $provideFeedback, $validityPeriod, $forceDelivery, $contentRetention, $addressRetention, $smartEncoded, $persistentAction);
     }
 
     /**
@@ -67,10 +72,15 @@ class CreateMessageOptions extends Options {
      * @param int $validityPeriod The number of seconds that the message can remain
      *                            in our outgoing queue.
      * @param bool $forceDelivery Reserved
+     * @param string $contentRetention Determines if the message content can be
+     *                                 stored or redacted based on privacy settings
+     * @param string $addressRetention Determines if the address can be stored or
+     *                                 obfuscated based on privacy settings
      * @param bool $smartEncoded Whether to detect Unicode characters that have a
      *                           similar GSM-7 character and replace them
+     * @param string $persistentAction Rich actions for Channels Messages.
      */
-    public function __construct($from = Values::NONE, $messagingServiceSid = Values::NONE, $body = Values::NONE, $mediaUrl = Values::NONE, $statusCallback = Values::NONE, $applicationSid = Values::NONE, $maxPrice = Values::NONE, $provideFeedback = Values::NONE, $validityPeriod = Values::NONE, $forceDelivery = Values::NONE, $smartEncoded = Values::NONE) {
+    public function __construct($from = Values::NONE, $messagingServiceSid = Values::NONE, $body = Values::NONE, $mediaUrl = Values::NONE, $statusCallback = Values::NONE, $applicationSid = Values::NONE, $maxPrice = Values::NONE, $provideFeedback = Values::NONE, $validityPeriod = Values::NONE, $forceDelivery = Values::NONE, $contentRetention = Values::NONE, $addressRetention = Values::NONE, $smartEncoded = Values::NONE, $persistentAction = Values::NONE) {
         $this->options['from'] = $from;
         $this->options['messagingServiceSid'] = $messagingServiceSid;
         $this->options['body'] = $body;
@@ -81,7 +91,10 @@ class CreateMessageOptions extends Options {
         $this->options['provideFeedback'] = $provideFeedback;
         $this->options['validityPeriod'] = $validityPeriod;
         $this->options['forceDelivery'] = $forceDelivery;
+        $this->options['contentRetention'] = $contentRetention;
+        $this->options['addressRetention'] = $addressRetention;
         $this->options['smartEncoded'] = $smartEncoded;
+        $this->options['persistentAction'] = $persistentAction;
     }
 
     /**
@@ -120,7 +133,7 @@ class CreateMessageOptions extends Options {
     }
 
     /**
-     * The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of media are also accepted. The media size limit is 5MB. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada.
+     * The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada.
      *
      * @param string $mediaUrl The URL of the media to send with the message
      * @return $this Fluent Builder
@@ -200,6 +213,30 @@ class CreateMessageOptions extends Options {
     }
 
     /**
+     * Determines if the message content can be stored or redacted based on privacy settings
+     *
+     * @param string $contentRetention Determines if the message content can be
+     *                                 stored or redacted based on privacy settings
+     * @return $this Fluent Builder
+     */
+    public function setContentRetention($contentRetention) {
+        $this->options['contentRetention'] = $contentRetention;
+        return $this;
+    }
+
+    /**
+     * Determines if the address can be stored or obfuscated based on privacy settings
+     *
+     * @param string $addressRetention Determines if the address can be stored or
+     *                                 obfuscated based on privacy settings
+     * @return $this Fluent Builder
+     */
+    public function setAddressRetention($addressRetention) {
+        $this->options['addressRetention'] = $addressRetention;
+        return $this;
+    }
+
+    /**
      * Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
      *
      * @param bool $smartEncoded Whether to detect Unicode characters that have a
@@ -208,6 +245,17 @@ class CreateMessageOptions extends Options {
      */
     public function setSmartEncoded($smartEncoded) {
         $this->options['smartEncoded'] = $smartEncoded;
+        return $this;
+    }
+
+    /**
+     * Rich actions for Channels Messages.
+     *
+     * @param string $persistentAction Rich actions for Channels Messages.
+     * @return $this Fluent Builder
+     */
+    public function setPersistentAction($persistentAction) {
+        $this->options['persistentAction'] = $persistentAction;
         return $this;
     }
 
@@ -223,7 +271,7 @@ class CreateMessageOptions extends Options {
                 $options[] = "$key=$value";
             }
         }
-        return '[Twilio.Api.V2010.CreateMessageOptions ' . implode(' ', $options) . ']';
+        return '[Twilio.Api.V2010.CreateMessageOptions ' . \implode(' ', $options) . ']';
     }
 }
 
@@ -310,6 +358,6 @@ class ReadMessageOptions extends Options {
                 $options[] = "$key=$value";
             }
         }
-        return '[Twilio.Api.V2010.ReadMessageOptions ' . implode(' ', $options) . ']';
+        return '[Twilio.Api.V2010.ReadMessageOptions ' . \implode(' ', $options) . ']';
     }
 }

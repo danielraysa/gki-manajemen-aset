@@ -47,6 +47,7 @@ class CallInstance extends InstanceResource {
     protected $_recordings = null;
     protected $_notifications = null;
     protected $_feedback = null;
+    protected $_payments = null;
 
     /**
      * Initialize the CallInstance
@@ -170,6 +171,15 @@ class CallInstance extends InstanceResource {
     }
 
     /**
+     * Access the payments
+     *
+     * @return \Twilio\Rest\Api\V2010\Account\Call\PaymentList
+     */
+    protected function getPayments() {
+        return $this->proxy()->payments;
+    }
+
+    /**
      * Magic getter to access properties
      *
      * @param string $name Property to access
@@ -177,12 +187,12 @@ class CallInstance extends InstanceResource {
      * @throws TwilioException For unknown properties
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+        if (\array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
 
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 
@@ -199,6 +209,6 @@ class CallInstance extends InstanceResource {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Api.V2010.CallInstance ' . implode(' ', $context) . ']';
+        return '[Twilio.Api.V2010.CallInstance ' . \implode(' ', $context) . ']';
     }
 }

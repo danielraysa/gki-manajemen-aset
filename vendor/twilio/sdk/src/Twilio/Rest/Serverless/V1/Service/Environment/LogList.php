@@ -11,6 +11,7 @@ namespace Twilio\Rest\Serverless\V1\Service\Environment;
 
 use Twilio\ListResource;
 use Twilio\Options;
+use Twilio\Serialize;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -34,7 +35,7 @@ class LogList extends ListResource {
         // Path Solution
         $this->solution = array('serviceSid' => $serviceSid, 'environmentSid' => $environmentSid, );
 
-        $this->uri = '/Services/' . rawurlencode($serviceSid) . '/Environments/' . rawurlencode($environmentSid) . '/Logs';
+        $this->uri = '/Services/' . \rawurlencode($serviceSid) . '/Environments/' . \rawurlencode($environmentSid) . '/Logs';
     }
 
     /**
@@ -81,7 +82,7 @@ class LogList extends ListResource {
      * @return LogInstance[] Array of results
      */
     public function read($options = array(), $limit = null, $pageSize = null) {
-        return iterator_to_array($this->stream($options, $limit, $pageSize), false);
+        return \iterator_to_array($this->stream($options, $limit, $pageSize), false);
     }
 
     /**
@@ -98,6 +99,8 @@ class LogList extends ListResource {
         $options = new Values($options);
         $params = Values::of(array(
             'FunctionSid' => $options['functionSid'],
+            'StartDate' => Serialize::iso8601DateTime($options['startDate']),
+            'EndDate' => Serialize::iso8601DateTime($options['endDate']),
             'PageToken' => $pageToken,
             'Page' => $pageNumber,
             'PageSize' => $pageSize,

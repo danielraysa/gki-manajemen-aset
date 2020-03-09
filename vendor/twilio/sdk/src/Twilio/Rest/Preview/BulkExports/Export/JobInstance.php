@@ -23,6 +23,9 @@ use Twilio\Version;
  * @property string $startDay
  * @property string $endDay
  * @property string $jobSid
+ * @property string $webhookUrl
+ * @property string $webhookMethod
+ * @property string $email
  * @property string $url
  */
 class JobInstance extends InstanceResource {
@@ -45,6 +48,9 @@ class JobInstance extends InstanceResource {
             'startDay' => Values::array_get($payload, 'start_day'),
             'endDay' => Values::array_get($payload, 'end_day'),
             'jobSid' => Values::array_get($payload, 'job_sid'),
+            'webhookUrl' => Values::array_get($payload, 'webhook_url'),
+            'webhookMethod' => Values::array_get($payload, 'webhook_method'),
+            'email' => Values::array_get($payload, 'email'),
             'url' => Values::array_get($payload, 'url'),
         );
 
@@ -94,12 +100,12 @@ class JobInstance extends InstanceResource {
      * @throws TwilioException For unknown properties
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+        if (\array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
 
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 
@@ -116,6 +122,6 @@ class JobInstance extends InstanceResource {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Preview.BulkExports.JobInstance ' . implode(' ', $context) . ']';
+        return '[Twilio.Preview.BulkExports.JobInstance ' . \implode(' ', $context) . ']';
     }
 }

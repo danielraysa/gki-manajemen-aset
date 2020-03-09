@@ -108,16 +108,6 @@ class NotificationInstance extends InstanceResource {
     }
 
     /**
-     * Deletes the NotificationInstance
-     *
-     * @return boolean True if delete succeeds, false otherwise
-     * @throws TwilioException When an HTTP error occurs.
-     */
-    public function delete() {
-        return $this->proxy()->delete();
-    }
-
-    /**
      * Magic getter to access properties
      *
      * @param string $name Property to access
@@ -125,12 +115,12 @@ class NotificationInstance extends InstanceResource {
      * @throws TwilioException For unknown properties
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+        if (\array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
 
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 
@@ -147,6 +137,6 @@ class NotificationInstance extends InstanceResource {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Api.V2010.NotificationInstance ' . implode(' ', $context) . ']';
+        return '[Twilio.Api.V2010.NotificationInstance ' . \implode(' ', $context) . ']';
     }
 }

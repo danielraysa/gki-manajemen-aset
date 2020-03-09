@@ -28,7 +28,7 @@ class DayInstance extends InstanceResource {
      *
      * @param \Twilio\Version $version Version that contains the resource
      * @param mixed[] $payload The response payload
-     * @param string $resourceType The resource_type
+     * @param string $resourceType The type of communication – Messages, Calls
      * @return \Twilio\Rest\Preview\BulkExports\Export\DayInstance
      */
     public function __construct(Version $version, array $payload, $resourceType) {
@@ -53,12 +53,12 @@ class DayInstance extends InstanceResource {
      * @throws TwilioException For unknown properties
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+        if (\array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
 
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 

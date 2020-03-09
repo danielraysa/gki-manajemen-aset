@@ -12,9 +12,6 @@ namespace Twilio\Rest\Verify\V2;
 use Twilio\Options;
 use Twilio\Values;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
- */
 abstract class ServiceOptions {
     /**
      * @param int $codeLength The length of the verification code to generate
@@ -28,10 +25,12 @@ abstract class ServiceOptions {
      *                        use in phone calls
      * @param bool $psd2Enabled Whether to pass PSD2 transaction parameters when
      *                          starting a verification
+     * @param bool $doNotShareWarningEnabled Whether to add a privacy warning at
+     *                                       the end of an SMS.
      * @return CreateServiceOptions Options builder
      */
-    public static function create($codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE) {
-        return new CreateServiceOptions($codeLength, $lookupEnabled, $skipSmsToLandlines, $dtmfInputRequired, $ttsName, $psd2Enabled);
+    public static function create($codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE, $doNotShareWarningEnabled = Values::NONE) {
+        return new CreateServiceOptions($codeLength, $lookupEnabled, $skipSmsToLandlines, $dtmfInputRequired, $ttsName, $psd2Enabled, $doNotShareWarningEnabled);
     }
 
     /**
@@ -47,10 +46,12 @@ abstract class ServiceOptions {
      *                        use in phone calls
      * @param bool $psd2Enabled Whether to pass PSD2 transaction parameters when
      *                          starting a verification
+     * @param bool $doNotShareWarningEnabled Whether to add a privacy warning at
+     *                                       the end of an SMS.
      * @return UpdateServiceOptions Options builder
      */
-    public static function update($friendlyName = Values::NONE, $codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE) {
-        return new UpdateServiceOptions($friendlyName, $codeLength, $lookupEnabled, $skipSmsToLandlines, $dtmfInputRequired, $ttsName, $psd2Enabled);
+    public static function update($friendlyName = Values::NONE, $codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE, $doNotShareWarningEnabled = Values::NONE) {
+        return new UpdateServiceOptions($friendlyName, $codeLength, $lookupEnabled, $skipSmsToLandlines, $dtmfInputRequired, $ttsName, $psd2Enabled, $doNotShareWarningEnabled);
     }
 }
 
@@ -67,14 +68,17 @@ class CreateServiceOptions extends Options {
      *                        use in phone calls
      * @param bool $psd2Enabled Whether to pass PSD2 transaction parameters when
      *                          starting a verification
+     * @param bool $doNotShareWarningEnabled Whether to add a privacy warning at
+     *                                       the end of an SMS.
      */
-    public function __construct($codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE) {
+    public function __construct($codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE, $doNotShareWarningEnabled = Values::NONE) {
         $this->options['codeLength'] = $codeLength;
         $this->options['lookupEnabled'] = $lookupEnabled;
         $this->options['skipSmsToLandlines'] = $skipSmsToLandlines;
         $this->options['dtmfInputRequired'] = $dtmfInputRequired;
         $this->options['ttsName'] = $ttsName;
         $this->options['psd2Enabled'] = $psd2Enabled;
+        $this->options['doNotShareWarningEnabled'] = $doNotShareWarningEnabled;
     }
 
     /**
@@ -149,6 +153,18 @@ class CreateServiceOptions extends Options {
     }
 
     /**
+     * Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+     *
+     * @param bool $doNotShareWarningEnabled Whether to add a privacy warning at
+     *                                       the end of an SMS.
+     * @return $this Fluent Builder
+     */
+    public function setDoNotShareWarningEnabled($doNotShareWarningEnabled) {
+        $this->options['doNotShareWarningEnabled'] = $doNotShareWarningEnabled;
+        return $this;
+    }
+
+    /**
      * Provide a friendly representation
      *
      * @return string Machine friendly representation
@@ -160,7 +176,7 @@ class CreateServiceOptions extends Options {
                 $options[] = "$key=$value";
             }
         }
-        return '[Twilio.Verify.V2.CreateServiceOptions ' . implode(' ', $options) . ']';
+        return '[Twilio.Verify.V2.CreateServiceOptions ' . \implode(' ', $options) . ']';
     }
 }
 
@@ -178,8 +194,10 @@ class UpdateServiceOptions extends Options {
      *                        use in phone calls
      * @param bool $psd2Enabled Whether to pass PSD2 transaction parameters when
      *                          starting a verification
+     * @param bool $doNotShareWarningEnabled Whether to add a privacy warning at
+     *                                       the end of an SMS.
      */
-    public function __construct($friendlyName = Values::NONE, $codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE) {
+    public function __construct($friendlyName = Values::NONE, $codeLength = Values::NONE, $lookupEnabled = Values::NONE, $skipSmsToLandlines = Values::NONE, $dtmfInputRequired = Values::NONE, $ttsName = Values::NONE, $psd2Enabled = Values::NONE, $doNotShareWarningEnabled = Values::NONE) {
         $this->options['friendlyName'] = $friendlyName;
         $this->options['codeLength'] = $codeLength;
         $this->options['lookupEnabled'] = $lookupEnabled;
@@ -187,6 +205,7 @@ class UpdateServiceOptions extends Options {
         $this->options['dtmfInputRequired'] = $dtmfInputRequired;
         $this->options['ttsName'] = $ttsName;
         $this->options['psd2Enabled'] = $psd2Enabled;
+        $this->options['doNotShareWarningEnabled'] = $doNotShareWarningEnabled;
     }
 
     /**
@@ -272,6 +291,18 @@ class UpdateServiceOptions extends Options {
     }
 
     /**
+     * Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+     *
+     * @param bool $doNotShareWarningEnabled Whether to add a privacy warning at
+     *                                       the end of an SMS.
+     * @return $this Fluent Builder
+     */
+    public function setDoNotShareWarningEnabled($doNotShareWarningEnabled) {
+        $this->options['doNotShareWarningEnabled'] = $doNotShareWarningEnabled;
+        return $this;
+    }
+
+    /**
      * Provide a friendly representation
      *
      * @return string Machine friendly representation
@@ -283,6 +314,6 @@ class UpdateServiceOptions extends Options {
                 $options[] = "$key=$value";
             }
         }
-        return '[Twilio.Verify.V2.UpdateServiceOptions ' . implode(' ', $options) . ']';
+        return '[Twilio.Verify.V2.UpdateServiceOptions ' . \implode(' ', $options) . ']';
     }
 }

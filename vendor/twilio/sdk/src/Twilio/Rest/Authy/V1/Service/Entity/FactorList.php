@@ -32,13 +32,13 @@ class FactorList extends ListResource {
         // Path Solution
         $this->solution = array('serviceSid' => $serviceSid, 'identity' => $identity, );
 
-        $this->uri = '/Services/' . rawurlencode($serviceSid) . '/Entities/' . rawurlencode($identity) . '/Factors';
+        $this->uri = '/Services/' . \rawurlencode($serviceSid) . '/Entities/' . \rawurlencode($identity) . '/Factors';
     }
 
     /**
      * Create a new FactorInstance
      *
-     * @param string $binding A unique binding for this Factor
+     * @param string $binding A unique binding for this Factor as a json string
      * @param string $friendlyName The friendly name of this Factor
      * @param string $factorType The Type of this Factor
      * @return FactorInstance Newly created FactorInstance
@@ -108,7 +108,7 @@ class FactorList extends ListResource {
      * @return FactorInstance[] Array of results
      */
     public function read($limit = null, $pageSize = null) {
-        return iterator_to_array($this->stream($limit, $pageSize), false);
+        return \iterator_to_array($this->stream($limit, $pageSize), false);
     }
 
     /**

@@ -21,7 +21,7 @@ class DayList extends ListResource {
      * Construct the DayList
      *
      * @param Version $version Version that contains the resource
-     * @param string $resourceType The resource_type
+     * @param string $resourceType The type of communication – Messages, Calls
      * @return \Twilio\Rest\Preview\BulkExports\Export\DayList
      */
     public function __construct(Version $version, $resourceType) {
@@ -30,7 +30,7 @@ class DayList extends ListResource {
         // Path Solution
         $this->solution = array('resourceType' => $resourceType, );
 
-        $this->uri = '/Exports/' . rawurlencode($resourceType) . '/Days';
+        $this->uri = '/Exports/' . \rawurlencode($resourceType) . '/Days';
     }
 
     /**
@@ -75,7 +75,7 @@ class DayList extends ListResource {
      * @return DayInstance[] Array of results
      */
     public function read($limit = null, $pageSize = null) {
-        return iterator_to_array($this->stream($limit, $pageSize), false);
+        return \iterator_to_array($this->stream($limit, $pageSize), false);
     }
 
     /**

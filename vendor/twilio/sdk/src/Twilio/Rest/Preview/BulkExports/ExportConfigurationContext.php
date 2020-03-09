@@ -24,7 +24,7 @@ class ExportConfigurationContext extends InstanceContext {
      * Initialize the ExportConfigurationContext
      *
      * @param \Twilio\Version $version Version that contains the resource
-     * @param string $resourceType The resource_type
+     * @param string $resourceType The type of communication – Messages, Calls
      * @return \Twilio\Rest\Preview\BulkExports\ExportConfigurationContext
      */
     public function __construct(Version $version, $resourceType) {
@@ -33,7 +33,7 @@ class ExportConfigurationContext extends InstanceContext {
         // Path Solution
         $this->solution = array('resourceType' => $resourceType, );
 
-        $this->uri = '/Exports/' . rawurlencode($resourceType) . '/Configuration';
+        $this->uri = '/Exports/' . \rawurlencode($resourceType) . '/Configuration';
     }
 
     /**
@@ -90,6 +90,6 @@ class ExportConfigurationContext extends InstanceContext {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Preview.BulkExports.ExportConfigurationContext ' . implode(' ', $context) . ']';
+        return '[Twilio.Preview.BulkExports.ExportConfigurationContext ' . \implode(' ', $context) . ']';
     }
 }

@@ -16,8 +16,6 @@ use Twilio\Values;
 use Twilio\Version;
 
 /**
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
- *
  * @property string $sid
  * @property string $serviceSid
  * @property string $accountSid
@@ -28,6 +26,7 @@ use Twilio\Version;
  * @property array $lookup
  * @property string $amount
  * @property string $payee
+ * @property array $sendCodeAttempts
  * @property \DateTime $dateCreated
  * @property \DateTime $dateUpdated
  * @property string $url
@@ -58,6 +57,7 @@ class VerificationInstance extends InstanceResource {
             'lookup' => Values::array_get($payload, 'lookup'),
             'amount' => Values::array_get($payload, 'amount'),
             'payee' => Values::array_get($payload, 'payee'),
+            'sendCodeAttempts' => Values::array_get($payload, 'send_code_attempts'),
             'dateCreated' => Deserialize::dateTime(Values::array_get($payload, 'date_created')),
             'dateUpdated' => Deserialize::dateTime(Values::array_get($payload, 'date_updated')),
             'url' => Values::array_get($payload, 'url'),
@@ -114,12 +114,12 @@ class VerificationInstance extends InstanceResource {
      * @throws TwilioException For unknown properties
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+        if (\array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
 
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 
@@ -136,6 +136,6 @@ class VerificationInstance extends InstanceResource {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Verify.V2.VerificationInstance ' . implode(' ', $context) . ']';
+        return '[Twilio.Verify.V2.VerificationInstance ' . \implode(' ', $context) . ']';
     }
 }

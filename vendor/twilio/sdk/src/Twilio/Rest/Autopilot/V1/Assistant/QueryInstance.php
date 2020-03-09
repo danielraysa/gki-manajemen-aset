@@ -32,6 +32,7 @@ use Twilio\Version;
  * @property string $status
  * @property string $url
  * @property string $sourceChannel
+ * @property string $dialogueSid
  */
 class QueryInstance extends InstanceResource {
     /**
@@ -62,6 +63,7 @@ class QueryInstance extends InstanceResource {
             'status' => Values::array_get($payload, 'status'),
             'url' => Values::array_get($payload, 'url'),
             'sourceChannel' => Values::array_get($payload, 'source_channel'),
+            'dialogueSid' => Values::array_get($payload, 'dialogue_sid'),
         );
 
         $this->solution = array('assistantSid' => $assistantSid, 'sid' => $sid ?: $this->properties['sid'], );
@@ -125,12 +127,12 @@ class QueryInstance extends InstanceResource {
      * @throws TwilioException For unknown properties
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+        if (\array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
 
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 
@@ -147,6 +149,6 @@ class QueryInstance extends InstanceResource {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Autopilot.V1.QueryInstance ' . implode(' ', $context) . ']';
+        return '[Twilio.Autopilot.V1.QueryInstance ' . \implode(' ', $context) . ']';
     }
 }

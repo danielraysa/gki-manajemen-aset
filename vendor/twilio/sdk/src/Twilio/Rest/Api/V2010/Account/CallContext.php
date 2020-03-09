@@ -14,6 +14,7 @@ use Twilio\InstanceContext;
 use Twilio\Options;
 use Twilio\Rest\Api\V2010\Account\Call\FeedbackList;
 use Twilio\Rest\Api\V2010\Account\Call\NotificationList;
+use Twilio\Rest\Api\V2010\Account\Call\PaymentList;
 use Twilio\Rest\Api\V2010\Account\Call\RecordingList;
 use Twilio\Values;
 use Twilio\Version;
@@ -22,14 +23,17 @@ use Twilio\Version;
  * @property \Twilio\Rest\Api\V2010\Account\Call\RecordingList $recordings
  * @property \Twilio\Rest\Api\V2010\Account\Call\NotificationList $notifications
  * @property \Twilio\Rest\Api\V2010\Account\Call\FeedbackList $feedback
+ * @property \Twilio\Rest\Api\V2010\Account\Call\PaymentList $payments
  * @method \Twilio\Rest\Api\V2010\Account\Call\RecordingContext recordings(string $sid)
  * @method \Twilio\Rest\Api\V2010\Account\Call\NotificationContext notifications(string $sid)
  * @method \Twilio\Rest\Api\V2010\Account\Call\FeedbackContext feedback()
+ * @method \Twilio\Rest\Api\V2010\Account\Call\PaymentContext payments(string $sid)
  */
 class CallContext extends InstanceContext {
     protected $_recordings = null;
     protected $_notifications = null;
     protected $_feedback = null;
+    protected $_payments = null;
 
     /**
      * Initialize the CallContext
@@ -46,7 +50,7 @@ class CallContext extends InstanceContext {
         // Path Solution
         $this->solution = array('accountSid' => $accountSid, 'sid' => $sid, );
 
-        $this->uri = '/Accounts/' . rawurlencode($accountSid) . '/Calls/' . rawurlencode($sid) . '.json';
+        $this->uri = '/Accounts/' . \rawurlencode($accountSid) . '/Calls/' . \rawurlencode($sid) . '.json';
     }
 
     /**
@@ -170,6 +174,23 @@ class CallContext extends InstanceContext {
     }
 
     /**
+     * Access the payments
+     *
+     * @return \Twilio\Rest\Api\V2010\Account\Call\PaymentList
+     */
+    protected function getPayments() {
+        if (!$this->_payments) {
+            $this->_payments = new PaymentList(
+                $this->version,
+                $this->solution['accountSid'],
+                $this->solution['sid']
+            );
+        }
+
+        return $this->_payments;
+    }
+
+    /**
      * Magic getter to lazy load subresources
      *
      * @param string $name Subresource to return
@@ -177,8 +198,8 @@ class CallContext extends InstanceContext {
      * @throws TwilioException For unknown subresources
      */
     public function __get($name) {
-        if (property_exists($this, '_' . $name)) {
-            $method = 'get' . ucfirst($name);
+        if (\property_exists($this, '_' . $name)) {
+            $method = 'get' . \ucfirst($name);
             return $this->$method();
         }
 
@@ -195,8 +216,8 @@ class CallContext extends InstanceContext {
      */
     public function __call($name, $arguments) {
         $property = $this->$name;
-        if (method_exists($property, 'getContext')) {
-            return call_user_func_array(array($property, 'getContext'), $arguments);
+        if (\method_exists($property, 'getContext')) {
+            return \call_user_func_array(array($property, 'getContext'), $arguments);
         }
 
         throw new TwilioException('Resource does not have a context');
@@ -212,6 +233,6 @@ class CallContext extends InstanceContext {
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Api.V2010.CallContext ' . implode(' ', $context) . ']';
+        return '[Twilio.Api.V2010.CallContext ' . \implode(' ', $context) . ']';
     }
 }
