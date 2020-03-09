@@ -63,21 +63,22 @@
         if(isset($_POST['nama'])) {
             $nama = $_POST['nama'];
         }
-        $barang = $_POST['barang'];
-        echo $barang."<br >";
+        /* $barang = $_POST['barang'];
+        echo $barang."<br >"; */
         /* $barang_backup = $_POST['barang_backup'];
         echo $barang_backup."<br >";
         if($barang_backup != $barang) {
             $barang = $barang_backup;
         } */
         
-        $query = mysqli_query($koneksi, "SELECT * FROM barang WHERE ID_BARANG = '".$barang."'");  
+        /* $query = mysqli_query($koneksi, "SELECT * FROM barang WHERE ID_BARANG = '".$barang."'");  
         $fet = mysqli_fetch_array($query);
-        $nama_barang = $fet['NAMA_BARANG'];
+        $nama_barang = $fet['NAMA_BARANG']; */
         
         //$jumlah = $_POST['jumlah'];
         $harga = $_POST['harga'];
         $rupiah = $_POST['rupiah'];
+        $keterangan = $_POST['ket_barang'];
         $random_id = rand();
         $rand_bool = false;
         while($rand_bool = false) {
@@ -88,10 +89,10 @@
                 $rand_bool = true;
             }
         }
-        $add = array('temp_id' => $random_id, 'nama' => $nama, 'jenis' => $barang, 'harga' => $harga);
-        $add_2 = array('temp_id' => $random_id, 'nama' => $nama, 'jenis' => $nama_barang, 'harga' => $rupiah);
+        $add = array('temp_id' => $random_id, 'nama' => $nama, 'harga' => $harga, 'harga_rp' => $rupiah, 'keterangan' => $keterangan);
+        // $add_2 = array('temp_id' => $random_id, 'nama' => $nama, 'jenis' => $nama_barang, 'harga' => $rupiah);
         array_push($_SESSION['temp_item'], $add);
-        array_push($_SESSION['temp_item_2'], $add_2);
+        // array_push($_SESSION['temp_item_2'], $add_2);
         header("location: ../pengadaan/");
     }
 
@@ -99,9 +100,9 @@
         $val = $_POST['hapus-item'];
         //echo search_array($val);
         $key_index = array_search($val, array_column($_SESSION['temp_item'], 'nama'));
-        $key_index_2 = array_search($val, array_column($_SESSION['temp_item_2'], 'nama'));
+        // $key_index_2 = array_search($val, array_column($_SESSION['temp_item_2'], 'nama'));
         array_splice($_SESSION['temp_item'], $key_index, 1);
-        array_splice($_SESSION['temp_item_2'], $key_index_2, 1);
+        // array_splice($_SESSION['temp_item_2'], $key_index_2, 1);
         //unset($_SESSION['temp_item'][$key_index]);
         //print_r($_SESSION['temp_item']);
         header("location: ../pengadaan/");
@@ -117,7 +118,7 @@
         else {
             $success = true;
             $random_id = randomID('pengadaan_aset', 'ID_PENGADAAN', 10);
-            ECHO "INSERT INTO pengadaan_aset (ID_PENGADAAN, ID_USER, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$_SESSION['id_user']."','".$keterangan."','".$tanggal."','Pending','Aktif') \n";
+            // ECHO "INSERT INTO pengadaan_aset (ID_PENGADAAN, ID_USER, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$_SESSION['id_user']."','".$keterangan."','".$tanggal."','Pending','Aktif') \n";
             $query = mysqli_query($koneksi, "INSERT INTO pengadaan_aset (ID_PENGADAAN, ID_USER, KETERANGAN_USULAN, TANGGAL_USULAN, HASIL_APPROVAL, STATUS_USULAN) VALUES ('".$random_id."','".$_SESSION['id_user']."','".$keterangan."','".$tanggal."','Pending','Aktif')");
             if(!$query) {
                 $_SESSION['error-msg'] = mysqli_error($koneksi);
@@ -130,8 +131,8 @@
             foreach ($_SESSION['temp_item'] as $key => $value) {
                 # code...
                 $random_id_item = randomID('detil_usulan_pengadaan', 'ID_DETIL_TAMBAH', 6);
-                echo "INSERT INTO detil_usulan_pengadaan (ID_USULAN_TAMBAH, ID_PENGADAAN, ID_BARANG, BARANG_USULAN, HARGA) VALUES ('".$random_id_item."','".$id_pengadaan."','".$value['jenis']."','".$value['nama']."','".$value['harga']."') <br>";
-                $insert = mysqli_query($koneksi, "INSERT INTO detil_usulan_pengadaan (ID_USULAN_TAMBAH, ID_PENGADAAN, ID_BARANG, BARANG_USULAN, HARGA) VALUES ('".$random_id_item."','".$id_pengadaan."','".$value['jenis']."','".$value['nama']."','".$value['harga']."')");
+                // echo "INSERT INTO detil_usulan_pengadaan (ID_USULAN_TAMBAH, ID_PENGADAAN, ID_BARANG, BARANG_USULAN, HARGA) VALUES ('".$random_id_item."','".$id_pengadaan."','".$value['jenis']."','".$value['nama']."','".$value['harga']."') <br>";
+                $insert = mysqli_query($koneksi, "INSERT INTO detil_usulan_pengadaan (ID_USULAN_TAMBAH, ID_PENGADAAN, BARANG_USULAN, HARGA, KETERANGAN) VALUES ('".$random_id_item."','".$id_pengadaan."','".$value['nama']."','".$value['harga']."','".$value['keterangan']."')");
                 if(!$insert) {
                     $_SESSION['error-msg'] = mysqli_error($koneksi);
                     echo $_SESSION['error-msg'];

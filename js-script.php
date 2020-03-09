@@ -95,8 +95,11 @@
             timer: 2000,
             showConfirmButton: false
             }).then(function(){
+              <?php if(isset($_SESSION['google_id'])) { ?>
                 document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/gki-sarpras/logout.php";
-                //window.location.href = "logout.php";
+              <?php } else { ?>
+                document.location.href = "logout.php";
+              <?php } ?>
                 //return false;
             })
         }

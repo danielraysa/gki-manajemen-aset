@@ -60,7 +60,7 @@
 
                     <div class="box-body">
                         <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
-                        <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
                             
                             <h3 class="box-title">Penamaan Aset</h3>
                             <div class="form-group">
@@ -123,7 +123,7 @@
                             </div>
                                
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
                             
                             <h3 class="box-title">Keterangan Aset</h3>
                         
@@ -200,7 +200,7 @@
                             </div>
                                 
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
                             
                             <h3 class="box-title">Penempatan Aset</h3>
                             

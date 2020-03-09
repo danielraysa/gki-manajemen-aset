@@ -204,7 +204,14 @@ $(document).ready(function() {
                     timer: 2000,
                     showConfirmButton: false
                 }).then(function () {
-                    location.reload();
+                    $.ajax({
+                        url: "select-populate.php",
+                        type: "POST",
+                        data: "load_barang",
+                        success: function(array) {
+                            $('#barang_aset').html(array);
+                        }
+                    });
                 });
             }
         });
@@ -474,7 +481,9 @@ $(document).ready(function() {
         //alert(kode3);
         $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
     });
-    $('#barang_aset').on('change', function(){
+    // $('#barang_aset').on('change', function(){
+    $(document).on('change','#barang_aset', function(event){
+        event.preventDefault();
         kode4 = $(this).find(':selected').data('item');
         //alert(kode4);
         $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);

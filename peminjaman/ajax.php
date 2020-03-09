@@ -36,7 +36,8 @@
     $config->setApiKey('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTU1NjIyMDUyMywiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjYzMjA3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.TxSPGIZqTbeKu_vcN0jGdX04eZ0DoTt-dhn1fwI82jc');
     $apiClient = new ApiClient($config);
     $messageClient = new MessageApi($apiClient);
-
+    $deviceId = 115993;
+    //$deviceId = 104188;
     if(isset($_POST['empty'])){
         unset($_SESSION['item_pinjam']);
     }
@@ -98,7 +99,7 @@
         unset($_SESSION['item_pinjam']);
 
         $sendMessageRequest = new SendMessageRequest([
-            'phoneNumber' => $no_hp, 'message' => 'Pengajuan peminjaman pada '.$date_now.' dengan ID '.$random_id.' berhasil disimpan. (TEST_NOREPLY)', 'deviceId' => 104188
+            'phoneNumber' => $no_hp, 'message' => 'Pengajuan peminjaman pada '.$date_now.' dengan ID '.$random_id.' berhasil disimpan. (TEST_NOREPLY)', 'deviceId' => $deviceId
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
         /* if($sentMessages){
@@ -168,7 +169,7 @@
         $row = mysqli_fetch_array($select);
         $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'peminjaman', '".$id."','terima_peminjaman')");
         $sendMessageRequest = new SendMessageRequest([
-            'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' telah diterima.', 'deviceId' => 104188
+            'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' telah diterima.', 'deviceId' => $deviceId
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
         if($sentMessages){
@@ -191,7 +192,7 @@
         $row = mysqli_fetch_array($select);
         $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date."', 'peminjaman', '".$id."','tolak_peminjaman')");
         $sendMessageRequest = new SendMessageRequest([
-            'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' ditolak.', 'deviceId' => 104188
+            'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' ditolak.', 'deviceId' => $deviceId
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
         if($sentMessages){
@@ -262,7 +263,7 @@
         $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
         $row = mysqli_fetch_array($select);
         $sendMessageRequest = new SendMessageRequest([
-            'phoneNumber' => $row['NO_HP'], 'message' => 'Peminjaman tgl '.$row['TANGGAL_PENGAJUAN'].' berakhir pada '.$row['TANGGAL_PENGEMBALIAN'].'. Harap segera dikembalikan tepat waktu. NOREPLY', 'deviceId' => 104188
+            'phoneNumber' => $row['NO_HP'], 'message' => 'Peminjaman tgl '.$row['TANGGAL_PENGAJUAN'].' berakhir pada '.$row['TANGGAL_PENGEMBALIAN'].'. Harap segera dikembalikan tepat waktu. NOREPLY', 'deviceId' => $deviceId
         ]);
         $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
     }

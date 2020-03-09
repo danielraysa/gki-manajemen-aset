@@ -56,59 +56,13 @@
             <div class="box-body">
             <form action="form-action.php" id="form_add" method="post">
               <div class="form-group">
-                <label>Usulan Aset:</label>
+                <label>Usulan Barang:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <select class="form-control select2" id="barangusulan" name="barangusulan" style="width: 100%;">
-                    <option>Pilih barang</option>
-                    <?php
-                      //$data = mysqli_query($koneksi, "SELECT DISTINCT(BARANG_USULAN) as NAMA_BARANG FROM `detil_usulan_pengadaan` UNION SELECT DISTINCT(NAMA_ASET) FROM daftar_aset");
-                      $data = mysqli_query($koneksi, "SELECT DISTINCT(BARANG_USULAN) as NAMA_BARANG, ID_BARANG FROM `detil_usulan_pengadaan` UNION SELECT DISTINCT(d.NAMA_ASET), b.ID_BARANG FROM daftar_aset d JOIN detil_usulan_pengadaan du ON d.ID_USULAN_TAMBAH = du.ID_USULAN_TAMBAH JOIN barang b ON du.ID_BARANG = b.ID_BARANG");
-                      while ($row = mysqli_fetch_array($data)) {
-                    ?>
-                      <option value="<?php echo $row['NAMA_BARANG']; ?>" data-items="<?php echo $row['ID_BARANG']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
-                    <?php
-                      }
-                    ?>
-                  </select>
-                  <input type="hidden" name="barang_backup" id="barang_backup"/>
-                </div>
-              </div>
-              <div class="form-group">
-                <input class="minimal" type="checkbox" id="barangbaru" name="barangbaru" > Barang usulan baru
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-laptop"></i>
-                  </div>
-                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama barang baru" disabled>
+                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama barang">
                 </div>  
-              </div>
-              <div class="form-group">
-                <label>Jenis Barang:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-laptop"></i>
-                  </div>
-                  <select class="form-control select2" id="barang" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                    <option>Pilih jenis barang</option>
-                    <?php
-                      $data = mysqli_query($koneksi, "SELECT * FROM barang");
-                      while ($row = mysqli_fetch_array($data)) {
-                    ?>
-                      <option value="<?php echo $row['ID_BARANG']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
-                    <?php
-                      }
-                    ?>
-                  </select>
-                  <!-- <input type="hidden" name="nama_barang" id="nama_barang"/> -->
-                  <div class="input-group-btn">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
-                  </div>
-                </div>
               </div>
               
               <div class="form-group">
@@ -127,7 +81,7 @@
                   <div class="input-group-addon">
                   <i class="fa fa-laptop"></i>
                   </div>
-                  <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                  <textarea class="form-control" id="ket_barang" name="ket_barang" rows="3" placeholder="Keterangan"></textarea>
                 </div>
               </div>
 
@@ -148,9 +102,9 @@
                 <thead>
                 <tr>
                   <th>No.</th>
-                  <th>Usulan Aset</th>
-                  <th>Barang</th>
+                  <th>Usulan Barang</th>
                   <th>Harga</th>
+                  <th>Keterangan</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -161,13 +115,13 @@
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) { */
                     $a = 1;
-                    foreach($_SESSION['temp_item_2'] as $items) {
+                    foreach($_SESSION['temp_item'] as $items) {
                 ?>
                   <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $items['nama']; ?></td>
-                    <td><?php echo $items['jenis']; ?></td>
-                    <td><div id="txt_harga"><?php echo $items['harga']; ?></div></td>
+                    <td><div id="txt_harga"><?php echo $items['harga_rp']; ?></div></td>
+                    <td><?php echo $items['keterangan']; ?></td>
                     <td>
                       <button class="btn btn-danger" type="submit" name="hapus-item" value="<?php echo $items['temp_id']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                     </td>

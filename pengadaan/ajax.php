@@ -118,14 +118,14 @@
         $id = $_POST['usulan_detail'];
         $myObj = array();
         $a = 1;
-        // $query = mysqli_query($koneksi, "SELECT p.barang_usulan, b.nama_barang, p.harga FROM pengadaan_barang p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
-        $query = mysqli_query($koneksi, "SELECT p.barang_usulan, b.nama_barang, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT p.barang_usulan, b.nama_barang, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT barang_usulan, harga, keterangan FROM detil_usulan_pengadaan WHERE id_pengadaan = '".$id."'");
         while($row = mysqli_fetch_array($query)){
             $nama = $row['barang_usulan'];
-            $barang = $row['nama_barang'];
+            $keterangan = $row['keterangan'];
             $harga = str_replace(',','.',asRupiah($row['harga']));
             //$array = array('nomor' => $a, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga);
-            $array = array($a, $nama, $barang, $harga);
+            $array = array($a, $nama, $harga, $keterangan);
             array_push($myObj, $array);
             $a++;
         }
@@ -136,13 +136,14 @@
     
     if(isset($_POST['id-insert'])) {
         $id = $_POST['id-insert'];
-        //$query = mysqli_query($koneksi, "SELECT p.barang_usulan, p.id_barang, b.nama_barang, p.harga FROM pengadaan_barang p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_temp = '".$id."'");
-        $query = mysqli_query($koneksi, "SELECT p.barang_usulan, p.id_barang, b.nama_barang, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_usulan_tambah = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT p.barang_usulan, p.id_barang, b.nama_barang, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_usulan_tambah = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT p.barang_usulan, p.harga FROM detil_usulan_pengadaan p WHERE p.id_usulan_tambah = '".$id."'");
         $row = mysqli_fetch_array($query);
         $nama = $row['barang_usulan'];
-        $barang = $row['id_barang'];
+        // $barang = $row['id_barang'];
         $harga = $row['harga'];
-        $myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga);
+        // $myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga);
+        $myObj = array('id' => $id, 'nama' => $nama, 'harga' => $harga);
         $myJSON = json_encode($myObj);
         echo $myJSON;
     }

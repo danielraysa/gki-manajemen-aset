@@ -11,9 +11,10 @@
         $username = $row['USERNAME'];
         $password = $row['PASSWORD'];
         $hak_akses = $row['ROLE'];
+        $no_hp = $row['NO_HP'];
         //$keterangan = $row['KETERANGAN'];
 
-        $myObj = array('id' => $id, 'nama' => $nama, 'username' => $username, 'password' => $password, 'role' => $hak_akses);
+        $myObj = array('id' => $id, 'nama' => $nama, 'username' => $username, 'password' => $password, 'role' => $hak_akses, 'no_hp' => $no_hp);
     
     }
 

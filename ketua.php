@@ -4,7 +4,8 @@
             <div class="inner">
                 <h3>
             <?php
-                $query = mysqli_query($koneksi, "SELECT COUNT(*) as jumlah FROM daftar_aset WHERE STATUS_ASET = 'Aktif'");
+                // $query = mysqli_query($koneksi, "SELECT COUNT(*) as jumlah FROM daftar_aset WHERE STATUS_ASET = 'Aktif'");
+                $query = mysqli_query($koneksi, "SELECT COUNT(*) as jumlah FROM daftar_baru WHERE STATUS_ASET = 'Aktif'");
                 $fetch = mysqli_fetch_array($query);
                 echo $fetch['jumlah'];
             ?></h3>

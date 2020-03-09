@@ -305,7 +305,7 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_reject" name="id"/>
-                Tolak usulan pengadaan aset ini? <br> Beri alasan/keterangan sebagai informasi bagi pengusul <br><br>
+                <b>Tolak usulan pengadaan aset ini?</b> <br> Beri alasan/keterangan sebagai informasi bagi pengusul <br><br>
                 <textarea class="form-control" id="keterangan_tolak_pengadaan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 <!-- </form> -->
             </div>
@@ -316,136 +316,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal Aset -->
-<!-- <div class="modal fade" id="modal-aset">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Tambah Aset</h4>
-            </div>
-            <div class="modal-body">
-            <form action="form-action.php" method="post">
-                <div class="form-group">
-                    <label>Kode Aset:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <input type="text" class="form-control" id="kode_aset" name="kode" placeholder="Kode Aset">
-                    </div>  
-                </div>
-                <div class="form-group">
-                    <label>Nama Aset:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <input type="text" class="form-control" id="nama_aset" name="nama" placeholder="Nama Aset">
-                    </div>  
-                </div>
-                <div class="form-group">
-                    <label>Nomor Aset:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <input type="text" class="form-control" id="nomor_aset" name="nomor" placeholder="Nomor Aset">
-                    </div>  
-                </div>
-                <div class="form-group">
-                    <label>Jenis Barang:</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-laptop"></i>
-                    </div>
-                    <select class="form-control select2" id="barang_aset" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                        <?php
-                        $data = mysqli_query($koneksi, "SELECT * FROM barang");
-                        while ($row = mysqli_fetch_array($data)) {
-                        ?>
-                        <option value="<?php echo $row['id_barang']; ?>"><?php echo $row['nama_barang']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Ruangan:</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-laptop"></i>
-                    </div>
-                    <select class="form-control select2" id="ruangan_aset" name="ruangan" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                        <?php
-                        $data = mysqli_query($koneksi, "SELECT * FROM ruangan");
-                        while ($row = mysqli_fetch_array($data)) {
-                        ?>
-                        <option value="<?php echo $row['id_ruangan']; ?>"><?php echo $row['nama_ruangan']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Status:</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-laptop"></i>
-                    </div>
-                    <select class="form-control select2" id="status_aset" name="status" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                        <?php
-                        $data = mysqli_query($koneksi, "SELECT * FROM status");
-                        while ($row = mysqli_fetch_array($data)) {
-                        ?>
-                        <option value="<?php echo $row['id_status']; ?>"><?php echo $row['nama_status']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Harga:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-money"></i>
-                        </div>
-                        <input type="text" class="form-control" id="harga_aset" name="harga" placeholder="Harga per item">
-                    </div>  
-                </div>
-                <div class="form-group">
-                    <label>Tanggal Pengadaan:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar-check-o"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_pengadaan" placeholder="Tanggal pengadaan">
-                    </div>  
-                </div>
-                <div class="form-group">
-                    <label>Masa Manfaat:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="manfaat_aset" name="masa_manfaat" placeholder="Masa manfaat">
-                        <div class="input-group-addon">
-                            tahun
-                        </div>
-                    </div>  
-                </div>
-                <input type="hidden" id="id_aset" name="id"/>
-            </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                <button class="btn btn-success pull-right" type="submit" name="tambah_aset"><i class="fa fa-save"></i> Tambah Aset</button>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <!-- Modal Detail Usulan -->
 <div class="modal fade" id="modal-detail">
@@ -462,8 +332,8 @@
                     <tr>
                         <th>No.</th>
                         <th>Barang Usulan</th>
-                        <th>Jenis Barang</th>
                         <th>Harga</th>
+                        <th>Keterangan</th>
                     </tr>
                     </thead>
                 </table>                

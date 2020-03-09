@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
   
   <link rel="stylesheet" href="../plugins/sweetalert2/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="../plugins/iCheck/all.css">
   
   <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
   

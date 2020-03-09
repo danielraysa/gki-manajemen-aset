@@ -42,15 +42,16 @@
                         <th>No.</th>
                         <th>Tanggal</th>
                         <th>User</th>
+                        <th>IP Address</th>
                         <th>Activity</th>
                         <th>Detail</th>
-                        <th>Reference</th>
+                        <!-- <th>Reference</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         //$query = mysqli_query($koneksi,"SELECT p.id_pengadaan, p.keterangan_usulan, p.tanggal_usulan, p.tanggal_modifikasi, p.hasil_approval FROM pengadaan_usul p WHERE p.status_usulan = 'Aktif'");
-                        $query = mysqli_query($koneksi,"SELECT la.ID_LOG, la.TANGGAL_LOG, u.NAMA_LENGKAP, la.ACTIVITY_LOG, la.ACTIVITY_DETAIL FROM log_akses la JOIN user u ON la.ID_USER = u.ID_USER");
+                        $query = mysqli_query($koneksi,"SELECT la.ID_LOG, la.TANGGAL_LOG, la.IP_ADDRESS, u.NAMA_LENGKAP, la.ACTIVITY_LOG, la.ACTIVITY_DETAIL FROM log_akses la JOIN user u ON la.ID_USER = u.ID_USER ORDER BY la.TANGGAL_LOG DESC");
                         $a = 1;
                         while($row = mysqli_fetch_array($query)) {
                         ?>
@@ -58,11 +59,12 @@
                         <td><?php echo $a; ?></td>
                         <td><?php echo tglIndo_full($row['TANGGAL_LOG']); ?></td>
                         <td><?php echo $row['NAMA_LENGKAP']; ?></td>
+                        <td><?php echo $row['IP_ADDRESS']; ?></td>
                         <td><?php echo $row['ACTIVITY_LOG']; ?></td>
                         <td><?php echo $row['ACTIVITY_DETAIL']; ?></td>
-                        <td>
-                            <button type="button" data-toggle="modal" data-target="#modal-maintenance"  data-id="<?php echo $row['ID_LOG']; ?>" class="btn btn-success modalMaintenance"><i class="fa fa-gear"></i> Cek</button>
-                        </td>
+                        <!-- <td>
+                            <button type="button" data-toggle="modal" data-target="#modal-maintenance"  data-id="<?php //echo $row['ID_LOG']; ?>" class="btn btn-success modalMaintenance"><i class="fa fa-gear"></i> Cek</button>
+                        </td> -->
                     </tr>
                     <?php
                         $a++;

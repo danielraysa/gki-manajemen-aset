@@ -121,6 +121,16 @@
                         <span id="message"></span>
                     </div>
                     <div class="form-group">
+                        <label>No HP:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <input type="text" class="form-control" name="no_hp" onkeypress="validate_number(event);" placeholder="No HP">
+                        </div>  
+                        <span id="message"></span>
+                    </div>
+                    <div class="form-group">
                         <label>Hak Akses:</label>
                         <div class="input-group">
                             <div class="input-group-addon">
@@ -162,7 +172,7 @@
                   <th>No.</th>
                   <th>Nama Pengguna</th>
                   <th>Username</th>
-                  <!-- <th>Password</th> -->
+                  <!-- <th>No HP</th> -->
                   <th>Hak Akses</th>
                   <th>Action</th>
                 </tr>
@@ -178,7 +188,7 @@
                         <td><?php echo $a; ?></td>
                         <td><?php echo $select['NAMA_LENGKAP']; ?></td>
                         <td><?php echo $select['USERNAME']; ?></td>
-                        <!-- <td>*****</td> -->
+                        <!-- <td><?php //echo $select['NO_HP']; ?></td> -->
                         <td><?php echo $select['ROLE']; ?></td>
                         <td><center>
                         <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_USER']; ?>"><i class="fa fa-pencil"></i> Edit</button> 

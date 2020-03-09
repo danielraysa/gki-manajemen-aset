@@ -32,14 +32,15 @@
 
     $sql = mysqli_query($koneksi, "SELECT * FROM user WHERE EMAIL = '".$_POST['email']."'");
     $row = mysqli_fetch_array($sql);
-    $query = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG) VALUES ('".$row['ID_USER']."','".$date."', 'login')");
-
+    $ipAddress = get_client_ip();
+    $query = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ACTIVITY_DETAIL, IP_ADDRESS) VALUES ('".$row['ID_USER']."','".$date."', 'login','".$_SERVER['HTTP_USER_AGENT']."', '".$ipAddress."')");
 	$_SESSION['login_user'] = $_POST['email'];
     $_SESSION['id_user'] = $row['ID_USER'];
     $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];
     $_SESSION['username'] = $row['USERNAME'];
     $_SESSION['role'] = $row['ROLE'];
     $_SESSION['foto_user'] = $row['FOTO_USER'];
+    $_SESSION['google_id'] = true;
     $_SESSION['notif'] = true;
 
 	echo "Updated Successful";

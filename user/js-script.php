@@ -18,6 +18,7 @@
 <script src="../dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+<script src="../plugins/iCheck/icheck.min.js"></script>
 <!-- page script -->
 <script>
   $(function () {
@@ -44,7 +45,36 @@
       'autoWidth'   : false
     })
   })
-  
+  function validate_number(evt) {
+      var theEvent = evt || window.event;
+
+      // Handle paste
+      if (theEvent.type === 'paste') {
+          key = event.clipboardData.getData('text/plain');
+      } else {
+      // Handle key press
+          var key = theEvent.keyCode || theEvent.which;
+          key = String.fromCharCode(key);
+      }
+      var regex = /[0-9]|\./;
+      if( !regex.test(key) ) {
+          theEvent.returnValue = false;
+          if(theEvent.preventDefault) theEvent.preventDefault();
+      }
+  }
+  $('.hide-pass').hide();
+  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-green',
+      radioClass   : 'iradio_minimal-green'
+  });
+  $('#change_pass').on('ifChecked', function(event){
+      //$('#nama').show();
+      $('.hide-pass').show();
+  });
+  $('#change_pass').on('ifUnchecked', function(event){
+      //$('#nama').show();
+      $('.hide-pass').hide();
+  });
   $('#hak_akses').select2({
     minimumResultsForSearch: -1
   });
@@ -65,9 +95,10 @@
         $('#id_user').val(data.id);
         $('#nama').val(data.nama);
         $('#username').val(data.username);
-        $('#password').val(data.password);
+        // $('#password').val(data.password);
         $('#hak_akses_up').val(data.role);
-        $('#keterangan').val(data.keterangan);
+        $('#no_hp').val(data.no_hp);
+        // $('#keterangan').val(data.keterangan);
 			}
 		});
 	});

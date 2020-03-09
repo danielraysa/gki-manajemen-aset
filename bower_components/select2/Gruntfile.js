@@ -1,3 +1,5 @@
+const sass = require('node-sass');
+
 module.exports = function (grunt) {
   // Full list of files that must be included by RequireJS
   includes = [
@@ -62,10 +64,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     package: grunt.file.readJSON('package.json'),
 
-    clean: {
-      docs: ['docs/_site']
-    },
-
     concat: {
       'dist': {
         options: {
@@ -124,88 +122,10 @@ module.exports = function (grunt) {
       }
     },
 
-    'saucelabs-qunit': {
-      all: {
-        options: {
-          build: testBuildNumber,
-          tags: ['tests', 'qunit'],
-          urls: testUrls,
-          testTimeout: 8000,
-          testname: 'QUnit test for Select2',
-          browsers: [
-            {
-              browserName: 'internet explorer',
-              version: '8',
-              platform: 'Windows 7'
-            },
-            {
-              browserName: 'internet explorer',
-              version: '9',
-              platform: 'Windows 7'
-            },
-            {
-              browserName: 'internet explorer',
-              version: '10',
-              platform: 'Windows 7'
-            },
-
-            {
-              browserName: 'internet explorer',
-              version: '11',
-              platform: 'Windows 10'
-            },
-
-            {
-              browserName: 'firefox',
-              platform: 'linux'
-            },
-
-            {
-              browserName: 'chrome',
-              platform: 'linux'
-            },
-
-            {
-              browserName: 'opera',
-              version: '12',
-              platform: 'linux'
-            }
-          ]
-        }
-      }
-    },
-
-    'gh-pages': {
-      options: {
-        base: 'docs',
-        branch: 'master',
-        clone: 'node_modules/grunt-gh-pages/repo',
-        message: 'Updated docs with master',
-        push: true,
-        repo: 'git@github.com:select2/select2.github.io.git'
-      },
-      src: '**'
-    },
-
-    jekyll: {
-      options: {
-        src: 'docs',
-        dest: 'docs/_site'
-      },
-      build: {
-        d: null
-      },
-      serve: {
-        options: {
-          serve: true,
-          watch: true
-        }
-      }
-    },
-
     jshint: {
       options: {
-        jshintrc: true
+        jshintrc: true,
+        reporterOutput: ''
       },
       code: {
         src: ['src/js/**/*.js']
@@ -218,6 +138,7 @@ module.exports = function (grunt) {
     sass: {
       dist: {
         options: {
+          implementation: sass,
           outputStyle: 'compressed'
         },
         files: {
@@ -229,6 +150,7 @@ module.exports = function (grunt) {
       },
       dev: {
         options: {
+          implementation: sass,
           outputStyle: 'nested'
         },
         files: {
@@ -237,19 +159,6 @@ module.exports = function (grunt) {
             'src/scss/theme/default/layout.css'
           ]
         }
-      }
-    },
-
-    symlink: {
-      docs: {
-        cwd: 'dist',
-        expand: true,
-        overwrite: false,
-        src: [
-          '*'
-        ],
-        dest: 'docs/dist',
-        filter: 'isDirectory'
       }
     },
 
@@ -331,22 +240,17 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-symlink');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.loadNpmTasks('grunt-gh-pages');
-  grunt.loadNpmTasks('grunt-jekyll');
-  grunt.loadNpmTasks('grunt-saucelabs');
   grunt.loadNpmTasks('grunt-sass');
 
-  grunt.registerTask('default', ['compile', 'test', 'minify']);
+  grunt.registerTask('default', ['compile', 'test', 'lint', 'minify']);
 
   grunt.registerTask('compile', [
     'requirejs:dist', 'requirejs:dist.full', 'requirejs:i18n',
@@ -354,27 +258,6 @@ module.exports = function (grunt) {
     'sass:dev'
   ]);
   grunt.registerTask('minify', ['uglify', 'sass:dist']);
-  grunt.registerTask('test', ['connect:tests', 'qunit', 'jshint']);
-
-  var ciTasks = [];
-
-  ciTasks.push('compile');
-  ciTasks.push('connect:tests');
-
-  /*
-  // grunt-saucelabs appears to be broken with Travis altogether now.
-  // Can't run Sauce Labs tests in pull requests
-  if (process.env.TRAVIS_PULL_REQUEST == 'false') {
-    ciTasks.push('saucelabs-qunit');
-  }
-  */
-
-  ciTasks.push('qunit');
-  ciTasks.push('jshint');
-
-  grunt.registerTask('ci', ciTasks);
-
-  grunt.registerTask('docs', ['symlink:docs', 'jekyll:serve']);
-
-  grunt.registerTask('docs-release', ['default', 'clean:docs', 'gh-pages']);
+  grunt.registerTask('lint', ['jshint']);
+  grunt.registerTask('test', ['connect:tests', 'qunit']);
 };

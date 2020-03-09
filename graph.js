@@ -3,7 +3,7 @@ $(document).ready(function(){
         'retrieve': true,
         'paging': true,
         'lengthChange': false,
-        'searching': false,
+        'searching': true,
         'ordering': true,
         'info': true,
         'autoWidth': true,
