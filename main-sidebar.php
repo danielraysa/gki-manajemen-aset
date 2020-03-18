@@ -166,6 +166,25 @@
       </ul>
       <?php
       }
+      // Staff Kantor
+      if($_SESSION['role'] == "Staff Kantor") {
+      ?>
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="<?php if ($dir == "gki-sarpras") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>index.php">
+            <i class="fa fa-home"></i> <span>Home</span>
+          </a>
+        </li>
+        <li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
+          <a href="<?php if ($dir != "gki-sarpras") echo "../"; ?>peminjaman/">
+            <i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
+          </a>
+        </li>
+        
+      </ul>
+      <?php
+      }
       // Admin
       if($_SESSION['role'] == "Administrator") {
       ?>

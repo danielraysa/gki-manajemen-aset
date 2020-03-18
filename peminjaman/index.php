@@ -20,7 +20,8 @@
     <?php
       include "../header.php";
       include "../main-sidebar.php";
-      if($_SESSION['role'] == "Peminjam") {
+      // if($_SESSION['role'] == "Peminjam") {
+      if(in_array($_SESSION['role'],["Peminjam","Staff Kantor"])) {
         /* if(isset($_GET['edit'])){
           include "edit-peminjaman.php";
         }
@@ -29,7 +30,8 @@
         } */
         include "content.php";
       }
-      if($_SESSION['role'] == "Anggota MJ") {
+      // if($_SESSION['role'] == "Anggota MJ") {
+      if(in_array($_SESSION['role'],["Anggota MJ","Ketua MJ"])) {
         include "approval.php";
       }
     ?>

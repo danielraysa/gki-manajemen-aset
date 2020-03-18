@@ -76,6 +76,17 @@
                 </select>
                 </div>
               </div> -->
+              <?php if($_SESSION['role'] == 'Staff Kantor') { ?>
+              <div class="form-group">
+                <label>Nama Peminjam:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam" required>
+                </div>
+              </div>
+              <?php } ?>
               <div class="form-group">
                 <label>Komisi Peminjam:</label>
                 <div class="input-group">
@@ -211,7 +222,7 @@
                 </tbody>
                 
               </table>
-              <button <?php //if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-tambah" id="btnModal">Simpan Perubahan</button>
+              <!-- <button <?php //if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-tambah" id="btnModal">Simpan Perubahan</button> -->
             </div>
             <!-- /.box-body -->
           </div>
@@ -245,14 +256,14 @@
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
                   if(empty($_SESSION['item_pinjam'])){
-                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' LIMIT 100");
+                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1");
                   }
                   else {
                     $arr = array();
                     foreach ($_SESSION["item_pinjam"] as $key => $select){
                       array_push($arr, $select['id_aset']);
                     }
-                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND ID_BARANG NOT IN ( '" . implode( "', '" , $arr ) . "' )");
+                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1 AND ID_BARANG NOT IN ( '" . implode( "', '" , $arr ) . "' )");
                     //$sql = "SELECT * FROM albums WHERE name NOT IN ( '" . implode( "', '" , $ban_album_names ) . "' )";
                   }
                   while ($row = mysqli_fetch_array($query)) {

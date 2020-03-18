@@ -43,9 +43,10 @@
                             </div>
                             <select class="form-control" id="hak_akses_up" name="hak_akses" style="width: 100%;">
                                 <!-- <option value="Administrator">Administrator</option> -->
-                                <option value="Ketua MJ">Ketua MJ</option>
-                                <option value="Anggota MJ">Anggota MJ</option>
                                 <option value="Peminjam">Peminjam</option>
+                                <option value="Staff Kantor">Staff Kantor</option>
+                                <option value="Anggota MJ">Anggota MJ</option>
+                                <option value="Ketua MJ">Ketua MJ</option>
                             </select>
                         </div>  
                     </div>

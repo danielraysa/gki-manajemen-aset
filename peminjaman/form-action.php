@@ -60,7 +60,7 @@
         echo $date;
         $tgl_pinjam = date("Y-m-d", strtotime($date));
         echo $tgl_pinjam;
-        /* if(empty($_SESSION['temp_item'])){
+        if(empty($_SESSION['temp_item'])){
             $_SESSION['error-msg'] = "Tidak ada barang usulan";
             header("location: ../pengadaan/?error");
         }
@@ -131,6 +131,6 @@
                 $_SESSION['error-msg'] = mysqli_error($koneksi);
                 header("location: ../pengadaan/?error");
             }
-        } */
+        }
     }
 ?>

@@ -155,11 +155,13 @@
       }).fail(function() { 
           alert( "Posting failed." );
       });
+
+    if(profile){
+      
+    }
   }
   
-  if(profile){
-      
-  }
+  
 </script>
 </body>
 </html>
