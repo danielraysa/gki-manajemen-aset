@@ -87,7 +87,7 @@ body {
   }
 }
 .content-wrapper {
-  min-height: calc(100vh - 101px);
+  min-height: calc(100vh - 101px) !important;
   background-color: #ecf0f5;
   z-index: 800;
 }

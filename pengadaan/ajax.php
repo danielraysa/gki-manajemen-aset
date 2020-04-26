@@ -148,4 +148,21 @@
         echo $myJSON;
     }
 
+    if(isset($_POST['counter_komisi'])){
+        $id = $_POST['counter_komisi'];
+        $query = mysqli_query($koneksi, "SELECT count(*)+1 as counter FROM daftar_baru WHERE KODE_KOMISI = '".$id."'");
+        $row = mysqli_fetch_array($query);
+        $counter = $row['counter'];
+        if($counter < 10){
+            $counter = "000".$counter;
+        }else if($counter < 100){
+            $counter = "00".$counter;
+        }else if($counter < 1000){
+            $counter = "0".$counter;
+        }else{
+            $counter = "".$counter;
+        }
+        echo $counter;
+    }
+
 ?>

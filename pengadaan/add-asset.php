@@ -56,8 +56,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="box box-success">
+                <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
                     <div class="box-body">
-                    <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h3 class="box-title text-black">Penamaan Aset</h3>
                             <!-- <div class="form-group">
@@ -74,7 +74,7 @@
                                 <label>Kode Aset:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
+                                        <i class="fa fa-barcode"></i>
                                     </div>
                                     <input type="text" class="form-control" id="kode_aset" name="kode" placeholder="Kode Aset" required>
                                 </div>  
@@ -83,7 +83,7 @@
                                 <label>Nama Aset:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
+                                        <i class="fa fa-pencil"></i>
                                     </div>
                                     <input type="text" class="form-control" id="nama_aset" name="nama" placeholder="Nama Aset" required>
                                 </div>  
@@ -92,7 +92,7 @@
                                 <label>Nomor Aset:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
+                                        <i class="fa fa-tags"></i>
                                     </div>
                                     <input type="text" class="form-control" id="nomor_aset" name="nomor" placeholder="Nomor Aset" required>
                                 </div>  
@@ -102,7 +102,7 @@
                                 <label>Jumlah Aset:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
+                                        <i class="fa fa-list-ol"></i>
                                     </div>
                                     <input disabled type="number" class="form-control" id="jumlah_aset" name="jumlah" placeholder="Jumlah Aset">
                                 </div>  
@@ -114,19 +114,24 @@
                                 <label>Status:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
+                                        <i class="fa fa-info-circle"></i>
                                     </div>
                                 <select class="form-control select2" id="status_aset" name="status" style="width: 100%;"  aria-hidden="true">
                                     <?php
                                     $data = mysqli_query($koneksi, "SELECT * FROM status");
                                     while ($row = mysqli_fetch_array($data)) {
                                     ?>
-                                    <option value="<?php echo $row['ID_STATUS']; ?>"><?php echo $row['NAMA_STATUS']; ?></option>
+                                    <option value="<?php echo $row['NAMA_STATUS']; ?>"><?php echo $row['NAMA_STATUS']; ?></option>
                                     <?php
                                     }
                                     ?>
                                 </select>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan:</label>
+                                <textarea class="form-control" rows="4" name="keterangan_aset"></textarea>
+                                  
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12">
@@ -138,12 +143,12 @@
                                     <i class="fa fa-laptop"></i>
                                 </div>
                                 <select class="form-control select2" id="barang_aset" name="barang" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                    <option value="">Pilih Barang</option>
+                                    <option value="">Pilih Jenis Barang</option>
                                     <?php
-                                    $data = mysqli_query($koneksi, "SELECT b.ID_BARANG, k.KODE_KATEGORI, b.NAMA_BARANG FROM barang b JOIN kategori k ON b.ID_KATEGORI = k.ID_KATEGORI");
+                                    $data = mysqli_query($koneksi, "SELECT ID_KATEGORI, KODE_KATEGORI, NAMA_KATEGORI FROM kategori");
                                     while ($row = mysqli_fetch_array($data)) {
                                     ?>
-                                    <option value="<?php echo $row['ID_BARANG']; ?>" data-item="<?php echo $row['KODE_KATEGORI']; ?>"><?php echo $row['NAMA_BARANG']; ?></option>
+                                    <option value="<?php echo $row['KODE_KATEGORI']; ?>" data-item="<?php echo $row['KODE_KATEGORI']; ?>"><?php echo $row['NAMA_KATEGORI']; ?></option>
                                     <?php
                                     }
                                     ?>
@@ -157,7 +162,7 @@
                                 <label>Merk:</label>
                                 <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-laptop"></i>
+                                    <i class="fa fa-tablet"></i>
                                 </div>
                                 <select class="form-control select2" id="merk_aset" name="merk" style="width: 100%;" aria-hidden="true">
                                     <option value="">Pilih Merk</option>
@@ -165,7 +170,7 @@
                                     $data = mysqli_query($koneksi, "SELECT * FROM merk");
                                     while ($row = mysqli_fetch_array($data)) {
                                     ?>
-                                    <option value="<?php echo $row['ID_MERK']; ?>"><?php echo $row['NAMA_MERK']; ?></option>
+                                    <option value="<?php echo $row['NAMA_MERK']; ?>"><?php echo $row['NAMA_MERK']; ?></option>
                                     <?php
                                     }
                                     ?>
@@ -179,38 +184,39 @@
                                 <label>Seri/Model:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-laptop"></i>
+                                        <i class="fa fa-code"></i>
                                     </div>
                                     <input type="text" class="form-control" id="seri_model" name="serimodel" placeholder="Seri/Model" required>
                                 </div>  
                             </div>
                             <div class="form-group">
                                 <label>Penempatan Ruangan:</label>
-                                <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-laptop"></i>
+                                <div class="input-group" style="margin-bottom: 0.5rem">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-location-arrow"></i>
+                                    </div>
+                                    <select class="form-control select2" id="ruangan_aset" name="ruangan_aset" style="width: 100%;">
+                                        <option value="">Pilih Ruangan</option>
+                                        <?php
+                                        $data = mysqli_query($koneksi, "SELECT * FROM ruangan");
+                                        while ($row = mysqli_fetch_array($data)) {
+                                        ?>
+                                        <option value="<?php echo $row['NAMA_RUANGAN']; ?>" data-ruang="<?php echo $row['KODE_RUANGAN']; ?>"><?php echo $row['NAMA_RUANGAN']; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
+                                    </div>
                                 </div>
-                                <select class="form-control select2" id="ruangan_aset" name="ruangan_aset" style="width: 100%;">
-                                    <option value="">Pilih Ruangan</option>
-                                    <?php
-                                    $data = mysqli_query($koneksi, "SELECT * FROM ruangan");
-                                    while ($row = mysqli_fetch_array($data)) {
-                                    ?>
-                                    <option value="<?php echo $row['ID_RUANGAN']; ?>" data-ruang="<?php echo $row['KODE_RUANGAN']; ?>"><?php echo $row['NAMA_RUANGAN']; ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
-                                </div>
-                                </div>
+                                <input type="text" class="form-control" name="keterangan_lokasi" placeholder="Keterangan Lokasi">
                             </div>
                             <div class="form-group">
                                 <label>Penempatan Komisi:</label>
                                 <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-laptop"></i>
+                                    <i class="fa fa-group"></i>
                                 </div>
                                 <select class="form-control select2" id="komisi_aset" name="komisi" style="width: 100%;" aria-hidden="true">
                                     <option value="">Pilih Komisi</option>
@@ -247,7 +253,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-money"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="harga" name="harga_pembelian" placeholder="Harga per item" required>
+                                    <input type="text" class="form-control" id="harga_aset" name="harga_pembelian" placeholder="Harga per item" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -284,7 +290,13 @@
                     </div>
 
                     <div class="box-footer">
-                        <button class="btn btn-success btn-block" type="submit" id="addAsset" name="simpan-aset">Tambah Aset</button>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6 col-sm-12">
+                                <button class="btn btn-success btn-block" type="submit" id="addAsset" name="simpan-aset">Tambah Aset</button>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
                     </div>
                 </form>
                 </div>

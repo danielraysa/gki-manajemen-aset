@@ -77,12 +77,7 @@
               </div>
               <div class="form-group">
                 <label>Keterangan:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                  <i class="fa fa-laptop"></i>
-                  </div>
-                  <textarea class="form-control" id="ket_barang" name="ket_barang" rows="3" placeholder="Keterangan"></textarea>
-                </div>
+                <textarea class="form-control" id="ket_barang" name="ket_barang" rows="3" placeholder="Keterangan"></textarea>
               </div>
 
               <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button>
@@ -136,7 +131,7 @@
                 <label>Keterangan Usulan:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
-                  <i class="fa fa-laptop"></i>
+                  <i class="fa fa-info-circle"></i>
                   </div>
                   <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 </div>

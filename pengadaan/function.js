@@ -96,6 +96,18 @@ $(document).ready(function() {
             self.Value('');
         }
     });
+    $('#harga_aset').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        prefix: " Rp. ",
+        rightAlign: false,
+        removeMaskOnSubmit: true,
+        onCleared: function () {
+            self.Value('');
+        }
+    });
     $('#txt_harga').inputmask("numeric", {
         radixPoint: ",",
         groupSeparator: ".",
@@ -105,50 +117,10 @@ $(document).ready(function() {
         rightAlign: false
     });
 
-    /* $("#barang").on('change', function() {
-        $("#nama_barang").val($("#barang").find(":selected").text());
-        //console.log($(this).val());
-        //alert($("#nama_barang").val());
-    }); */
     $("#currency").on('keyup', function() {
         $("#rupiah").val($('#currency').val());
         //console.log($("#rupiah").val());
     });
-    // Add Button
-    /*
-    $('#addBtn').click(function () {
-        var nama = $('#nama').val();
-        var brg = $('#barang').val();
-        var nm_brg = $('#barang').find("option:selected").text();
-        //var jml = $('#jumlah').val();
-        var hrg = $('#currency').val();
-        var hrg1 = $('#currency').inputmask("remove").val();
-        //var ket = $('#keterangan').val();
-        //alert(nm_brg);
-        console.log(nama, brg, hrg1);
-        $.ajax({
-            url: "ajax.php",
-            type: "POST",
-            data: {add: true, nama: nama, barang: brg, nama_barang: nm_brg, harga: hrg},
-            success: function (result) {
-                console.log(result)
-                var data = JSON.parse(result);
-                $('#example2').dataTable().fnDestroy();
-                $('#example2').DataTable({
-                    "data": data,
-                    "columns": [
-                    
-                    { "title": "Nama Aset" },
-                    { "title": "Jenis Barang" },
-                    
-                    { "title": "Harga", "class": "center" },
-                    { "title": "Action", "class": "center" }
-                    ]
-                });
-            }
-        });
-    });
-    */
 
     // Modal Delete
     $('.modalDelete').click(function () {
@@ -448,11 +420,11 @@ $(document).ready(function() {
                 var data = JSON.parse(result);
                 $('#id_aset').val(data.id);
                 $('#nama_aset').val(data.nama);
-                $('#barang_aset').val(data.barang);
-                $("#barang_aset").select2("destroy").select2();
-                kode4 = $('#barang_aset').find(':selected').data('item');
-                $('#harga').val(data.harga);
-                $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+                // $('#barang_aset').val(data.barang);
+                // $("#barang_aset").select2("destroy").select2();
+                // kode4 = $('#barang_aset').find(':selected').data('item');
+                $('#harga_aset').val(data.harga);
+                // $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
             }
         });
     });
@@ -477,31 +449,40 @@ $(document).ready(function() {
     });
     $('#datepicker').on('change', function(){
         var tgl = $('#datepicker').val();
-        kode3 = tgl.substr(8,2);
+        //kode3 = tgl.substr(8,2);
         //alert(kode3);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+        // $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
     });
-    // $('#barang_aset').on('change', function(){
-    $(document).on('change','#barang_aset', function(event){
+    $('#barang_aset').on('change', function(){
+    // $(document).on('change','#barang_aset', function(event){
         event.preventDefault();
         kode4 = $(this).find(':selected').data('item');
+        kode5 = "001";
         //alert(kode4);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+        $('#kode_aset').val(kode1+""+kode4+""+kode5);
     });
     $('#ruangan_aset').on('change', function(){
-        kode2 = $(this).find(':selected').data('ruang');
+        //kode2 = $(this).find(':selected').data('ruang');
         //alert(kode2);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+        // $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
     });
     $('#komisi_aset').on('change', function(){
-        kode1 = $(this).find(':selected').data('komisi');
+        var id = $(this).find(':selected').data('komisi');
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: "counter_komisi="+id,
+            success: function(result){
+                kode1 = id+"-"+result+"/";
+                $('#kode_aset').val(kode1+""+kode4+""+kode5);
+            }
+        });
         //alert(kode1);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
     });
     $('#nomor_aset').on('change', function(){
         kode5 = $(this).val();
         //alert(kode1);
-        $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
+        $('#kode_aset').val(kode1+""+kode4+""+kode5);
     });
     
     /* $(document).on('change', '.btn-file :file', function() {
