@@ -22,13 +22,14 @@
                         </thead>
                         <tbody>
                             <?php
-                                $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.HASIL_PEMELIHARAAN, p.BIAYA_PEMELIHARAAN, p.TANGGAL_PENJADWALAN, p.TANGGAL_PEMELIHARAAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Selesai' ORDER BY p.TANGGAL_PENJADWALAN");
+                                // $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, p.HASIL_PEMELIHARAAN, p.BIAYA_PEMELIHARAAN, p.TANGGAL_PENJADWALAN, p.TANGGAL_PEMELIHARAAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Selesai' ORDER BY p.TANGGAL_PENJADWALAN");
+                                $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, p.ID_ASET, d.KODE_BARANG, d.NAMA_BARANG, p.HASIL_PEMELIHARAAN, p.BIAYA_PEMELIHARAAN, p.TANGGAL_PENJADWALAN, p.TANGGAL_PEMELIHARAAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_BARU d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Selesai' ORDER BY p.TANGGAL_PENJADWALAN");
                                 $a = 1;
                                 while($row = mysqli_fetch_array($query)) {
                                 ?>
                             <tr>
                                 <td><?php echo $a; ?></td>
-                                <td><?php echo $row['NAMA_ASET']; ?></td>
+                                <td><?php echo $row['NAMA_BARANG']; ?></td>
                                 <td><?php echo $row['HASIL_PEMELIHARAAN']; ?></td>
                                 <td><?php echo asRupiah($row['BIAYA_PEMELIHARAAN']); ?></td>
                                 <td><?php echo tglIndo($row['TANGGAL_PENJADWALAN']); ?></td>

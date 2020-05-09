@@ -89,14 +89,15 @@
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
                   $date = date('Y-m-d');
-                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET) AND p.ID_ASET IN (SELECT ID_ASET FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET ORDER BY TANGGAL_PENJADWALAN) AND p.STATUS_PEMELIHARAAN = 'Aktif' ORDER BY p.TANGGAL_PENJADWALAN");
+                  $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_baru d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET) AND p.ID_ASET IN (SELECT ID_ASET FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET ORDER BY TANGGAL_PENJADWALAN) AND p.STATUS_PEMELIHARAAN = 'Aktif' ORDER BY p.TANGGAL_PENJADWALAN");
+                  // $query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET) AND p.ID_ASET IN (SELECT ID_ASET FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET ORDER BY TANGGAL_PENJADWALAN) AND p.STATUS_PEMELIHARAAN = 'Aktif' ORDER BY p.TANGGAL_PENJADWALAN");
                   //$query = mysqli_query($koneksi,"SELECT p.ID_PEMELIHARAAN, d.NAMA_ASET, d.KODE_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.TANGGAL_PENJADWALAN IN (SELECT MIN(TANGGAL_PENJADWALAN) FROM pemeliharaan_aset WHERE STATUS_PEMELIHARAAN = 'Aktif' GROUP BY ID_ASET)");
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                       <td><?php echo $a; ?></td>
-                      <td><?php echo $row['KODE_ASET']; ?></td>
-                      <td><?php echo $row['NAMA_ASET']; ?></td>
+                      <td><?php echo $row['KODE_BARANG']; ?></td>
+                      <td><?php echo $row['NAMA_BARANG']; ?></td>
                       <td><?php echo strftime("%d %B %Y", strtotime($row['TANGGAL_PENJADWALAN'])); ?></td>
                       <td><?php if($date<$row['TANGGAL_PENJADWALAN']) echo "Belum terlaksana"; else echo "Segera dilaksanakan"; ?></td>
                       <td>
@@ -137,14 +138,15 @@
                 <?php
                   //include('plugins/phpqrcode/qrlib.php');
                   $a = 1;
-                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif'");
+                  // $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI WHERE d.STATUS_ASET = 'Aktif'");
+                  $query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_BARANG, d.NAMA_BARANG, d.MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, d.LOKASI_BARANG, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_baru d JOIN komisi_jemaat k ON d.KODE_KOMISI = k.KODE_KOMISI WHERE d.STATUS_ASET = 'Aktif'");
                   while ($row = mysqli_fetch_array($query)) {
                     ?>
                     <tr>
                       <td><?php echo $a; ?></td>
-                      <td><?php echo $row['KODE_ASET']; ?></td>
-                      <td><?php echo $row['NAMA_ASET']; ?></td>
-                      <td><?php echo $row['NAMA_RUANGAN']; ?></td>
+                      <td><?php echo $row['KODE_BARANG']; ?></td>
+                      <td><?php echo $row['NAMA_BARANG']; ?></td>
+                      <td><?php echo $row['LOKASI_BARANG']; ?></td>
                       <td><?php echo $row['NAMA_KOMISI']; ?></td>
                       <td>
                         <?php

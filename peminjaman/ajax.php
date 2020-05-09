@@ -44,13 +44,13 @@
 
     if(isset($_POST['add-pinjam'])) {
         $id = $_POST['add-pinjam'];
-        $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE ID_BARANG = '".$id."'");
+        $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE ID_ASET = '".$id."'");
         $fet = mysqli_fetch_array($query);
         $kode_aset = $fet['KODE_BARANG'];
         $nama_aset = $fet['NAMA_BARANG'];
-        $nama_barang = $fet['JENIS'];
+        $nama_barang = $fet['MERK'];
         
-        $add = array('id_aset' => $id, 'kode_aset' => $kode_aset, 'nama_aset' => $nama_aset, 'barang' => $nama_barang);
+        $add = array('id_aset' => $id, 'kode_aset' => $kode_aset, 'nama_barang' => $nama_aset, 'merk' => $nama_barang);
         array_push($_SESSION['item_pinjam'], $add);
         $myJSON = json_encode($_SESSION['item_pinjam']);
         echo $myJSON;
@@ -82,8 +82,8 @@
         //$random_id = randString(10);
         $random_id = randomID('peminjaman_aset', 'ID_PEMINJAMAN', 10);
         $_SESSION['print_id'] = $random_id;
-        echo "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, KETERANGAN_PINJAM, NO_HP, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$keterangan."','".$no_hp."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif') \n";
-        $query = mysqli_query($koneksi, "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, NO_HP, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$no_hp."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif')");
+        $query_pinjam = "INSERT INTO peminjaman_aset (ID_PEMINJAMAN, ID_USER, ID_KOMISI, NO_HP, KETERANGAN_PINJAM, HASIL_PENGAJUAN, TANGGAL_PENGAJUAN, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, STATUS_PEMINJAMAN) VALUES ('".$random_id."','".$id_user."','".$id_komisi."','".$no_hp."','".$keterangan."','Pending','".$date_now."','".$tgl_awal."','".$tgl_akhir."','Aktif')";
+        $query = mysqli_query($koneksi, $query_pinjam);
         $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date_now."', 'peminjaman', '".$random_id."','pengajuan_peminjaman')");
         if(!$query) {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
@@ -101,7 +101,7 @@
         $sendMessageRequest = new SendMessageRequest([
             'phoneNumber' => $no_hp, 'message' => 'Pengajuan peminjaman pada '.$date_now.' dengan ID '.$random_id.' berhasil disimpan. (TEST_NOREPLY)', 'deviceId' => $deviceId
         ]);
-        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+        // $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
         /* if($sentMessages){
             print_r($sentMessages); 
         } */
@@ -114,10 +114,11 @@
         $id = $_POST['usulan_pinjam'];
         $myObj = array();
         $a = 1;
-        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_barang, b.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN kategori b ON a.kode_jenis = b.kode_kategori WHERE p.id_peminjaman = '".$id."'");
         while($row = mysqli_fetch_array($query)){
-            $nama = $row['nama_aset'];
-            $barang = $row['nama_barang'];
+            $nama = $row['nama_barang'];
+            $barang = $row['nama_kategori'];
             $id_item = $row['id_detil_pinjam'];
             
             $array = array($a, $nama, $barang);
@@ -133,10 +134,11 @@
         $id = $_POST['usulan_pinjam_cek'];
         $myObj = array();
         $a = 1;
-        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND (z.TANGGAL_PENGEMBALIAN BETWEEN (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."') AND (SELECT TANGGAL_PENGEMBALIAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'))) as stat, p.ID_ASET, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND (z.TANGGAL_PENGEMBALIAN BETWEEN (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."') AND (SELECT TANGGAL_PENGEMBALIAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'))) as stat, p.ID_ASET, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND (z.TANGGAL_PENGEMBALIAN BETWEEN (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."') AND (SELECT TANGGAL_PENGEMBALIAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'))) as stat, p.ID_ASET, a.nama_barang, k.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN kategori k ON a.KODE_JENIS = k.KODE_KATEGORI WHERE p.id_peminjaman = '".$id."'");
         while($row = mysqli_fetch_array($query)){
-            $nama = $row['nama_aset'];
-            $barang = $row['nama_barang'];
+            $nama = $row['nama_barang'];
+            $barang = $row['nama_kategori'];
             $id_item = $row['id_detil_pinjam'];
             if($row['stat'] > 0){
                 $status = "<b>Dipesan/dipakai</b>";
@@ -171,10 +173,10 @@
         $sendMessageRequest = new SendMessageRequest([
             'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' telah diterima.', 'deviceId' => $deviceId
         ]);
-        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+        /* $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
         if($sentMessages){
             print_r($sentMessages); 
-        }
+        } */
     }
 
     if (isset($_GET['reject'])) {
@@ -194,10 +196,10 @@
         $sendMessageRequest = new SendMessageRequest([
             'phoneNumber' => $row['NO_HP'], 'message' => 'Pengajuan peminjaman pada '.$row['TANGGAL_PENGAJUAN'].' ditolak.', 'deviceId' => $deviceId
         ]);
-        $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
+        /* $sentMessages = $messageClient->sendMessages([$sendMessageRequest]);
         if($sentMessages){
             print_r($sentMessages); 
-        }
+        } */
     }
 
     if (isset($_POST['delete-usulan'])) {
@@ -223,10 +225,11 @@
         $myObj = array();
         $myObj_tem = array();
         $a = 1;
-        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_barang, k.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN kategori k ON a.KODE_JENIS = k.KODE_KATEGORI WHERE p.id_peminjaman = '".$id."'");
         while($row = mysqli_fetch_array($query)){
-            $nama = $row['nama_aset'];
-            $barang = $row['nama_barang'];
+            $nama = $row['nama_barang'];
+            $barang = $row['nama_kategori'];
             $id_item = $row['id_detil_pinjam'];
             $array = array($a, $nama, $barang, "<input type='text' class='form-control' name='catatan[]'> <input type='hidden' value='$id_item' name='detil_item[]'> ");
             array_push($myObj_tem, $array);
@@ -274,12 +277,12 @@
         $row = mysqli_fetch_array($select);
         $twilio = new Client($sid, $token);
         $message = $twilio->messages
-                        ->create("whatsapp:+6289624762088", // to
-                                array(
-                                    "from" => "whatsapp:+12019480809",
-                                    "body" => "Hello there! This is Twilio API"
-                                )
-                        );
+                    ->create("whatsapp:+6289624762088", // to
+                            array(
+                                "from" => "whatsapp:+12019480809",
+                                "body" => "Hello there! This is Twilio API"
+                            )
+                    );
         print($message->sid);
     }
 
@@ -300,18 +303,17 @@
         //$random_id = randString(10);
         $_SESSION['print_id'] = $id_peminjaman;
         
-        echo "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', NO_HP = '".$no_hp."', TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."' \n";
-        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', NO_HP = '".$no_hp."', TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."'");
+        $query_update_pinjam = "UPDATE peminjaman_aset SET ID_USER = '".$id_user."', ID_KOMISI = '".$id_komisi."', KETERANGAN_PINJAM = '".$keterangan."', NO_HP = '".$no_hp."', TANGGAL_PEMINJAMAN = '".$tgl_awal."', TANGGAL_PENGEMBALIAN = '".$tgl_akhir."' WHERE ID_PEMINJAMAN = '".$id_peminjaman."'";
+        $query = mysqli_query($koneksi, $query_update_pinjam);
         if(!$query) {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
             echo $_SESSION['error-msg'];
         }
         $delete = mysqli_query($koneksi, "DELETE FROM detail_peminjaman WHERE ID_PEMINJAMAN = '".$id_peminjaman."'");
         foreach($_SESSION['item_pinjam'] as $select => $value){
-            //$random_id_item = randString(10);
             $random_id_item = randomID('detail_peminjaman', 'ID_DETIL_PINJAM', '10');
-            echo "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."') \n";
-            $insert = mysqli_query($koneksi, "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."')");
+            $query_upd_pinjam_data = "INSERT INTO detail_peminjaman (ID_DETIL_PINJAM, ID_PEMINJAMAN, ID_ASET) VALUES ('".$random_id_item."','".$id_peminjaman."','".$value['id_aset']."')";
+            $insert = mysqli_query($koneksi, $query_upd_pinjam_data);
         }
         $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL) VALUES ('".$_SESSION['id_user']."','".$date_now."', 'peminjaman', '".$id_peminjaman."','ubah_pengajuan')");
         unset($_SESSION['item_pinjam']);

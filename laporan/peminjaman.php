@@ -24,13 +24,14 @@
                         <tbody>
                             <?php
                             
-                                $query = mysqli_query($koneksi,"SELECT d.nama_aset, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengembalian, p.realisasi_pengembalian, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user JOIN detail_peminjaman dp ON p.id_peminjaman = dp.id_peminjaman JOIN daftar_aset d ON dp.id_aset = d.id_aset WHERE p.hasil_pengajuan = 'Diterima' ORDER BY p.tanggal_peminjaman");
+                                // $query = mysqli_query($koneksi,"SELECT d.nama_aset, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengembalian, p.realisasi_pengembalian, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user JOIN detail_peminjaman dp ON p.id_peminjaman = dp.id_peminjaman JOIN daftar_aset d ON dp.id_aset = d.id_aset WHERE p.hasil_pengajuan = 'Diterima' ORDER BY p.tanggal_peminjaman");
+                                $query = mysqli_query($koneksi,"SELECT d.nama_barang, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengembalian, p.realisasi_pengembalian, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user JOIN detail_peminjaman dp ON p.id_peminjaman = dp.id_peminjaman JOIN daftar_baru d ON dp.id_aset = d.id_aset WHERE p.hasil_pengajuan = 'Diterima' ORDER BY p.tanggal_peminjaman");
                                 $a = 1;
                                 while($row = mysqli_fetch_array($query)) {
                                 ?>
                             <tr>
                                 <td><?php echo $a; ?></td>
-                                <td><?php echo $row['nama_aset']; ?></td>
+                                <td><?php echo $row['nama_barang']; ?></td>
                                 <td><?php echo $row['nama_lengkap']; ?></td>
                                 <td><?php echo tglIndo($row['tanggal_peminjaman']); ?></td>
                                 <td><?php echo tglIndo($row['tanggal_pengembalian']); ?></td>

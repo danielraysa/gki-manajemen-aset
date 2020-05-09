@@ -6,6 +6,9 @@
 /nbproject/
 /nbproject/private/
 /node_modules/
+/vendor
+/gambar
 ad.js
 TODO
 test.html
+client_secret.json

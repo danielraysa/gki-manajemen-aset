@@ -73,9 +73,7 @@
                 $query = mysqli_query($koneksi, "SELECT COUNT(*) as jumlah FROM pemeliharaan_aset p WHERE p.STATUS_PEMELIHARAAN = 'Aktif' AND p.TANGGAL_PENJADWALAN <= NOW()");
                 $fetch = mysqli_fetch_array($query);
                 echo $fetch['jumlah'];
-                //$query = mysqli_query($koneksi,"SELECT COUNT(p.ID_PEMELIHARAAN), p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, MIN(p.TANGGAL_PENJADWALAN) as TANGGAL_PENJADWALAN, p.BATAS_PENJADWALAN FROM pemeliharaan_aset p LEFT OUTER JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.STATUS_PEMELIHARAAN = 'Aktif' AND p.TANGGAL_PENJADWALAN <= NOW() GROUP BY p.ID_ASET");
-                //$rows = mysqli_num_rows($query);
-                //echo $rows;
+                
             ?></h3>
 
                 <p>Pemeliharaan aset tertunda</p>

@@ -4,11 +4,12 @@
     include "../connection.php";
     
     if(isset($_POST['id_aset'])) {
-        $query = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE ID_ASET = '".$_POST['id_aset']."'");
+        // $query = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE ID_ASET = '".$_POST['id_aset']."'");
+        $query = mysqli_query($koneksi, "SELECT * FROM daftar_baru WHERE ID_ASET = '".$_POST['id_aset']."'");
         $fetch = mysqli_fetch_array($query);
         $id = $_POST['id_aset'];
-        $kode = $fetch['KODE_ASET'];
-        $nama = $fetch['NAMA_ASET'];
+        $kode = $fetch['KODE_BARANG'];
+        $nama = $fetch['NAMA_BARANG'];
         $myObj = array('id_aset' => $id, 'kode_aset' => $kode, 'nama_aset' => $nama);
         $myJSON = json_encode($myObj);
         echo $myJSON;
@@ -16,11 +17,12 @@
 
     if(isset($_POST['cek_jadwal'])) {
         $id = $_POST['cek_jadwal'];
-        $query = mysqli_query($koneksi, "SELECT * FROM pemeliharaan_berkala p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PENJADWALAN = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT * FROM pemeliharaan_berkala p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PENJADWALAN = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT * FROM pemeliharaan_berkala p JOIN daftar_baru d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PENJADWALAN = '".$id."'");
         $fetch = mysqli_fetch_array($query);
         $id_aset = $fetch['ID_ASET'];
-        $kode = $fetch['KODE_ASET'];
-        $nama = $fetch['NAMA_ASET'];
+        $kode = $fetch['KODE_BARANG'];
+        $nama = $fetch['NAMA_BARANG'];
         $pilihan = $fetch['PILIHAN'];
         $frekuensi = $fetch['FREKUENSI'];
         $jarak = $fetch['JARAK_INTERVAL'];
@@ -46,12 +48,14 @@
         echo $tgl_awal."\n";
 
         $random_id = randomID('pemeliharaan_berkala', 'ID_PENJADWALAN', 10);
-        ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, FREKUENSI, JARAK_INTERVAL, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','".$satuan."','".$interval."','Aktif') \n";
-        $query = mysqli_query($koneksi, "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, FREKUENSI, JARAK_INTERVAL, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','".$satuan."','".$interval."','Aktif')");
+        // ECHO "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, FREKUENSI, JARAK_INTERVAL, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','".$satuan."','".$interval."','Aktif') \n";
+        $sql_insert = "INSERT INTO pemeliharaan_berkala (ID_PENJADWALAN, ID_ASET, PILIHAN, FREKUENSI, JARAK_INTERVAL, STATUS_BERKALA) VALUES ('".$random_id."','".$id_aset."','".$pilihan."','".$satuan."','".$interval."','Aktif')";
+        $query = mysqli_query($koneksi, $sql_insert);
         
         $random_id_new = randomID('pemeliharaan_aset', 'ID_PEMELIHARAAN', 10);
-        ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif') \n";
-        $query_new = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif')");
+        // ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif') \n";
+        $sql_pemeliharaan = "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif')";
+        $query_new = mysqli_query($koneksi, $sql_pemeliharaan);
     }
 
     if(isset($_POST['add_jadwal'])) {
@@ -114,15 +118,15 @@
         
         $random_id_new = randomID('pemeliharaan_aset', 'ID_PEMELIHARAAN', 10);
         
-        ECHO "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif') \n";
-        $query_new = mysqli_query($koneksi, "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif')");
+        $sql_pelihara = "INSERT INTO pemeliharaan_aset (ID_PEMELIHARAAN, ID_ASET, TANGGAL_PENJADWALAN, NOTIF, STATUS_PEMELIHARAAN) VALUES ('".$random_id_new."','".$id_aset."','".$tgl_awal."',".$notif.",'Aktif')";
+        $query_new = mysqli_query($koneksi, $sql_pelihara);
 
     }
     if(isset($_POST['matikan_jadwal'])) {
         $id_maintenance = $_POST['id_cancel'];
         
-        echo "UPDATE pemeliharaan_aset SET STATUS_PEMELIHARAAN = 'Dihapus' WHERE ID_PEMELIHARAAN = '".$id_maintenance."'";
-        $query = mysqli_query($koneksi, "UPDATE pemeliharaan_aset SET STATUS_PEMELIHARAAN = 'Dihapus' WHERE ID_PEMELIHARAAN = '".$id_maintenance."'");
+        $sql_off = "UPDATE pemeliharaan_aset SET STATUS_PEMELIHARAAN = 'Dihapus' WHERE ID_PEMELIHARAAN = '".$id_maintenance."'";
+        $query = mysqli_query($koneksi, $sql_off);
 
         if(!$query) {
             echo mysqli_error($koneksi);
@@ -131,11 +135,12 @@
     }
     if(isset($_POST['id_maint'])) {
         $id = $_POST['id_maint'];
-        $query = mysqli_query($koneksi, "SELECT p.ID_PEMELIHARAAN, d.KODE_ASET, d.NAMA_ASET, p.ID_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMELIHARAAN = '".$id."'");
+        // $query = mysqli_query($koneksi, "SELECT p.ID_PEMELIHARAAN, d.KODE_ASET, d.NAMA_ASET, p.ID_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_aset d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMELIHARAAN = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT p.ID_PEMELIHARAAN, d.KODE_BARANG, d.NAMA_BARANG, p.ID_ASET, p.TANGGAL_PENJADWALAN FROM pemeliharaan_aset p JOIN daftar_baru d ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMELIHARAAN = '".$id."'");
         $fetch = mysqli_fetch_array($query);
         $aset = $fetch['ID_ASET'];
-        $kode = $fetch['KODE_ASET'];
-        $nama = $fetch['NAMA_ASET'];
+        $kode = $fetch['KODE_BARANG'];
+        $nama = $fetch['NAMA_BARANG'];
         $tgl = date('d/m/Y', strtotime($fetch['TANGGAL_PENJADWALAN']));
         //$tgl = $fetch['TANGGAL_PENJADWALAN'];
         $myObj = array('id_maint' => $id, 'id_aset' => $aset, 'kode_aset' => $kode, 'nama_aset' => $nama, 'tgl_jadwal' => $tgl);

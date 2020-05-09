@@ -41,7 +41,8 @@ $pdf->Text(30, 115, strftime("%d %B %Y", time()));
 // Column headings
 $pdf->addPage('P','A5');
 
-$count= mysqli_query($koneksi, "SELECT da.NAMA_ASET FROM detail_peminjaman dp JOIN daftar_aset da on dp.ID_ASET = da.ID_ASET WHERE dp.ID_PEMINJAMAN = '".$id."'"); // SQL to get 10 records 
+// $count= mysqli_query($koneksi, "SELECT da.NAMA_ASET FROM detail_peminjaman dp JOIN daftar_aset da on dp.ID_ASET = da.ID_ASET WHERE dp.ID_PEMINJAMAN = '".$id."'"); // SQL to get 10 records 
+$count= mysqli_query($koneksi, "SELECT da.NAMA_BARANG, da.MERK FROM detail_peminjaman dp JOIN daftar_baru da on dp.ID_ASET = da.ID_ASET WHERE dp.ID_PEMINJAMAN = '".$id."'"); // SQL to get 10 records 
 $pdf->SetFont('Times','B',13);
 
 $pdf->SetFont('Times','B',13);
@@ -50,16 +51,16 @@ $pdf->Text(30,20,'DAFTAR ASET YANG DIPINJAM');
 $pdf->SetFont('Times','I',8);
 $pdf->Text(110,10, 'Dicetak pada '.strftime("%d %B %Y", time()));
 
-$width_cell=array(10,60);
+$width_cell=array(10,70,35);
 //$width_cell=array(10,40,60,40);
 $pdf->SetFont('Times','B',13);
-$pdf->SetXY(30,30);
+$pdf->SetXY(15,30);
 //$pdf->SetY(30);
 $pdf->SetFillColor(193,229,252); // Background color of header 
 // Header starts /// 
 $pdf->Cell($width_cell[0],10,'No.',1,0,'C',true); // First header column 
-$pdf->Cell($width_cell[1],10,'Nama Aset',1,1,'C',true); // Second header column
-//$pdf->Cell($width_cell[2],10,'Nama Lengkap',1,0,'C',true); // Third header column 
+$pdf->Cell($width_cell[1],10,'Nama Barang',1,0,'C',true); // Second header column
+$pdf->Cell($width_cell[2],10,'Merk',1,1,'C',true); // Third header column 
 //$pdf->Cell($width_cell[3],10,'Tanggal Seleksi',1,1,'C',true); // Third header column 
 
 //// header ends ///////
@@ -70,10 +71,10 @@ $fill=false; // to give alternate background fill color to rows
 /// each record is one row
 $no = 1;
 while ($row = mysqli_fetch_array($count)) {
-$pdf->SetX(30);
+$pdf->SetX(15);
 $pdf->Cell($width_cell[0],10,$no,1,0,'C',$fill);
-$pdf->Cell($width_cell[1],10,$row['NAMA_ASET'],1,1,'C',$fill);
-//$pdf->Cell($width_cell[2],10,$row['NAMAPENDAFTAR'],1,0,'C',$fill);
+$pdf->Cell($width_cell[1],10,$row['NAMA_BARANG'],1,0,'C',$fill);
+$pdf->Cell($width_cell[2],10,$row['MERK'],1,1,'C',$fill);
 //$pdf->Cell($width_cell[3],10,$row['TANGGALSELEKSI'],1,1,'C',$fill);
 $no++;
 $fill = !$fill; // to give alternate background fill  color to rows

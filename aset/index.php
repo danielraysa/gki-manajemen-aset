@@ -94,7 +94,7 @@
                 <tbody>
                 <?php
                   //$query = mysqli_query($koneksi,"SELECT d.ID_ASET, d.KODE_ASET, d.NAMA_ASET, m.NAMA_MERK, d.HARGA_PEMBELIAN, d.TANGGAL_PEMBELIAN, r.NAMA_RUANGAN, k.NAMA_KOMISI, d.MASA_MANFAAT, d.STATUS_ASET FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN JOIN komisi_jemaat k ON d.ID_KOMISI = k.ID_KOMISI");
-                  $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru");
+                  $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru JOIN kategori ON daftar_baru.kode_jenis = kategori.kode_kategori");
                   $a = 1;
                   while($row = mysqli_fetch_array($query)) {
                 ?>
@@ -107,7 +107,7 @@
                     <td><?php echo $row['KOMISI']; ?></td>
                     <td><?php echo $row['STATUS_ASET']; ?></td>
                     <!-- <td>
-                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['ID_BARANG']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+                      <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['ID_ASET']; ?>"><i class="fa fa-pencil"></i> Edit</button>
                     </td> -->
                   </tr>
                 <?php

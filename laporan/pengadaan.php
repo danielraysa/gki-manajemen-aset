@@ -76,13 +76,14 @@
                         </thead>
                         <tbody>
                             <?php
-                                $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, d.id_aset, d.nama_aset, u.nama_lengkap, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval, d.harga_pembelian, d.tanggal_pembelian FROM pengadaan_aset p JOIN detil_usulan_pengadaan dp ON p.id_pengadaan = dp.id_pengadaan JOIN user u ON p.id_user = u.id_user JOIN daftar_aset d ON d.id_usulan_tambah = dp.id_usulan_tambah WHERE p.hasil_approval = 'Diterima' ORDER BY d.tanggal_pembelian");
+                                // $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, d.id_aset, d.nama_aset, u.nama_lengkap, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval, d.harga_pembelian, d.tanggal_pembelian FROM pengadaan_aset p JOIN detil_usulan_pengadaan dp ON p.id_pengadaan = dp.id_pengadaan JOIN user u ON p.id_user = u.id_user JOIN daftar_aset d ON d.id_usulan_tambah = dp.id_usulan_tambah WHERE p.hasil_approval = 'Diterima' ORDER BY d.tanggal_pembelian");
+                                $query = mysqli_query($koneksi,"SELECT p.id_pengadaan, d.id_aset, d.nama_barang, u.nama_lengkap, p.keterangan_usulan, p.tanggal_usulan, p.hasil_approval, d.harga_pembelian, d.tanggal_pembelian FROM pengadaan_aset p JOIN detil_usulan_pengadaan dp ON p.id_pengadaan = dp.id_pengadaan JOIN user u ON p.id_user = u.id_user JOIN daftar_baru d ON d.id_usulan_tambah = dp.id_usulan_tambah WHERE p.hasil_approval = 'Diterima' ORDER BY d.tanggal_pembelian");
                                 $a = 1;
                                 while($row = mysqli_fetch_array($query)) {
                                 ?>
                             <tr>
                                 <td><?php echo $a; ?></td>
-                                <td><?php echo $row['nama_aset']; ?></td>
+                                <td><?php echo $row['nama_barang']; ?></td>
                                 <td><?php echo $row['nama_lengkap']; ?></td>
                                 
                                 <!-- <td><?php echo tglIndo($row['tanggal_usulan']); ?></td> -->

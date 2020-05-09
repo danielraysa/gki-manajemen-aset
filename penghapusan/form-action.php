@@ -58,9 +58,10 @@
         $query = mysqli_query($koneksi, "UPDATE penghapusan_aset SET TANGGAL_PENGHAPUSAN = '".$tgl_penghapusan."' WHERE ID_PENGHAPUSAN = '".$id."'");
         print_r($arr_status);
         for($a = 0; $a < count($arr_aset); $a++){
-            echo "UPDATE daftar_aset SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."' \n";
+            // $sql_hapus = "UPDATE daftar_aset SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'";
+            $sql_hapus = "UPDATE daftar_baru SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'";
             $upd = mysqli_query($koneksi, "UPDATE detil_usulan_penghapusan SET CATATAN = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'");
-            $update = mysqli_query($koneksi, "UPDATE daftar_aset SET STATUS_ASET = '".$arr_status[$a]."' WHERE ID_ASET = '".$arr_aset[$a]."'");
+            $update = mysqli_query($koneksi, $sql_hapus);
         }
         header("location:../penghapusan/?disposal");
     }

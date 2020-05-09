@@ -156,8 +156,6 @@
                   <?php
                     }
                   ?>
-              <!-- <button class="btn btn-success btn-block" type="submit" id="addBtn" name="add-item">Tambah</button> -->
-              
             <!-- </form> -->
             </div>
           </div>
@@ -190,16 +188,15 @@
                       if(isset($_GET['edit'])){
                         $id = $_GET['edit'];
                         $temp_edit = array();
-                        $query = mysqli_query($koneksi,"SELECT p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, b.NAMA_BARANG, m.NAMA_MERK FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN detil_usulan_pengadaan dp ON d.ID_USULAN_TAMBAH = dp.ID_USULAN_TAMBAH JOIN barang b ON dp.ID_BARANG = b.ID_BARANG JOIN detail_peminjaman p ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMINJAMAN = '".$id."'");
+                        // $query = mysqli_query($koneksi,"SELECT p.ID_ASET, d.KODE_ASET, d.NAMA_ASET, b.NAMA_BARANG, m.NAMA_MERK FROM daftar_aset d JOIN merk m ON d.ID_MERK = m.ID_MERK JOIN detil_usulan_pengadaan dp ON d.ID_USULAN_TAMBAH = dp.ID_USULAN_TAMBAH JOIN barang b ON dp.ID_BARANG = b.ID_BARANG JOIN detail_peminjaman p ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMINJAMAN = '".$id."'");
+                        $query = mysqli_query($koneksi,"SELECT p.ID_ASET, d.KODE_BARANG, d.NAMA_BARANG, d.MERK FROM daftar_baru d JOIN detail_peminjaman p ON p.ID_ASET = d.ID_ASET WHERE p.ID_PEMINJAMAN = '".$id."'");
                         while($fet = mysqli_fetch_array($query)){
                             $id_aset = $fet['ID_ASET'];
-                            $kode_aset = $fet['KODE_ASET'];
-                            $nama_aset = $fet['NAMA_ASET'];
+                            $kode_aset = $fet['KODE_BARANG'];
                             $nama_barang = $fet['NAMA_BARANG'];
-                            //$key_index = array_search($id_aset, array_column($_SESSION['item_pinjam'], 'id_aset'));
-                            //$b = $key_index;
-                            //if(!in_array($id_aset,array_column($_SESSION['item_pinjam'], 'id_aset'))) {
-                            $add = array('id_aset' => $id_aset, 'kode_aset' => $kode_aset, 'nama_aset' => $nama_aset, 'barang' => $nama_barang);
+                            $nama_merk = $fet['MERK'];
+                            
+                            $add = array('id_aset' => $id_aset, 'kode_aset' => $kode_aset, 'nama_barang' => $nama_barang, 'merk' => $nama_merk);
                             array_push($temp_edit, $add);
                         }
                         if(empty($_SESSION['item_pinjam']) && !empty($temp_edit)) {
@@ -211,8 +208,8 @@
                   <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $select['kode_aset']; ?></td>
-                    <td><?php echo $select['nama_aset']; ?></td>
-                    <td><?php echo $select['barang']; ?></td>
+                    <td><?php echo $select['nama_barang']; ?></td>
+                    <td><?php echo $select['merk']; ?></td>
                     <td><button type="button" data-id="<?php echo $select['id_aset']; ?>" class="btn btn-danger btn-block remove"><i class="fa fa-trash"></i> Hapus</button></td>
                   </tr>
                   <?php
@@ -222,7 +219,7 @@
                 </tbody>
                 
               </table>
-              <!-- <button <?php //if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-tambah" id="btnModal">Simpan Perubahan</button> -->
+              
             </div>
             <!-- /.box-body -->
           </div>
@@ -247,7 +244,6 @@
                     <th>Merk</th>
                     <th>Ruangan</th>
                     <th>Komisi</th>
-                    <!-- <th>Status</th> -->
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -263,7 +259,7 @@
                     foreach ($_SESSION["item_pinjam"] as $key => $select){
                       array_push($arr, $select['id_aset']);
                     }
-                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1 AND ID_BARANG NOT IN ( '" . implode( "', '" , $arr ) . "' )");
+                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1 AND ID_ASET NOT IN ( '" . implode( "', '" , $arr ) . "' )");
                     //$sql = "SELECT * FROM albums WHERE name NOT IN ( '" . implode( "', '" , $ban_album_names ) . "' )";
                   }
                   while ($row = mysqli_fetch_array($query)) {
@@ -277,7 +273,7 @@
                       <td><?php echo $row['KOMISI']; ?></td>
                       <!-- <td><?php echo $row['STATUS_ASET']; ?></td> -->
                       
-                      <td><button type="button" data-id="<?php echo $row['ID_BARANG']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
+                      <td><button type="button" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
                     </tr>
                     <?php
                       $a++;

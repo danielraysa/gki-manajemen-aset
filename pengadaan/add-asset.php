@@ -54,22 +54,44 @@
     }
     ?>
         <div class="row">
+            <div class="col-lg-12">
+                <!-- <div class="box box-success"> -->
+                <div class="form-group">
+                    <label>Barang yang diusulkan</label>
+                    <select class="form-control select2">
+                    <?php
+                    $id = $_GET['id'];
+                    // $_SESSION['pengadaan_aset'] = $id;
+                    // $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, b.nama_barang, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
+                    $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p WHERE p.id_pengadaan = '".$id."'");
+                    $a = 1;
+                    while($row = mysqli_fetch_array($query)) {
+                    ?>
+                        <option value="<?php echo $row['id_usulan_tambah']; ?>"><?php echo $row['barang_usulan']; ?></option>
+                    <?php
+                    }
+                    ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="box box-success">
                 <form id="form_pengadaan" action="form-action.php" enctype="multipart/form-data" method="post">
                     <div class="box-body">
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h3 class="box-title text-black">Penamaan Aset</h3>
-                            <!-- <div class="form-group">
-                                <label>ID Usulan Item:</label>
+                            <div class="form-group">
+                                <label>ID:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-laptop"></i>
                                     </div>
                                     <input type="text" class="form-control" id="id_aset" name="id_usulan" readonly/>
                                 </div>  
-                            </div> -->
-                            <input type="hidden" class="form-control" id="id_aset" name="id_usulan" readonly/>
+                            </div>
+                            <!-- <input type="hidden" class="form-control" id="id_aset" name="id_usulan" readonly/> -->
                             <div class="form-group">
                                 <label>Kode Aset:</label>
                                 <div class="input-group">
@@ -88,7 +110,7 @@
                                     <input type="text" class="form-control" id="nama_aset" name="nama" placeholder="Nama Aset" required>
                                 </div>  
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Nomor Aset:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -96,9 +118,9 @@
                                     </div>
                                     <input type="text" class="form-control" id="nomor_aset" name="nomor" placeholder="Nomor Aset" required>
                                 </div>  
-                            </div>
+                            </div> -->
                             
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Jumlah Aset:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -109,7 +131,7 @@
                             </div>
                             <div class="form-group">
                                 <input class="minimal" type="checkbox" id="check_jml" name="check_jml"> Jumlah lebih dari 1
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Status:</label>
                                 <div class="input-group">
@@ -181,7 +203,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Seri/Model:</label>
+                                <label>Type/Seri/Model:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-code"></i>
@@ -224,7 +246,7 @@
                                     $data = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
                                     while ($row = mysqli_fetch_array($data)) {
                                     ?>
-                                    <option value="<?php echo $row['ID_KOMISI']; ?>" data-komisi="<?php echo $row['KODE_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']." (".$row['KODE_KOMISI'].")"; ?></option>
+                                    <option value="<?php echo $row['KODE_KOMISI']; ?>" data-komisi="<?php echo $row['KODE_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']." (".$row['KODE_KOMISI'].")"; ?></option>
                                     <?php
                                     }
                                     ?>
