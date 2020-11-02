@@ -26,7 +26,10 @@
             $_SESSION['role'] = $row['ROLE'];
             $_SESSION['foto_user'] = $row['FOTO_USER'];
             $_SESSION['notif'] = true;
+            if($query)
             header("location:../");
+            else
+            echo mysqli_error($koneksi);
         }
         else {
             //echo $count;

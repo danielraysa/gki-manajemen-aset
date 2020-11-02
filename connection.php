@@ -2,7 +2,8 @@
     setlocale (LC_TIME, 'INDONESIAN');
     date_default_timezone_set("Asia/Jakarta");
     setlocale(LC_NUMERIC, 'INDONESIA');
-    $root_folder = "gki-sarpras";
+    $root_folder = basename(__DIR__);
+    
     $koneksi = mysqli_connect("localhost","root","","gki_aset");
     
     function randString($length) {
@@ -16,14 +17,14 @@
     }
 
     function loadKonfigurasi($input) {
-        $koneksi = mysqli_connect("localhost","root","","gki_aset");
+        global $koneksi;
         $query = mysqli_query($koneksi,"SELECT ".$input." as hasil FROM konfigurasi");
         $row = mysqli_fetch_array($query);
         return $row['hasil'];
     }
 
     function randomID($table, $id_table, $char) {
-        $koneksi = mysqli_connect("localhost","root","","gki_aset");
+        global $koneksi;
         $random_id = randString($char);
         $is_unique = false;
         while (!$is_unique) {
