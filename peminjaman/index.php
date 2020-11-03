@@ -13,7 +13,7 @@
 <html>
 <head>
     <?php include "../connection.php"; ?>
-    <?php include "css-script.php"; ?>
+    <?php include "../css-script.php"; ?>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">

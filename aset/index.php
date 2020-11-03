@@ -13,7 +13,7 @@
 
 <head>
 	<?php include "../connection.php"; ?>
-	<?php include "css-script.php"; ?>
+	<?php include "../css-script.php"; ?>
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -27,7 +27,6 @@
 			<section class="content-header">
 				<h1>
 					Data Aset
-
 				</h1>
 
 			</section>

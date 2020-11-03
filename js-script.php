@@ -22,88 +22,88 @@
 <script src="graph.js"></script>
 <!-- page script -->
 <script>
-  $('#example1').DataTable({
-  'autoWidth': true,
-  'responsive': true,
-  "scrollX": true
-  });
-  $('#example2').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : true,
-    'responsive'  : true
-  });
-  var table3 = $('#example3').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : false
-  });
-  $('#notif').on('click', function(){
-    $('#notif_count').hide();
-    
-  });
-  $('.item-notif').on('click', function(){
-    var id = "<?php echo $_SESSION['id_user']; ?>";
-    var tabel = $(this).attr('id');
-    $.ajax({
-      url: "notif-data.php",
-      type: "POST",
-      data: {id_notif: id, tabel: tabel},
-      success: function (result) {
-        console.log(result)
-      }
-    });
-  });
-  $('.modalDetail').click(function () {
-        var id = $(this).attr('data-id');
-        console.log(id);
-        $.ajax({
-            url: "graph-data.php",
-            type: "POST",
-            data: "pinjam_detail=" + id,
-            success: function (result) {
-                console.log(result)
-                var data = JSON.parse(result);
-                $('#example3').dataTable().fnClearTable();
-                //$('#example4').dataTable().fnDestroy();
-                table3.rows.add(data).draw();
-            }
-        });
-    });
-  $('.logout').on('click', function (event) {
-    event.preventDefault();
-    swal({
-      title: 'Apakah anda ingin keluar?',
-      type: 'warning',
-      showCancelButton: true,
-      //confirmButtonColor: '#d9534f',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya',
-      cancelButtonText: 'Tidak'
-    }).then((result) => {
-      if (result.value) {
-        swal({
-            title: "Sukses",
-              text: "Harap tunggu sejenak.",
-            type: "success",
-            timer: 2000,
-            showConfirmButton: false
-            }).then(function(){
-              <?php if(isset($_SESSION['google_id'])) { ?>
-                document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/gki-sarpras/logout.php";
-              <?php } else { ?>
-                document.location.href = "logout.php";
-              <?php } ?>
-                //return false;
-            })
-        }
-      }
-    )
-  });
+$('#example1').DataTable({
+'autoWidth': true,
+'responsive': true,
+"scrollX": true
+});
+$('#example2').DataTable({
+	'paging'      : true,
+	'lengthChange': false,
+	'searching'   : false,
+	'ordering'    : true,
+	'info'        : true,
+	'autoWidth'   : true,
+	'responsive'  : true
+});
+var table3 = $('#example3').DataTable({
+	'paging'      : true,
+	'lengthChange': false,
+	'searching'   : false,
+	'ordering'    : true,
+	'info'        : true,
+	'autoWidth'   : false
+});
+$('#notif').on('click', function(){
+	$('#notif_count').hide();
+	
+});
+$('.item-notif').on('click', function(){
+	var id = "<?php echo $_SESSION['id_user']; ?>";
+	var tabel = $(this).attr('id');
+	$.ajax({
+	url: "notif-data.php",
+	type: "POST",
+	data: {id_notif: id, tabel: tabel},
+	success: function (result) {
+		console.log(result)
+	}
+	});
+});
+$('.modalDetail').click(function () {
+		var id = $(this).attr('data-id');
+		console.log(id);
+		$.ajax({
+			url: "graph-data.php",
+			type: "POST",
+			data: "pinjam_detail=" + id,
+			success: function (result) {
+				console.log(result)
+				var data = JSON.parse(result);
+				$('#example3').dataTable().fnClearTable();
+				//$('#example4').dataTable().fnDestroy();
+				table3.rows.add(data).draw();
+			}
+		});
+	});
+$('.logout').on('click', function (event) {
+	event.preventDefault();
+	swal({
+	title: 'Apakah anda ingin keluar?',
+	type: 'warning',
+	showCancelButton: true,
+	//confirmButtonColor: '#d9534f',
+	cancelButtonColor: '#d33',
+	confirmButtonText: 'Ya',
+	cancelButtonText: 'Tidak'
+	}).then((result) => {
+	if (result.value) {
+		swal({
+			title: "Sukses",
+			text: "Harap tunggu sejenak.",
+			type: "success",
+			timer: 2000,
+			showConfirmButton: false
+			}).then(function(){
+			<?php if(isset($_SESSION['google_id'])) { ?>
+				document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/gki-sarpras/logout.php";
+			<?php } else { ?>
+				document.location.href = "logout.php";
+			<?php } ?>
+				//return false;
+			})
+		}
+	}
+	)
+});
 </script>
