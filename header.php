@@ -23,13 +23,13 @@
 		<!-- User Account: style can be found in dropdown.less -->
 		<li class="dropdown user user-menu">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			<img src="<?php if ($dir != $root_folder) echo "../"; ?>gambar/user/<?php if($_SESSION['foto_user'] == "") echo "user2-160x160.jpg"; else echo $_SESSION['foto_user']; ?>" class="user-image" alt="User Image">
+			<img src="<?php if(substr($row['FOTO_USER'], 0, 4) == "http") { echo $_SESSION['foto_user']; } else { if ($dir != $root_folder) echo "../"; echo $_SESSION['foto_user']; } ?>" class="user-image" alt="User Image">
 			<span class="hidden-xs"><?php echo $_SESSION['nama_user']; ?></span>
 			</a>
 			<ul class="dropdown-menu">
 			<!-- User image -->
 			<li class="user-header">
-				<img src="<?php if ($dir != $root_folder) echo "../"; ?>gambar/user/<?php if($_SESSION['foto_user'] == "") echo "user2-160x160.jpg"; else echo $_SESSION['foto_user']; ?>" class="img-circle" alt="User Image">
+				<img src="<?php if(substr($row['FOTO_USER'], 0, 4) == "http") { echo $_SESSION['foto_user']; } else { if ($dir != $root_folder) echo "../"; echo $_SESSION['foto_user']; } ?>" class="img-circle" alt="User Image">
 				<p>
 				<?php echo $_SESSION['nama_user']; ?>
 				</p>
@@ -39,7 +39,7 @@
 			<!-- Menu Footer-->
 			<li class="user-footer">
 				<div class="pull-left">
-				<button role="button" onclick="location.href = '<?php if ($dir != 'gki-sarpras') echo '../'; ?>profil/';" class="btn btn-primary btn-flat">Profil</button>
+				<button role="button" onclick="location.href = '<?php if ($dir != $root_folder) echo '../'; ?>profil/';" class="btn btn-primary btn-flat">Profil</button>
 				</div>
 				<div class="pull-right">
 				<button role="button" class="btn btn-danger btn-flat logout">Keluar</button>

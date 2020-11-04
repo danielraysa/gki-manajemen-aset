@@ -14,7 +14,7 @@
 <html>
 <head>
     <?php include "../connection.php"; ?>
-    <?php include "css-script.php"; ?>
+    <?php include "../css-script.php"; ?>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
@@ -53,28 +53,7 @@
     <?php
     }
     ?>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- <div class="box box-success"> -->
-                <div class="form-group">
-                    <label>Barang yang diusulkan</label>
-                    <select class="form-control select2">
-                    <?php
-                    $id = $_GET['id'];
-                    // $_SESSION['pengadaan_aset'] = $id;
-                    // $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, b.nama_barang, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
-                    $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p WHERE p.id_pengadaan = '".$id."'");
-                    $a = 1;
-                    while($row = mysqli_fetch_array($query)) {
-                    ?>
-                        <option value="<?php echo $row['id_usulan_tambah']; ?>"><?php echo $row['barang_usulan']; ?></option>
-                    <?php
-                    }
-                    ?>
-                    </select>
-                </div>
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="box box-success">
@@ -92,6 +71,23 @@
                                 </div>  
                             </div>
                             <!-- <input type="hidden" class="form-control" id="id_aset" name="id_usulan" readonly/> -->
+                            <div class="form-group">
+                                <label>Barang yang diusulkan</label>
+                                <select id="barang_select" class="form-control select2 select-item" style="width: 100%;">
+                                <?php
+                                $id = $_GET['id'];
+                                // $_SESSION['pengadaan_aset'] = $id;
+                                // $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, b.nama_barang, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p JOIN barang b ON p.id_barang = b.id_barang WHERE p.id_pengadaan = '".$id."'");
+                                $query = mysqli_query($koneksi,"SELECT p.id_usulan_tambah, p.id_pengadaan, p.barang_usulan, p.harga FROM detil_usulan_pengadaan p WHERE p.id_pengadaan = '".$id."'");
+                                $a = 1;
+                                while($row = mysqli_fetch_array($query)) {
+                                ?>
+                                    <option value="<?php echo $row['id_usulan_tambah']; ?>"><?php echo $row['barang_usulan']; ?></option>
+                                <?php
+                                    }
+                                ?>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label>Kode Aset:</label>
                                 <div class="input-group">
@@ -138,7 +134,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-info-circle"></i>
                                     </div>
-                                <select class="form-control select2" id="status_aset" name="status" style="width: 100%;"  aria-hidden="true">
+                                <select class="form-control select2" id="status_aset" name="status" style="width: 100%;" aria-hidden="true">
                                     <?php
                                     $data = mysqli_query($koneksi, "SELECT * FROM status");
                                     while ($row = mysqli_fetch_array($data)) {

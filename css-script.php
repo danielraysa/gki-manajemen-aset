@@ -4,6 +4,8 @@
 <link rel="icon" href="<?php if ($dir != $root_folder) echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_icon"); ?>">
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Select2 -->
+<link rel="stylesheet" href="<?php if ($dir != $root_folder) echo "../"; ?>bower_components/select2/dist/css/select2.min.css">
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet" href="<?php if ($dir != $root_folder) echo "../"; ?>bower_components/bootstrap/dist/css/bootstrap.min.css">
 <!-- Font Awesome -->
@@ -17,8 +19,7 @@
 <!-- AdminLTE Skins. Choose a skin from the css/skins
 	folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="<?php if ($dir != $root_folder) echo "../"; ?>dist/css/skins/_all-skins.min.css">
-<!-- Select2 -->
-<link rel="stylesheet" href="<?php if ($dir != $root_folder) echo "../"; ?>bower_components/select2/dist/css/select2.min.css">
+
 <!-- DataTables -->
 <link rel="stylesheet" href="<?php if ($dir != $root_folder) echo "../"; ?>bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="<?php if ($dir != $root_folder) echo "../"; ?>plugins/sweetalert2/dist/sweetalert2.min.css">

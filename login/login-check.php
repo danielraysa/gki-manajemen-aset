@@ -24,7 +24,12 @@
             $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];
             $_SESSION['username'] = $row['USERNAME'];
             $_SESSION['role'] = $row['ROLE'];
-            $_SESSION['foto_user'] = $row['FOTO_USER'];
+            if(substr($row['FOTO_USER'], 0, 4) == "http") {
+                $_SESSION['foto_user'] = $row['FOTO_USER'];
+            } else {
+                if($row['FOTO_USER'] == "") $_SESSION['foto_user'] = "gambar/user/user2-160x160.jpg"; else $_SESSION['foto_user'] = "gambar/user/".$row['FOTO_USER'];
+            }
+            // $_SESSION['foto_user'] = $row['FOTO_USER'];
             $_SESSION['notif'] = true;
             if($query)
             header("location:../");

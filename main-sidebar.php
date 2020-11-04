@@ -2,7 +2,7 @@
 	<section class="sidebar">
 	<div class="user-panel">
 		<div class="pull-left image">
-		<img src="<?php if ($dir != $root_folder) echo "../"; ?>gambar/user/<?php if($_SESSION['foto_user'] == "") echo "user2-160x160.jpg"; else echo $_SESSION['foto_user']; ?>" class="img-circle" alt="User Image">
+		<img src="<?php if(substr($row['FOTO_USER'], 0, 4) == "http") { echo $_SESSION['foto_user']; } else { if ($dir != $root_folder) echo "../"; echo $_SESSION['foto_user']; } ?>" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
 		<p><?php echo $_SESSION['nama_user']; ?></p>

@@ -4,7 +4,7 @@
     setlocale(LC_NUMERIC, 'INDONESIA');
     $root_folder = basename(__DIR__);
     
-    $koneksi = mysqli_connect("localhost","root","","gki_aset");
+    $koneksi = mysqli_connect("e-care.cciibmbisxy8.ap-southeast-1.rds.amazonaws.com","admin","anel2204","gki_aset");
     
     function randString($length) {
         $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -67,7 +67,11 @@
             $_SESSION['nama_user'] = $row['NAMA_LENGKAP'];
         }
         if($_SESSION['foto_user'] != $row['FOTO_USER']) {
-            $_SESSION['foto_user'] = $row['FOTO_USER'];
+            if(substr($row['FOTO_USER'], 0, 4) == "http") {
+                $_SESSION['foto_user'] = $row['FOTO_USER'];
+            } else {
+                if($row['FOTO_USER'] == "") $_SESSION['foto_user'] = "gambar/user/user2-160x160.jpg"; else $_SESSION['foto_user'] = "gambar/user/".$row['FOTO_USER'];
+            }
         }
     }
 

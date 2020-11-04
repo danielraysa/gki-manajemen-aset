@@ -38,7 +38,7 @@
                     <span id="errmsg"></span>
                 </div>
                 <div class="form-group">
-                    <label>Tanggal Pinjam - Kembali:</label>
+                    <label>Tanggal Pinjam:</label>
                     <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
@@ -47,12 +47,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Tanggal Pinjam - Kembali:</label>
+                    <label>Tanggal Kembali:</label>
                     <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control" id="reservation" name="tgl_pinjam" required>
+                    <input type="text" class="form-control" id="reservation1" name="tgl_kembali" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -132,7 +132,7 @@
             <div class="modal-body">
                 <!-- <form action="" method="post"> -->
                 <input type="hidden" id="id_reject" name="id"/>
-                Tolak pengajuan peminjaman? Beri alasan/keterangan sebagai informasi bagi peminjam
+                <p>Tolak pengajuan peminjaman? Beri alasan/keterangan sebagai informasi bagi peminjam</p>
                 <textarea class="form-control" id="keterangan_tolak_pengadaan" name="keterangan" rows="3" placeholder="Keterangan"></textarea>
                 <!-- </form> -->
             </div>

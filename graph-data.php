@@ -35,10 +35,10 @@ if(isset($_POST['item_ruangan'])) {
 
 if(isset($_POST['komisi'])) {
     // $query = mysqli_query($koneksi, "SELECT d.ID_KOMISI as id_komisi, r.NAMA_KOMISI as komisi, COUNT(d.ID_KOMISI) as jumlah FROM daftar_aset d JOIN komisi_jemaat r ON d.ID_KOMISI = r.ID_KOMISI GROUP BY d.ID_KOMISI");
-    $query = mysqli_query($koneksi, "SELECT KODE_KOMISI, KOMISI, count(*) JUMLAH FROM daftar_baru GROUP BY KODE_KOMISI, KOMISI");
+    $query = mysqli_query($koneksi, "SELECT k.KODE_KOMISI, k.NAMA_KOMISI, count(d.KODE_KOMISI) JUMLAH FROM daftar_baru d JOIN komisi_jemaat k ON d.KODE_KOMISI = k.KODE_KOMISI GROUP BY k.KODE_KOMISI");
     $data = array();
     while($result = mysqli_fetch_array($query)){
-        $inc = array('id' => $result['KODE_KOMISI'], 'komisi' => $result['KOMISI'], 'jumlah' => $result['JUMLAH']);
+        $inc = array('id' => $result['KODE_KOMISI'], 'komisi' => $result['NAMA_KOMISI'], 'jumlah' => $result['JUMLAH']);
         array_push($data, $inc);
     }
 

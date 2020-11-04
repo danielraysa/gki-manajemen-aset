@@ -23,9 +23,9 @@
 <!-- page script -->
 <script>
 $('#example1').DataTable({
-'autoWidth': true,
-'responsive': true,
-"scrollX": true
+	'autoWidth': true,
+	'responsive': true,
+	"scrollX": true
 });
 $('#example2').DataTable({
 	'paging'      : true,
@@ -56,8 +56,8 @@ $('.item-notif').on('click', function(){
 	type: "POST",
 	data: {id_notif: id, tabel: tabel},
 	success: function (result) {
-		console.log(result)
-	}
+			console.log(result)
+		}
 	});
 });
 $('.modalDetail').click(function () {

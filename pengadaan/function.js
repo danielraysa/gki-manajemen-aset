@@ -407,6 +407,23 @@ $(document).ready(function() {
     var kode5 = "";
     $('#kode_aset').val(kode1+kode2+kode3+kode4+kode5);
 
+    $('.select-item').change(function () {
+        //var id = $(this).attr('data-id');
+        var id = $(this).val();
+        console.log(id);
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: "id-insert=" + id,
+            success: function (result) {
+                console.log(result)
+                var data = JSON.parse(result);
+                $('#id_aset').val(data.id);
+                $('#nama_aset').val(data.nama);
+                $('#harga_aset').val(data.harga);
+            }
+        });
+    });
     $('.insert-item').click(function () {
         //var id = $(this).attr('data-id');
         var id = $(this).val();
