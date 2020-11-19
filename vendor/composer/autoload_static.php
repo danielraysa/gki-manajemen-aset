@@ -15,6 +15,10 @@ class ComposerStaticInitfa5baf8e9e76fcf480d13479b8dd184b
         array (
             'SMSGatewayMe\\Client\\' => 20,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
@@ -29,6 +33,10 @@ class ComposerStaticInitfa5baf8e9e76fcf480d13479b8dd184b
         'SMSGatewayMe\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/smsgatewayme/client/lib',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Composer\\Installers\\' => 
         array (

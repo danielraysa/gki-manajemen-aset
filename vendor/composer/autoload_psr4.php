@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Twilio\\' => array($vendorDir . '/twilio/sdk/src/Twilio'),
     'SMSGatewayMe\\Client\\' => array($vendorDir . '/smsgatewayme/client/lib'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );
