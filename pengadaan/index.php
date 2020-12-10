@@ -3,6 +3,7 @@
 	
 	if (!isset($_SESSION['login_user'])) {
 		header("location:../index.php");
+        exit;
 	}
 	if(!isset($_SESSION['temp_item'])) {
 		$_SESSION['temp_item'] = array();

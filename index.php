@@ -2,11 +2,12 @@
     session_start();
     if (!isset($_SESSION['login_user'])) {
         header("location:login/");
+        exit;
     }
     /* if(!isset($_SESSION["cart_item"])) {
 		$_SESSION["cart_item"] = array();
     } */
-    setlocale (LC_TIME, 'INDONESIAN');
+    
     $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>

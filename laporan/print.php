@@ -3,6 +3,7 @@
     
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
+        exit;
     }
     $dir = basename(__DIR__);
 ?>

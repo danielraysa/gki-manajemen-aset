@@ -1,11 +1,9 @@
 <?php
-    session_start();
-    setlocale (LC_TIME, 'INDONESIAN');
-    setlocale(LC_NUMERIC, 'INDONESIA');
-    date_default_timezone_set("Asia/Jakarta");
+    session_start();  
     
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
+        exit;
     }
     if(!isset($_SESSION['temp_hapus'])) {
       $_SESSION['temp_hapus'] = array();

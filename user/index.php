@@ -2,9 +2,10 @@
     session_start();
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
+        exit;
     }
     
-    setlocale(LC_NUMERIC, 'INDONESIA');
+    
     
     $dir = basename(__DIR__);
 ?>

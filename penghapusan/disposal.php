@@ -2,12 +2,12 @@
     session_start();
     if (!isset($_SESSION['login_user'])) {
         header("location:../index.php");
+        exit;
     }
     if(!isset($_SESSION['temp_hapus'])) {
       $_SESSION['temp_hapus'] = array();
     }
-    setlocale(LC_TIME, 'INDONESIA');
-    setlocale(LC_NUMERIC, 'INDONESIA');
+    
     $dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
