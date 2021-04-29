@@ -1,10 +1,6 @@
 <?php
     session_start();
-    include "../connection.php";
-    date_default_timezone_set("Asia/Jakarta");
-    setlocale(LC_TIME, 'INDONESIA');
-    setlocale(LC_NUMERIC, 'INDONESIA');
-    
+    include "../connection.php";    
     
     if(isset($_POST['add_barang'])) {
         $nama = $_POST['nama'];

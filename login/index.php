@@ -1,6 +1,6 @@
 <?php 
 	include "../connection.php"; 
-$dir = basename(__DIR__); 
+	$dir = basename(__DIR__);
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@ $dir = basename(__DIR__);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<title><?php echo loadKonfigurasi("nama_web"); ?></title>
-	<link rel="icon" href="<?php if ($dir != "gki-sarpras") echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_icon"); ?>">
+	<link rel="icon" href="<?php if ($dir != $root_folder) echo "../"; ?>gambar/konfig/<?php echo loadKonfigurasi("logo_icon"); ?>">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.7 -->
@@ -40,80 +40,84 @@ $dir = basename(__DIR__);
 			url('../fonts/source-sans-pro-v12-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 		}
 		body {
-		background-image: url("GKI-Sidoarjo-Baru-ok.jpg");
-		background-size: cover;
-		background-repeat: no-repeat;
-		height: 100%;
-		background-color: grey;
-		background-blend-mode: soft-light;
+			background-image: url("GKI-Sidoarjo-Baru-ok.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
+			/* height: 100%; */
+			background-color: grey;
+			background-blend-mode: soft-light;
 		}
 		/* .g-signin2 {
 		width: 100%;
 		} */
 		.g-signin2 > div {
-		margin: 0 auto;
+			margin: 0 auto;
+		}
+		.login-box{
+			margin: auto;
+			padding-top: 8rem;
 		}
 	</style>
 	</head>
 	<body class="">
-	<div class="login-box">
-	<div class="login-logo">
-		<a href="#"><b>GKI</b>Sarpras</a>
-	</div>
+		<div class="login-box">
+			<div class="login-logo">
+				<a href="#"><b>GKI</b>Sarpras</a>
+			</div>
 
-	<div class="login-box-body">
-		<?php
-		if (isset($_GET['error'])) {
-		?>
-		<div class="alert alert-danger alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-		<i class="icon fa fa-ban"></i>
-		Kombinasi username/password salah</div>
-		<?php
-		}
-		?>
-		<?php
-		if (isset($_GET['no-input'])) {
-		?>
-		<div class="alert alert-danger alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-		<i class="icon fa fa-ban"></i>
-		Username/password tidak boleh kosong</div>
-		<?php
-		}
-		?>
-		<p class="login-box-msg">Sign in to start your session</p>
-		<form action="login-check.php" method="post">
-		<div class="form-group has-feedback">
-			<input type="text" class="form-control" placeholder="Username" name="username">
-			<span class="glyphicon glyphicon-user form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<input type="password" class="form-control" id="pwd" placeholder="Password" name="password">
-			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-		</div>
-		<div class="row">
-			<div class="col-sm-8 col-xs-12">
-			<div class="form-group">
-				<input type="checkbox" class="minimal" id="password_check"> Show password
-			</div>
-			</div>
-			
-			<div class="col-sm-4 col-xs-12">
-			<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-			</div> 
-		</div>
-		<div class="row">
-			<div class="col-xs-12">
-			<center><b>or Login using</b></center>
-			<div style="margin:10px;" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-			</div>
-		</div>
-		</form>
+			<div class="login-box-body">
+				<?php
+				if (isset($_GET['error'])) {
+				?>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<i class="icon fa fa-ban"></i> Kombinasi username/password salah
+				</div>
+				<?php
+				}
+				?>
+				<?php
+				if (isset($_GET['no-input'])) {
+				?>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<i class="icon fa fa-ban"></i> Username/password tidak boleh kosong
+				</div>
+				<?php
+				}
+				?>
+				<p class="login-box-msg">Sign in to start your session</p>
+				<form action="login-check.php" method="post">
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" placeholder="Username" name="username">
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input type="password" class="form-control" id="pwd" placeholder="Password" name="password">
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				</div>
+				<div class="row">
+					<div class="col-sm-8 col-xs-12">
+						<div class="form-group">
+							<input type="checkbox" class="minimal" id="password_check"> Show password
+						</div>
+					</div>
+					
+					<div class="col-sm-4 col-xs-12">
+						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+					</div> 
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<center><b>or Login using</b></center>
+						<div style="margin:10px;" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+					</div>
+				</div>
+				</form>
 
-	</div>
-	<!-- /.login-box-body -->
-	</div>
+			</div>
+		<!-- /.login-box-body -->
+		</div>
 	<!-- /.login-box -->
 
 	<!-- jQuery 3 -->

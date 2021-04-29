@@ -2,6 +2,7 @@
     session_start();
     if (!isset($_SESSION['login_user'])) {
       header("location:../index.php");
+        exit;
     }
     if(!isset($_SESSION['item_pinjam'])) {
       $_SESSION['item_pinjam'] = array();

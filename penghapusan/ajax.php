@@ -1,9 +1,7 @@
 <?php
     session_start();
     include "../connection.php";
-    date_default_timezone_set("Asia/Jakarta");
-    setlocale(LC_NUMERIC, 'INDONESIA');
-    setlocale(LC_TIME, 'INDONESIA');
+    
     // kosongin item
     if(isset($_POST['empty'])){
         unset($_SESSION['temp_hapus']);

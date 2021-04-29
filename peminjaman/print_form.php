@@ -1,7 +1,6 @@
 <?php
 session_start();
-setlocale (LC_TIME, 'INDONESIAN');
-date_default_timezone_set("Asia/Jakarta");
+
 //$id = $_GET['print_id'];
 $id = $_SESSION['print_id'];
 use setasign\Fpdi\Fpdi;
@@ -25,7 +24,7 @@ $pdf->addPage('P','A5');
 //$pdf->useTemplate($pageId);
 $pdf->useImportedPage($pageId, 0, 0);
 $pdf->SetTitle('Form Pengajuan Peminjaman');
-setlocale (LC_TIME, 'INDONESIAN');
+
 //$date = strftime("%d %B %Y", time());
 $pdf->SetFont('Times','',12);
 $pdf->Text(55, 48, $row['NAMA_LENGKAP']);
@@ -71,13 +70,13 @@ $fill=false; // to give alternate background fill color to rows
 /// each record is one row
 $no = 1;
 while ($row = mysqli_fetch_array($count)) {
-$pdf->SetX(15);
-$pdf->Cell($width_cell[0],10,$no,1,0,'C',$fill);
-$pdf->Cell($width_cell[1],10,$row['NAMA_BARANG'],1,0,'C',$fill);
-$pdf->Cell($width_cell[2],10,$row['MERK'],1,1,'C',$fill);
-//$pdf->Cell($width_cell[3],10,$row['TANGGALSELEKSI'],1,1,'C',$fill);
-$no++;
-$fill = !$fill; // to give alternate background fill  color to rows
+    $pdf->SetX(15);
+    $pdf->Cell($width_cell[0],10,$no,1,0,'C',$fill);
+    $pdf->Cell($width_cell[1],10,$row['NAMA_BARANG'],1,0,'C',$fill);
+    $pdf->Cell($width_cell[2],10,$row['MERK'],1,1,'C',$fill);
+    //$pdf->Cell($width_cell[3],10,$row['TANGGALSELEKSI'],1,1,'C',$fill);
+    $no++;
+    $fill = !$fill; // to give alternate background fill  color to rows
 }
 
 $pdf->Output('I', 'FORM_PEMINJAMAN.pdf');
