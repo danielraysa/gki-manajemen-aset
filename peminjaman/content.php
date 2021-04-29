@@ -106,7 +106,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Nomor Peminjam:</label>
+                <label>Nomor HP:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>

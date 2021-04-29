@@ -55,14 +55,15 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example1" class="table table-bordered table-hover table-responsive" style="width:100%">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-hover" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
                                         <th>Tgl Pengajuan</th>
-                                        <th>Pemohon</th>
-                                        <th>No. HP</th>
+                                        <th>Pemohon / No. HP</th>
                                         <th>Tgl Pakai</th>
+                                        <th>List Item</th>
                                         <th>Keterangan</th>
                                         <th>Status Pengajuan</th>
                                         <th>Action</th>
@@ -78,9 +79,18 @@
                                     <tr>
                                         <td><?php echo $a; ?></td>
                                         <td><?php echo tglIndo_full($row['tanggal_pengajuan']); ?></td>
-                                        <td><?php echo $row['nama_lengkap']; ?></td>
-                                        <td><?php echo $row['no_hp']; ?></td>
+                                        <td><?php echo $row['nama_lengkap']." (".$row['no_hp'].")"; ?></td>
                                         <td><?php echo tglIndo($row['tanggal_peminjaman'])." - ".tglIndo($row['tanggal_pengembalian']); ?></td>
+                                        <td>
+                                        <ul style="padding-left: 2rem;">
+                                        <?php
+                                            $query_item = mysqli_query($koneksi, "SELECT db.nama_barang from detail_peminjaman dp JOIN daftar_baru db ON dp.ID_ASET = db.ID_ASET where ID_PEMINJAMAN = '".$row['id_peminjaman']."'");
+                                            while($_row = mysqli_fetch_array($query_item)){
+                                                echo "<li>". $_row['nama_barang'] ."</li>";
+                                            }
+                                        ?>
+                                        </ul>
+                                        </td>
                                         <td><?php echo $row['keterangan_pinjam']; ?></td>
                                         <td>
                                             <?php
@@ -129,6 +139,7 @@
                                 </tbody>
                                 
                             </table>
+                        </div>
                         </div>
                     </div>
                 </div>
