@@ -51,7 +51,7 @@
     "jquery-form-validator": "^2.3.79",
     "jquery-knob": "^1.2.11",
     "jquery-sparkline": "^2.4.0",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.0",
     "jvectormap": "^2.0.4",
     "lodash": "^4.17.15",
     "lodash.merge": "^4.6.2",
