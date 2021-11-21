@@ -70,8 +70,7 @@
                                 </div>
                                 <select class="form-control select2" id="merk_aset" name="merk" style="width: 100%;" aria-hidden="true">
                                     <?php
-                                    $data = mysqli_query($koneksi, "SELECT * FROM merk");
-                                    while ($row = mysqli_fetch_array($data)) {
+                                    while ($row = mysqli_fetch_array($_merk)) {
                                     ?>
                                     <option value="<?php echo $row['ID_MERK']; ?>"><?php echo $row['NAMA_MERK']; ?></option>
                                     <?php
@@ -100,8 +99,7 @@
                                 </div>
                                 <select class="form-control select2" id="ruangan_aset" name="ruangan_aset" style="width: 100%;">
                                     <?php
-                                    $data = mysqli_query($koneksi, "SELECT * FROM ruangan");
-                                    while ($row = mysqli_fetch_array($data)) {
+                                    while ($row = mysqli_fetch_array($_ruangan)) {
                                     ?>
                                     <option value="<?php echo $row['ID_RUANGAN']; ?>" data-ruang="<?php echo $row['KODE_RUANGAN']; ?>"><?php echo $row['NAMA_RUANGAN']; ?></option>
                                     <?php
@@ -121,8 +119,7 @@
                                 </div>
                                 <select class="form-control select2" id="komisi_aset" name="komisi" style="width: 100%;" aria-hidden="true">
                                     <?php
-                                    $data = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
-                                    while ($row = mysqli_fetch_array($data)) {
+                                    while ($row = mysqli_fetch_array($_komisi)) {
                                     ?>
                                     <option value="<?php echo $row['ID_KOMISI']; ?>" data-komisi="<?php echo $row['KODE_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']." (".$row['KODE_KOMISI'].")"; ?></option>
                                     <?php

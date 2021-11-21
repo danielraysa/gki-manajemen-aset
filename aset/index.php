@@ -7,6 +7,9 @@
     
     $dir = basename(__DIR__);
 	$_status = mysqli_query($koneksi, "SELECT * FROM status");
+	$_merk = mysqli_query($koneksi, "SELECT * FROM merk");
+	$_ruangan = mysqli_query($koneksi, "SELECT * FROM ruangan");
+	$_komisi = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
 ?>
 <!DOCTYPE html>
 <html>
