@@ -4,7 +4,8 @@
         header("location:../index.php");
         exit;
     }
-    
+    include "../connection.php";
+
     $dir = basename(__DIR__);
 	$_status = mysqli_query($koneksi, "SELECT * FROM status");
 	$_merk = mysqli_query($koneksi, "SELECT * FROM merk");
@@ -15,7 +16,6 @@
 <html>
 
 <head>
-	<?php include "../connection.php"; ?>
 	<?php include "../css-script.php"; ?>
 </head>
 
