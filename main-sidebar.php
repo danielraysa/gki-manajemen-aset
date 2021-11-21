@@ -49,8 +49,8 @@
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li class="<?php if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
-			<li class="<?php if ($file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah dari Jemaat</a></li>
+			<li class="<?php if (isset($file) && $file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
+			<li class="<?php if (isset($file) && $file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah dari Jemaat</a></li>
 		</ul>
 		<!-- <a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/">
 			<i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
@@ -74,8 +74,8 @@
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li class="<?php if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-calendar text-red"></i> Penjadwalan Pemeliharaan</a></li>
-			<li class="<?php if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-gear text-yellow"></i> Pemeliharaan</a></li>
+			<li class="<?php // if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-calendar text-red"></i> Penjadwalan Pemeliharaan</a></li>
+			<li class="<?php // if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-gear text-yellow"></i> Pemeliharaan</a></li>
 		</ul>
 		</li> -->
 		<li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
@@ -91,8 +91,8 @@
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li class="<?php if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-tv text-red"></i> Usulan Penghapusan</a></li>
-			<li class="<?php if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-cubes text-yellow"></i> Penghapusan</a></li>
+			<li class="<?php //if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-tv text-red"></i> Usulan Penghapusan</a></li>
+			<li class="<?php //if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-cubes text-yellow"></i> Penghapusan</a></li>
 		</ul>
 		</li> -->
 	</ul>
