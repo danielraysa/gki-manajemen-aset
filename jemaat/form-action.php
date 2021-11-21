@@ -54,7 +54,7 @@
         else {
             // $query_insert = "UPDATE daftar_aset SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
             $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
-            $insert = mysqli_query($koneksi, $query_insert);
+            $insert = mysqli_query($koneksi, );
         }
     
         if($insert) {

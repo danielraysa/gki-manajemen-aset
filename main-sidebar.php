@@ -9,10 +9,6 @@
 		<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 		</div>
 	</div>
-	<?php
-	// Anggota MJ
-	if($_SESSION['role'] == "Anggota MJ") {
-	?>
 	<ul class="sidebar-menu" data-widget="tree">
 		<li class="header">MAIN NAVIGATION</li>
 		<li class="<?php if ($dir == $root_folder) echo "active"; ?>">
@@ -20,6 +16,10 @@
 			<i class="fa fa-home"></i> <span>Home</span>
 		</a>
 		</li>
+	<?php
+	// Anggota MJ
+	if($_SESSION['role'] == "Anggota MJ") {
+	?>
 		<li class="treeview <?php if ($dir == "barang" || $dir == "kategori" || $dir == "merk" || $dir == "ruangan" || $dir == "komisi" || $dir == "status" || $dir == "user") echo "active"; ?>">
 		<a href="#">
 			<i class="fa fa-laptop text-red"></i>
@@ -39,6 +39,11 @@
 		<li class="<?php if ($dir == "aset") echo "active"; ?>">
 		<a href="<?php if ($dir != $root_folder) echo "../"; ?>aset/">
 			<i class="fa fa-barcode"></i> <span>Daftar Aset</span>
+		</a>
+		</li>
+		<li class="<?php if ($dir == "jemaat") echo "active"; ?>">
+		<a href="<?php if ($dir != $root_folder) echo "../"; ?>jemaat/">
+			<i class="fa fa-users"></i> <span>Data Jemaat</span>
 		</a>
 		</li>
 		<li class="treeview <?php if ($dir == "pengadaan") echo "active"; ?>">
@@ -95,20 +100,11 @@
 			<li class="<?php //if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-cubes text-yellow"></i> Penghapusan</a></li>
 		</ul>
 		</li> -->
-	</ul>
 	<?php
 	}
 	// Ketua MJ
 	if($_SESSION['role'] == "Ketua MJ") {
 	?>
-	<ul class="sidebar-menu" data-widget="tree">
-		<li class="header">MAIN NAVIGATION</li>
-		<li class="<?php if ($dir == $root_folder) echo "active"; ?>">
-		<a href="<?php if ($dir != $root_folder) echo "../"; ?>index.php">
-			<i class="fa fa-home"></i> <span>Home</span>
-		</a>
-		</li>
-		
 		<li class="<?php if ($dir == "aset") echo "active"; ?>">
 		<a href="<?php if ($dir != $root_folder) echo "../"; ?>aset/">
 			<i class="fa fa-barcode"></i> <span>Daftar Aset</span>
@@ -144,57 +140,32 @@
 			<i class="fa fa-gear"></i> <span>Konfigurasi</span>
 		</a>
 		</li>
-	</ul>
 	<?php
 	}
 	// Peminjam
 	if($_SESSION['role'] == "Peminjam") {
 	?>
-	<ul class="sidebar-menu" data-widget="tree">
-		<li class="header">MAIN NAVIGATION</li>
-		<li class="<?php if ($dir == $root_folder) echo "active"; ?>">
-		<a href="<?php if ($dir != $root_folder) echo "../"; ?>index.php">
-			<i class="fa fa-home"></i> <span>Home</span>
-		</a>
-		</li>
 		<li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
 		<a href="<?php if ($dir != $root_folder) echo "../"; ?>peminjaman/">
 			<i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
 		</a>
 		</li>
 		
-	</ul>
 	<?php
 	}
 	// Staff Kantor
 	if($_SESSION['role'] == "Staff Kantor") {
 	?>
-	<ul class="sidebar-menu" data-widget="tree">
-		<li class="header">MAIN NAVIGATION</li>
-		<li class="<?php if ($dir == $root_folder) echo "active"; ?>">
-		<a href="<?php if ($dir != $root_folder) echo "../"; ?>index.php">
-			<i class="fa fa-home"></i> <span>Home</span>
-		</a>
-		</li>
 		<li class="<?php if ($dir == "peminjaman") echo "active"; ?>">
 		<a href="<?php if ($dir != $root_folder) echo "../"; ?>peminjaman/">
 			<i class="fa fa-edit text-teal"></i> <span>Peminjaman</span>
 		</a>
-		</li>
-		
-	</ul>
+		</li>	
 	<?php
 	}
 	// Admin
 	if($_SESSION['role'] == "Administrator") {
 	?>
-	<ul class="sidebar-menu" data-widget="tree">
-		<li class="header">MAIN NAVIGATION</li>
-		<li class="<?php if ($dir == $root_folder) echo "active"; ?>">
-		<a href="<?php if ($dir != $root_folder) echo "../"; ?>index.php">
-			<i class="fa fa-home"></i> <span>Home</span>
-		</a>
-		</li>
 		<li class="treeview <?php if ($dir == "barang" || $dir == "kategori" || $dir == "merk" || $dir == "ruangan" || $dir == "komisi" || $dir == "status" || $dir == "user") echo "active"; ?>">
 		<a href="#">
 			<i class="fa fa-laptop text-red"></i>
@@ -223,9 +194,9 @@
 			<i class="fa fa-gear"></i> <span>Konfigurasi</span>
 		</a>
 		</li>
-	</ul>
 	<?php
 	}
 	?>
+	</ul>
 	</section>
 </aside>
