@@ -6,6 +6,7 @@
     }
     
     $dir = basename(__DIR__);
+	$_status = mysqli_query($koneksi, "SELECT * FROM status");
 ?>
 <!DOCTYPE html>
 <html>

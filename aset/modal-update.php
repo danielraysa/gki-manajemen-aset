@@ -40,8 +40,7 @@
                                     </div>
                                 <select class="form-control select2" id="status_aset" name="status" style="width: 100%;"  aria-hidden="true">
                                     <?php
-                                    $data = mysqli_query($koneksi, "SELECT * FROM status");
-                                    while ($row = mysqli_fetch_array($data)) {
+                                    while ($row = mysqli_fetch_array($_status)) {
                                     ?>
                                     <option value="<?php echo $row['ID_STATUS']; ?>"><?php echo $row['NAMA_STATUS']; ?></option>
                                     <?php
