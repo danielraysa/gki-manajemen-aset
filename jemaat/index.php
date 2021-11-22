@@ -75,11 +75,8 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="box">
-							<div class="box-header">
-
-							</div>
-							<!-- /.box-header -->
 							<div class="box-body">
+								<button type="button" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-test"><i class="fa fa-plus-circle"></i> Tambah Data</button>
 								<div class="table-responsive">
 									<table id="example1" class="table table-bordered table-hover" style="width: 100%">
 										<thead>
@@ -95,7 +92,6 @@
 										</thead>
 										<tbody>
 											<?php
-												$a = 1;
 												while($row = mysqli_fetch_array($query)) {
 											?>
 											<tr>
@@ -106,11 +102,10 @@
 												<td><?php echo $row['no_telp']; ?></td>
 												<td><?php echo $row['alamat']; ?></td>
 												<td>
-													<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['no_induk']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+													<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['id_jemaat']; ?>"><i class="fa fa-pencil"></i> Edit</button>
 												</td>
 											</tr>
 											<?php
-												$a++;
 												}
 											?>
 										</tbody>
@@ -130,27 +125,7 @@
 						<?php include "modal-update.php"; ?>
 					</div>
 				</div>
-				<div class="modal fade" id="modal-delete">
-					<div class="modal-dialog modal-sm">
-						<form action="form-action.php" method="post">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">×</span></button>
-									<h4 class="modal-title">Hapus Data Kategori</h4>
-								</div>
-								<div class="modal-body">
-									<input type="hidden" id="id-komisi" class="form-control" name="id_komisi" value="">
-									Hapus item ini?
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-									<button type="submit" class="btn btn-primary" name="delete">Hapus</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
+				
 			</section>
 			<!-- /.content -->
 		</div>
@@ -179,7 +154,46 @@
 	<?php
     }
     ?>
-
+	<script>
+		var tabel = null;
+		$(document).ready(function() {
+			tabel = $('#example1').DataTable({
+				"processing": true,
+				"serverSide": true,
+				"ordering": true, // Set true agar bisa di sorting
+				"order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+				"ajax":
+				{
+					"url": "ajax.php", // URL file untuk proses select datanya
+					"type": "POST"
+				},
+				"deferRender": true,
+				"aLengthMenu": [[5, 10, 50],[ 5, 10, 50]], // Combobox Limit
+				"columns": [
+					{ "data": "nis" }, // Tampilkan nis
+					{ "data": "nama" },  // Tampilkan nama
+					{ "render": function ( data, type, row ) {  // Tampilkan jenis kelamin
+							var html = ""
+							if(row.jenis_kelamin == 1){ // Jika jenis kelaminnya 1
+								html = 'Laki-laki' // Set laki-laki
+				}else{ // Jika bukan 1
+								html = 'Perempuan' // Set perempuan
+							}
+							return html; // Tampilkan jenis kelaminnya
+						}
+					},
+					{ "data": "telp" }, // Tampilkan telepon
+					{ "data": "alamat" }, // Tampilkan alamat
+					{ "render": function ( data, type, row ) { // Tampilkan kolom aksi
+							var html  = "<a href=''>EDIT</a> | "
+							html += "<a href=''>DELETE</a>"
+							return html
+						}
+					},
+				],
+			});
+		});
+	</script>
 </body>
 
 </html>

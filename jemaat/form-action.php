@@ -3,67 +3,59 @@
     include "../connection.php";
 
     if(isset($_POST['edit'])) {
-        $id_aset = $_POST['id_aset'];
-        echo "id: ".$id_aset."<br>";
-        $nama_aset = $_POST['nama'];
-        $kode_aset = $_POST['kode'];
-        
-        $merk = $_POST['merk'];
-        echo "merk: ".$merk."<br>";
-        $serimodel = $_POST['serimodel'];
-        $komisi = $_POST['komisi'];
-        echo "komisi: ".$komisi."<br>";
-        $ruangan = $_POST['ruangan_aset'];
-        echo "ruangan: ".$ruangan."<br>";
-        $status = $_POST['status'];
-        echo "status: ".$status."<br>";
-        
-        //echo $new_tanggal;
-        $pinjam = 0;
-        if(isset($_POST['pinjam'])) {
-            $pinjam = 1;
+        // echo "<pre>";
+        // var_dump($_POST);
+        $id_jemaat = !isset($_POST['id_jemaat']) ? null : $_POST['id_jemaat'];
+        $no_induk = !isset($_POST['no_induk']) ? null : $_POST['no_induk'];
+        $nama_lengkap = !isset($_POST['nama_lengkap']) ? null : $_POST['nama_lengkap'];
+        $jenis_kelamin = !isset($_POST['jenis_kelamin']) ? null : $_POST['jenis_kelamin'];
+        $alamat = !isset($_POST['alamat']) ? null : $_POST['alamat'];
+        $gol_darah = !isset($_POST['gol_darah']) ? null : $_POST['gol_darah'];
+        $pekerjaan = !isset($_POST['pekerjaan']) ? null : $_POST['pekerjaan'];
+        $tanggal_pernikahan = !isset($_POST['tanggal_pernikahan']) ? null : $_POST['tanggal_pernikahan'];
+        $tempat_lahir = !isset($_POST['tempat_lahir']) ? null : $_POST['tempat_lahir'];
+        $tanggal_lahir = !isset($_POST['tanggal_lahir']) ? null : $_POST['tanggal_lahir'];
+        $kelompok_jemaat = !isset($_POST['kelompok_jemaat']) ? null : $_POST['kelompok_jemaat'];
+        $baptis_tempat = !isset($_POST['baptis_tempat']) ? null : $_POST['baptis_tempat'];
+        $baptis_tanggal = !isset($_POST['baptis_tanggal']) ? null : $_POST['baptis_tanggal'];
+        $sidi_tempat = !isset($_POST['sidi_tempat']) ? null : $_POST['sidi_tempat'];
+        $sidi_tanggal = !isset($_POST['sidi_tanggal']) ? null : $_POST['sidi_tanggal'];
+        $atestasi_masuk_asal = !isset($_POST['atestasi_masuk_asal']) ? null : $_POST['atestasi_masuk_asal'];
+        $atestasi_masuk_tanggal = !isset($_POST['atestasi_masuk_tanggal']) ? null : $_POST['atestasi_masuk_tanggal'];
+        $atestasi_keluar_tujuan = !isset($_POST['atestasi_keluar_tujuan']) ? null : $_POST['atestasi_keluar_tujuan'];
+        $atestasi_keluar_tanggal = !isset($_POST['atestasi_keluar_tanggal']) ? null : $_POST['atestasi_keluar_tanggal'];
+        $status_meninggal = !isset($_POST['status_meninggal']) ? null : $_POST['status_meninggal'];
+        $no_telp = !isset($_POST['no_telp']) ? null : $_POST['no_telp'];
+        $email = !isset($_POST['email']) ? null : $_POST['email'];
+        $keluar = !isset($_POST['keluar']) ? null : $_POST['keluar'];
+        $update_data = false;
+        if($id_jemaat == null){
+            $sql = "INSERT INTO data_jemaat(no_induk, nama_lengkap, jenis_kelamin, alamat, gol_darah, pekerjaan, tanggal_pernikahan, tempat_lahir, tanggal_lahir, kelompok_jemaat, baptis_tempat, baptis_tanggal, sidi_tempat, sidi_tanggal, atestasi_masuk_asal, atestasi_masuk_tanggal, atestasi_keluar_tujuan, atestasi_keluar_tanggal, status_meninggal, no_telp, email, keluar) VALUES ('".$no_induk."','".$nama_lengkap."','".$jenis_kelamin."','".$alamat."','".$gol_darah."','".$pekerjaan."','".$tanggal_pernikahan."','".$tempat_lahir."','".$tanggal_lahir."','".$kelompok_jemaat."','".$baptis_tempat."','".$baptis_tanggal."','".$sidi_tempat."','".$sidi_tanggal."','".$atestasi_masuk_asal."','".$atestasi_masuk_tanggal."','".$atestasi_keluar_tujuan."','".$atestasi_keluar_tanggal."','".$status_meninggal."','".$no_telp."','".$email."','".$keluar."')";
+        }else{
+            $update_data = true;
+            $sql = "UPDATE data_jemaat SET no_induk = '".$no_induk."',nama_lengkap = '".$nama_lengkap."',jenis_kelamin = '".$jenis_kelamin."',alamat = '".$alamat."',gol_darah = '".$gol_darah."',pekerjaan = '".$pekerjaan."',tanggal_pernikahan = '".$tanggal_pernikahan."',tempat_lahir = '".$tempat_lahir."',tanggal_lahir = '".$tanggal_lahir."',kelompok_jemaat = '".$kelompok_jemaat."',baptis_tempat = '".$baptis_tempat."',baptis_tanggal = '".$baptis_tanggal."',sidi_tempat = '".$sidi_tempat."',sidi_tanggal = '".$sidi_tanggal."',atestasi_masuk_asal = '".$atestasi_masuk_asal."',atestasi_masuk_tanggal = '".$atestasi_masuk_tanggal."',atestasi_keluar_tujuan = '".$atestasi_keluar_tujuan."',atestasi_keluar_tanggal = '".$atestasi_keluar_tanggal."',status_meninggal = '".$status_meninggal."',no_telp = '".$no_telp."',email = '".$email."',keluar = '".$keluar."' WHERE id_jemaat = $id_jemaat";
         }
-        echo "pinjam = ".$pinjam."<br>";
 
-        if(isset($_FILES['foto']['name'])){
-            $newfilename = $_FILES['foto']['name'];
-            $target_dir = "../gambar/aset/";
-            $imageFileType = pathinfo($newfilename,PATHINFO_EXTENSION);
-            $is_unique = false;
-            while(!$is_unique) {
-                // $select = mysqli_query($koneksi, "SELECT * FROM daftar_aset WHERE FOTO_ASET = '".$newfilename."'");
-                $select = mysqli_query($koneksi, "SELECT * FROM daftar_baru WHERE FOTO_ASET = '".$newfilename."'");
-                if(mysqli_num_rows($select) >= 1) {
-                    $newfilename = uniqid();
-                    $newfilename = $newfilename.".".$imageFileType;
-                }
-                else {
-                    $is_unique = true;
-                }
-            }
-            $target_file = $target_dir.basename($newfilename);
-            $uploadOk = 1;
-            if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_file)){
-                echo "uploaded to server, filename : ".$newfilename;
-            }
-            // $query_insert = "UPDATE daftar_aset SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."', FOTO_ASET = '".$newfilename."' WHERE ID_ASET = '".$id_aset."'";
-            $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."', FOTO_ASET = '".$newfilename."' WHERE ID_ASET = '".$id_aset."'";
-
-            $insert = mysqli_query($koneksi, $query_insert);
-        }    
-        else {
-            // $query_insert = "UPDATE daftar_aset SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
-            $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
-            $insert = mysqli_query($koneksi, );
-        }
+        // echo $query;
+        // echo "</pre>";
+        // exit;
+        $query = mysqli_query($koneksi, $sql);
     
-        if($insert) {
-            $_SESSION['success-msg'] = "Sukses mengubah data aset.";
-            header("location: ../aset?edit");
+        if($query) {
+            $message = "Sukses menambah data.";
+            $status = "success";
+            if($update_data){
+                $message = "Sukses memperbarui data.";
+                $status = "edit";
+            }
+            $_SESSION['success-msg'] = $message;
+            header("location: ../jemaat?$status");
+            exit;
         }
         else {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
-            header("location: ../aset?error");
+            header("location: ../jemaat?error");
+            exit;
         }
     }
 

@@ -3,9 +3,9 @@
     setlocale(LC_NUMERIC, 'INDONESIA');
     setlocale(LC_TIME, 'INDONESIAN');
     date_default_timezone_set("Asia/Jakarta");
-    
+    $log_date = date('Y-m-d');
     ini_set("log_errors", 1);
-    ini_set("error_log", __DIR__."/errors/php-error.log");
+    ini_set("error_log", __DIR__."/errors/error-$log_date.log");
     ini_set('display_errors', 1); 
     ini_set('display_startup_errors', 1); 
     // error_reporting(E_ALL);

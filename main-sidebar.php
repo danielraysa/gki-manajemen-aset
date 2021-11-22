@@ -43,7 +43,7 @@
 		</li>
 		<li class="<?php if ($dir == "jemaat") echo "active"; ?>">
 		<a href="<?php if ($dir != $root_folder) echo "../"; ?>jemaat/">
-			<i class="fa fa-users"></i> <span>Data Jemaat</span>
+			<i class="fa fa-users text-success"></i> <span>Data Jemaat</span>
 		</a>
 		</li>
 		<li class="treeview <?php if ($dir == "pengadaan") echo "active"; ?>">
