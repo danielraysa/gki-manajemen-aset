@@ -78,7 +78,7 @@
 							<div class="box-body">
 								<button type="button" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-test"><i class="fa fa-plus-circle"></i> Tambah Data</button>
 								<div class="table-responsive">
-									<table id="example1" class="table table-bordered table-hover" style="width: 100%">
+									<table id="exampleAjax" class="table table-bordered table-hover" style="width: 100%">
 										<thead>
 											<tr>
 												<th>No. Induk</th>
@@ -92,21 +92,21 @@
 										</thead>
 										<tbody>
 											<?php
-												while($row = mysqli_fetch_array($query)) {
+												//while($row = mysqli_fetch_array($query)) {
 											?>
-											<tr>
-												<td><?php echo $row['no_induk'] == null ? '-' : str_pad($row['no_induk'], 6, "0", STR_PAD_LEFT); ?></td>
-												<td><?php echo $row['nama_lengkap']; ?></td>
-												<td><?php echo $row['jenis_kelamin']; ?></td>
-												<td><?php echo $row['kelompok_jemaat']; ?></td>
-												<td><?php echo $row['no_telp']; ?></td>
-												<td><?php echo $row['alamat']; ?></td>
+											<!-- <tr>
+												<td><?php // echo $row['no_induk'] == null ? '-' : str_pad($row['no_induk'], 6, "0", STR_PAD_LEFT); ?></td>
+												<td><?php // echo $row['nama_lengkap']; ?></td>
+												<td><?php // echo $row['jenis_kelamin']; ?></td>
+												<td><?php // echo $row['kelompok_jemaat']; ?></td>
+												<td><?php // echo $row['no_telp']; ?></td>
+												<td><?php // echo $row['alamat']; ?></td>
 												<td>
-													<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php echo $row['id_jemaat']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+													<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php //echo $row['id_jemaat']; ?>"><i class="fa fa-pencil"></i> Edit</button>
 												</td>
-											</tr>
+											</tr> -->
 											<?php
-												}
+												//}
 											?>
 										</tbody>
 									</table>
@@ -154,46 +154,6 @@
 	<?php
     }
     ?>
-	<script>
-		var tabel = null;
-		$(document).ready(function() {
-			tabel = $('#example1').DataTable({
-				"processing": true,
-				"serverSide": true,
-				"ordering": true, // Set true agar bisa di sorting
-				"order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
-				"ajax":
-				{
-					"url": "ajax.php", // URL file untuk proses select datanya
-					"type": "POST"
-				},
-				"deferRender": true,
-				"aLengthMenu": [[5, 10, 50],[ 5, 10, 50]], // Combobox Limit
-				"columns": [
-					{ "data": "nis" }, // Tampilkan nis
-					{ "data": "nama" },  // Tampilkan nama
-					{ "render": function ( data, type, row ) {  // Tampilkan jenis kelamin
-							var html = ""
-							if(row.jenis_kelamin == 1){ // Jika jenis kelaminnya 1
-								html = 'Laki-laki' // Set laki-laki
-				}else{ // Jika bukan 1
-								html = 'Perempuan' // Set perempuan
-							}
-							return html; // Tampilkan jenis kelaminnya
-						}
-					},
-					{ "data": "telp" }, // Tampilkan telepon
-					{ "data": "alamat" }, // Tampilkan alamat
-					{ "render": function ( data, type, row ) { // Tampilkan kolom aksi
-							var html  = "<a href=''>EDIT</a> | "
-							html += "<a href=''>DELETE</a>"
-							return html
-						}
-					},
-				],
-			});
-		});
-	</script>
 </body>
 
 </html>

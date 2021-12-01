@@ -1,4 +1,3 @@
-
 <!-- jQuery 3 -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -22,113 +21,113 @@
 <!-- page script -->
 <script>
   $('.select2').select2();
-  
-  $('#example1').DataTable({
-    'autoWidth': true,
-    'responsive': true,
-    'scrollX': true
-  })
-  $('#example2').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : true,
-    'responsive'  : true
-  })
-  $('#example3').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : false
+
+  $('#exampleAjax').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ordering": true, // Set true agar bisa di sorting
+    "order": [
+      [0, 'asc'],
+      [1, 'asc']
+    ], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+    "ajax": {
+      "url": "ajax.php", // URL file untuk proses select datanya
+      "type": "POST",
+      "data": {
+        datatable: true
+      }
+    },
+    "deferRender": true,
+    "aLengthMenu": [10, 20, 50], // Combobox Limit
+    "columns": [{
+        "data": "no_induk",
+        "render": function (data, type, row) {
+          return row.no_induk == null ? '-' : row.no_induk.padStart(6, '0');
+        }
+      },
+      {
+        "data": "nama_lengkap"
+      },
+      {
+        "data": "kelompok_jemaat"
+      },
+      {
+        "data": "jenis_kelamin",
+        "render": function (data, type, row) { // Tampilkan jenis kelamin
+          var html = ""
+          if (row.jenis_kelamin == 'L') { // Jika jenis kelaminnya L
+            html = 'Laki-laki' // Set laki-laki
+          } else { // Jika bukan L
+            html = 'Perempuan' // Set perempuan
+          }
+          return html; // Tampilkan jenis kelaminnya
+        }
+      },
+      {
+        "data": "no_telp"
+      }, // Tampilkan telepon
+      {
+        "data": "alamat"
+      }, // Tampilkan alamat
+      {
+        "render": function (data, type, row) { // Tampilkan kolom aksi
+          var html =
+            '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="' +
+            row.id_jemaat + '"><i class="fa fa-pencil"></i> Edit</button>'
+          //html += "<a href=''>DELETE</a>"
+          return html
+        }
+      },
+    ],
+  });
+
+  $('#exampleAjax').on('click', '.modalLink', function () {
+    var value = $(this).data('id');
+    $.ajax({
+      url: 'ajax.php',
+      type: 'POST',
+      data: {
+        id_jemaat: value
+      },
+      success: function (result) {
+        console.log(result)
+      }
+    })
   })
 
   $('#checkbox_pinjam').iCheck({
-      checkboxClass: 'icheckbox_minimal-green',
-      radioClass   : 'iradio_minimal-green'
-    });
+    checkboxClass: 'icheckbox_minimal-green',
+    radioClass: 'iradio_minimal-green'
+  });
   /* $('#modal-default').on('shown', function () {
   // initialize iCheck
     
   }) */
 
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-          $('#gambar_aset').attr('src', e.target.result);
-      }
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
 
-  $("#imgInp").change(function(){
-    var input = $(this),
-    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [label]);
-      //alert(label);
-      readURL(this);
-  });
-
-  // update with image
-	/* $('#example1').on('click','.modalLink', function(){
-		var id = $(this).attr('data-id');
-    console.log(id);
-    $('#id_aset').val(id);
-		$.ajax({
-			url:"ajax.php",
-			type: "POST",
-			data: "ID="+id,
-			success:function(result){
-				console.log(result)
-        var data = JSON.parse(result);
-        //$('#id_aset').val(id);
-        $('#nama_aset').val(data.nama);
-        $('#kode_aset').val(data.kode);
-        $('#seri_model').val(data.seri);
-        $('#ruangan_aset').val(data.ruangan);
-        $("#ruangan_aset").select2("destroy").select2();
-        $('#merk_aset').val(data.merk);
-        $("#merk_aset").select2("destroy").select2();
-        $('#komisi_aset').val(data.komisi);
-        $("#komisi_aset").select2("destroy").select2();
-        if(data.foto != 'blank') {
-          $('#gambar_aset').attr('src', '../gambar/aset/'+data.foto);
-        }
-        else {
-          $('#gambar_aset').attr('src', '');
-        }
-			}
-		});
-	}); */
-  
   $('.logout').on('click', function (event) {
-      event.preventDefault();
-      swal({
-          title: 'Apakah anda ingin keluar?',
+    event.preventDefault();
+    swal({
+      title: 'Apakah anda ingin keluar?',
       type: 'warning',
       showCancelButton: true,
       //confirmButtonColor: '#d9534f',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya',
       cancelButtonText: 'Tidak'
-      }).then((result) => {
-          if (result.value) {
-              swal({
-                  title: "Sukses",
-                    text: "Harap tunggu sejenak.",
-                  type: "success",
-                  timer: 2000,
-                  showConfirmButton: false
-                  }).then(function(){
-                      window.location.href = "../logout.php";
-                      //return false;
-                  })
-              }
-          }
-      )
+    }).then((result) => {
+      if (result.value) {
+        swal({
+          title: "Sukses",
+          text: "Harap tunggu sejenak.",
+          type: "success",
+          timer: 2000,
+          showConfirmButton: false
+        }).then(function () {
+          window.location.href = "../logout.php";
+          //return false;
+        })
+      }
+    })
   });
 </script>
