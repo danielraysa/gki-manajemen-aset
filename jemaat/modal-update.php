@@ -33,7 +33,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <select name="jenis_kelamin" class="form-control">
+                                <select id="jenis_kelamin" name="jenis_kelamin" class="form-control">
                                     <option value="L">Laki-laki</option>
                                     <option value="P">Perempuan</option>
                                 </select>

@@ -91,6 +91,32 @@
       },
       success: function (result) {
         console.log(result)
+        $('#id_jemaat').val(result.id_jemaat)
+        $('#no_induk').val(result.no_induk)
+        $('#nama_lengkap').val(result.nama_lengkap)
+        $('#jenis_kelamin').val(result.jenis_kelamin)
+        $('#no_telp').val(result.no_telp)
+        $('#alamat').val(result.alamat)
+        $('#kelompok_jemaat').val(result.kelompok_jemaat)
+        $('#tanggal_lahir').val(result.tanggal_lahir)
+        $('#tempat_lahir').val(result.tempat_lahir)
+        $('#baptis_tempat').val(result.baptis_tempat)
+        $('#baptis_tanggal').val(result.baptis_tanggal)
+        $('#sidi_tempat').val(result.sidi_tempat)
+        $('#sidi_tanggal').val(result.sidi_tanggal)
+        $('#email').val(result.email)
+        $('#gol_darah').val(result.gol_darah)
+        $('#pekerjaan').val(result.pekerjaan)
+        $('#tanggal_pernikahan').val(result.tanggal_pernikahan)
+        $('#atestasi_masuk_asal').val(result.atestasi_masuk_asal)
+        $('#atestasi_masuk_tanggal').val(result.atestasi_masuk_tanggal)
+        $('#atestasi_keluar_tujuan').val(result.atestasi_keluar_tujuan)
+        $('#atestasi_keluar_tanggal').val(result.atestasi_keluar_tanggal)
+        $('#checkbox_meninggal').val(result.checkbox_meninggal)
+        $('#checkbox_keluar').val(result.checkbox_keluar)
+      },
+      error: function(e){
+        console.log(e)
       }
     })
   })
