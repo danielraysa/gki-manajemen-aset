@@ -72,7 +72,7 @@
       {
         "render": function (data, type, row) { // Tampilkan kolom aksi
           var html =
-            '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="' +
+            '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-form" data-id="' +
             row.id_jemaat + '"><i class="fa fa-pencil"></i> Edit</button>'
           //html += "<a href=''>DELETE</a>"
           return html
@@ -121,7 +121,7 @@
     })
   })
 
-  $('#checkbox_pinjam').iCheck({
+  $('#checkbox_meninggal, #checkbox_keluar').iCheck({
     checkboxClass: 'icheckbox_minimal-green',
     radioClass: 'iradio_minimal-green'
   });
@@ -130,6 +130,9 @@
     
   }) */
 
+  $('#btnTambah').click(function(){
+    document.getElementById("formJemaat").reset();
+  });
 
   $('.logout').on('click', function (event) {
     event.preventDefault();

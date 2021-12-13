@@ -222,7 +222,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <input class="minimal" id="checkbox_meninggal" type="checkbox" name="status_meninggal" value="Ya"> Meninggal
+                            <input class="minimal" id="checkbox_meninggal" type="checkbox" name="meninggal" value="1"> Meninggal
+                            &nbsp;
                             <input class="minimal" id="checkbox_keluar" type="checkbox" name="keluar" value="1"> Keluar
                         </div>
                     </div>

@@ -76,7 +76,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="box">
 							<div class="box-body">
-								<button type="button" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-test"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+								<button type="button" id="btnTambah" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-form"><i class="fa fa-plus-circle"></i> Tambah Data</button>
 								<div class="table-responsive">
 									<table id="exampleAjax" class="table table-bordered table-hover" style="width: 100%">
 										<thead>
@@ -102,7 +102,7 @@
 												<td><?php // echo $row['no_telp']; ?></td>
 												<td><?php // echo $row['alamat']; ?></td>
 												<td>
-													<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="<?php //echo $row['id_jemaat']; ?>"><i class="fa fa-pencil"></i> Edit</button>
+													<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-form" data-id="<?php //echo $row['id_jemaat']; ?>"><i class="fa fa-pencil"></i> Edit</button>
 												</td>
 											</tr> -->
 											<?php
@@ -120,7 +120,7 @@
 				</div>
 			<!-- /.row -->
 			<!-- Modal -->
-				<div class="modal fade" id="modal-test">
+				<div class="modal fade" id="modal-form">
 					<div class="modal-dialog modal-lg">
 						<?php include "modal-update.php"; ?>
 					</div>
