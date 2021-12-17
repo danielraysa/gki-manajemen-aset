@@ -22,6 +22,11 @@
 <script>
   $('.select2').select2();
 
+  $('#checkbox_meninggal, #checkbox_keluar').iCheck({
+    checkboxClass: 'icheckbox_minimal-green',
+    radioClass: 'iradio_minimal-green'
+  });
+
   $('#exampleAjax').DataTable({
     "processing": true,
     "serverSide": true,
@@ -86,9 +91,7 @@
     $.ajax({
       url: 'ajax.php',
       type: 'POST',
-      data: {
-        id_jemaat: value
-      },
+      data: {id_jemaat: value},
       success: function (result) {
         console.log(result)
         $('#id_jemaat').val(result.id_jemaat)
@@ -112,23 +115,22 @@
         $('#atestasi_masuk_tanggal').val(result.atestasi_masuk_tanggal)
         $('#atestasi_keluar_tujuan').val(result.atestasi_keluar_tujuan)
         $('#atestasi_keluar_tanggal').val(result.atestasi_keluar_tanggal)
-        $('#checkbox_meninggal').val(result.checkbox_meninggal)
-        $('#checkbox_keluar').val(result.checkbox_keluar)
+        if(result.meninggal == "1"){
+          $('#checkbox_meninggal').iCheck('check')
+        }else{
+          $('#checkbox_meninggal').iCheck('uncheck')
+        }
+        if(result.keluar == "1"){
+          $('#checkbox_keluar').iCheck('check')
+        }else{
+          $('#checkbox_keluar').iCheck('uncheck')
+        }
       },
       error: function(e){
         console.log(e)
       }
     })
   })
-
-  $('#checkbox_meninggal, #checkbox_keluar').iCheck({
-    checkboxClass: 'icheckbox_minimal-green',
-    radioClass: 'iradio_minimal-green'
-  });
-  /* $('#modal-default').on('shown', function () {
-  // initialize iCheck
-    
-  }) */
 
   $('#btnTambah').click(function(){
     document.getElementById("formJemaat").reset();
