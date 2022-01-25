@@ -15,7 +15,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="no_induk" name="no_induk" placeholder="Nomor Induk" required>
+                                <input type="text" class="form-control" id="no_induk" name="no_induk" placeholder="Nomor Induk">
                             </div>  
                         </div>
                         <div class="form-group">
@@ -33,7 +33,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <select id="jenis_kelamin" name="jenis_kelamin" class="form-control">
+                                <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
                                     <option value="L">Laki-laki</option>
                                     <option value="P">Perempuan</option>
                                 </select>
@@ -45,7 +45,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="No. Telp" required>
+                                <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="No. Telp">
                             </div>
                         </div>
                         <div class="form-group">
@@ -105,7 +105,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="baptis_tempat" name="baptis_tempat" placeholder="Tanggal Baptis" >
+                                <input type="text" class="form-control" id="baptis_tempat" name="baptis_tempat" placeholder="Tanggal Baptis">
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,7 +114,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="date" class="form-control" id="baptis_tanggal" name="baptis_tanggal" placeholder="Tempat Baptis" >
+                                <input type="date" class="form-control" id="baptis_tanggal" name="baptis_tanggal" placeholder="Tempat Baptis">
                             </div>
                         </div>
                         <div class="form-group">
@@ -123,7 +123,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="sidi_tempat" name="sidi_tempat" placeholder="Tanggal Sidi" >
+                                <input type="text" class="form-control" id="sidi_tempat" name="sidi_tempat" placeholder="Tanggal Sidi">
                             </div>
                         </div>
                         <div class="form-group">
@@ -132,7 +132,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="date" class="form-control" id="sidi_tanggal" name="sidi_tanggal" placeholder="Tempat Sidi" >
+                                <input type="date" class="form-control" id="sidi_tanggal" name="sidi_tanggal" placeholder="Tempat Sidi">
                             </div>
                         </div>
                         <!-- <div class="form-group">
@@ -153,7 +153,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" >
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group">
@@ -162,7 +162,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="gol_darah" name="gol_darah" placeholder="Golongan Darah" >
+                                <input type="text" class="form-control" id="gol_darah" name="gol_darah" placeholder="Golongan Darah">
                             </div>
                         </div>
                         <div class="form-group">
@@ -180,7 +180,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="date" class="form-control" id="tanggal_pernikahan" name="tanggal_pernikahan" placeholder="Tanggal Pernikahan" >
+                                <input type="date" class="form-control" id="tanggal_pernikahan" name="tanggal_pernikahan" placeholder="Tanggal Pernikahan">
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="atestasi_masuk_asal" name="atestasi_masuk_asal" placeholder="Atestasi Masuk (Asal)" >
+                                <input type="text" class="form-control" id="atestasi_masuk_asal" name="atestasi_masuk_asal" placeholder="Atestasi Masuk (Asal)">
                             </div>
                         </div>
                         <div class="form-group">
@@ -200,7 +200,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="date" class="form-control" id="atestasi_masuk_tanggal" name="atestasi_masuk_tanggal" placeholder="Atestasi Masuk (Tanggal)" >
+                                <input type="date" class="form-control" id="atestasi_masuk_tanggal" name="atestasi_masuk_tanggal" placeholder="Atestasi Masuk (Tanggal)">
                             </div>
                         </div>
                         <div class="form-group">
@@ -209,7 +209,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="text" class="form-control" id="atestasi_keluar_tujuan" name="atestasi_keluar_tujuan" placeholder="Atestasi Keluar (Tujuan)" >
+                                <input type="text" class="form-control" id="atestasi_keluar_tujuan" name="atestasi_keluar_tujuan" placeholder="Atestasi Keluar (Tujuan)">
                             </div>
                         </div>
                         <div class="form-group">
@@ -218,13 +218,22 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-laptop"></i>
                                 </div>
-                                <input type="date" class="form-control" id="atestasi_keluar_tanggal" name="atestasi_keluar_tanggal" placeholder="Atestasi Keluar (Tanggal)" >
+                                <input type="date" class="form-control" id="atestasi_keluar_tanggal" name="atestasi_keluar_tanggal" placeholder="Atestasi Keluar (Tanggal)">
                             </div>
                         </div>
                         <div class="form-group">
                             <input class="minimal" id="checkbox_meninggal" type="checkbox" name="meninggal" value="1"> Meninggal
                             &nbsp;
                             <input class="minimal" id="checkbox_keluar" type="checkbox" name="keluar" value="1"> Keluar
+                        </div>
+                        <div class="form-group" id="form-meninggal">
+                            <label>Tanggal Meninggal:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-laptop"></i>
+                                </div>
+                                <input type="date" class="form-control" id="tanggal_meninggal" name="tanggal_meninggal" placeholder="Tanggal Meninggal">
+                            </div>
                         </div>
                     </div>
                 </div>

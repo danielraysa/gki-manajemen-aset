@@ -27,7 +27,23 @@
     radioClass: 'iradio_minimal-green'
   });
 
-  $('#exampleAjax').DataTable({
+  var params = {
+    'pekerjaan': 'Pekerjaan',
+    'gol_darah': 'Golongan Darah',
+    'kelompok_jemaat': 'Kelompok Jemaat',
+    'tempat_lahir': 'Tempat Lahir',
+    'tahun_lahir': 'Tahun Lahir',
+    'atestasi_masuk_asal': 'Atestasi Masuk Asal'
+  }
+  for (const key in params) {
+    if (Object.hasOwnProperty.call(params, key)) {
+      const element = params[key];
+      // console.log(element)
+      $('#filter').append(`<option value="${key}">${element}</option>`)
+    }
+  }
+
+  var data_table = $('#exampleAjax').DataTable({
     "processing": true,
     "serverSide": true,
     "ordering": true, // Set true agar bisa di sorting
@@ -39,10 +55,10 @@
       "url": "ajax.php", // URL file untuk proses select datanya
       "type": "POST",
       "data": {
-        datatable: true
+        datatable: true,
       }
     },
-    "deferRender": true,
+    // "deferRender": true,
     "aLengthMenu": [10, 20, 50], // Combobox Limit
     "columns": [{
         "data": "no_induk",
@@ -52,9 +68,6 @@
       },
       {
         "data": "nama_lengkap"
-      },
-      {
-        "data": "kelompok_jemaat"
       },
       {
         "data": "jenis_kelamin",
@@ -69,25 +82,28 @@
         }
       },
       {
+        "data": "kelompok_jemaat"
+      },
+      {
         "data": "no_telp"
-      }, // Tampilkan telepon
+      },
       {
         "data": "alamat"
-      }, // Tampilkan alamat
+      },
       {
         "render": function (data, type, row) { // Tampilkan kolom aksi
           var html =
             '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-form" data-id="' +
             row.id_jemaat + '"><i class="fa fa-pencil"></i> Edit</button>'
-          //html += "<a href=''>DELETE</a>"
           return html
         }
       },
     ],
   });
-
+  
   $('#exampleAjax').on('click', '.modalLink', function () {
-    var value = $(this).data('id');
+    let value = $(this).data('id');
+    load_first = false;
     $.ajax({
       url: 'ajax.php',
       type: 'POST',
@@ -100,7 +116,7 @@
         $('#jenis_kelamin').val(result.jenis_kelamin)
         $('#no_telp').val(result.no_telp)
         $('#alamat').val(result.alamat)
-        $('#kelompok_jemaat').val(result.kelompok_jemaat)
+        $('#kelompok_jemaat').val(result.kelompok_jemaat).trigger('change')
         $('#tanggal_lahir').val(result.tanggal_lahir)
         $('#tempat_lahir').val(result.tempat_lahir)
         $('#baptis_tempat').val(result.baptis_tempat)
@@ -115,10 +131,13 @@
         $('#atestasi_masuk_tanggal').val(result.atestasi_masuk_tanggal)
         $('#atestasi_keluar_tujuan').val(result.atestasi_keluar_tujuan)
         $('#atestasi_keluar_tanggal').val(result.atestasi_keluar_tanggal)
-        if(result.meninggal == "1"){
+        if(result.meninggal == "1" || result.status_meninggal != null){
+          $('#tanggal_meninggal').val(result.tanggal_meninggal)
           $('#checkbox_meninggal').iCheck('check')
+          $('#form-meninggal').show()
         }else{
           $('#checkbox_meninggal').iCheck('uncheck')
+          $('#form-meninggal').hide()
         }
         if(result.keluar == "1"){
           $('#checkbox_keluar').iCheck('check')
@@ -130,6 +149,18 @@
         console.log(e)
       }
     })
+  })
+
+  $('#search').click(function(){
+    let new_param = $('#filter').val()
+    let new_val = $('#filter_value').val()
+    data_table.ajax.url(`ajax.php?filter=${new_param}&value=${new_val}`).load()
+  })
+
+  $('#reset').click(function(){
+    $('#filter').val('')
+    $('#filter_value').val('')
+    data_table.ajax.url(`ajax.php`).load()
   })
 
   $('#btnTambah').click(function(){

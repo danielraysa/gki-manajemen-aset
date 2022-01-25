@@ -76,7 +76,23 @@
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="box">
 							<div class="box-body">
-								<button type="button" id="btnTambah" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-form"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+								<div class="row">
+									<div class="col-lg-2 col-sm-3">
+									<button type="button" id="btnTambah" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-form"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+									</div>
+									<div class="col-lg-3 col-sm-3">
+										<select name="filter" id="filter" class="form-control select2" style="width: 100%">
+											<option selected disabled>Filter:</option>
+										</select>
+									</div>
+									<div class="col-lg-3 col-sm-3">
+										<input type="text" id="filter_value" class="form-control" name="filter_value" />
+									</div>
+									<div class="col-lg-3 col-sm-3">
+										<button id="search" type="button" name="search" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
+										<button id="reset" type="reset" class="btn btn-danger">Reset</button>
+									</div>
+								</div>
 								<div class="table-responsive">
 									<table id="exampleAjax" class="table table-bordered table-hover" style="width: 100%">
 										<thead>

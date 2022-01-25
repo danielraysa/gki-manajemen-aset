@@ -25,8 +25,8 @@
         $status_meninggal = !isset($_POST['meninggal']) ? null : $_POST['meninggal'];
         $no_telp = !isset($_POST['no_telp']) ? null : $_POST['no_telp'];
         $email = !isset($_POST['email']) ? null : $_POST['email'];
-        $keluar = !isset($_POST['keluar']) ? null : $_POST['keluar'];
-        $update_data = false; */
+        $keluar = !isset($_POST['keluar']) ? null : $_POST['keluar']; */
+        $update_data = false;
         if($id_jemaat == null){ // insert data
             // $sql = "INSERT INTO data_jemaat(no_induk, nama_lengkap, jenis_kelamin, alamat, gol_darah, pekerjaan, tanggal_pernikahan, tempat_lahir, tanggal_lahir, kelompok_jemaat, baptis_tempat, baptis_tanggal, sidi_tempat, sidi_tanggal, atestasi_masuk_asal, atestasi_masuk_tanggal, atestasi_keluar_tujuan, atestasi_keluar_tanggal, status_meninggal, no_telp, email, keluar) VALUES ('".$no_induk."','".$nama_lengkap."','".$jenis_kelamin."','".$alamat."','".$gol_darah."','".$pekerjaan."','".$tanggal_pernikahan."','".$tempat_lahir."','".$tanggal_lahir."','".$kelompok_jemaat."','".$baptis_tempat."','".$baptis_tanggal."','".$sidi_tempat."','".$sidi_tanggal."','".$atestasi_masuk_asal."','".$atestasi_masuk_tanggal."','".$atestasi_keluar_tujuan."','".$atestasi_keluar_tanggal."','".$status_meninggal."','".$no_telp."','".$email."','".$keluar."')";
             $column = array();
@@ -39,7 +39,7 @@
             }
             $sql = "INSERT INTO data_jemaat (".implode(', ',$column).") VALUES (".implode(', ',$params).")";
         }else{
-            // $update_data = true;
+            $update_data = true;
             // $sql = "UPDATE data_jemaat SET no_induk = '".$no_induk."',nama_lengkap = '".$nama_lengkap."',jenis_kelamin = '".$jenis_kelamin."',alamat = '".$alamat."',gol_darah = '".$gol_darah."',pekerjaan = '".$pekerjaan."',tanggal_pernikahan = '".$tanggal_pernikahan."',tempat_lahir = '".$tempat_lahir."',tanggal_lahir = '".$tanggal_lahir."',kelompok_jemaat = '".$kelompok_jemaat."',baptis_tempat = '".$baptis_tempat."',baptis_tanggal = '".$baptis_tanggal."',sidi_tempat = '".$sidi_tempat."',sidi_tanggal = '".$sidi_tanggal."',atestasi_masuk_asal = '".$atestasi_masuk_asal."',atestasi_masuk_tanggal = '".$atestasi_masuk_tanggal."',atestasi_keluar_tujuan = '".$atestasi_keluar_tujuan."',atestasi_keluar_tanggal = '".$atestasi_keluar_tanggal."',status_meninggal = '".$status_meninggal."',no_telp = '".$no_telp."',email = '".$email."',keluar = '".$keluar."' WHERE id_jemaat = $id_jemaat";
             $params = array();
             foreach ($_POST as $key => $value) {
