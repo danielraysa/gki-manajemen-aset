@@ -103,7 +103,6 @@
   
   $('#exampleAjax').on('click', '.modalLink', function () {
     let value = $(this).data('id');
-    load_first = false;
     $.ajax({
       url: 'ajax.php',
       type: 'POST',
