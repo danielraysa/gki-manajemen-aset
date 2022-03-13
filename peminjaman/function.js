@@ -180,8 +180,8 @@ $('#btnSimpan').click(function () {
         }).then(function () {
           //window.location.href = 'print_form.php?print_id='+result; 
           //window.open('print_form.php?print_id='+result,'_blank'); // <- This is what makes it open in a new window.
-          location.reload();
           window.open('print_form.php','_blank');
+          location.reload();
         });
       }
     });

@@ -11,4 +11,5 @@ ad.js
 TODO
 test.html
 client_secret.json
-php-error.log
+/errors
+/vendor

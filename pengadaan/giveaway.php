@@ -28,8 +28,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tambah Aset Dari Jemaat
-        <!-- <small>Sarana Prasarana</small> -->
+        Tambah Aset Manual
       </h1>
       
     </section>
@@ -181,7 +180,7 @@
                                     <input type="text" class="form-control" id="seri_model" name="serimodel" placeholder="Seri/Model" required>
                                 </div>  
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Nama Pemberi:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -189,9 +188,9 @@
                                     </div>
                                     <input type="text" class="form-control" id="nama_pemberi" name="nama_pemberri" placeholder="Nama Pemberi" required>
                                 </div>  
-                            </div>
+                            </div> -->
                             <div class="form-group">
-                                <label>Tanggal Pemberian:</label>
+                                <label>Tanggal Pengadaan:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar-check-o"></i>
@@ -205,6 +204,28 @@
                             
                             <h3 class="box-title">Penempatan Aset</h3>
                             
+                            <div class="form-group">
+                                <label>Lokasi:</label>
+                                <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-laptop"></i>
+                                </div>
+                                <select class="form-control select2" id="lokasi_aset" name="lokasi_aset" style="width: 100%;">
+                                    <option value="">Pilih Ruangan</option>
+                                    <?php
+                                    $data = mysqli_query($koneksi, "SELECT * FROM lokasi");
+                                    while ($row = mysqli_fetch_array($data)) {
+                                    ?>
+                                    <option value="<?php echo $row['ID_LOKASI']; ?>" data-ruang="<?php echo $row['KODE_LOKASI']; ?>"><?php echo $row['NAMA_LOKASI']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lokasi"><i class="fa fa-plus"></i></button>
+                                </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Ruangan:</label>
                                 <div class="input-group">

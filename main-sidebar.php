@@ -20,7 +20,7 @@
 	// Anggota MJ
 	if($_SESSION['role'] == "Anggota MJ") {
 	?>
-		<li class="treeview <?php if ($dir == "barang" || $dir == "kategori" || $dir == "merk" || $dir == "ruangan" || $dir == "komisi" || $dir == "status" || $dir == "user") echo "active"; ?>">
+		<li class="treeview <?php if (in_array($dir, ["barang","kategori","merk","lokasi","ruangan","komisi","status","user"])) echo "active"; ?>">
 		<a href="#">
 			<i class="fa fa-laptop text-red"></i>
 			<span>Data Master</span>
@@ -32,6 +32,7 @@
 			<li class="<?php if ($dir == "barang") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>barang/"><i class="fa fa-tv text-red"></i> Barang</a></li>
 			<li class="<?php if ($dir == "kategori") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>kategori/"><i class="fa fa-cubes text-yellow"></i> Kategori Barang</a></li>
 			<li class="<?php if ($dir == "merk") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>merk/"><i class="fa fa-industry text-aqua"></i> Merk</a></li>
+			<li class="<?php if ($dir == "ruangan") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>lokasi/"><i class="fa fa-map-o text-red"></i> Lokasi</a></li>
 			<li class="<?php if ($dir == "ruangan") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>ruangan/"><i class="fa fa-map-o text-blue"></i> Ruangan</a></li>
 			<li class="<?php if ($dir == "komisi") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>komisi/"><i class="fa fa-group text-green"></i> Komisi Jemaat</a></li>
 		</ul>
@@ -55,7 +56,7 @@
 		</a>
 		<ul class="treeview-menu">
 			<li class="<?php if (isset($file) && $file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
-			<li class="<?php if (isset($file) && $file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah dari Jemaat</a></li>
+			<li class="<?php if (isset($file) && $file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah Aset Manual</a></li>
 		</ul>
 		<!-- <a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/">
 			<i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>
@@ -79,8 +80,8 @@
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li class="<?php // if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-calendar text-red"></i> Penjadwalan Pemeliharaan</a></li>
-			<li class="<?php // if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-gear text-yellow"></i> Pemeliharaan</a></li>
+			<li class="<?php // if ($file == "index.php") echo "active"; ?>"><a href="<?php //if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-calendar text-red"></i> Penjadwalan Pemeliharaan</a></li>
+			<li class="<?php // if ($file == "disposal.php") echo "active"; ?>"><a href="<?php //if ($dir != $root_folder) echo "../"; ?>pemeliharaan/"><i class="fa fa-gear text-yellow"></i> Pemeliharaan</a></li>
 		</ul>
 		</li> -->
 		<li class="<?php if ($dir == "penghapusan") echo "active"; ?>">
@@ -96,8 +97,8 @@
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li class="<?php //if ($file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-tv text-red"></i> Usulan Penghapusan</a></li>
-			<li class="<?php //if ($file == "disposal.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-cubes text-yellow"></i> Penghapusan</a></li>
+			<li class="<?php //if ($file == "index.php") echo "active"; ?>"><a href="<?php //if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-tv text-red"></i> Usulan Penghapusan</a></li>
+			<li class="<?php //if ($file == "disposal.php") echo "active"; ?>"><a href="<?php //if ($dir != $root_folder) echo "../"; ?>penghapusan/"><i class="fa fa-cubes text-yellow"></i> Penghapusan</a></li>
 		</ul>
 		</li> -->
 	<?php

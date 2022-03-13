@@ -4,11 +4,11 @@
     setlocale(LC_TIME, 'INDONESIAN');
     date_default_timezone_set("Asia/Jakarta");
     $log_date = date('Y-m-d');
+    error_reporting(E_ERROR | E_WARNING);
     ini_set("log_errors", 1);
     ini_set("error_log", __DIR__."/errors/error-$log_date.log");
-    ini_set('display_errors', 1); 
-    ini_set('display_startup_errors', 1); 
-    // error_reporting(E_ALL);
+    // ini_set('display_errors', 1); 
+    // ini_set('display_startup_errors', 1); 
     $root_folder = basename(__DIR__);
     
     $koneksi = mysqli_connect("localhost","root","","gki_aset");
@@ -32,17 +32,14 @@
 
     function randomID($table, $id_table, $char) {
         global $koneksi;
-        $random_id = randString($char);
         $is_unique = false;
         while (!$is_unique) {
+            $random_id = randString($char);
             $query = mysqli_query($koneksi,"SELECT * FROM ".$table." WHERE ".$id_table." = '".$random_id."'");
             if (mysqli_num_rows($query) == 0) {  
                 // if you don't get a result, then you're good
                 $is_unique = true;
                 return $random_id;
-            }
-            else {
-                $random_id = randString($char);
             }
         }
     }
