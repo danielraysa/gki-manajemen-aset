@@ -55,7 +55,7 @@
             $("#komisi_peminjam").select2("destroy").select2();
             $('#nohp').val('<?php echo $fetch['NO_HP']; ?>');
             $('#keterangan').val('<?php echo $fetch['KETERANGAN_PINJAM']; ?>');
-            //$('#reservation').daterangepicker({ startDate: '<?php echo $date1; ?>', endDate: '<?php echo $date2; ?>' });
+            //$('#reservation').daterangepicker({ startDate: '<?php //echo $date1; ?>', endDate: '<?php //echo $date2; ?>' });
             $('#reservation').data('daterangepicker').setStartDate('<?php echo $date1; ?>');
             $('#reservation').data('daterangepicker').setEndDate('<?php echo $date2; ?>');
         </script>

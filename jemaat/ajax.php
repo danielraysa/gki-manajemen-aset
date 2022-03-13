@@ -16,7 +16,7 @@
         $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
         $limit = $_POST['length']; // Ambil data limit per page
         $start = $_POST['start']; // Ambil data start
-        $sql = mysqli_query($koneksi, "SELECT * FROM data_jemaat"); // Query untuk menghitung seluruh data siswa
+        $sql = mysqli_query($koneksi, "SELECT * FROM data_jemaat"); // Query untuk menghitung seluruh data aset
         $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
         $query = "SELECT * FROM data_jemaat WHERE no_induk LIKE '%".$search."%' OR nama_lengkap LIKE '%".$search."%' OR no_telp LIKE '%".$search."%' OR alamat LIKE '%".$search."%'";
         if($param != null && $value != null){

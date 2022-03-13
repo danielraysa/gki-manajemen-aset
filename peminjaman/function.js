@@ -1,6 +1,105 @@
 $('.select2').select2();
 //$('.select2-selection').css('border-radius','0px')
 $('[data-toggle="tooltip"]').popover();
+
+var data_table = $('#exampleAjax').DataTable({
+  "processing": true,
+  "serverSide": true,
+  "ordering": true, // Set true agar bisa di sorting
+  "order": [
+    [0, 'asc'],
+    [1, 'asc']
+  ], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+  "ajax": {
+    "url": "ajax.php", // URL file untuk proses select datanya
+    "type": "POST",
+    "data": {
+      datatable: true,
+    }
+  },
+  // "deferRender": true,
+  "aLengthMenu": [10, 20, 50], // Combobox Limit
+  "columns": [{
+      "data": "KODE_BARANG",
+    },
+    {
+      "data": "NAMA_BARANG"
+    },
+    {
+      "data": "MERK"
+    },
+    {
+      "data": "LOKASI_BARANG"
+    },
+    {
+      "data": "KOMISI"
+    },
+    /* {
+      "data": "jenis_kelamin",
+      "render": function (data, type, row) { // Tampilkan jenis kelamin
+        var html = ""
+        if (row.jenis_kelamin == 'L') { // Jika jenis kelaminnya L
+          html = 'Laki-laki' // Set laki-laki
+        } else { // Jika bukan L
+          html = 'Perempuan' // Set perempuan
+        }
+        return html; // Tampilkan jenis kelaminnya
+      }
+    },
+    {
+      "data": "kelompok_jemaat"
+    },
+    {
+      "data": "no_telp"
+    },
+    {
+      "data": "alamat"
+    }, */
+    {
+      "render": function (data, type, row) { // Tampilkan kolom aksi
+        let html = '<button type="button" data-id="' + row.ID_ASET + '" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button>'
+        return html
+      }
+    },
+  ],
+});
+
+var data_table_pinjam = $('#tabelPinjam').DataTable({
+  "processing": true,
+  "serverSide": true,
+  "ordering": true, // Set true agar bisa di sorting
+  "order": [
+    [0, 'asc'],
+    [1, 'asc']
+  ], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+  "ajax": {
+    "url": "ajax.php", // URL file untuk proses select datanya
+    "type": "POST",
+    "data": {
+      datatable: true,
+      pinjam: true,
+    }
+  },
+  // "deferRender": true,
+  "aLengthMenu": [10, 20, 50], // Combobox Limit
+  "columns": [{
+      "data": "KODE_BARANG",
+    },
+    {
+      "data": "NAMA_BARANG"
+    },
+    {
+      "data": "MERK"
+    },
+    {
+      "render": function (data, type, row) { // Tampilkan kolom aksi
+        let html = '<button type="button" data-id="' + row.ID_ASET + '" class="btn btn-danger btn-block remove"><i class="fa fa-trash"></i> Hapus</button>'
+        return html
+      }
+    },
+  ],
+});
+
 $('#example1').DataTable({
   'paging': true,
   'ordering': true,
@@ -60,19 +159,28 @@ $('#reservation').daterangepicker({
   }
 });
 
-$('#tgl_pinjam').daterangepicker({
+var picker_tglpinjam = $('#tgl_pinjam').daterangepicker({
   singleDatePicker: true,
   autoclose: true,
   locale: {
     format: 'DD/MM/YYYY'
   }
 });
-$('#tgl_kembali').daterangepicker({
+var picker_tglkembali = $('#tgl_kembali').daterangepicker({
   singleDatePicker: true,
   autoclose: true,
   locale: {
     format: 'DD/MM/YYYY'
   }
+});
+
+picker_tglpinjam.on('apply.daterangepicker', function(ev, picker) {
+  console.log(picker.startDate.format('YYYY-MM-DD'));
+  console.log(picker.endDate.format('YYYY-MM-DD'));
+});
+picker_tglkembali.on('apply.daterangepicker', function(ev, picker) {
+  $('#tgl_kembali').val(picker.startDate.format('DD/MM/YYYY'));
+  // console.log(picker.endDate.format('YYYY-MM-DD'));
 });
 
 $('#realisasi_pengembalian').datepicker({
@@ -85,8 +193,8 @@ $('#nohp').keypress(function (e) {
   if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
      //display error message
     $("#errmsg").html("Input berupa angka").show().fadeOut(2000);
-      return false;
- }
+    return false;
+  }
 });
 function validationMessage() {
   //var inpObj = document.getElementById("id1");
@@ -101,7 +209,7 @@ $('.emptyData').on('click', function () {
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "empty",
+    data: {empty: true},
     success: function (result) {
       //console.log(id);
       location.reload();
@@ -110,29 +218,34 @@ $('.emptyData').on('click', function () {
 });
 
 //Tambah Pinjam
-$('#example1').on('click', '.addPinjam', function () {
+$('#example1,#exampleAjax').on('click', '.addPinjam', function () {
   var id = $(this).attr('data-id');
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "add-pinjam=" + id,
+    // data: "add-pinjam=" + id,
+    data: {add_pinjam: id},
     success: function (result) {
-      //console.log(result);
-      location.reload();
+      // location.reload();
+      // data_table.ajax.reload();
+      data_table_pinjam.ajax.reload();
     }
   });
+  $(this).parent().parent().remove();
 });
 
 //Hapus Item
-$('.remove').on('click', function () {
+$('#example1,#tabelPinjam').on('click', '.remove', function () {
   var id = $(this).attr('data-id');
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "hapus_item=" + id,
+    data: {hapus_item: id},
     success: function (result) {
       //console.log(result);
-      location.reload();
+      // location.reload();
+      data_table.ajax.reload();
+      data_table_pinjam.ajax.reload();
     }
   });
 });
@@ -142,7 +255,7 @@ $('#btnSimpan').click(function () {
   var komisi = $('#komisi_peminjam').val();
   var no_hp = $('#nohp').val();
   var tgl = $('#tgl_pinjam').val();
-  var tgl2 = $('#tgl_pinjam').val();
+  var tgl2 = $('#tgl_kembali').val();
   var ket = $('#keterangan').val();
   //alert(peminjam+" / "+komisi+" / "+no_hp);
   //alert(komisi+" / "+no_hp);
@@ -242,7 +355,7 @@ $('.modalDetail').click(function () {
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "usulan_pinjam_cek=" + id,
+    data: {usulan_pinjam_cek: id},
     success: function (result) {
       console.log(result)
       var data = JSON.parse(result);
@@ -258,7 +371,7 @@ $('.modalPinjam').click(function () {
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "usulan_pinjam=" + id,
+    data: {usulan_pinjam: id},
     success: function (result) {
       console.log(result)
       var data = JSON.parse(result);
@@ -280,7 +393,7 @@ $('#btnApprove').click(function () {
   $.ajax({
     url: "ajax.php",
     type: "GET",
-    data: "approve=" + id,
+    data: {approve: id},
     success: function (result) {
       console.log(result);
       swal({
@@ -307,7 +420,7 @@ $('#btnReject').click(function () {
   $.ajax({
     url: "ajax.php",
     type: "GET",
-    data: "reject=" + id,
+    data: {reject: id},
     success: function (result) {
       console.log(result);
       swal({
@@ -334,7 +447,7 @@ $('.modalKembali').click(function () {
   $.ajax({
     url: "ajax.php",
     type: "POST",
-    data: "cek_pinjam=" + id,
+    data: {cek_pinjam: id},
     success: function (result) {
       console.log(result);
       var data = JSON.parse(result);

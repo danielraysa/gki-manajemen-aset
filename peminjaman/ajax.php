@@ -10,27 +10,6 @@
     use SMSGatewayMe\Client\Api\MessageApi;
     use SMSGatewayMe\Client\Model\SendMessageRequest;
 
-    // Update the path below to your autoload.php,
-    // see https://getcomposer.org/doc/01-basic-usage.md
-    use Twilio\Rest\Client;
-    
-    // Find your Account Sid and Auth Token at twilio.com/console
-    // DANGER! This is insecure. See http://twil.io/secure
-    $sid    = "AC11c4a6659b166118f38b4c28767ed8c3";
-    $token  = "fa8e8ee787be28cc1b1e28f457590a38";
-    // $twilio = new Client($sid, $token);
-    //new number +12019480809
-    //"from" => "whatsapp:+14155238886",
-    /* $message = $twilio->messages
-                        ->create("whatsapp:+6282230143314", // to
-                                array(
-                                    "from" => "whatsapp:+6289624762088",
-                                    "body" => "Hello there! This is Twilio API"
-                                )
-                        );
-    
-    print($message->sid); */
-
     // Configure client
     $config = Configuration::getDefaultConfiguration();
     $config->setApiKey('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTU1NjIyMDUyMywiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjYzMjA3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.TxSPGIZqTbeKu_vcN0jGdX04eZ0DoTt-dhn1fwI82jc');
@@ -42,8 +21,84 @@
         unset($_SESSION['item_pinjam']);
     }
 
-    if(isset($_POST['add-pinjam'])) {
-        $id = $_POST['add-pinjam'];
+    if(isset($_POST['datatable']) && isset($_POST['pinjam'])){
+        $_sql = "SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1";
+        if(isset($_SESSION['item_pinjam']) && !empty($_SESSION['item_pinjam'])){
+            $arr_pinjam = array();
+            foreach ($_SESSION["item_pinjam"] as $key => $select){
+                array_push($arr_pinjam, $select['id_aset']);
+            }
+            $_sql .= " AND ID_ASET IN ('".implode( "', '", $arr_pinjam) . "')";
+        } else {
+            $_sql .= " AND 1 != 1";
+        }
+        $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
+        $limit = $_POST['length']; // Ambil data limit per page
+        $start = $_POST['start']; // Ambil data start
+        $sql = mysqli_query($koneksi, $_sql); // Query untuk menghitung seluruh data aset
+        $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
+        $query = $_sql." AND (KODE_BARANG LIKE '%".$search."%' OR NAMA_BARANG LIKE '%".$search."%')";
+        
+        $order_index = $_POST['order'][0]['column']; // Untuk mengambil index yg menjadi acuan untuk sorting
+        $order_field = $_POST['columns'][$order_index]['data']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
+        $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
+        $order = " ORDER BY ".$order_field." ".$order_ascdesc;
+        $sql_data = mysqli_query($koneksi, $query.$order." LIMIT ".$limit." OFFSET ".$start); // Query untuk data yang akan di tampilkan
+        $sql_filter = mysqli_query($koneksi, $query); // Query untuk count jumlah data sesuai dengan filter pada textbox pencarian
+        $sql_filter_count = mysqli_num_rows($sql_filter); // Hitung data yg ada pada query $sql_filter
+        $data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); // Untuk mengambil data hasil query menjadi array
+        $callback = array(
+            'draw'=>$_POST['draw'], // Ini dari datatablenya
+            'recordsTotal'=>$sql_count,
+            'recordsFiltered'=>$sql_filter_count,
+            'data'=>$data
+        );
+        echo json_encode($callback); // Convert array $callback ke json
+        exit;
+        // $query = mysqli_query($koneksi, $_sql);
+    }
+
+    if(isset($_POST['datatable'])){
+        $_sql = "SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1";
+        if(isset($_SESSION['item_pinjam']) && !empty($_SESSION['item_pinjam'])){
+            $arr_pinjam = array();
+            foreach ($_SESSION["item_pinjam"] as $key => $select){
+                array_push($arr_pinjam, $select['id_aset']);
+            }
+            $_sql .= " AND ID_ASET NOT IN ('".implode( "', '", $arr_pinjam) . "')";
+        }
+        $param = $_GET['filter'];
+        $value = $_GET['value'];
+        $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
+        $limit = $_POST['length']; // Ambil data limit per page
+        $start = $_POST['start']; // Ambil data start
+        $sql = mysqli_query($koneksi, $_sql); // Query untuk menghitung seluruh data aset
+        $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
+        $query = $_sql." AND (KODE_BARANG LIKE '%".$search."%' OR NAMA_BARANG LIKE '%".$search."%')";
+        if($param != null && $value != null){
+            $query = "SELECT * FROM daftar_baru WHERE ${param} like '%${value}%' and (KODE_BARANG LIKE '%".$search."%' OR NAMA_BARANG LIKE '%".$search."%')";
+        }
+        $order_index = $_POST['order'][0]['column']; // Untuk mengambil index yg menjadi acuan untuk sorting
+        $order_field = $_POST['columns'][$order_index]['data']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
+        $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
+        $order = " ORDER BY ".$order_field." ".$order_ascdesc;
+        $sql_data = mysqli_query($koneksi, $query.$order." LIMIT ".$limit." OFFSET ".$start); // Query untuk data yang akan di tampilkan
+        $sql_filter = mysqli_query($koneksi, $query); // Query untuk count jumlah data sesuai dengan filter pada textbox pencarian
+        $sql_filter_count = mysqli_num_rows($sql_filter); // Hitung data yg ada pada query $sql_filter
+        $data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); // Untuk mengambil data hasil query menjadi array
+        $callback = array(
+            'draw'=>$_POST['draw'], // Ini dari datatablenya
+            'recordsTotal'=>$sql_count,
+            'recordsFiltered'=>$sql_filter_count,
+            'data'=>$data
+        );
+        echo json_encode($callback); // Convert array $callback ke json
+        exit;
+        // $query = mysqli_query($koneksi, $_sql);
+    }
+
+    if(isset($_POST['add_pinjam'])) {
+        $id = $_POST['add_pinjam'];
         $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE ID_ASET = '".$id."'");
         $fet = mysqli_fetch_array($query);
         $kode_aset = $fet['KODE_BARANG'];
@@ -275,15 +330,6 @@
         $id = $_POST['id_peminjaman'];
         $select = mysqli_query($koneksi, "SELECT * FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'");
         $row = mysqli_fetch_array($select);
-        $twilio = new Client($sid, $token);
-        $message = $twilio->messages
-                    ->create("whatsapp:+6289624762088", // to
-                            array(
-                                "from" => "whatsapp:+12019480809",
-                                "body" => "Hello there! This is Twilio API"
-                            )
-                    );
-        print($message->sid);
     }
 
     if(isset($_POST['update_pinjam'])){

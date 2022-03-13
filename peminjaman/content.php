@@ -56,6 +56,7 @@
               <h3 class="box-title">Data Peminjaman</h3>
             </div>
             <div class="box-body">
+              <p>Diisi apabila sudah memilih barang yang akan dipinjam</p>
             <!-- <form action="form-action.php" method="post"> -->
               <!-- <div class="form-group">
                 <label>Peminjam:</label>
@@ -147,12 +148,12 @@
               <?php if(isset($_GET['edit'])){
                   ?>
                   <input type="hidden" id="id_peminjaman_edit" name="edit_peminjaman" value=<?php echo $_GET['edit']; ?> />
-                  <button <?php if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" id="btnUpdate" name="update-pinjam">Simpan Perubahan</button>
+                  <button class="btn btn-success btn-block" id="btnUpdate" name="update-pinjam">Simpan Perubahan</button>
                   <?php
                   }
                   else {
                   ?>
-                  <button <?php if(empty($_SESSION['item_pinjam'])) echo "disabled"; ?> class="btn btn-success btn-block" id="btnSimpan" name="simpan-pinjam">Simpan</button>
+                  <button class="btn btn-success btn-block" id="btnSimpan" name="simpan-pinjam">Simpan</button>
                   <?php
                     }
                   ?>
@@ -171,19 +172,19 @@
             
             <!-- /.box-header -->
           <div class="box-body">
-            <table id="example2" class="table table-bordered table-hover table-responsive" style="width: 100%">
+            <table id="tabelPinjam" class="table table-bordered table-hover table-responsive" style="width: 100%">
                 <thead>
                 <tr>
-                <th>No.</th>
+                <!-- <th>No.</th> -->
                 <th>Kode Aset</th>
                 <th>Nama Aset</th>
-                <th>Barang</th>
+                <th>Merk</th>
                 <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
                     //include('plugins/phpqrcode/qrlib.php');
-                    $a = 1;
+                    /* $a = 1;
                     //foreach ($_SESSION["cart_item"] as $select){
                       if(isset($_GET['edit'])){
                         $id = $_GET['edit'];
@@ -203,18 +204,18 @@
                           $_SESSION['item_pinjam'] = $temp_edit;
                         }
                     }
-                    foreach ($_SESSION["item_pinjam"] as $key => $select){
+                    foreach ($_SESSION["item_pinjam"] as $key => $select){ */
                   ?>
-                  <tr>
+                  <!-- <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $select['kode_aset']; ?></td>
                     <td><?php echo $select['nama_barang']; ?></td>
                     <td><?php echo $select['merk']; ?></td>
                     <td><button type="button" data-id="<?php echo $select['id_aset']; ?>" class="btn btn-danger btn-block remove"><i class="fa fa-trash"></i> Hapus</button></td>
-                  </tr>
+                  </tr> -->
                   <?php
-                    $a++;
-                    }
+                    //$a++;
+                    //}
                   ?>
                 </tbody>
                 
@@ -235,10 +236,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover table-responsive" style="width: 100%">
+              <table id="exampleAjax" class="table table-bordered table-hover table-responsive" style="width: 100%">
                 <thead>
                   <tr>
-                    <th>No.</th>
                     <th>Kode Aset</th>
                     <th>Nama Aset</th>
                     <th>Merk</th>
@@ -248,37 +248,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php
-                  //include('plugins/phpqrcode/qrlib.php');
-                  $a = 1;
-                  if(empty($_SESSION['item_pinjam'])){
-                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1");
-                  }
-                  else {
-                    $arr = array();
-                    foreach ($_SESSION["item_pinjam"] as $key => $select){
-                      array_push($arr, $select['id_aset']);
-                    }
-                    $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1 AND ID_ASET NOT IN ( '" . implode( "', '" , $arr ) . "' )");
-                    //$sql = "SELECT * FROM albums WHERE name NOT IN ( '" . implode( "', '" , $ban_album_names ) . "' )";
-                  }
-                  while ($row = mysqli_fetch_array($query)) {
-                    ?>
-                    <tr>
-                      <td><?php echo $a; ?></td>
-                      <td><?php echo $row['KODE_BARANG']; ?></td>
-                      <td><?php echo $row['NAMA_BARANG']; ?></td>
-                      <td><?php echo $row['MERK']; ?></td>
-                      <td><?php echo $row['LOKASI_BARANG']; ?></td>
-                      <td><?php echo $row['KOMISI']; ?></td>
-                      <!-- <td><?php echo $row['STATUS_ASET']; ?></td> -->
-                      
-                      <td><button type="button" data-id="<?php echo $row['ID_ASET']; ?>" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button></td>
-                    </tr>
-                    <?php
-                      $a++;
-                      }
-                    ?>
+                
                 </tbody>
                 
               </table>

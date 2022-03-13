@@ -25,9 +25,7 @@
     "issues": "https://github.com/almasaeed2010/AdminLTE/issues"
   },
   "require": {
-    "composer/installers": "1.*",
     "smsgatewayme/client": "^0.0.1",
-    "twilio/sdk": "^5.38",
     "phpmailer/phpmailer": "^6.1"
   },
   "repositories": [

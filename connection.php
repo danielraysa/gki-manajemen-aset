@@ -11,7 +11,7 @@
     // ini_set('display_startup_errors', 1); 
     $root_folder = basename(__DIR__);
     
-    $koneksi = mysqli_connect("localhost","root","","gki_aset");
+    $koneksi = mysqli_connect("trialscode.my.id","daniel","anel2204","gki_aset");
     
     function randString($length) {
         $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
