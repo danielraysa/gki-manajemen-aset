@@ -15,17 +15,16 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<!-- <script src="dist/js/demo.js"></script> -->
 
 <script src="bower_components/chart.js/Chart-2.8.0.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script> -->
 <script src="graph.js"></script>
 <!-- page script -->
 <script>
 $('#example1').DataTable({
 	'autoWidth': true,
 	'responsive': true,
-	"scrollX": true
+	'scrollX': true
 });
 $('#example2').DataTable({
 	'paging'      : true,
@@ -52,10 +51,10 @@ $('.item-notif').on('click', function(){
 	var id = "<?php echo $_SESSION['id_user']; ?>";
 	var tabel = $(this).attr('id');
 	$.ajax({
-	url: "notif-data.php",
-	type: "POST",
-	data: {id_notif: id, tabel: tabel},
-	success: function (result) {
+		url: "notif-data.php",
+		type: "POST",
+		data: {id_notif: id, tabel: tabel},
+		success: function (result) {
 			console.log(result)
 		}
 	});
@@ -79,13 +78,13 @@ $('.modalDetail').click(function () {
 $('.logout').on('click', function (event) {
 	event.preventDefault();
 	swal({
-	title: 'Apakah anda ingin keluar?',
-	type: 'warning',
-	showCancelButton: true,
-	//confirmButtonColor: '#d9534f',
-	cancelButtonColor: '#d33',
-	confirmButtonText: 'Ya',
-	cancelButtonText: 'Tidak'
+		title: 'Apakah anda ingin keluar?',
+		type: 'warning',
+		showCancelButton: true,
+		//confirmButtonColor: '#d9534f',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelButtonText: 'Tidak'
 	}).then((result) => {
 	if (result.value) {
 		swal({
