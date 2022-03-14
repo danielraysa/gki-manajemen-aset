@@ -28,23 +28,51 @@
     'responsive': true,
     'scrollX': true
   })
-  $('#example2').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : true,
-    'responsive'  : true
-  })
-  $('#example3').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : false
-  })
+
+  var data_table = $('#tabelAset').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ordering": true, // Set true agar bisa di sorting
+    "order": [
+      [0, 'asc'],
+      [1, 'asc']
+    ], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+    "ajax": {
+      "url": "ajax.php", // URL file untuk proses select datanya
+      "type": "POST",
+      "data": {
+        datatable: true,
+      }
+    },
+    // "deferRender": true,
+    "aLengthMenu": [10, 20, 50], // Combobox Limit
+    "columns": [
+      {
+        "data": "KODE_BARANG"
+      },
+      {
+        "data": "NAMA_BARANG"
+      },
+      {
+        "data": "MERK"
+      },
+      {
+        "data": "LOKASI_BARANG"
+      },
+      {
+        "data": "KOMISI"
+      },
+      {
+        "data": "STATUS_ASET"
+      },
+      {
+        "render": function (data) { // Tampilkan kolom aksi
+          let html = '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="' + data + '"><i class="fa fa-pencil"></i> Edit</button>'
+          return html
+        }
+      },
+    ],
+  });
 
   $('#checkbox_pinjam').iCheck({
       checkboxClass: 'icheckbox_minimal-green',
@@ -74,17 +102,17 @@
   });
 
   // update with image
-	$('#example1').on('click','.modalLink', function(){
+	$('#example1, #tabelAset').on('click','.modalLink', function(){
 		var id = $(this).attr('data-id');
     console.log(id);
     $('#id_aset').val(id);
 		$.ajax({
 			url:"ajax.php",
 			type: "POST",
-			data: "ID="+id,
+			data: {ID: id},
 			success:function(result){
-				console.log(result)
         var data = JSON.parse(result);
+				console.log(data)
         //$('#id_aset').val(id);
         $('#nama_aset').val(data.nama);
         $('#kode_aset').val(data.kode);
@@ -95,7 +123,7 @@
         $("#merk_aset").select2("destroy").select2();
         $('#komisi_aset').val(data.komisi);
         $("#komisi_aset").select2("destroy").select2();
-        if(data.foto != 'blank') {
+        if(data.foto != null) {
           $('#gambar_aset').attr('src', '../gambar/aset/'+data.foto);
         }
         else {

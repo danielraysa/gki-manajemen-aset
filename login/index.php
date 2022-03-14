@@ -22,9 +22,9 @@
 	<link rel="stylesheet" href="../dist/css/AdminLTE.css">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="../plugins/iCheck/all.css">
-	<meta name="google-signin-scope" content="profile email">
-	<meta name="google-signin-client_id" content="268524586141-8as92crhk19mnj9ppak38ghjqo2k5dn4.apps.googleusercontent.com">
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<!-- <meta name="google-signin-scope" content="profile email"> -->
+	<!-- <meta name="google-signin-client_id" content="268524586141-8as92crhk19mnj9ppak38ghjqo2k5dn4.apps.googleusercontent.com"> -->
+	<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 	<style>
 		/* source-sans-pro-regular - latin */
 		@font-face {
@@ -107,12 +107,12 @@
 						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
 					</div> 
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xs-12">
 						<center><b>or Login using</b></center>
 						<div style="margin:10px;" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 					</div>
-				</div>
+				</div> -->
 				</form>
 
 			</div>
@@ -138,7 +138,7 @@
 		$('#pwd').prop('type', 'password');
 	});
 
-	function onSignIn(googleUser) {
+	/* function onSignIn(googleUser) {
 		// Useful data for your client-side scripts:
 		var profile = googleUser.getBasicProfile();
 		console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -166,7 +166,7 @@
 		if(profile){
 		
 		}
-	}
+	} */
 	</script>
 	</body>
 </html>
