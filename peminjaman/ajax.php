@@ -99,16 +99,20 @@
 
     if(isset($_POST['add_pinjam'])) {
         $id = $_POST['add_pinjam'];
-        $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE ID_ASET = '".$id."'");
-        $fet = mysqli_fetch_array($query);
-        $kode_aset = $fet['KODE_BARANG'];
-        $nama_aset = $fet['NAMA_BARANG'];
-        $nama_barang = $fet['MERK'];
-        
-        $add = array('id_aset' => $id, 'kode_aset' => $kode_aset, 'nama_barang' => $nama_aset, 'merk' => $nama_barang);
-        array_push($_SESSION['item_pinjam'], $add);
-        $myJSON = json_encode($_SESSION['item_pinjam']);
-        echo $myJSON;
+        $query = mysqli_query($koneksi,"SELECT * FROM daftar_baru WHERE ID_ASET = '".$id."' OR KODE_BARANG = '".$id."'");
+        // var_dump($query);
+        if(mysqli_num_rows($query) != 0 && !in_array($id, $_SESSION['item_pinjam']['id_aset']) && !in_array($id, $_SESSION['item_pinjam']['kode_aset'])){
+            $fet = mysqli_fetch_array($query);
+            $id_aset = $fet['ID_ASET'];
+            $kode_aset = $fet['KODE_BARANG'];
+            $nama_aset = $fet['NAMA_BARANG'];
+            $nama_barang = $fet['MERK'];
+            
+            $add = array('id_aset' => $id_aset, 'kode_aset' => $kode_aset, 'nama_barang' => $nama_aset, 'merk' => $nama_barang);
+            array_push($_SESSION['item_pinjam'], $add);
+            $myJSON = json_encode($_SESSION['item_pinjam']);
+            echo $myJSON;
+        }
     }
 
     if(isset($_POST['hapus_item'])) {

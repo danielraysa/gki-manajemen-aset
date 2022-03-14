@@ -60,21 +60,21 @@ $('.item-notif').on('click', function(){
 	});
 });
 $('.modalDetail').click(function () {
-		var id = $(this).attr('data-id');
-		console.log(id);
-		$.ajax({
-			url: "graph-data.php",
-			type: "POST",
-			data: "pinjam_detail=" + id,
-			success: function (result) {
-				console.log(result)
-				var data = JSON.parse(result);
-				$('#example3').dataTable().fnClearTable();
-				//$('#example4').dataTable().fnDestroy();
-				table3.rows.add(data).draw();
-			}
-		});
+	var id = $(this).attr('data-id');
+	console.log(id);
+	$.ajax({
+		url: "graph-data.php",
+		type: "POST",
+		data: "pinjam_detail=" + id,
+		success: function (result) {
+			console.log(result)
+			var data = JSON.parse(result);
+			$('#example3').dataTable().fnClearTable();
+			//$('#example4').dataTable().fnDestroy();
+			table3.rows.add(data).draw();
+		}
 	});
+});
 $('.logout').on('click', function (event) {
 	event.preventDefault();
 	swal({
@@ -86,23 +86,23 @@ $('.logout').on('click', function (event) {
 		confirmButtonText: 'Ya',
 		cancelButtonText: 'Tidak'
 	}).then((result) => {
-	if (result.value) {
-		swal({
-			title: "Sukses",
-			text: "Harap tunggu sejenak.",
-			type: "success",
-			timer: 2000,
-			showConfirmButton: false
-			}).then(function(){
-			<?php if(isset($_SESSION['google_id'])) { ?>
-				document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/gki-sarpras/logout.php";
-			<?php } else { ?>
-				document.location.href = "logout.php";
-			<?php } ?>
-				//return false;
-			})
+		if (result.value) {
+			swal({
+				title: "Sukses",
+				text: "Harap tunggu sejenak.",
+				type: "success",
+				timer: 2000,
+				showConfirmButton: false
+				}).then(function(){
+				<?php if(isset($_SESSION['google_id'])) { ?>
+					document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/gki-sarpras/logout.php";
+				<?php } else { ?>
+					document.location.href = "logout.php";
+				<?php } ?>
+					//return false;
+				})
+			}
 		}
-	}
 	)
 });
 </script>

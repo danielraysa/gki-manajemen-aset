@@ -217,6 +217,22 @@ $('.emptyData').on('click', function () {
   });
 });
 
+$('#scan-id').on('keypress',function(e) {
+  let id = $(this).val();
+  if(e.which == 13) {
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      data: {add_pinjam: id},
+      success: function (result) {
+        console.log(result)
+        data_table_pinjam.ajax.reload();
+      }
+    });
+  }
+  $(this).val('');
+});
+
 //Tambah Pinjam
 $('#example1,#exampleAjax').on('click', '.addPinjam', function () {
   var id = $(this).attr('data-id');
