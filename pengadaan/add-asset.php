@@ -229,7 +229,7 @@
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" name="keterangan_lokasi" placeholder="Keterangan Lokasi">
+                                <!-- <input type="text" class="form-control" name="keterangan_lokasi" placeholder="Keterangan Lokasi"> -->
                             </div>
                             <div class="form-group">
                                 <label>Penempatan Komisi:</label>

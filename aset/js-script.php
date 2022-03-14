@@ -54,13 +54,13 @@
         "data": "NAMA_BARANG"
       },
       {
-        "data": "MERK"
+        "data": "NAMA_MERK"
       },
       {
-        "data": "LOKASI_BARANG"
+        "data": "NAMA_LOKASI"
       },
       {
-        "data": "KOMISI"
+        "data": "NAMA_RUANGAN"
       },
       {
         "data": "STATUS_ASET"
@@ -118,13 +118,15 @@
         $('#nama_aset').val(data.nama);
         $('#kode_aset').val(data.kode);
         $('#seri_model').val(data.seri);
+        $('#lokasi_aset').val(data.lokasi);
+        $("#lokasi_aset").select2("destroy").select2();
         $('#ruangan_aset').val(data.ruangan);
         $("#ruangan_aset").select2("destroy").select2();
         $('#merk_aset').val(data.merk);
         $("#merk_aset").select2("destroy").select2();
-        $('#komisi_aset').val(data.komisi);
-        $("#komisi_aset").select2("destroy").select2();
-        if(data.foto != null) {
+        // $('#komisi_aset').val(data.komisi);
+        // $("#komisi_aset").select2("destroy").select2();
+        if(data.foto != null && data.foto != '') {
           $('#gambar_aset').attr('src', '../gambar/aset/'+data.foto);
         }
         else {

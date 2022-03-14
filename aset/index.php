@@ -8,8 +8,9 @@
 
     $dir = basename(__DIR__);
 	$_status = mysqli_query($koneksi, "SELECT * FROM status");
-	$_merk = mysqli_query($koneksi, "SELECT * FROM merk");
-	$_ruangan = mysqli_query($koneksi, "SELECT * FROM ruangan");
+	$_merk = mysqli_query($koneksi, "SELECT * FROM merk where status_merk = 'Aktif'");
+	$_lokasi = mysqli_query($koneksi, "SELECT * FROM lokasi where status_lokasi = 'Aktif'");
+	$_ruangan = mysqli_query($koneksi, "SELECT * FROM ruangan where status_ruangan = 'Aktif'");
 	$_komisi = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat");
 ?>
 <!DOCTYPE html>
@@ -91,8 +92,8 @@
 												<th>Kode Aset</th>
 												<th>Nama Aset</th>
 												<th>Merk</th>
+												<th>Lokasi</th>
 												<th>Ruangan</th>
-												<th>Komisi</th>
 												<th>Status</th>
 												<th>Action</th>
 											</tr>

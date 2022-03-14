@@ -83,6 +83,23 @@
                             </div>  
                         </div>
                         <div class="form-group">
+                            <label>Penempatan Lokasi:</label>
+                            <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <select class="form-control select2" id="lokasi_aset" name="lokasi_aset" style="width: 100%;">
+                                <?php
+                                while ($row = mysqli_fetch_array($_lokasi)) {
+                                ?>
+                                <option value="<?php echo $row['ID_LOKASI']; ?>" data-ruang="<?php echo $row['KODE_LOKASI']; ?>"><?php echo $row['NAMA_LOKASI']; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label>Penempatan Ruangan:</label>
                             <div class="input-group">
                             <div class="input-group-addon">
@@ -99,26 +116,6 @@
                             </select>
                             <!-- <div class="input-group-btn">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ruangan"><i class="fa fa-plus"></i></button>
-                            </div> -->
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Penempatan Komisi:</label>
-                            <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-laptop"></i>
-                            </div>
-                            <select class="form-control select2" id="komisi_aset" name="komisi" style="width: 100%;" aria-hidden="true">
-                                <?php
-                                while ($row = mysqli_fetch_array($_komisi)) {
-                                ?>
-                                <option value="<?php echo $row['ID_KOMISI']; ?>" data-komisi="<?php echo $row['KODE_KOMISI']; ?>"><?php echo $row['NAMA_KOMISI']." (".$row['KODE_KOMISI'].")"; ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                            <!-- <div class="input-group-btn">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-komisi"><i class="fa fa-plus"></i></button>
                             </div> -->
                             </div>
                         </div>

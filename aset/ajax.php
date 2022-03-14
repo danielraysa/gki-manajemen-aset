@@ -8,18 +8,20 @@
         $row = mysqli_fetch_array($query);
         $nama = $row['NAMA_BARANG'];
         $kode = $row['KODE_BARANG'];
-        $merk = $row['MERK'];
-        $komisi = $row['KOMISI'];
-        $ruangan = $row['LOKASI_BARANG'];
+        $jenis = $row['JENIS_BARANG'];
+        $merk = $row['ID_MERK'];
+        // $komisi = $row['KOMISI'];
+        $lokasi = $row['LOKASI_BARANG'];
+        $ruangan = $row['RUANGAN_BARANG'];
+        $seri = $row['SERI_MODEL'];
         $foto = $row['FOTO_ASET'];
-        $seri = "";
         
-        $myObj = array('id' => $id, 'nama' => $nama, 'kode' => $kode, 'ruangan' => $ruangan, 'komisi' => $komisi, 'seri' => $seri, 'merk' => $merk, 'foto' => $foto);
+        $myObj = array('id' => $id, 'nama' => $nama, 'kode' => $kode, 'jenis_barang' => $jenis, 'ruangan' => $ruangan, 'lokasi' => $lokasi, 'seri' => $seri, 'merk' => $merk, 'foto' => $foto);
         echo json_encode($myObj);
     }
 
     if(isset($_POST['datatable'])) {
-        $_sql = "SELECT * FROM daftar_baru";
+        $_sql = "SELECT * FROM daftar_baru db join merk m on db.ID_MERK = m.ID_MERK join lokasi l on db.LOKASI_BARANG = l.ID_LOKASI join ruangan r on db.RUANGAN_BARANG = r.ID_RUANGAN ";
         $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
         $limit = $_POST['length']; // Ambil data limit per page
         $start = $_POST['start']; // Ambil data start

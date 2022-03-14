@@ -5,9 +5,12 @@
 
     function formatNumber($nbr){
         if ($nbr < 10) {
-            return "00".$nbr;
+            return "000".$nbr;
         }
         elseif ($nbr >= 10 && $nbr < 100 ){
+            return "00".$nbr;
+        }
+        elseif ($nbr >= 100 && $nbr < 1000 ){
             return "0".$nbr;
         }
         else{
@@ -17,8 +20,10 @@
 
     function addAsset() {
         global $koneksi;
-        $now = date('Y-m-d H:i:s');
-        $id_usulan_tambah = $_POST['id_usulan'];
+        $id_usulan_tambah = null;
+        if(isset($_POST['id_usulan'])){
+            $id_usulan_tambah = $_POST['id_usulan'];
+        }
         echo "id: ".$id_usulan_tambah."<br>";
         $nama_aset = $_POST['nama'];
         $kode_aset = $_POST['kode'];
@@ -44,6 +49,7 @@
         /* $get_komisi = mysqli_query($koneksi, "SELECT * FROM komisi_jemaat WHERE KODE_KOMISI = '".$komisi."'");
         $fet_komisi = mysqli_fetch_array($get_komisi);
         $nama_komisi = $fet_jenis['NAMA_KOMISI']; */
+        $lokasi = $_POST['lokasi_aset'];
         $ruangan = $_POST['ruangan_aset'];
         echo "ruangan: ".$ruangan."<br>";
         $status = $_POST['status'];
@@ -57,7 +63,7 @@
         if(isset($_POST['nilai_residu'])){
             $nilai = $_POST['nilai_residu'];
         }
-        $new_tanggal = "";
+        $new_tanggal = null;
         if(isset($_POST['tanggal_pengadaan'])){
             $tanggal = $_POST['tanggal_pengadaan'];
             $date = str_replace('/', '-', $tanggal);
@@ -68,11 +74,18 @@
         if(isset($_POST['pinjam'])) {
             $pinjam = 1;
         }
+        $status = 'Aktif';
+        if(isset($_POST['status'])){
+            $status = $_POST['status'];
+        }
         echo "pinjam = ".$pinjam."<br>";
         // tambahan
-        $keterangan_lokasi = $_POST['keterangan_lokasi'];
+        // $keterangan_lokasi = $_POST['keterangan_lokasi'];
         $keterangan = $_POST['keterangan_aset'];
-        if(isset($_FILES['foto']['name'])){
+        
+        $newfilename = null;
+        
+        if(isset($_FILES['foto']['name']) && $_FILES['foto']['name'] != null){
             $newfilename = $_FILES['foto']['name'];
             echo $newfilename;
             $target_dir = "../gambar/aset/";
@@ -87,26 +100,26 @@
             if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_file)){
                 echo "uploaded to server, filename : ".$newfilename;
             }
-        }else{
-            $newfilename = "";
         }
+        $_SESSION['kode_print_barcode'] = array();
         if (isset($_POST['jumlah'])) {
             for($a = 0; $a < $jumlah_aset; $a++){
-                $random_id = randomID('daftar_aset', 'ID_ASET', 10);
+                // $random_id = randomID('daftar_aset', 'ID_ASET', 10);
                 $nomor_aset = formatNumber($a+1);
                 $kode_aset_baru = $kode_aset.$nomor_aset;
-                // echo "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, SERI_MODEL, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, FOTO_ASET, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset_baru."','".$serimodel."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','".$newfilename."','Aktif') <br>";
-                $query_insert = "INSERT INTO daftar_baru (NAMA_BARANG, KODE_BARANG, KODE_KOMISI, KODE_JENIS, MERK, TYPE, LOKASI_BARANG, KETERANGAN_LOKASI, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, FOTO_ASET, STATUS_ASET) VALUES ('".$nama_aset."','".$kode_aset_baru."','".$komisi."','".$barang."','".$merk."','".$serimodel."','".$ruangan."','".$keterangan_lokasi."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','".$newfilename."','Aktif')";
+
+                $query_insert = "INSERT INTO daftar_baru (ID_MERK, LOKASI_BARANG, RUANGAN_BARANG, ID_USULAN_TAMBAH, NAMA_BARANG, KODE_BARANG, JENIS_BARANG, SERI_MODEL, KETERANGAN, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, FOTO_ASET, STATUS_ASET) VALUES ('".$merk."','".$lokasi."','".$ruangan."','".$id_usulan_tambah."','".$nama_aset."','".$kode_aset_baru."','".$barang."','".$serimodel."','".$keterangan."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','".$newfilename."','".$status."')";
+                // echo $query_insert."<br>";
                 $insert = mysqli_query($koneksi, $query_insert);
-            
+                array_push($_SESSION['kode_print_barcode'], $kode_aset_baru);
             }
         }
         else {
-            $random_id = randomID('daftar_aset', 'ID_ASET', 10);
+            // $random_id = randomID('daftar_aset', 'ID_ASET', 10);
             // $kode_aset_baru = $kode_aset.$nomor_aset;
-            // echo "INSERT INTO daftar_aset (ID_ASET, ID_MERK, ID_RUANGAN, ID_USULAN_TAMBAH, ID_KOMISI, ID_STATUS, NAMA_ASET, KODE_ASET, SERI_MODEL, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, FOTO_ASET, STATUS_ASET) VALUES ('".$random_id."','".$merk."','".$ruangan."','".$id_usulan_tambah."','".$komisi."','".$status."','".$nama_aset."','".$kode_aset."','".$serimodel."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','".$newfilename."','Aktif') <br>";
-            $query_insert = "INSERT INTO daftar_baru (NAMA_BARANG, KODE_BARANG, KODE_KOMISI, KODE_JENIS, MERK, TYPE, LOKASI_BARANG, KETERANGAN_LOKASI, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, FOTO_ASET, STATUS_ASET) VALUES ('".$nama_aset."','".$kode_aset."','".$komisi."','".$barang."','".$merk."','".$serimodel."','".$ruangan."','".$keterangan_lokasi."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','".$newfilename."','Aktif')";
+            $query_insert = "INSERT INTO daftar_baru (ID_MERK, LOKASI_BARANG, RUANGAN_BARANG, ID_USULAN_TAMBAH, NAMA_BARANG, KODE_BARANG, JENIS_BARANG, SERI_MODEL, KETERANGAN, HARGA_PEMBELIAN, TANGGAL_PEMBELIAN, MASA_MANFAAT, NILAI_RESIDU, PERBOLEHAN_PINJAM, FOTO_ASET, STATUS_ASET) VALUES ('".$merk."','".$lokasi."','".$ruangan."','".$id_usulan_tambah."','".$nama_aset."','".$kode_aset."','".$barang."','".$serimodel."','".$keterangan."','".$harga."','".$new_tanggal."','".$masa_manfaat."','".$nilai."','".$pinjam."','".$newfilename."','".$status."')";
             $insert = mysqli_query($koneksi, $query_insert);
+            array_push($_SESSION['kode_print_barcode'], $kode_aset);
         }
         return $insert;
     }
@@ -265,7 +278,7 @@
 
     if(isset($_POST['simpan-aset'])) {
         $insert = addAsset();
-        
+        $now = date('Y-m-d H:i:s');
         if($insert) {
             $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG, ID_REF, ACTIVITY_DETAIL, ID_REF_DETAIL) VALUES ('".$_SESSION['id_user']."','".$now."', 'pengadaan', '".$_SESSION['pengadaan_aset']."','pengadaan_aset', '".$id_usulan_tambah."')");
             $_SESSION['success-msg'] = "Sukses menambah data aset.";
@@ -277,16 +290,17 @@
         }
     }
 
-    if(isset($_POST['aset-jemaat'])) {
+    if(isset($_POST['aset-manual'])) {
         $insert = addAsset();
+        $now = date('Y-m-d H:i:s');
         if($insert) {
-            $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG) VALUES ('".$_SESSION['id_user']."','".$now."', 'tambah_dari_jemaat')");
+            $log = mysqli_query($koneksi, "INSERT INTO log_akses (ID_USER, TANGGAL_LOG, ACTIVITY_LOG) VALUES ('".$_SESSION['id_user']."','".$now."', 'tambah_manual')");
             $_SESSION['success-msg'] = "Sukses menambah data aset.";
-            header("location: givewaway.php?success");
+            header("location: add-manual.php?success");
         }
         else {
             $_SESSION['error-msg'] = mysqli_error($koneksi);
-            header("location: givewaway.php?error");
+            header("location: add-manual.php?error");
         }
     }
 
