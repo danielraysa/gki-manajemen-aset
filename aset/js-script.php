@@ -66,6 +66,7 @@
         "data": "STATUS_ASET"
       },
       {
+        "data": "ID_ASET",
         "render": function (data) { // Tampilkan kolom aksi
           let html = '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="' + data + '"><i class="fa fa-pencil"></i> Edit</button>'
           return html

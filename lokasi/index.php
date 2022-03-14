@@ -122,11 +122,11 @@
                     ?>
                     <tr>
                         <td><?php echo $a; ?></td>
-                        <td><?php echo $select['NAMA_RUANGAN']; ?></td>
-                        <td><?php echo $select['KODE_RUANGAN']; ?></td>
+                        <td><?php echo $select['NAMA_LOKASI']; ?></td>
+                        <td><?php echo $select['KODE_LOKASI']; ?></td>
                         <td><center>
-                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_RUANGAN']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
-                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_RUANGAN']; ?>"><i class="fa fa-trash"></i> Hapus</button>
+                        <button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-default" data-id="<?php echo $select['ID_LOKASI']; ?>"><i class="fa fa-pencil"></i> Edit</button> 
+                        <button class="btn btn-danger modalDelete" data-toggle="modal" data-target="#modal-delete" delete-id="<?php echo $select['ID_LOKASI']; ?>"><i class="fa fa-trash"></i> Hapus</button>
                         </center> </td>
                     </tr>
                     <?php
