@@ -56,7 +56,7 @@
 		</a>
 		<ul class="treeview-menu">
 			<li class="<?php if (isset($file) && $file == "index.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/"><i class="fa fa-tv text-red"></i> Usulan Pengadaan</a></li>
-			<li class="<?php if (isset($file) && $file == "giveaway.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/giveaway.php"><i class="fa fa-cubes text-yellow"></i> Tambah Aset Manual</a></li>
+			<li class="<?php if (isset($file) && $file == "add-manual.php") echo "active"; ?>"><a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/add-manual.php"><i class="fa fa-cubes text-yellow"></i> Tambah Aset Manual</a></li>
 		</ul>
 		<!-- <a href="<?php if ($dir != $root_folder) echo "../"; ?>pengadaan/">
 			<i class="fa fa-cart-plus text-yellow"></i> <span>Pengadaan Aset</span>

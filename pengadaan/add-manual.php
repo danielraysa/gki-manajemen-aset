@@ -4,10 +4,6 @@
         header("location:../index.php");
         exit;
     }
-    if(!isset($_SESSION['temp_item'])) {
-      $_SESSION['temp_item'] = array();
-      $_SESSION['temp_item_2'] = array();
-    }
     
     $dir = basename(__DIR__);
     $file = basename(__FILE__);
