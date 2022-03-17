@@ -195,7 +195,7 @@
                                     $data = mysqli_query($koneksi, "SELECT * FROM lokasi");
                                     while ($row = mysqli_fetch_array($data)) {
                                     ?>
-                                    <option value="<?php echo $row['ID_LOKASI']; ?>" data-ruang="<?php echo $row['KODE_LOKASI']; ?>"><?php echo $row['NAMA_LOKASI']; ?></option>
+                                    <option value="<?php echo $row['ID_LOKASI']; ?>" data-lokasi="<?php echo $row['KODE_LOKASI']; ?>"><?php echo $row['NAMA_LOKASI']; ?></option>
                                     <?php
                                     }
                                     ?>

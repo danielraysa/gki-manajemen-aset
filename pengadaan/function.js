@@ -472,34 +472,55 @@ $(document).ready(function() {
     });
     $('#barang_aset').on('change', function(){
     // $(document).on('change','#barang_aset', function(event){
-        event.preventDefault();
+        // event.preventDefault();
+        let idBarang = $(this).val();
+        let textBarang = $(this).find(':selected').text();
         kode4 = $(this).find(':selected').data('item');
         kode5 = "001";
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            data: {counter_barang: idBarang},
+            success: function(result){
+                console.log(result)
+                kode5 = result
+                $('#nomor_aset').val(kode5)
+                $('#nomor_aset').val(kode5)
+                generateKodeBarang(kode1, kode4, kode5)
+                // $('#kode_aset').val(kode1+""+kode4+""+kode5);
+            }
+        });
         //alert(kode4);
-        $('#kode_aset').val(kode1+""+kode4+""+kode5);
+    });
+    $('#lokasi_aset').on('change', function(){
+        kode1 = $(this).find(':selected').data('lokasi');
+        generateKodeBarang(kode1, kode4, kode5);
     });
     $('#ruangan_aset').on('change', function(){
+        kode4 = $(this).find(':selected').data('ruang');
+        generateKodeBarang(kode1, kode4, kode5);
         //kode2 = $(this).find(':selected').data('ruang');
         //alert(kode2);
         // $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
     });
     $('#komisi_aset').on('change', function(){
-        var id = $(this).find(':selected').data('komisi');
-        $.ajax({
+        let id = $(this).find(':selected').data('komisi');
+        /* $.ajax({
             url: "ajax.php",
             type: "POST",
-            data: "counter_komisi="+id,
+            data: {counter_komisi: id},
             success: function(result){
                 kode1 = id+"-"+result+"/";
                 $('#kode_aset').val(kode1+""+kode4+""+kode5);
             }
-        });
+        }); */
         //alert(kode1);
     });
     $('#nomor_aset').on('change', function(){
         kode5 = $(this).val();
         //alert(kode1);
-        $('#kode_aset').val(kode1+""+kode4+""+kode5);
+        // $('#kode_aset').val(kode1+""+kode4+""+kode5);
+        generateKodeBarang(kode1, kode4, kode5);
     });
     
     /* $(document).on('change', '.btn-file :file', function() {
@@ -525,6 +546,10 @@ $(document).ready(function() {
             }
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    function generateKodeBarang(lokasi, ruangan, nomor) {
+        $('#kode_aset').val(`${lokasi}-${ruangan}-${nomor}`);
     }
 
     $("#imgInp").change(function(){
