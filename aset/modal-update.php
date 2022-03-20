@@ -39,7 +39,7 @@
                                 <?php
                                 while ($row = mysqli_fetch_array($_status)) {
                                 ?>
-                                <option value="<?php echo $row['ID_STATUS']; ?>"><?php echo $row['NAMA_STATUS']; ?></option>
+                                <option value="<?php echo $row['NAMA_STATUS']; ?>"><?php echo $row['NAMA_STATUS']; ?></option>
                                 <?php
                                 }
                                 ?>

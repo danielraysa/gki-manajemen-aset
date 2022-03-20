@@ -3,27 +3,26 @@
     include "../connection.php";
 
     if(isset($_POST['edit'])) {
+        // var_dump($_POST);
         $id_aset = $_POST['id_aset'];
-        echo "id: ".$id_aset."<br>";
+        // echo "id: ".$id_aset."<br>";
         $nama_aset = $_POST['nama'];
         $kode_aset = $_POST['kode'];
         
         $merk = $_POST['merk'];
-        echo "merk: ".$merk."<br>";
+        // echo "merk: ".$merk."<br>";
         $serimodel = $_POST['serimodel'];
-        $komisi = $_POST['komisi'];
-        echo "komisi: ".$komisi."<br>";
+        $lokasi = $_POST['lokasi_aset'];
         $ruangan = $_POST['ruangan_aset'];
-        echo "ruangan: ".$ruangan."<br>";
+        // echo "ruangan: ".$ruangan."<br>";
         $status = $_POST['status'];
-        echo "status: ".$status."<br>";
+        // echo "status: ".$status."<br>";
         
-        //echo $new_tanggal;
         $pinjam = 0;
         if(isset($_POST['pinjam'])) {
             $pinjam = 1;
         }
-        echo "pinjam = ".$pinjam."<br>";
+        // echo "pinjam = ".$pinjam."<br>";
 
         if(isset($_FILES['foto']['name'])){
             $newfilename = $_FILES['foto']['name'];
@@ -46,16 +45,13 @@
             if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_file)){
                 echo "uploaded to server, filename : ".$newfilename;
             }
-            // $query_insert = "UPDATE daftar_aset SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."', FOTO_ASET = '".$newfilename."' WHERE ID_ASET = '".$id_aset."'";
-            $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."', FOTO_ASET = '".$newfilename."' WHERE ID_ASET = '".$id_aset."'";
-
-            $insert = mysqli_query($koneksi, $query_insert);
+            $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', RUANGAN_BARANG = '".$ruangan."', LOKASI_BARANG = '".$lokasi."', STATUS_ASET = '".$status."', NAMA_BARANG = '".$nama_aset."', KODE_BARANG = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."', FOTO_ASET = '".$newfilename."' WHERE ID_ASET = '".$id_aset."'";
         }    
         else {
-            // $query_insert = "UPDATE daftar_aset SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
-            $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', ID_RUANGAN = '".$ruangan."', ID_KOMISI = '".$komisi."', ID_STATUS = '".$status."', NAMA_ASET = '".$nama_aset."', KODE_ASET = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
-            $insert = mysqli_query($koneksi, $query_insert);
+            
+            $query_insert = "UPDATE daftar_baru SET ID_MERK = '".$merk."', RUANGAN_BARANG = '".$ruangan."', LOKASI_BARANG = '".$lokasi."', STATUS_ASET = '".$status."', NAMA_BARANG = '".$nama_aset."', KODE_BARANG = '".$kode_aset."', PERBOLEHAN_PINJAM = '".$pinjam."' WHERE ID_ASET = '".$id_aset."'";
         }
+        $insert = mysqli_query($koneksi, $query_insert);
     
         if($insert) {
             $_SESSION['success-msg'] = "Sukses mengubah data aset.";

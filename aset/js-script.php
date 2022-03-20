@@ -67,8 +67,9 @@
       },
       {
         "data": "ID_ASET",
-        "render": function (data) { // Tampilkan kolom aksi
+        "render": function (data, type, row) { // Tampilkan kolom aksi
           let html = '<button class="btn btn-warning modalLink" data-toggle="modal" data-target="#modal-test" data-id="' + data + '"><i class="fa fa-pencil"></i> Edit</button>'
+          html += ' <a class="btn btn-primary" href="barcode_print.php?kode=' + row.KODE_BARANG + '" target="_blank"><i class="fa fa-print"></i> Cetak Barcode</button>'
           return html
         }
       },
@@ -76,13 +77,9 @@
   });
 
   $('#checkbox_pinjam').iCheck({
-      checkboxClass: 'icheckbox_minimal-green',
-      radioClass   : 'iradio_minimal-green'
-    });
-  /* $('#modal-default').on('shown', function () {
-  // initialize iCheck
-    
-  }) */
+    checkboxClass: 'icheckbox_minimal-green',
+    radioClass   : 'iradio_minimal-green'
+  });
 
   function readURL(input) {
     if (input.files && input.files[0]) {
