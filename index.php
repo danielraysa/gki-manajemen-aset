@@ -57,7 +57,7 @@
                                 <th>No.</th>
                                 <th>Kode Aset</th>
                                 <th>Nama Aset</th>
-                                <th>Jenis Barang</th>
+                                <th>Kategori</th>
                             </tr>
                             </thead>
                         </table>     

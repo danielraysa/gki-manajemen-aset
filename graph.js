@@ -2,7 +2,7 @@ $(document).ready(function(){
     var tabel_detil = $('#example4').DataTable({
         'retrieve': true,
         'paging': true,
-        'lengthChange': false,
+        'lengthChange': true,
         'searching': true,
         'ordering': true,
         'info': true,
@@ -114,7 +114,7 @@ $(document).ready(function(){
             $.ajax({
                 url: "graph-data.php",
                 method: "POST",
-                data: "item_ruangan="+label,
+                data: {item_ruangan: label},
                 success: function(result) {
                     console.log(result);
                     var data = JSON.parse(result);

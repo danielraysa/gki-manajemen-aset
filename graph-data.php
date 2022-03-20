@@ -3,12 +3,11 @@ session_start();
 include "connection.php";
 
 if(isset($_POST['ruangan'])) {
-    // $query = mysqli_query($koneksi, "SELECT d.ID_RUANGAN as id_ruangan, r.NAMA_RUANGAN as ruangan, COUNT(d.ID_RUANGAN) as jumlah FROM daftar_aset d JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN GROUP BY d.ID_RUANGAN");
-    $query = mysqli_query($koneksi, "SELECT LOKASI_BARANG, count(*) JUMLAH FROM daftar_baru WHERE LOKASI_BARANG IS NOT NULL GROUP BY LOKASI_BARANG");
+    $query = mysqli_query($koneksi, "SELECT d.RUANGAN_BARANG as id_ruangan, r.NAMA_RUANGAN as ruangan, COUNT(d.RUANGAN_BARANG) as jumlah FROM daftar_baru d JOIN ruangan r ON d.RUANGAN_BARANG = r.ID_RUANGAN GROUP BY d.RUANGAN_BARANG");
     $data = array();
     while($result = mysqli_fetch_array($query)){
-        // $inc = array('id' => $result['id_ruangan'], 'ruangan' => $result['ruangan'], 'jumlah' => $result['jumlah']);
-        $inc = array('id' => $result['LOKASI_BARANG'], 'ruangan' => $result['LOKASI_BARANG'], 'jumlah' => $result['JUMLAH']);
+        $inc = array('id' => $result['id_ruangan'], 'ruangan' => $result['ruangan'], 'jumlah' => $result['jumlah']);
+        // $inc = array('id' => $result['LOKASI_BARANG'], 'ruangan' => $result['LOKASI_BARANG'], 'jumlah' => $result['JUMLAH']);
         array_push($data, $inc);
     }
     $json = json_encode($data);
@@ -16,8 +15,7 @@ if(isset($_POST['ruangan'])) {
 }
 if(isset($_POST['item_ruangan'])) {
     $id = $_POST['item_ruangan'];
-    // $query = mysqli_query($koneksi, "SELECT d.KODE_ASET, d.NAMA_ASET, b.NAMA_BARANG FROM daftar_aset d JOIN detil_usulan_pengadaan dp ON d.ID_USULAN_TAMBAH = dp.ID_USULAN_TAMBAH JOIN barang b ON dp.ID_BARANG = b.ID_BARANG JOIN ruangan r ON d.ID_RUANGAN = r.ID_RUANGAN WHERE d.ID_RUANGAN = '".$id."'");
-    $query = mysqli_query($koneksi, "SELECT KODE_BARANG, NAMA_BARANG, JENIS, NAMA_KATEGORI FROM daftar_baru JOIN kategori ON daftar_baru.KODE_JENIS = kategori.KODE_KATEGORI WHERE LOKASI_BARANG = '".$id."'");
+    $query = mysqli_query($koneksi, "SELECT d.KODE_BARANG, d.NAMA_BARANG, k.NAMA_KATEGORI FROM daftar_baru d JOIN barang b ON d.JENIS_BARANG = b.ID_BARANG JOIN kategori k ON b.ID_KATEGORI = k.ID_KATEGORI JOIN ruangan r ON d.RUANGAN_BARANG = r.ID_RUANGAN WHERE d.RUANGAN_BARANG = '".$id."'");
     if($query){
     $data = array();
     $a = 1;
