@@ -19,37 +19,32 @@
                     <tbody>
                         <?php
                             //$query = mysqli_query($koneksi,"SELECT p.id_peminjaman, p.nama_peminjam, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p WHERE p.status_peminjaman = 'Aktif' AND p.tanggal_peminjaman <= NOW()");
-                            $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.tanggal_peminjaman >= NOW() AND p.id_user = '".$_SESSION['id_user']."'");
+                            $query = mysqli_query($koneksi,"SELECT p.id_peminjaman, u.nama_lengkap, p.no_hp, p.keterangan_pinjam, p.tanggal_peminjaman, p.tanggal_pengajuan, p.hasil_pengajuan, p.keterangan_tolak, case when tanggal_peminjaman < NOW() then 'Expired' else 'Aktif' end status_expired FROM peminjaman_aset p JOIN user u ON p.id_user = u.id_user WHERE p.status_peminjaman = 'Aktif' AND p.id_user = '".$_SESSION['id_user']."'");
                             $a = 1;
                             while($row = mysqli_fetch_array($query)) {
+                                if($row['status_expired'] == 'Expired' && $row['hasil_pengajuan'] == 'Pending'){
+                                    $btn_status = '<button class="btn btn-danger"><i class="fa fa-hourglass-end"></i> '.$row['status_expired'].'</button>';
+                                } else{
+                                    switch ($row['hasil_pengajuan']) {
+                                        case 'Diterima':
+                                            $btn_status = '<button class="btn btn-success"><i class="fa fa-check"></i> '.$row['hasil_pengajuan'].'</button>';
+                                            break;
+                                        case 'Ditolak':
+                                            $btn_status = '<button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="'.$row['keterangan_tolak'].'"><i class="fa fa-close"></i> '.$row['hasil_pengajuan'].'</button>';
+                                            break;
+                                        default:
+                                            $btn_status = '<button class="btn btn-primary"><i class="fa fa-hourglass-end"></i> '.$row['hasil_pengajuan'].'</button>';
+                                            # code...
+                                            break;
+                                    }
+                                }
                             ?>
                         <tr>
                             <td><?php echo $a; ?></td>
                             <td><?php echo tglIndo_full($row['tanggal_pengajuan']); ?></td>
                             <td><?php echo tglIndo($row['tanggal_peminjaman']); ?></td>
                             <td><?php echo $row['keterangan_pinjam']; ?></td>
-                            <td>
-                                <?php
-                                    if($row['hasil_pengajuan'] == "Diterima") {
-                                    ?>
-                                <button class="btn btn-success"><i class="fa fa-check"></i>
-                                    <?php echo $row['hasil_pengajuan']; ?></button>
-                                <?php
-                                    }
-                                    if($row['hasil_pengajuan'] == "Ditolak") {
-                                ?>
-                                <button class="btn btn-danger"><i class="fa fa-close"></i>
-                                    <?php echo $row['hasil_pengajuan']; ?></button>
-                                <?php
-                                    }
-                                    if($row['hasil_pengajuan'] == "Pending") {
-                                ?>
-                                <button class="btn btn-primary"><i class="fa fa-hourglass-end"></i>
-                                    <?php echo $row['hasil_pengajuan']; ?></button>
-                                <?php
-                                    }
-                                ?>
-                            </td>
+                            <td><?php echo $btn_status; ?></td>
                             <td>
                                 <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button>
                                 <?php // echo '<a role="button" class="btn btn-warning" href="'.($row['hasil_pengajuan'] != "Pending" ? "#" : "peminjaman/?edit={$row['id_peminjaman']}").'"><i class="fa fa-edit"></i>Ubah</button>'; ?>

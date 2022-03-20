@@ -194,24 +194,22 @@
         $myObj = array();
         $a = 1;
         // $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND (z.TANGGAL_PENGEMBALIAN BETWEEN (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."') AND (SELECT TANGGAL_PENGEMBALIAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'))) as stat, p.ID_ASET, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
-        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND (z.TANGGAL_PENGEMBALIAN BETWEEN (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."') AND (SELECT TANGGAL_PENGEMBALIAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'))) as stat, p.ID_ASET, a.nama_barang, k.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN kategori k ON a.KODE_JENIS = k.KODE_KATEGORI WHERE p.id_peminjaman = '".$id."'");
+        $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.kode_barang, (SELECT COUNT(x.ID_ASET) FROM detail_peminjaman x JOIN peminjaman_aset z ON x.ID_PEMINJAMAN = z.ID_PEMINJAMAN WHERE x.ID_ASET = p.ID_ASET AND z.HASIL_PENGAJUAN = 'Diterima' AND (z.TANGGAL_PENGEMBALIAN BETWEEN (SELECT TANGGAL_PEMINJAMAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '${id}') AND (SELECT TANGGAL_PENGEMBALIAN FROM peminjaman_aset WHERE ID_PEMINJAMAN = '".$id."'))) as stat, p.ID_ASET, a.nama_barang, k.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN barang b ON a.jenis_barang = b.id_barang JOIN kategori k ON b.id_kategori = k.id_kategori WHERE p.id_peminjaman = '${id}'");
         while($row = mysqli_fetch_array($query)){
+            $kode = $row['kode_barang'];
             $nama = $row['nama_barang'];
             $barang = $row['nama_kategori'];
             $id_item = $row['id_detil_pinjam'];
+            $status = "Tersedia";
             if($row['stat'] > 0){
                 $status = "<b>Dipesan/dipakai</b>";
             }
-            else {
-                $status = "Tersedia";
-            }
-            $array = array($a, $nama, $barang, $status);
+            $array = array($a, $kode, $nama, $barang, $status);
             array_push($myObj, $array);
             $a++;
         }
         //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
-        $myJSON = json_encode($myObj);
-        echo $myJSON;
+        echo json_encode($myObj);
     }
 
     // approve pengadaan
@@ -238,10 +236,11 @@
         } */
     }
 
-    if (isset($_GET['reject'])) {
-        $id = $_GET['reject'];
+    if (isset($_POST['reject'])) {
+        $id = $_POST['reject'];
+        $keterangan = $_POST['keterangan'];
         $date = date('Y-m-d H:i:s');
-        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Ditolak' WHERE ID_PEMINJAMAN = '".$id."'");
+        $query = mysqli_query($koneksi, "UPDATE peminjaman_aset SET HASIL_PENGAJUAN = 'Ditolak', KETERANGAN_TOLAK = '$keterangan' WHERE ID_PEMINJAMAN = '".$id."'");
         if(!$query) {
             echo mysqli_error($koneksi);
         }

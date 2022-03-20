@@ -105,4 +105,7 @@ $('.logout').on('click', function (event) {
 		}
 	)
 });
+
+$("body").tooltip({ selector: '[data-toggle=tooltip]' });
+	
 </script>

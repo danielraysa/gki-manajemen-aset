@@ -412,12 +412,13 @@ $('.modalReject').click(function () {
   $("#id_reject").val(id);
 });
 $('#btnReject').click(function () {
-  var id = $('#id_reject').val();
+  let id = $('#id_reject').val();
+  let keterangan = $('#keterangan_tolak_pengadaan').val();
   console.log(id);
   $.ajax({
     url: "ajax.php",
-    type: "GET",
-    data: {reject: id},
+    type: "POST",
+    data: {reject: id, keterangan: keterangan},
     success: function (result) {
       console.log(result);
       swal({
