@@ -22,13 +22,13 @@
     }
 
     if(isset($_POST['datatable']) && isset($_POST['pinjam'])){
-        $_sql = "SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1";
+        $_sql = "SELECT * FROM daftar_baru db join merk m on db.ID_MERK = m.ID_MERK join lokasi l on db.LOKASI_BARANG = l.ID_LOKASI join ruangan r on db.RUANGAN_BARANG = r.ID_RUANGAN WHERE db.STATUS_ASET = 'Aktif' AND db.PERBOLEHAN_PINJAM = 1 ";
         if(isset($_SESSION['item_pinjam']) && !empty($_SESSION['item_pinjam'])){
             $arr_pinjam = array();
             foreach ($_SESSION["item_pinjam"] as $key => $select){
                 array_push($arr_pinjam, $select['id_aset']);
             }
-            $_sql .= " AND ID_ASET IN ('".implode( "', '", $arr_pinjam) . "')";
+            $_sql .= " AND db.ID_ASET IN ('".implode( "', '", $arr_pinjam) . "')";
         } else {
             $_sql .= " AND 1 != 1";
         }
@@ -37,7 +37,7 @@
         $start = $_POST['start']; // Ambil data start
         $sql = mysqli_query($koneksi, $_sql); // Query untuk menghitung seluruh data aset
         $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
-        $query = $_sql." AND (KODE_BARANG LIKE '%".$search."%' OR NAMA_BARANG LIKE '%".$search."%')";
+        $query = $_sql." AND (db.KODE_BARANG LIKE '%".$search."%' OR db.NAMA_BARANG LIKE '%".$search."%')";
         
         $order_index = $_POST['order'][0]['column']; // Untuk mengambil index yg menjadi acuan untuk sorting
         $order_field = $_POST['columns'][$order_index]['data']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
@@ -59,7 +59,7 @@
     }
 
     if(isset($_POST['datatable'])){
-        $_sql = "SELECT * FROM daftar_baru WHERE STATUS_ASET = 'Aktif' AND PERBOLEHAN_PINJAM = 1";
+        $_sql = "SELECT * FROM daftar_baru db join merk m on db.ID_MERK = m.ID_MERK join lokasi l on db.LOKASI_BARANG = l.ID_LOKASI join ruangan r on db.RUANGAN_BARANG = r.ID_RUANGAN WHERE db.STATUS_ASET = 'Aktif' AND db.PERBOLEHAN_PINJAM = 1 ";
         if(isset($_SESSION['item_pinjam']) && !empty($_SESSION['item_pinjam'])){
             $arr_pinjam = array();
             foreach ($_SESSION["item_pinjam"] as $key => $select){

@@ -62,20 +62,18 @@ if (isset($_POST['pinjam_detail'])) {
     $id = $_POST['pinjam_detail'];
     $myObj = array();
     $a = 1;
-    // $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_aset, b.nama_barang FROM detail_peminjaman p JOIN daftar_aset a ON p.id_aset = a.id_aset JOIN detil_usulan_pengadaan pd ON a.id_usulan_tambah = pd.id_usulan_tambah JOIN barang b ON pd.id_barang = b.id_barang WHERE p.id_peminjaman = '".$id."'");
-    $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_barang, b.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN kategori b ON a.kode_jenis = b.kode_kategori WHERE p.id_peminjaman = '".$id."'");
+    $query = mysqli_query($koneksi, "SELECT p.id_detil_pinjam, a.nama_barang, m.nama_merk, k.nama_kategori FROM detail_peminjaman p JOIN daftar_baru a ON p.id_aset = a.id_aset JOIN barang b ON a.jenis_barang = b.id_barang JOIN kategori k ON b.id_kategori = k.id_kategori JOIN merk m ON a.id_merk = m.id_merk WHERE p.id_peminjaman = '".$id."'");
     while($row = mysqli_fetch_array($query)){
         $nama = $row['nama_barang'];
         $barang = $row['nama_kategori'];
+        $merk = $row['nama_merk'];
         $id_item = $row['id_detil_pinjam'];
         
-        $array = array($a, $nama, $barang);
+        $array = array($a, $nama, $merk, $barang);
         array_push($myObj, $array);
         $a++;
     }
-    //$myObj = array('id' => $id, 'nama' => $nama, 'barang' => $barang, 'harga' => $harga, 'keterangan' => $keterangan);
-    $myJSON = json_encode($myObj);
-    echo $myJSON;
+    echo json_encode($myObj);
 }
 
 ?>

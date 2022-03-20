@@ -26,38 +26,18 @@ var data_table = $('#exampleAjax').DataTable({
       "data": "NAMA_BARANG"
     },
     {
-      "data": "MERK"
+      "data": "NAMA_MERK"
     },
     {
-      "data": "LOKASI_BARANG"
+      "data": "NAMA_LOKASI"
     },
     {
-      "data": "KOMISI"
-    },
-    /* {
-      "data": "jenis_kelamin",
-      "render": function (data, type, row) { // Tampilkan jenis kelamin
-        var html = ""
-        if (row.jenis_kelamin == 'L') { // Jika jenis kelaminnya L
-          html = 'Laki-laki' // Set laki-laki
-        } else { // Jika bukan L
-          html = 'Perempuan' // Set perempuan
-        }
-        return html; // Tampilkan jenis kelaminnya
-      }
+      "data": "NAMA_RUANGAN"
     },
     {
-      "data": "kelompok_jemaat"
-    },
-    {
-      "data": "no_telp"
-    },
-    {
-      "data": "alamat"
-    }, */
-    {
-      "render": function (data, type, row) { // Tampilkan kolom aksi
-        let html = '<button type="button" data-id="' + row.ID_ASET + '" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button>'
+      "data": "ID_ASET",
+      "render": function (data) { // Tampilkan kolom aksi
+        let html = `<button type="button" data-id="${data}" class="btn btn-success addPinjam"><i class="fa fa-plus"></i> Tambah ke Daftar Pinjam</button>`
         return html
       }
     },
@@ -89,11 +69,12 @@ var data_table_pinjam = $('#tabelPinjam').DataTable({
       "data": "NAMA_BARANG"
     },
     {
-      "data": "MERK"
+      "data": "NAMA_MERK"
     },
     {
-      "render": function (data, type, row) { // Tampilkan kolom aksi
-        let html = '<button type="button" data-id="' + row.ID_ASET + '" class="btn btn-danger btn-block remove"><i class="fa fa-trash"></i> Hapus</button>'
+      "data": "ID_ASET",
+      "render": function (data) { // Tampilkan kolom aksi
+        let html = `<button type="button" data-id="${data}" class="btn btn-danger btn-block remove"><i class="fa fa-trash"></i> Hapus</button>`
         return html
       }
     },

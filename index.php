@@ -80,7 +80,8 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Aset</th>
-                                <th>Jenis Barang</th>
+                                <th>Merk</th>
+                                <th>Kategori</th>
                             </tr>
                             </thead>
                         </table>     

@@ -3,11 +3,11 @@ session_start();
 
 //$id = $_GET['print_id'];
 $id = $_SESSION['print_id'];
-use setasign\Fpdi\Fpdi;
-use setasign\fpdf;
-//require_once('../module/TCPDF-master/tcpdf.php');
 require_once('../module/fpdf/fpdf.php');
 require_once('../module/fpdi/src/autoload.php');
+use setasign\Fpdi\Fpdi;
+// use setasign\fpdf;
+//require_once('../module/TCPDF-master/tcpdf.php');
 //require_once('../module/fpdi/src/FpdiTrait.php');
 
 //use setasign\Fpdi\TcpdfFpdi;
@@ -16,7 +16,7 @@ require_once('../module/fpdi/src/autoload.php');
 include '../connection.php';
 $query = mysqli_query($koneksi,"SELECT p.ID_PEMINJAMAN, u.NAMA_LENGKAP, p.NO_HP, k.NAMA_KOMISI, p.KETERANGAN_PINJAM, p.TANGGAL_PEMINJAMAN, p.TANGGAL_PENGEMBALIAN, p.TANGGAL_PENGAJUAN FROM peminjaman_aset p JOIN user u ON p.ID_USER = u.ID_USER JOIN komisi_jemaat k ON p.ID_KOMISI = k.ID_KOMISI WHERE p.ID_PEMINJAMAN = '".$id."'");
 $row = mysqli_fetch_array($query);
-$pdf = new setasign\Fpdi\Fpdi();
+$pdf = new Fpdi();
 $pageCount = $pdf->setSourceFile('Formulir Peminjaman Inventaris Gereja web.pdf');
 $pageId = $pdf->importPage(1);
 $pdf->addPage('P','A5');
@@ -40,8 +40,7 @@ $pdf->Text(30, 115, strftime("%d %B %Y", time()));
 // Column headings
 $pdf->addPage('P','A5');
 
-// $count= mysqli_query($koneksi, "SELECT da.NAMA_ASET FROM detail_peminjaman dp JOIN daftar_aset da on dp.ID_ASET = da.ID_ASET WHERE dp.ID_PEMINJAMAN = '".$id."'"); // SQL to get 10 records 
-$count= mysqli_query($koneksi, "SELECT da.NAMA_BARANG, da.MERK FROM detail_peminjaman dp JOIN daftar_baru da on dp.ID_ASET = da.ID_ASET WHERE dp.ID_PEMINJAMAN = '".$id."'"); // SQL to get 10 records 
+$count = mysqli_query($koneksi, "SELECT da.NAMA_BARANG, m.NAMA_MERK FROM detail_peminjaman dp JOIN daftar_baru da on dp.ID_ASET = da.ID_ASET JOIN merk m ON da.ID_MERK = m.ID_MERK WHERE dp.ID_PEMINJAMAN = '".$id."'");
 $pdf->SetFont('Times','B',13);
 
 $pdf->SetFont('Times','B',13);
@@ -73,7 +72,7 @@ while ($row = mysqli_fetch_array($count)) {
     $pdf->SetX(15);
     $pdf->Cell($width_cell[0],10,$no,1,0,'C',$fill);
     $pdf->Cell($width_cell[1],10,$row['NAMA_BARANG'],1,0,'C',$fill);
-    $pdf->Cell($width_cell[2],10,$row['MERK'],1,1,'C',$fill);
+    $pdf->Cell($width_cell[2],10,$row['NAMA_MERK'],1,1,'C',$fill);
     //$pdf->Cell($width_cell[3],10,$row['TANGGALSELEKSI'],1,1,'C',$fill);
     $no++;
     $fill = !$fill; // to give alternate background fill  color to rows

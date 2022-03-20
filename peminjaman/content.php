@@ -245,8 +245,8 @@
 									<th>Kode Aset</th>
 									<th>Nama Aset</th>
 									<th>Merk</th>
+									<th>Lokasi</th>
 									<th>Ruangan</th>
-									<th>Komisi</th>
 									<th>Action</th>
 								</tr>
 							</thead>

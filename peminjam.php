@@ -52,10 +52,7 @@
                             </td>
                             <td>
                                 <button class="btn btn-primary modalDetail" data-toggle="modal" data-target="#modal-detail" data-id="<?php echo $row['id_peminjaman']; ?>"><i class="fa fa-navicon"></i> Detail</button>
-                                <a role="button" class="btn btn-warning" <?php
-                                if($row['hasil_pengajuan'] != "Pending") echo "href='#' disabled";
-                                else echo 'href="peminjaman/?edit='.$row['id_peminjaman'].'"';
-                                ?>><i class="fa fa-edit"></i>Ubah</button>
+                                <?php // echo '<a role="button" class="btn btn-warning" href="'.($row['hasil_pengajuan'] != "Pending" ? "#" : "peminjaman/?edit={$row['id_peminjaman']}").'"><i class="fa fa-edit"></i>Ubah</button>'; ?>
                             </td>
                         </tr>
                         <?php
