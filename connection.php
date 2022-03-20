@@ -50,18 +50,15 @@
     }
 
     function tglIndo($date) {
-        $tgl = strftime("%d %B %Y", strtotime($date));
-        return $tgl;
+        return strftime("%d %B %Y", strtotime($date));
     }
 
     function tglIndo_day($date) {
-        $tgl = strftime("%A, %d %B %Y", strtotime($date));
-        return $tgl;
+        return strftime("%A, %d %B %Y", strtotime($date));
     }
 
     function tglIndo_full($date) {
-        $tgl = strftime("%d %B %Y %H:%M:%S", strtotime($date));
-        return $tgl;
+        return strftime("%d %B %Y %H:%M:%S", strtotime($date));
     }
     
     if(isset($_SESSION['id_user'])) {
@@ -99,22 +96,4 @@
         return $ipaddress;
     }
 
-    /* function get_client_ip() {
-        $ipaddress = '';
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
-            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if(isset($_SERVER['HTTP_X_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        else if(isset($_SERVER['HTTP_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        else if(isset($_SERVER['REMOTE_ADDR']))
-            $ipaddress = $_SERVER['REMOTE_ADDR'];
-        else
-            $ipaddress = 'UNKNOWN';
-        return $ipaddress;
-    } */
 ?>

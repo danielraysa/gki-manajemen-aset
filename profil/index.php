@@ -69,7 +69,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <center>
                         <div class="form-group">
-                            <img id="img-upload" class="img-responsive img-circle" width="200px" src="../gambar/user/<?php echo $_SESSION['foto_user']; ?>" /> 
+                            <img id="img-upload" class="img-responsive img-circle" width="200px" src="../<?php echo $_SESSION['foto_user']; ?>" /> 
                         </div>
                         <div class="form-group">
                         <label>Upload Foto/Gambar:</label>
