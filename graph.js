@@ -61,7 +61,7 @@ $(document).ready(function(){
             console.log(data);
         }
     });
-    $.ajax({
+    /* $.ajax({
         url: "graph-data.php",
         method: "POST",
         data: "komisi",
@@ -101,7 +101,7 @@ $(document).ready(function(){
         error: function(data) {
             console.log(data);
         }
-    });
+    }); */
     function graphClickEvent(event, array){
     //function graphClickEvent(array){
         var activePoints = barGraph.getElementsAtEvent(event);

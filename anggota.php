@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-12 col-xs-12">
+    <!-- <div class="col-lg-6 col-md-12 col-xs-12">
         <div class="box box-info">
             <div class="box-header">
                 <h3 class="box-title">Jumlah Aset Tiap Komisi Jemaat</h3>
@@ -108,5 +108,5 @@
                 <canvas id="myChartA" height="400px"></canvas>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
