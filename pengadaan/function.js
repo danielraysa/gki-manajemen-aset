@@ -471,8 +471,6 @@ $(document).ready(function() {
         // $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
     });
     $('#barang_aset').on('change', function(){
-    // $(document).on('change','#barang_aset', function(event){
-        // event.preventDefault();
         let idBarang = $(this).val();
         let textBarang = $(this).find(':selected').text();
         kode4 = $(this).find(':selected').data('item');
@@ -485,8 +483,7 @@ $(document).ready(function() {
                 console.log(result)
                 kode5 = result
                 $('#nomor_aset').val(kode5)
-                $('#nomor_aset').val(kode5)
-                generateKodeBarang(kode1, kode4, kode5)
+                generateKodeBarang(kode1, kode3, kode4, kode5)
                 // $('#kode_aset').val(kode1+""+kode4+""+kode5);
             }
         });
@@ -494,11 +491,11 @@ $(document).ready(function() {
     });
     $('#lokasi_aset').on('change', function(){
         kode1 = $(this).find(':selected').data('lokasi');
-        generateKodeBarang(kode1, kode4, kode5);
+        generateKodeBarang(kode1, kode3, kode4, kode5);
     });
     $('#ruangan_aset').on('change', function(){
-        kode4 = $(this).find(':selected').data('ruang');
-        generateKodeBarang(kode1, kode4, kode5);
+        kode3 = $(this).find(':selected').data('ruang');
+        generateKodeBarang(kode1, kode3, kode4, kode5);
         //kode2 = $(this).find(':selected').data('ruang');
         //alert(kode2);
         // $('#kode_aset').val(kode1+""+kode2+""+kode3+""+kode4+""+kode5);
@@ -520,7 +517,7 @@ $(document).ready(function() {
         kode5 = $(this).val();
         //alert(kode1);
         // $('#kode_aset').val(kode1+""+kode4+""+kode5);
-        generateKodeBarang(kode1, kode4, kode5);
+        generateKodeBarang(kode1, kode3, kode4, kode5);
     });
     
     /* $(document).on('change', '.btn-file :file', function() {
@@ -548,8 +545,8 @@ $(document).ready(function() {
         }
     }
 
-    function generateKodeBarang(lokasi, ruangan, nomor) {
-        $('#kode_aset').val(`${lokasi}-${ruangan}-${nomor}`);
+    function generateKodeBarang(lokasi, ruangan, barang, nomor) {
+        $('#kode_aset').val(`${lokasi}-${ruangan}-${barang}${nomor}`);
     }
 
     $("#imgInp").change(function(){
