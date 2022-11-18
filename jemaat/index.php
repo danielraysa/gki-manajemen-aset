@@ -8,7 +8,7 @@
 
     $dir = basename(__DIR__);
 	$_kelompok = mysqli_query($koneksi, "SELECT * FROM kelompok_jemaat");
-	$query = mysqli_query($koneksi,"SELECT * FROM data_jemaat");
+	// $query = mysqli_query($koneksi,"SELECT * FROM data_jemaat");
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,10 +26,7 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>
-					Data Jemaat
-				</h1>
-
+				<h1>Data Jemaat</h1>
 			</section>
 
 			<!-- Main content -->

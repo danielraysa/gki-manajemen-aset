@@ -16,7 +16,8 @@
                                     <i class="fa fa-laptop"></i>
                                 </div>
                                 <input type="text" class="form-control" id="no_induk" name="no_induk" placeholder="Nomor Induk">
-                            </div>  
+                                <input type="text" class="form-control" id="no_baptis" name="no_baptis" placeholder="Nomor Baptis">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Nama Lengkap:</label>
@@ -25,7 +26,7 @@
                                     <i class="fa fa-laptop"></i>
                                 </div>
                                 <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama Lengkap" required>
-                            </div>  
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Jenis Kelamin:</label>
@@ -37,7 +38,7 @@
                                     <option value="L">Laki-laki</option>
                                     <option value="P">Perempuan</option>
                                 </select>
-                            </div>  
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>No. Telepon:</label>

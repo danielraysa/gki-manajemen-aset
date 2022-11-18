@@ -32,7 +32,7 @@
     'gol_darah': 'Golongan Darah',
     'kelompok_jemaat': 'Kelompok Jemaat',
     'tempat_lahir': 'Tempat Lahir',
-    'tahun_lahir': 'Tahun Lahir',
+    'tanggal_lahir': 'Tahun Lahir',
     'atestasi_masuk_asal': 'Atestasi Masuk Asal'
   }
   for (const key in params) {
@@ -111,6 +111,7 @@
         console.log(result)
         $('#id_jemaat').val(result.id_jemaat)
         $('#no_induk').val(result.no_induk)
+        $('#no_baptis').val(result.no_baptis)
         $('#nama_lengkap').val(result.nama_lengkap)
         $('#jenis_kelamin').val(result.jenis_kelamin)
         $('#no_telp').val(result.no_telp)
