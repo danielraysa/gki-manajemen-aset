@@ -76,6 +76,7 @@
 								<div class="row">
 									<div class="col-lg-2 col-sm-3">
 									<button type="button" id="btnTambah" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-form"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+									<button type="button" class="btn btn-success" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-download"><i class="fa fa-download"></i> Download</button>
 									</div>
 									<div class="col-lg-3 col-sm-3">
 										<select name="filter" id="filter" class="form-control select2" style="width: 100%">
@@ -136,6 +137,24 @@
 				<div class="modal fade" id="modal-form">
 					<div class="modal-dialog modal-lg">
 						<?php include "modal-update.php"; ?>
+					</div>
+				</div>
+				<div class="modal fade" id="modal-download">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="download.php" method="post">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span></button>
+								<h4 class="modal-title">Download</h4>
+							</div>
+							<div class="modal-body">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success">Download</button>
+							</div>
+							</form>
+						</div>
 					</div>
 				</div>
 				
