@@ -7,7 +7,6 @@
     include "../connection.php";
 
     $dir = basename(__DIR__);
-	$_kelompok = mysqli_query($koneksi, "SELECT * FROM kelompok_jemaat");
 	// $query = mysqli_query($koneksi,"SELECT * FROM data_jemaat");
 ?>
 <!DOCTYPE html>
@@ -74,9 +73,10 @@
 						<div class="box">
 							<div class="box-body">
 								<div class="row">
-									<div class="col-lg-2 col-sm-3">
+									<div class="col-lg-4 col-sm-3">
 									<button type="button" id="btnTambah" class="btn btn-primary" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-form"><i class="fa fa-plus-circle"></i> Tambah Data</button>
 									<button type="button" class="btn btn-success" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-download"><i class="fa fa-download"></i> Download</button>
+									<button type="button" class="btn btn-info" style="margin-bottom: 1rem;" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Import</button>
 									</div>
 									<div class="col-lg-3 col-sm-3">
 										<select name="filter" id="filter" class="form-control select2" style="width: 100%">
@@ -86,7 +86,7 @@
 									<div class="col-lg-3 col-sm-3">
 										<input type="text" id="filter_value" class="form-control" name="filter_value" />
 									</div>
-									<div class="col-lg-3 col-sm-3">
+									<div class="col-lg-2 col-sm-3">
 										<button id="search" type="button" name="search" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
 										<button id="reset" type="reset" class="btn btn-danger">Reset</button>
 									</div>
@@ -149,9 +149,42 @@
 								<h4 class="modal-title">Download</h4>
 							</div>
 							<div class="modal-body">
+								<div class="form-group">
+									<label>Pilih Kelompok</label>
+									<select name="kelompok" class="form-control select2" style="width: 100%;">
+										<option value="all">Semua</option>
+										<?php 
+										$_kelompok = mysqli_query($koneksi, "SELECT * FROM kelompok_jemaat");
+										while ($_kel = mysqli_fetch_assoc($_kelompok)): ?>
+										<option value="<?php echo $_kel['nama_kelompok']; ?>"><?php echo $_kel['nama_kelompok']; ?></option>
+										<?php endwhile; ?>
+									</select>
+								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-success">Download</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="modal-import">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="import.php" method="post" enctype="multipart/form-data">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span></button>
+								<h4 class="modal-title">Import</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label>Upload file (.xls / .xlxs)</label>
+									<input type="file" name="file_import" class="form-control" />
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success">Upload</button>
 							</div>
 							</form>
 						</div>

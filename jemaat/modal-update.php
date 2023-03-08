@@ -67,6 +67,7 @@
                                 </div>
                             <select class="form-control select2" id="kelompok_jemaat" name="kelompok_jemaat" style="width: 100%;"  aria-hidden="true">
                                 <?php
+                                $_kelompok = mysqli_query($koneksi, "SELECT * FROM kelompok_jemaat");
                                 while ($row = mysqli_fetch_array($_kelompok)) {
                                 ?>
                                 <option value="<?php echo $row['nama_kelompok']; ?>"><?php echo $row['nama_kelompok']; ?></option>
