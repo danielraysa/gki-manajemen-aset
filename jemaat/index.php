@@ -178,9 +178,14 @@
 								<h4 class="modal-title">Import</h4>
 							</div>
 							<div class="modal-body">
+								<p>Format file/isian yang dapat diimport dapat <a href="import-example.xlsx">didownload disini</a>. Harap perhatikan hal berikut ini:</p>
+								<ol>
+									<li>Kolom jenis kelamin diisi <code>L</code> (laki-laki) atau <code>P</code> (perempuan)</li>
+									<li>Kolom isian tanggal (tanggal lahir, nikah, atestasi, dll) diisi dengan format <code>YYYY-MM-DD</code> (tahun, bulan, hari dalam angka)</li>
+								</ol>
 								<div class="form-group">
-									<label>Upload file (.xls / .xlxs)</label>
-									<input type="file" name="file_import" class="form-control" />
+									<label>Upload file (.xls / .xlsx)</label>
+									<input type="file" name="file_import" accept=".xls,.xlsx" class="form-control" />
 								</div>
 							</div>
 							<div class="modal-footer">

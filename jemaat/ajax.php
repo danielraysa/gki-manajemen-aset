@@ -43,7 +43,7 @@ if (isset($_POST['datatable'])) {
         'draw' => $_POST['draw'], // Ini dari datatablenya
         'recordsTotal' => $sql_count,
         'recordsFiltered' => $sql_filter_count,
-        'data' => $data
+        'data' => $data ?? []
     );
     echo json_encode($callback); // Convert array $callback ke json
     exit;
