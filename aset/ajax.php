@@ -42,12 +42,16 @@
         $sql_data = mysqli_query($koneksi, $full_query); // Query untuk data yang akan di tampilkan
         $sql_filter = mysqli_query($koneksi, $query); // Query untuk count jumlah data sesuai dengan filter pada textbox pencarian
         $sql_filter_count = mysqli_num_rows($sql_filter); // Hitung data yg ada pada query $sql_filter
-        $data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); // Untuk mengambil data hasil query menjadi array
+        $data = [];
+        while ($_row = mysqli_fetch_assoc($sql_data)) {
+            array_push($data, $_row);
+        }
+        // $data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); // Untuk mengambil data hasil query menjadi array
         $callback = array(
-            'draw'=>$_POST['draw'], // Ini dari datatablenya
-            'recordsTotal'=>$sql_count,
-            'recordsFiltered'=>$sql_filter_count,
-            'data'=>$data
+            'draw' => $_POST['draw'], // Ini dari datatablenya
+            'recordsTotal' => $sql_count,
+            'recordsFiltered' => $sql_filter_count,
+            'data' => $data
         );
         echo json_encode($callback); // Convert array $callback ke json
     }
