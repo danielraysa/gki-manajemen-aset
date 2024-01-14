@@ -1,14 +1,31 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
 require '../connection.php';
 require '../vendor/autoload.php';
 
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-$reader->setReadDataOnly(true);
-$spreadsheet = $reader->load($_FILES['file_import']['tmp_name']);
+$path = $_FILES['file_import']['name'];
+$ext = pathinfo($path, PATHINFO_EXTENSION);
 
-$sheet = $spreadsheet->getSheet($spreadsheet->getFirstSheetIndex());
-$dataSheet = $sheet->toArray();
+try {
+    $reader = new Xls();
+    if ($ext == 'xlsx') {
+        $reader = new Xlsx();
+    }
+    $reader->setReadDataOnly(true);
+    $spreadsheet = $reader->load($_FILES['file_import']['tmp_name']);
+
+    $sheet = $spreadsheet->getSheet($spreadsheet->getFirstSheetIndex());
+    $dataSheet = $sheet->toArray();
+
+} catch (Exception $exception) {
+    $_SESSION['error-msg'] = $exception->getMessage();
+    header("location: ../jemaat?error");
+    exit;
+}
 
 $sql = "SHOW columns FROM data_jemaat;";
 $query = mysqli_query($koneksi, $sql);
@@ -26,12 +43,12 @@ try {
         if ($key != 0) {
             $params = [];
             foreach ($data as $value) {
-                array_push($params, $value == null ? 'NULL' : "'".$value."'");
+                array_push($params, $value == null ? 'NULL' : "'".mysqli_real_escape_string($koneksi, $value)."'");
             }
             $sql = "INSERT INTO data_jemaat (".implode(', ',$listColumnParam).") VALUES (".implode(', ',$params).")";
             $query = mysqli_query($koneksi, $sql);
             if (!$query) {
-                var_dump($listColumnParam, $params);
+                var_dump($sql, $listColumnParam, $params);
                 mysqli_rollback($koneksi);
                 die(mysqli_error($koneksi));
             }
@@ -46,7 +63,6 @@ try {
 } catch (mysqli_sql_exception $exception) {
     mysqli_rollback($koneksi);
 
-    throw $exception;
     $_SESSION['error-msg'] = mysqli_error($koneksi);
     header("location: ../jemaat?error");
     exit;

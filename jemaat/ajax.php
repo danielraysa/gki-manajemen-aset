@@ -14,7 +14,7 @@ if (isset($_POST['id_jemaat'])) {
 if (isset($_POST['datatable'])) {
     $param = $_GET['filter'];
     $value = $_GET['value'];
-    $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
+    $search = mysqli_escape_string($koneksi, $_POST['search']['value']); // Ambil data yang di ketik user pada textbox pencarian
     $limit = $_POST['length']; // Ambil data limit per page
     $start = $_POST['start']; // Ambil data start
     $sql = mysqli_query($koneksi, "SELECT $column FROM data_jemaat"); // Query untuk menghitung seluruh data aset
